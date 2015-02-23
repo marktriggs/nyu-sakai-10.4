@@ -1,0 +1,28 @@
+##
+## the Page part of the standard view, with page navigation
+##
+##
+<!-- START from includePageWithNav.vm -->
+#if (${sakai_nav_minimized} && ${portal_allow_minimize_tools})
+        <div id="container" class="sakaiMinimizePageNavigation $pageSiteTypeWithoutClass" >
+#else
+	<div id="container" $pageSiteType >
+#end
+	#if ( ( $sitePages.pageNavToolsCount > 1 || ! $sitePages.pageMaxIfSingle ) ) 
+
+	  ## only show the categorised navigation when
+	  ## the new skin is active and the current page
+	  ## offers categorised tools
+          #if ( $pageSkinAlt == $pageSkin && $sitePages.nyuIsCategorised)
+              #parse("/vm/defaultskin/includePageCategorizedNav.vm")
+          #else
+              #parse("/vm/defaultskin/includePageNav.vm")
+          #end
+
+	#else 
+		<!-- no page nav requested -->
+	#end
+
+    #parse("/vm/defaultskin/includePageBody.vm")
+	</div>
+<!-- END from includePageWithNav.vm -->

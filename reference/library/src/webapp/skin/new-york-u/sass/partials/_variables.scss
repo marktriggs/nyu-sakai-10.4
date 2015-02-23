@@ -1,0 +1,109 @@
+$mainmenu-background: #888; 
+$mainmenu-top-background: adjust-lightness($mainmenu-background, 10%);
+$mainmenu-middle-background: $mainmenu-background;
+$mainmenu-bottom-background: adjust-lightness($mainmenu-background, -5%);
+
+$mainmenutab-background: #bbb; 
+$mainmenutab-top-background: adjust-lightness($mainmenutab-background, 10%);
+$mainmenutab-middle-background: $mainmenutab-background;
+$mainmenutab-bottom-background: adjust-lightness($mainmenutab-background, -5%);
+$mainmenutab-end-background: adjust-lightness($mainmenutab-background, -20%);
+
+$mainmenutab-active-background: rgb(204,204,204); 
+$mainmenutab-active-top-background:adjust-lightness($mainmenutab-active-background, 15%);
+$mainmenutab-active-middle-background: $mainmenutab-active-background;
+$mainmenutab-active-bottom-background:adjust-lightness($mainmenutab-active-background, 10%);
+
+$mainmenutab-dark-background: rgb(33,33,33); 
+$mainmenutab-dark-top-background:adjust-lightness($mainmenutab-dark-background, 15%);
+$mainmenutab-dark-middle-background: $mainmenutab-dark-background;
+$mainmenutab-dark-bottom-background:adjust-lightness($mainmenutab-dark-background, 10%);
+
+$menu-more-tabs-box-shadow:3px 3px 5px rgba(0,0,0,.5), -3px 3px 5px rgba(0,0,0,.5);
+
+$menu-background: rgb(205,205,205); 
+$menu-top-background:adjust-lightness($menu-background, -10%);
+$menu-middle-background: $menu-background;
+$menu-bottom-background: adjust-lightness($menu-background, -5%);
+
+$loginpage-background: #f0f0f0;
+$loginpage-top-background: #f6f6f6;
+$loginpage-middle-background: #f0f0f0;
+$loginpage-bottom-background: #e9e9e9;
+
+$link-color: #57068c;
+$link-color-visited: desaturate($link-color, 20%);
+$link-color-hover: saturate($link-color, 10%);
+
+$mainfont: Calibri, 'Helvetica Neue', Arial, sans-serif;
+$secondary-font: Calibri, 'Helvetica Neue', Arial, sans-serif;
+$header-font-family: $mainfont;
+
+/// Buttons
+$button-font-family: $secondary-font;
+$button-padding: 4px 8px;
+$button-border-pos: false; 
+$button-border-width: 1px; 
+$button-border-style: solid;
+$button-border-color: #bbb;
+$button-border-radius: .33em;
+$button-color: #333;
+$button-text-shadow: 0 -1px 0 rgba(#fff, 0.25);
+$button-gradient-pos: top;
+$button-gradient-stop-1: #fff;
+$button-gradient-stop-2: #e6e6e6;
+//// Hover & Focus
+$button-hover-color: $button-color;
+$button-hover-text-shadow: 0 -1px 0 rgba(#fff, 0.25);
+$button-hover-gradient-pos: $button-gradient-pos;
+$button-hover-gradient-stop-1: #ccc;
+$button-hover-gradient-stop-2: #e6e6e6;
+//// Active
+$button-active-color: $button-color;
+$button-active-text-shadow: -1px 0 0 rgba(#fff, 0.25);
+$button-active-gradient-pos: $button-gradient-pos;
+$button-active-gradient-stop-1: #a6a6a6;
+$button-active-gradient-stop-2: #d9d9d9;
+//// Action
+$button-action-color: #fff;
+$button-action-text-shadow: -1px -1px 0 rgba(#000, 0.25);
+$button-action-gradient-pos: $button-gradient-pos;
+$button-action-gradient-stop-1: #007ae5;
+$button-action-gradient-stop-2: #005fb3;
+//// Action Hover & Focus
+$button-action-hover-color: #fff;
+$button-action-hover-text-shadow: -1px -1px 0 rgba(#000, 0.25);
+$button-action-hover-gradient-pos: $button-gradient-pos;
+$button-action-hover-gradient-stop-1: #004480;
+$button-action-hover-gradient-stop-2: #004b8c;
+//// Action Active
+$button-action-active-color: #fff;
+$button-action-active-text-shadow: -1px -1px 0 rgba(#000, 0.25);
+$button-action-active-gradient-pos: $button-gradient-pos;
+$button-action-active-gradient-stop-1: #003059;
+$button-action-active-gradient-stop-2: #004b8c;
+//// Cancel
+$button-cancel-color: #fff;
+$button-cancel-text-shadow: 0 -1px 0 rgba(#000, 0.25);
+$button-cancel-gradient-pos: $button-gradient-pos;
+$button-cancel-gradient-stop-1: #ee5f5b;
+$button-cancel-gradient-stop-2: #bd362f;
+//// Cancel Hover & Focus
+$button-cancel-hover-color: #fff;
+$button-cancel-hover-text-shadow: -1px -1px 0 rgba(#000, 0.25);
+$button-cancel-hover-gradient-pos: $button-gradient-pos;
+$button-cancel-hover-gradient-stop-1: #a32f29;
+$button-cancel-hover-gradient-stop-2: #d63e36;
+//// Cancel Active
+$button-cancel-active-color: #fff;
+$button-cancel-active-text-shadow: -1px -1px 0 rgba(#000, 0.25);
+$button-cancel-active-gradient-pos: $button-gradient-pos;
+$button-cancel-active-gradient-stop-1: #7a231f;
+$button-cancel-active-gradient-stop-2: #ad322b;
+//// disabled
+$button-disabled-color: #333;
+$button-disabled-opacity: .75;
+$button-disabled-text-shadow: 0 -1px 0 rgba(#000, 0.25);
+$button-disabled-gradient-pos: $button-gradient-pos;
+$button-disabled-gradient-stop-1: #E6E6E6;
+$button-disabled-gradient-stop-2: #E6E6E6;

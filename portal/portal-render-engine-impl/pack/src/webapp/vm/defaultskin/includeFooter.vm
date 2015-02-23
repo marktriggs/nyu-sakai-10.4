@@ -1,0 +1,29 @@
+<!-- start includeFooter.vm -->
+<div id="footer">
+    #parse("/vm/defaultskin/includeFooterMessage.vm")
+		#if ( $selectedTimeZone )
+		<div class="selectedTimeZone">Timezone: ${selectedTimeZone}</div>
+	#end
+	<div class="footerExtNav">
+		<ul id="footerLinks">
+			#foreach ( $bn in $bottomNav )
+				<li><span>${bn}</span></li>
+			#end
+		</ul>
+	</div>
+	<div id="footerInfo">
+		#foreach ( $pb in $bottomNavPoweredBy )
+			<a href="${pb.poweredByUrl}" target="_blank">
+				<img border="0" src="${pb.poweredByImage}" alt="${pb.poweredByAltText}" />
+				<span class="skip"> (${rloader.site_newwindow})</span>
+			</a>
+		#end
+	</div>
+
+
+	<div class="sakaiCopyrightInfo">
+		${bottomNavCopyright}<br />
+		${bottomNavServer} - Sakai ${bottomNavSakaiVersion}
+	</div>
+</div>
+<!-- end includeFooter.vm -->

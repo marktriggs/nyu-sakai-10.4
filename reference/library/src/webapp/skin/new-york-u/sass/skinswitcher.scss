@@ -1,0 +1,50 @@
+@import "compass/css3";
+// Variables and mixins are in @import "partials/_base";
+@import "partials/_base";
+
+
+#mastHead {
+  height: 80px;
+  position: relative;
+}
+
+#skinSwitcherWrapper {
+  position: relative;
+  top: 0;
+  left: 210px;
+  background-color: #cdcdcd;
+  display: inline-block;
+  //@include background-image(linear-gradient(top, #8144a8,#57068c));
+  @include border-radius(0 0 5px 5px);
+  //@include box-shadow(1px -1px 1px rgba(0,0,0,0.25));
+  #skinSwitcher{
+    display: block;
+    padding: 0.25em 1em 0.35em;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.75);
+    margin-top:0;
+    text-decoration: none;
+    background-image: url(images/tab-arrow-down.gif);
+    background-position: 95% 46%;
+    background-repeat: no-repeat;
+    padding-right: 30px;
+  }
+}
+
+#skinSwitcherDetails {
+  position: absolute;
+  top: 23px;
+  left: 210px;
+  width: 400px;
+  z-index: 99999;
+  background-color: #cdcdcd;
+  padding: .5em 1em 1em 1em;
+  color: #333;
+  @include border-radius(0px 5px 5px 5px);
+
+  #skinSwitcherNoThanks {
+    //color: #e0e0e0;
+    margin-left: 10px;
+  }
+}

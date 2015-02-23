@@ -1,0 +1,81 @@
+<link href="${pageSkinRepo}/${pageSkin}/skinswitcher.css" type="text/css" rel="stylesheet" media="all" />
+<script type="text/javascript" src="/portal/scripts/jquery.cookie.js"></script>
+
+<script id="skinSwitcherWrapper" type="text/template">
+  <div id='skinSwitcherWrapper'></div>
+</script>
+
+<script id="defaultSkinLink" type="text/template">
+  <a id='skinSwitcher' href='javascript:void(0);'>Try the New Design</a>
+</script>
+
+<script id="defaultSkinPopUp" type="text/template">
+  <div id="skinSwitcherDetails">
+    <p>
+      Hi. We've been working on a new look and feel for NYU Classes.
+      Click below to try out these changes! Please note that this will affect only your own NYU Classes account.
+      To learn more, <a href="http://www.nyu.edu/servicelink/KB0012012" target="_blank">click here</a>.
+    </p>
+    <p>
+      <strong>NOTE:</strong> You can switch back to the default interface at any time by clicking the 'Exit the Design Trial' link at the top of the page.
+    </p>
+    <p>
+      We'll be asking for your feedback towards the end of the summer. It will help determine the next steps for the NYU Classes interface.
+    </p>
+
+    <div>
+      <button class="primary">Try the New Design</button>
+      <a id="skinSwitcherNoThanks" href="javascript:void(0);">Not right now thanks</a>
+    </div>
+  </div>
+</script>
+
+<script id="altSkinPopupTitle" type="text/template">
+  Welcome to the NYU Classes design trial
+</script>
+
+<script id="altSkinPopup" type="text/template">
+  <div>
+    <br>
+    <button id="continueToPreview" class="primary active">Continue</button>
+    <a id="learnMoreAboutPreview" href="http://www.nyu.edu/servicelink/KB0012012" target="_blank"><small>Click here to learn more</small></a>
+  </div>
+</script>
+
+<script id="altSkinLink" type="text/template">
+  <a id="skinSwitcherBack" href="javascript:void(0);">Exit the Design Trial</a>
+</script>
+
+<script id="feedbackPopup" type="text/template">
+  <div>
+    <p>
+      We're continuing to improve the look and feel of NYU Classes based on your feedback. Please let us know why you are switching back to the standard design by answering one quick survey question.
+    </p>
+    <div>
+      <a href="https://nyu.qualtrics.com/WRQualtricsSurveyEngine/?SID=SV_6G9tVX3mzCJ6ZM1" target="_blank" class="button active" id="feedbackPopupLink">Take the Survey</a>
+      &#160;&#160;&#160;
+      <a href="javascript:void(0);" id="feedbackCloseAndContinue">Close and Continue</a>
+    </div>
+  </div>
+</script>
+
+<script id="feedbackPopupTitle" type="text/template">
+    Feedback on the new design trial
+</script>
+
+<script id="designSurveyPopupContent" type="text/template">
+    <p>
+        Hi! We would love your feedback on the 'Interface Design Trial' in NYU Classes! Please click the link below to answer <strong>two</strong> question survey, which should take no more than 5 minutes. All responses are anonymous.
+    </p>
+    <a id="designSurveyPopupTakeSurvey" class="primary button active" target="_blank" href="https://nyu.qualtrics.com/SE/?SID=SV_6XtUrhRTU8LEtr7&Preview=Survey&BrandID=nyu">Take Survey</a>
+    &#160;
+    <button id="designSurveyPopupMaybeLater" class="">Ask me again later</button>
+</script>
+<script id="designSurveyPopupTitle" type="text/template">Interface Design Trial Survey</script>
+
+<script type="text/javascript" src="/portal/scripts/skinswitcher.nyu.js"></script>
+<script type="text/javascript">
+  $(function() {
+    new SkinSwitcher("$!{pageSkinDefault}", "$!{pageSkinAlt}", "$!{pageSkin}");
+  });
+</script>

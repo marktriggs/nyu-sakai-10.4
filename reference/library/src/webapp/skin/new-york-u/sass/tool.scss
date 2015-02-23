@@ -1,0 +1,1690 @@
+@import "compass/css3";
+// Variables and mixins are in @import "partials/_base";
+@import "partials/_base";
+
+/*NOTE:This file is linked to after the tool_base.css file inside of tools. It provides for skinning.*/
+/*many of the definitions below exist also in tool_base.css - the duplication allows for one instalation with many different looks sharing some common elements
+*/
+
+/*SECTION 1 GENERIC SELECTORS*/
+body{
+	font-family: $mainfont;
+  font-size: .9em;
+  line-height: 1.4em;
+}	
+
+/*stub in tool_base.css - skinned here */
+
+hr.itemSeparator{
+	height: 1px;
+	border-color: #27d;
+	border-style: solid;
+	border-width: 1px 0 0 0;
+}
+
+/*SECTION 2 LINKS*/
+a:link{
+  color: $link-color;
+}
+
+a:visited {
+	color: $link-color-visited;
+}
+
+a:hover,a:active{
+	color: $link-color-hover;
+	text-decoration: underline;
+}
+
+a:focus{
+	color: $link-color;
+	text-decoration: underline;
+}
+
+/*links inside the calendar tool tables*/
+table.calendar td a:hover{
+	text-decoration: underline;
+}
+/*links inside the <th>  of the standard list table*/
+.listHier th a:link,.listHier th a:visited{
+  color:$link-color;
+	text-decoration: underline;
+	border: none;
+}
+
+.listHier th a:hover{
+  color:$link-color-hover;
+	text-decoration: underline;
+}
+
+/*some links are jscripted so the href is the same - cannot provide visited functionality - so make both the same*/
+/*see: list of assignments - the cells are classed with "specialLink" */ 
+.specialLink a:link,.specialLink a:visited{
+  color:$link-color-visited  !important;
+	text-decoration: none  !important;
+}
+
+.specialLink a:hover{
+  color:$link-color-hover;
+	text-decoration: underline;
+}
+/*links in resources - selected for move*/
+tr.selectedMove a:link,tr.selectedMove a:visited{
+	color: silver;
+}
+
+/*used as background class for recent items in dropbox, anywhere*/
+.recentItem{
+	padding:2px;
+	background: url(images/new_item_back.gif) top right no-repeat;
+	_display:inline-block;
+	_margin-left:-1.5em;
+	white-space: nowrap;
+	border:0px solid #fff;
+}	
+.recentItemInstruction{
+	padding:0 5px;
+	background: url(images/new_item_back_inst.png) center left no-repeat;
+}	
+
+.recentItem a:link{
+  border:0px solid #fff;
+  text-decoration:none !important;
+} 
+/*links associated with an item in alist*/
+/*see links below announcement title in ann list*/
+.itemAction a,.itemAction a:link{
+	color: $link-color;
+	padding: .2em .3em 1px 0;
+	white-space: nowrap;
+	border-bottom: none;
+}
+
+.itemAction a:visited{
+	color: $link-color-visited;
+	text-decoration: none;
+	border-bottom: 1px solid #fff;
+}
+
+.itemAction a:hover{
+	color: $link-color-hover !important; /*for ie*/
+	text-decoration: underline !important; 
+}
+
+html>body .itemAction a:hover{
+	color: $link-color-hover;
+	text-decoration: none !important; /*for other browsers*/
+	border-bottom: 1px solid #27d;
+}
+
+/*certain links are highlighted in resources after a selection*/
+/*see "Paste copied here" after ccopying a selection in resources*/
+.itemAction a.highlightlink{
+	font-weight: bold;
+}
+/*links in resources - selected for move "deaden" the link*/
+tr.selectedMove .itemAction a:link,tr.selectedMove .itemAction a:visited{
+	color: silver;
+	text-decoration: none;
+	border-bottom: none;
+}
+
+/*links for the generic toolbar  - inline-block is there to make IE behave
+see: http://www.quirksmode.org/bugreports/archives/2005/07/Wrapped_inlinenowrap_elements_lose_padding_left_in.html*/
+.navIntraTool a, .navIntraTool a:link{
+	text-decoration: none;
+	white-space: nowrap;
+	display:inline-block;        
+}
+
+.navIntraTool a:visited{
+	text-decoration: underline;
+}
+
+.navIntraTool a:hover{
+}
+
+.navIntraTool a:active{
+	text-decoration: none;
+}
+
+/*where one is at in hierarchy - can be static or active links*/
+.breadCrumb {
+	font-size: 1.2em;
+}
+/*for accessib. some breadcrumbs have h3 children - format like normal text*/
+.breadCrumb h3,.breadCrumb h4,.breadCrumb h5, .breadCrumb h6{
+	font-size:85%
+}
+
+.breadCrumb a:link,.breadCrumb a:visited{
+  color:$link-color-visited;
+	text-decoration: none;
+}
+
+.breadCrumb a:hover{
+  color:$link-color-hover;
+	text-decoration: underline;
+}
+
+
+/*SECTION 3 CALENDAR SELECTORS*/
+/*recommend - decide your palette first - then substitute colors here*/
+table.calendar{
+	background-color: #ffc;
+}
+
+table.calendar th{
+	background-color: #ffc;
+	font-weight: normal;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.bgActivity{
+	background-color: #ffc;
+	border: 1px solid #27d;
+	text-align: right;
+}
+
+.bgWithoutActivity{
+	background-color: #fff;
+	border: 1px solid #bbb;
+	text-align: right;
+}
+
+.borderGrayYear{
+	background-color: #eee;
+	border: 1px solid #bbb;
+	text-align: right;
+}
+
+.borderGrayDayWeek{
+	border-bottom: none;
+	border-collapse: collapse;
+	border-left: 1px solid #bbb;
+	border-right: 1px solid #bbb;
+	border-top: 1px solid #bbb;
+}
+
+.borderGrayBackground{
+	background-color: #ffc;
+	border-bottom: none;
+	border-left: 1px solid #bbb;
+	border-right: 1px solid #bbb;
+	border-top: 1px solid #bbb;
+}
+
+.borderGrayTodayBgCenter{
+	background-color: #ffc;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-top: 1px solid #bbb;
+}
+
+.borderGrayTodayEmptyMiddleBottom{
+	background-color: white;
+	border: 1px solid #bbb;
+}
+
+.borderGrayTodayEmptyMiddleCenter{
+	background-color: white;
+	border-left: 1px solid #bbb;
+	border-right: 1px solid #bbb;
+	border-top: 1px solid #bbb;
+}
+
+.borderGrayTodayLeftBottom{
+	border-bottom: 1px solid #bbb;
+	border-left: 1px solid #000;
+	border-right: 1px solid #bbb;
+	border-top: 1px solid #bbb;
+}
+
+.borderGrayTodayLeftCenter{
+	border-left: 1px solid #000;
+	border-right: 1px solid #bbb;
+	border-top: 1px solid #bbb;
+}
+
+.borderGrayTodayMiddleCenter{
+	border-left: 1px solid #bbb;
+	border-right: 1px solid #bbb;
+	border-top: 1px solid #bbb;
+}
+
+.borderGrayTodayRightBottom{
+	border-bottom: 1px solid #bbb;
+	border-left: 1px solid #bbb;
+	border-right: 1px solid #000;
+	border-top: 1px solid #bbb;
+}
+
+.borderGrayTodayRightCenter{
+	border-left: 1px solid #bbb;
+	border-right: 1px solid #000;
+	border-top: 1px solid #bbb;
+}
+
+.borderOnlyLeftDay{
+	background-color: #ffc;
+	border-left: 1px solid #bbb;
+}
+
+.borderOnlyLeft{
+	border-left: 1px solid #bbb;
+}
+
+.borderToday{
+	border: 1px solid #000;
+}
+
+.borderTodayCenter{
+	border-bottom: 1px solid #bbb;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-top: 1px solid #bbb;
+}
+
+.borderTodayTop{
+	border-bottom: 1px solid #bbb;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-top: 1px solid #000;
+}
+
+.borderTodayWithActivity{
+	background-color: #ffc;
+	border: 1px solid #000;
+	text-align: right;
+}
+
+.borderTodayWithoutActivity{
+	background-color: #FFF;
+	border: 1px solid #000;
+	text-align: right;
+}
+
+.borderTopLeft{
+	background-color: #ffc;
+	border-left: 1px solid #bbb;
+	border-right: 1px solid  #bbb;
+	border-top: 1px solid #bbb;
+}
+
+.borderTopLeftWhite{
+	border-left: 1px solid #bbb;
+	border-right: 1px solid  #bbb;
+	border-top: 1px solid #bbb;
+}
+
+.borderWhiteYear{
+	background-color: #ffc;
+	border: 1px solid #fff;
+	text-align: center;
+}
+
+.borderWhite{
+	border-bottom: none;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #fff;
+	border-top: 1px solid #fff;
+}
+
+.borderGrayTodayCenter,.borderOnlyLeftTodayCenter{
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-top: 1px solid #bbb;
+}
+
+.borderGrayTodayEmptyRightBottom,.borderGrayTodayEmptyRightCenter{
+	background-color: white;
+	border-left: 1px solid #bbb;
+	border-right: 1px solid #000;
+	border-top: 1px solid #bbb;
+}
+
+.borderGrayTodayMiddleBottom,.borderFullGray,.borderGrayMonth{
+	border: 1px solid #bbb;
+}
+
+.borderTodayBottom,.borderGrayTodayBottom,.borderOnlyLeftTodayBottom{
+	border-bottom: 1px solid #000;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-top: 1px solid #bbb;
+}
+
+table.calendar .event{
+	background-color: #ffc;
+}
+
+.timeCells{
+	background:#eee
+}
+
+/*SECTION 4 TABULAR DATA*/
+
+/*skinned header of standard tab. data table*/
+.listHier th{
+	background-color: #ddd;
+	border: 1px solid #999;
+}
+/*skinned cell of standard tab. data table*/
+.listHier td{
+	vertical-align: top;
+	padding: .4em;
+}
+
+/*lines - provides rules and hover effects on some tables*/
+table.lines{
+	border-collapse: separate;
+}
+
+table.lines tr:hover{
+	background-color: #ffc;
+}
+
+table.lines td{
+	border-bottom: 1px solid #bbb;
+	border-top: 1px solid #eee;
+}
+	
+/*some rows needed to be excluded from the rule and hover - see resources see other sites toggle*/
+table.lines tr.exclude:hover{
+	background: transparent;
+}
+
+/*substracts the rules from the lines class- mantain the hover*/
+table.nolines td{
+	border-bottom: 0px solid #bbb;
+	border-top: 0px solid #eee;
+}
+/*when an item has been copied - signal this*/
+/*see resources*/
+tr.selectedCopy{
+	background: #ffd;
+}
+
+tr.selectedCopy td{
+	border-top: 2px solid #bbb;
+	border-bottom: 2px solid #bbb;
+}
+/*when an item has been cut - signal this*/
+tr.selectedMove{
+	color: silver;
+	background: #eee;
+}
+
+tr.selectedMove td{
+	border-top: 2px dotted #bbb;
+	border-bottom: 2px dotted #bbb;
+}
+/*some rows need highlighting*/
+/*see announcement 3rd view option*/
+tr.highLightRow{
+	background:#ddd;
+}
+/*highlight a row representing an item that has been added*/
+tr.highLightAdded{
+	background:#afa;
+}
+
+tr.highLightRow:hover{
+	background:#ddd !important;
+}
+tr.lightHighLightRow{
+	background:#ffd;
+}	
+/*remove the arrow indicating rows (in resources after a selection, in discussion, etc)*/
+.lines td.selected img{
+	display: none;
+}
+
+/*when a row contained a searched for item has been found*/
+/*see: discussion*/
+tr.selectedFound{
+	background: #cff;
+}
+
+
+
+/*a selected row*/
+
+tr.selectedSelected{
+	background: #eff;
+}
+
+/*a row that is being sorted - see resources in Sakai 2.3*/
+tr#selectedReorder{
+	color: #000;
+	background: #fe6;
+}
+
+tr#selectedReorder:hover{
+	color: #000 !important;
+	background: #fe6 !important;
+}
+tr#selectedReorder h4{
+	font-weight:bold;
+}
+
+tr td.arrowHere{
+	width: 14px
+}
+
+tr#selectedReorder td.arrowHere{
+/*	can give this an image if needed*/
+/*	background: url(images/arrowhere.gif) center .5em no-repeat*/
+}
+
+.moveUp, .moveDown{
+	width:14px;
+}
+.moveUp img, .moveDown img{
+	vertical-align: bottom;
+	padding-top:.5em;
+	width:13px
+}
+/*skinned info for disclosure toggle*/
+/*see: assignment*/
+.discTria{
+	background-color: #ddd;
+	font-family: $mainfont;
+}
+
+/*SECTION 6 HIERARCHY*/
+
+/*headers are used in many places for structuring things semantically - these are the plain headers - below there are others contextually defined*/
+h2,h6{ 
+	color: #555; 
+	padding: 0; 
+	font-weight: bold; 
+	font-family: $mainfont; 
+	margin: 1em 0; 
+	background-color: transparent !important; 
+} 
+
+
+h2{
+	font-size: 130%;
+}
+
+h3{
+	font-size: 110%;
+}
+
+h4,h5,h6 {
+	font-size: 100%;
+}
+h3,h4,h5{ 
+	color: #555; 
+	padding: 0; 
+	font-weight: bold; 
+	font-family: $mainfont; 
+	margin: 1em 0 0 0; 
+	background-color: transparent !important; 
+} 
+
+/*headers when they occur in a table*/
+/*want to make them look like normal text - but structure the content*/
+/*see: resources, any legacy list*/
+.listHier th h3,.listHier th h4,.listHier th h5,.listHier th h6,.listHier td h3,.listHier td h4,.listHier td h5,.listHier td h6{
+	margin: 0;
+	padding: 0;
+	color:#000;
+	font-size: 1em;
+	background: none;
+	font-weight: normal;
+	font-family: $mainfont !important;
+}
+
+/*SECTION 7 INPUTS*/
+/*see: create any item*/
+label{
+	color: #000;
+	font-family: $mainfont;
+	font-weight: normal;
+	margin-top: .3em;
+}
+
+/*a required marker for a shorttext label/input pair*/
+.shorttext .reqStar{
+	color: #b11;
+	width: auto;
+	margin: 0 0 0 -1em;
+	font-weight: bold;
+	font-size: 1em;
+	padding: 0;
+}
+
+
+/*for alignment when an element need the same left-margin as the input of a shorttext label/input pair*/
+.labelindnt{
+	font-size: 1em;
+	margin: 0 0 0 17em !important;
+}
+
+.shorttext input{
+}
+
+.shorttext input:focus{
+	border: 1px solid #000;
+}
+.shorttext input#title {
+    width: 60%;
+    max-width: 400px;
+    font-size: 1em;
+    padding: 5px;
+}
+@media all and (max-width: 600px) {
+    .shorttext input#title {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+textarea{
+	padding: .1em .3em;
+	border: 1px solid #bbb;
+	font-family:  $mainfont;
+	font-size: 100%;
+}
+
+textarea:focus{
+	border: 1px solid #000;
+}
+
+/* select element for actions on items in resources tool's list view */
+.actionmenu{
+	font-size: 85%;
+}
+
+/* optgroup element for actions on items in resources tool's list view */
+.actiongroup{
+	background-color: #fca;
+	padding: .3em 0em 0em 0em;
+}
+
+/* option element for actions on items in resources tool's list view */
+.actionitem{
+	background-color: #ffc;
+	padding: .3em;
+}
+
+
+/*SECTION 8 TOOLBAR*/
+/*see: any tool*/
+.navIntraTool{
+	background: #bbb;
+	@include background-image(linear-gradient($menu-top-background 0, $menu-middle-background 5px, $menu-bottom-background 35%));
+	padding:.5em .5em 0em .5em ;
+	margin: 0;
+	line-height: 1.2em;
+	text-align: left;
+	font-size: 1.2em;
+	font-family:  $mainfont;
+	border-bottom:4px #eee solid;
+	@include nav-text-shadow;
+}
+
+/*ie does not understand font sizing well - so fix here with the star hack*/
+* html .navIntraTool{
+	font-size:.85em;
+}
+.navIntraTool:hover{
+	
+}
+.navIntraTool .searchField{
+	border:1px solid silver;
+	font-family: $mainfont;
+	font-size: 1em;
+	padding:.2em;
+}
+.navIntraTool .searchField:focus{border-color:#000}
+/*some toolbars will have input buttons*/	
+/*see: resources as instructor*/
+.navIntraToolLink input{
+	padding: 0;
+	border: none;
+	background: transparent;
+}
+/*
+.navIntraToolLink input.disabled{
+	padding-bottom: 1px;
+	border-bottom: none;
+	background: transparent;
+}
+
+.navIntraToolLink input.enabled{
+	color: #35b;
+	border-bottom: 1px solid #35b;
+	background: transparent;
+}
+
+.navIntraToolLink input.enabled:hover{
+	color:#33f;
+	cursor: pointer;
+}
+*/
+.navIntraTool span.separator {
+	left: -.5em;
+	position: relative;
+}
+.navIntraTool span.inactive {
+	color:#666;
+	margin-right:.2em;
+	white-space: nowrap;
+	display:inline-block;
+}
+
+.navIntraTool span.current,
+.navIntraTool span.current-tab,
+.navIntraTool span.currentView {
+	margin-right:.2em;
+	color:#333;
+	white-space: nowrap;
+	display:inline-block;
+	background-color:#eee;
+	@include border-top-radius(3px);
+	@include box-shadow(1px -1px 1px rgba(0,0,0,.25));
+}
+.navIntraTool li span, .navIntraTool li span.current, .navIntraTool li span.inactive {  
+  border:none;
+  padding:.5em .5em !important;
+}
+.navIntraTool .icon {
+  padding:.5em .5em .5em 25px;
+  background-position: 5px 10px;
+  text-decoration:none;
+}
+.navIntraTool .icon:hover {
+  background-color:#eee;
+  @include border-top-radius(3px);
+  @include box-shadow(1px -1px 1px rgba(0,0,0,.25));
+}
+.navIntraTool .dummyToolBarLink span.current {
+  background:none !important;
+  @include box-shadow(none);
+}
+/* CLASSES-328 add patch for Lessons tool toolbar spacing */
+.navIntraTool #toolbar li a {
+  margin: 0 5px 0 8px;
+}
+
+/*SECTION 9 MESSAGES*/
+/*see: create any item*/
+.instruction{
+	color: #555;
+}
+/*see: create a site*/
+.step{
+	font-size: 90%;
+	height: auto;
+}
+
+/*the generic required marker*/
+/*see: create any item*/
+.reqStar{
+	color: #b11;
+	width: auto;
+	margin-left: -1em;
+	font-weight: bold;
+	font-size: 1em;
+	padding: 0;
+	float: left;
+	border-top: 3px solid #fff;
+}
+/*the required marker for a longtext label/input pair*/
+/*see: create any item with a textarea*/
+.longtext .reqStar{
+	color: #b11;
+	font-size: 1.2em;
+	font-weight: normal;
+	padding: 0 0 0 .1em;
+	float: left;
+}
+/*when need to display the required marker inline as a part of a text*/
+/*see: create any item - instruction message about requireed fields*/
+.reqStarInline{
+	color: #b11;
+	font-size: 1.2em;
+	vertical-align: middle;
+	width: 1em;
+}
+
+/*inline blob used to indicate progress (see: upload a resource say)
+visibility gets toggled*/
+#submitnotif, .submitnotif {
+	background: #fff url(images/warn-a.gif) .3em .3em no-repeat;
+	border: 1px solid #b11;
+	font-family: $mainfont;
+	clear: none;
+	color: #b11;
+	font-size: small;
+	vertical-align: text-top;
+	margin: 0;
+	padding: 5px 5px 5px 25px;
+}
+/*SECTION 10 NAV  PANELS*/
+/*positioning etc., are defined in base - here just the skin info*/
+/*see any list with more than 20 items - announcements - for example*/
+.navPanel{
+	background-color:#fff
+}
+/*the default action in this control - keep in mind that anything you do to it (except to the font) will make 
+you loose the native buttonishness affordance of the os/browser */
+/*create any item - like an announcement*/
+.act .active {
+	color:#fff
+}
+.act .active[disabled="disabled"] {
+	color:gray
+}
+
+/*SECTION 10 DATA PANELS*/
+.highlightPanel
+{
+	border:1px solid #eee;
+}
+
+.infoPanel{
+	border: 1px solid #27d;
+}
+
+.infoPanelHead{
+	border: 1px solid #27d;
+	background: #27d;
+	color: #ffd;
+}
+/*see: topic content in discussion*/
+.hierItemBlock, .hierItemBlockWrapper{
+	padding: 0 .5em .5em .5em;
+	border: 1px solid silver;
+	margin-top: .5em;
+	margin-bottom: .5em;
+	width:auto;
+	background: #fff;
+}
+
+/*see: forum/statistics --> display in thread */
+.hierItemBlockBold{
+	padding: 0 .5em .5em .5em;
+	border: 2px solid black;
+	margin-top: .5em;
+	margin-bottom: .5em;
+	width:auto;
+	background: #fff;
+}
+
+/*see: forum/statistics-->display in thread*/
+.hierItemBlockBold h4.textPanelHeaderBold{
+	border-bottom: 2px solid black;	
+	margin: 0 -.4em 1.0em -.4em;
+	padding:.5em;
+	background: #ffd !important;
+}
+
+
+table.hierItemBlock td{
+	width:100%;
+}
+table.hierItemBlock td h4,table.hierItemBlock td h5,table.hierItemBlock td h6,
+.hierItemBlockChild h4,.hierItemBlockChild h5,.hierItemBlockChild h6{
+	display:inline;
+}
+
+.hierItemBlockWrapper {
+	background: #FFFFF1;
+	padding-top: 0.5em;
+}
+
+.hierItemBlock h4.textPanelHeader, .hierItemBlock h5.textPanelHeader, .hierItemBlock h6.textPanelHeader{
+	border-bottom: 1px solid silver;	
+	margin: 0 -.4em 1.0em -.4em;
+	padding:.5em;
+	background: #ffd !important;
+}
+
+
+
+.hierItemBlockChild{
+	margin:.5em 0;
+	margin-left:0.5em;
+	padding:.5em;
+	border-top:1px solid silver;
+}
+
+.hierItemBlockChild td{
+	padding:.3em;
+}
+
+/*SECTION 11 LAYOUT REQUIRED IN SPECIFIC TOOLS*/
+.chatListHeadWrapper{
+	padding:.2em;
+	margin-bottom: .5em;
+	border-bottom: 1px dotted silver;
+}
+
+#chatPresenceHeadWrapper, .chatPresenceHeadWrapper{
+	margin-bottom: .5em;
+	padding: 0 0  .2em .2em;
+	border-bottom: 1px dotted silver;
+}
+
+#chatListWrapper, .chatListWrapper{
+	width: 83%;
+	padding-bottom: .5em;
+	float: left;
+}
+
+.chatListMonitor {
+	height: 300px;
+	overflow: auto;
+	overflow-y: auto;
+	overflow-x: visible;
+	/* This overflow is for Netscape*/
+	overflow: -moz-scrollbars-vertical;
+}
+
+#chatPresenceWrapper, .chatPresenceWrapper{
+	width: 16%;
+	float: left;
+	border-left: 1px dotted silver;
+}
+
+#chatList, .chatList{
+	margin: 0;
+	padding-left: 1.2em;
+	list-style: none;
+	width: 96%;
+}
+
+#chatList li, .chatList li {
+	margin: .2em 0 0 2em;
+	padding: .2em 0;
+	text-indent: -3em;
+	line-height: 1.2em;
+}
+
+#chatList li .chatDate, .chatList li .chatDate {
+	font-size: .8em;
+}
+
+.discussionToolBarIframe{
+	height: 5em;
+	width: 100%;
+}
+
+#discussionLayoutTop-Bottom{
+	border-width: 1px 0 0 0;
+	border-style: solid;
+	border-color: silver;
+	clear: both;
+	width: 100%;
+}
+
+#discussionLayoutTop-Bottom .discussionListWrapper{
+	padding: 0;
+	vertical-align: top;
+}
+
+#discussionLayoutTop-Bottom .discussionItemWrapper{
+	padding: 0;
+	border-width: 1px 0 0 0;
+	border-style: solid;
+	border-color: silver;
+	vertical-align: top;
+}
+
+#discussionLayoutLeft-Right{
+	border-top: 1px solid silver;
+	clear: both;
+}
+
+#discussionLayoutLeft-Right .discussionListWrapper{
+	padding: 0;
+	width: 50%;
+	vertical-align: top;
+}
+
+#discussionLayoutLeft-Right .discussionItemWrapper{
+	padding: 0;
+	width: 50%;
+	vertical-align: top;
+/*	border-left: 1px solid orange;*/
+	padding-left:.2em
+}
+
+tr.selectedFound td{
+
+}
+
+
+.rosterImage{
+	border:1px solid #bbb;
+/* no height - so no distortion - adjust to a specific size if size known - otherwise leave as is
+height: 75px;*/
+	width:75px
+}
+
+.profileTable
+{
+	width:100%;
+
+	
+}
+.rosterImageCol{
+	width:80px;
+	vertical-align:top
+}
+
+.profileData
+{
+	padding-left:2em;
+	vertical-align:top
+}
+.profileData span{
+	display:block
+}
+.profileSearch
+{
+	width:40%;
+	text-align: right;
+	vertical-align:top;
+
+}
+.profileSearch table
+{
+	border:1px solid #fff
+}
+.profileSearch span
+{
+	text-align:left
+}
+.profileSearchResultsNav
+{
+float:right
+}
+.profileSearchResultsList
+{
+float:right;
+clear:both;
+text-align:right;
+margin-right:0;
+width:auto !important
+}
+.profileSearchResultsListSingle
+{
+	text-align:left
+}
+
+
+
+/*PORTAL THINGS*/
+
+/*below for "presence in chat" functionality*/
+.presenceBody{
+	background:#fff
+}
+.presenceList{
+	font-size: .8em;
+	list-style: none;
+	margin: 0;
+	padding-left: .1em;
+}
+
+/* CLASSES-459 Force a scrollbar when more than 6 students in the chat room */
+#Presence {
+        height: 320px;
+}
+.portletBody > .presenceList {
+        overflow: auto;
+        height: 320px;
+}
+/* end CLASSES-459 */
+
+.presenceList li {
+	padding: 0 0 0 .7em;
+	margin-bottom: .2em;
+}
+
+/*see presense list when one member is in chat room*/
+.presenceList li.inChat {
+	background: url(images/chatpresicon.gif) -.1em center no-repeat;
+}
+
+/*some definitions overriding tool_base.css for the external xlogin screen*/
+.login {
+	margin: 5em auto;
+	border: none;
+	background: $loginpage-background;
+	@include background-image(linear-gradient($loginpage-top-background 0px, $loginpage-middle-background 25px,$loginpage-bottom-background 85%));
+	@include border-radius(10px);
+	@include box-shadow(2px 2px 4px rgba(0,0,0,.25));
+}
+
+
+.login th {
+	border: none;
+	background: none;
+	padding: .75em 0 0 0;
+	color: #444;
+	@include nav-text-shadow;
+	font-size: 1.1em;
+}
+
+.login td.logo{
+	width: 20em;
+	background: transparent url(images/nyu_classes.png) 1em 1em no-repeat
+}
+
+.loginform label{
+	color: #222;
+	@include nav-text-shadow;
+}
+.loginform td .loginsubmit {
+	color: #57068C;
+}
+
+.loginFooter {
+	background-color: #eee;
+	border: none;
+	font-size: 12px;
+	padding: 0.3em 1em;
+}
+.loginFooter a {
+	text-decoration: none;
+	font-size: 12px;	
+}
+#blackboardLink {
+  background:none;
+  border:none;
+}
+
+/* Make a list based css menu */
+ul.makeMenu, ul.makeMenu ul {
+  width: auto;
+	border: 1px solid #ddd !important;
+	background:#fff; 
+	padding: 3px;
+	cursor: default;
+	margin-left: 0px;
+	display:inline;
+	position: relative;
+	text-align: left;
+	white-space: nowrap;
+}
+
+ul.makeMenu{
+	background:#eee url(images/makemenu.gif) top left repeat-x
+}
+
+ul.makeMenu:hover{
+	color:#07b;
+	border:1px solid #000  !important;
+	background:#eee url(images/makemenu-h.gif) top left repeat-x
+}	
+
+.listHier ul.makeMenu img{
+	margin-right: 0;
+	vertical-align: middle;
+}
+
+ul.makeMenu li {
+  list-style-type: none;
+  margin: 0px; 
+/*  padding:5px; 
+  position: relative;
+  color: #000000;
+  display:inline;*/
+}
+
+ul.makeMenu li > ul {
+  display: none;
+  	width: auto;
+	background-color:#ffffff;
+	background-image:none;
+	position:absolute;
+	border:1px solid #000 !important;
+	margin-top:0px;
+ 	z-index:3
+}
+
+.makeMenuChild{
+  display: none;
+  position: absolute;
+	width: 14em;
+	background-color:#ffffff;
+	background-image:none;
+	border:1px solid #666 !important;
+	margin-top:0px;
+ 	z-index:3
+}
+
+.makeMenuChild li{
+	padding:0 !important;
+}
+ul.makeMenu li a { display: block; width: 100%; text-decoration: underline;   padding:6px; color:#35B !important;	}
+ul.makeMenu li a:active{outline:none;}
+ul.makeMenu li a:hover, ul.makeMenu li a.CSStoHighLink { color: #000 !important; }
+ul.makeMenu li:hover > a { color: #000; }
+
+ul.makeMenu li.menuClose{
+	display:block;
+	height:100%;
+	font-size:.9em;
+	font-weight: bold;
+	border-bottom:1px solid blue;
+}
+ul.makeMenu li.menuClose:hover{
+	border-bottom:1px solid green;
+}
+ul.makeMenu li.menuClose a {
+	display:block;
+	color:blue !important;
+	text-align: right;
+	text-decoration: none !important;
+	height:20px;
+	padding:3px 0;
+	outline:none;
+}
+ul.makeMenu li.menuClose a:hover {
+	color:green !important;
+	text-decoration: none !important;
+}
+
+.centerLines td{
+	vertical-align: middle;
+}
+.menuOpen{
+	cursor:pointer;
+}
+
+
+#davdocs_step1{
+  border: 3px solid #eee;
+  padding: 1em;
+  background-color: #FFFCE9;
+
+}
+
+#davdocs_step2{
+  margin-top: 1.2em;
+  border: 3px solid #eee;
+  padding: 1em;
+  background-color: #EBFFE8;
+
+}
+
+#davdocs_step2 ul{
+   list-style-type: none;
+}
+
+#davdocs_step2 ul li{
+   display: inline;
+   margin-right: 1.5em;
+}
+
+.webdav_os{
+  margin-top: 4em;
+  border: 3px solid #eee;
+  padding: 2em;
+}
+.new-items-count {
+  color:#eee;
+  margin:0 0 0 4px;
+  padding:0px 4px 0px 8px;
+  background:#f00;
+  @include border-radius(10px);
+}
+.mainSection {
+  &.editable {
+    position: relative;
+
+    .edit-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border: none !important;
+      background-image: none;
+      padding: 2px 10px;
+    }
+  }
+}
+#myPhoto {
+  .edit-image-button {
+     background-color: #FAFAFA;
+     background-color: rgba(255,255,255, 0.6);
+     border-color: #EEEEEE;
+     border-color: rgba(0,0,0, 0.05);
+     background-image: none;
+     padding: 2px 10px;
+
+     &:hover {
+       background-color: #eee;
+     }
+   }
+}
+.mainSectionHeading {
+  border-bottom:none !important;
+}
+.edit-button {
+  border:none !important;
+	border: thin solid #999 !important;
+}
+.edit-button:hover {
+  background-color:#eee !important;
+}
+
+.profileForm, .form-rounded {
+	background-color: #e9e9e9 !important;
+	border: 1px solid #d0d0d0 !important;
+	padding:.5em;
+	@include border-radius(5px);
+	@include nav-text-shadow;
+}
+.header {
+	margin-top: 0;
+	border-bottom: none !important;
+}
+.side-widget-heading {
+  color:#333;
+  @include nav-text-shadow;
+  border-top:none !important;
+	background-color: #ddd !important; 
+}
+
+#compose .jsfFormTable td .shorttext label, #compose tr td + .shorttext label {
+  float: none;
+  width:12em;
+}
+
+#compose .select-instructions {
+ display: block;
+ color:#333;
+ font-size:.8em; 
+ max-width:30em;
+}
+
+#compose .shorttext select {
+  min-width:24em;
+  min-height:10em;
+  font-size:1em;
+  padding:.25em;
+}
+#compose .checkbox  {
+  max-width:24em;
+  display:block;
+}
+#compose .shorttext select option {
+line-height:1.5em;
+padding:1em;
+}
+#compose .shorttext input {
+  min-width:30em;
+} 
+
+// add formalize to streamline the look of the form elements across browsers
+///http://github.com/nathansmith/formalize/
+
+@import "libraries/_formalize";
+
+// Jira 231 
+
+// alert Boxes 
+.alert {
+  border: 1px solid #ddd;
+  margin: 1em 0 2em 0;
+  padding: .5em 1em;
+  @include border-radius(.25em);
+  display: block;
+  max-width:40em;
+}
+.warning {
+  color: #a68347;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background: #fff7bd;
+  border-color: #ccc697;
+}
+.alert-info {
+  color: #3A87AD;
+  background: #D9EDF7;
+  border-color: #BCE8F1;
+}
+
+// Coloured buttons
+
+button, 
+.button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+	width: auto;
+	text-align: center;
+	font-family: $button-font-family;
+	font-size: inherit;
+	font-weight: normal;
+	font-style: normal;
+	@include simple-border($button-border-pos, $button-border-width, $button-border-style, $button-border-color);
+	cursor: pointer;
+	@include simple-padding($button-padding);
+	line-height: 1;
+	@include simple-background-gradient($button-color, $button-gradient-pos, $button-gradient-stop-1, $button-gradient-stop-2);
+	@include text-shadow($button-text-shadow);
+	@include border-radius($button-border-radius);
+  &:hover,
+  &:focus {
+  	outline: none;
+  	@include text-shadow($button-hover-text-shadow);
+  	@include simple-background-gradient($button-hover-color, $button-hover-gradient-pos, $button-hover-gradient-stop-1, $button-hover-gradient-stop-2);
+  }  
+  &:active {
+    @include text-shadow($button-active-text-shadow);
+  	@include simple-background-gradient($button-active-color, $button-active-gradient-pos, $button-active-gradient-stop-1, $button-active-gradient-stop-2);
+	}
+	&.active, &.primary {
+    @include text-shadow($button-action-text-shadow);
+  	@include simple-background-gradient($button-action-color, $button-action-gradient-pos, $button-action-gradient-stop-1, $button-action-gradient-stop-2);
+  	&:hover,
+    &:focus {
+    	outline: none;
+    	@include text-shadow($button-action-hover-text-shadow);
+    	@include simple-background-gradient($button-action-hover-color, $button-action-hover-gradient-pos, $button-action-hover-gradient-stop-1, $button-action-hover-gradient-stop-2);
+    }
+    &:active {
+      @include text-shadow($button-action-active-text-shadow);
+    	@include simple-background-gradient($button-action-active-color, $button-action-active-gradient-pos, $button-action-active-gradient-stop-1, $button-action-active-gradient-stop-2);
+  	}
+	}
+}
+button[name="eventSubmit_doCancel"],
+input.cancel,
+input[type="button"][value="Cancel"],
+input[type="submit"][value="Cancel"] {
+  @include text-shadow($button-cancel-text-shadow);
+  @include simple-background-gradient($button-cancel-color, $button-cancel-gradient-pos, $button-cancel-gradient-stop-1, $button-cancel-gradient-stop-2);
+  &:hover,
+  &:focus {
+  	outline: none;
+  	@include text-shadow($button-cancel-hover-text-shadow);
+  	@include simple-background-gradient($button-cancel-hover-color, $button-cancel-hover-gradient-pos, $button-cancel-hover-gradient-stop-1, $button-cancel-hover-gradient-stop-2);
+  }
+  &:active {
+    @include text-shadow($button-cancel-active-text-shadow);
+  	@include simple-background-gradient($button-cancel-active-color, $button-cancel-active-gradient-pos, $button-cancel-active-gradient-stop-1, $button-cancel-active-gradient-stop-2);
+  }
+}
+button[disabled="disabled"],
+input[type="button"][disabled="disabled"],
+input[type="submit"][disabled="disabled"] {
+  @include text-shadow($button-disabled-text-shadow);
+  opacity: $button-disabled-opacity;
+  @include simple-background-gradient($button-disabled-color, $button-disabled-gradient-pos, $button-disabled-gradient-stop-1, $button-disabled-gradient-stop-2);
+  &:hover,
+  &:focus,
+  &:active {
+  @extend button[disabled="disabled"];
+  }
+}
+
+a.button {
+  text-decoration: none;
+}
+a.qtipLinkButton {
+  @extend .button;
+  margin: 1em 0;
+  &.previous:before {
+    content: '\2039\20';
+  }
+  &.next:after {
+    content: '\20\203A';
+  }
+}
+
+// Patch for https://jira.sakaiproject.org/browse/SAM-1232
+// Due to storing all question HTML in a <h5> element
+#takeAssessmentForm div.tier2 h5 {
+  font-weight: normal;
+  color: black;
+}
+
+// CLASSES-467 increase the width of the working space
+#tab-dhtml-more-sites {
+  td#sites-active-button, td.buttoncell {
+    width: 5%;
+  }
+  td#sites-active, td#sites-hidden {
+    width: 45%;
+    min-width: 300px;
+
+    select.sr, select.sl {
+      width: 100%;
+    }
+  }
+}
+
+// Evaluation Tool
+
+// CLASSES-636 add custom styles for stand alone
+// evalsys pages.
+.evaluation-page {
+
+    .portletBody {
+        clear: both;
+    }
+
+    .evaluation-logo1{
+            float: left;
+            margin: 0;
+            height:80px;
+            width:130px;
+            background:url(images/nyu_logo.png);
+    }
+
+    .evaluation-logo2{
+            float: right;
+            height:80px;
+            width: 240px;
+            margin: 0;
+            background: url(images/nyu_classes.png);
+    }
+    .evaluation-title-wrapper {
+            clear: both;
+            background-color: #F0F0F0;
+            margin: 0 -0.5em;
+            padding: 1em 26px;
+            border-top: 1px solid #DDD;
+            border-bottom: 1px solid #DDD;
+
+            h3 {
+                font-size: 1.8em;
+            }
+    }
+    .evaluation-outer-wrapper {
+        background-color: #57068c;
+        background-image: linear-gradient(#57068c, #FFF);
+        padding: 1em;
+    }
+    .evaluation-inner-wrapper {
+        background-color: white;
+        padding: 0.5em;
+        box-shadow: 1px 1px 6px #333;
+    }
+    .itemListNew legend {
+            color: #57068c !important;
+            font-size: 1.2em !important;
+    }
+    .fullVertical li:hover, 
+    .fullDisplayHorizontal li:hover {
+        background-color: #f5f0f8 !important;
+	}
+    .fullVertical li.checked, 
+    .fullDisplayHorizontal li.checked {
+        background-color: #f5f0f8 !important;
+	}
+
+    // CLASSES-662
+    .eval-title {
+        .eval-title-label {
+            color: #57068c !important;
+        }
+    }
+    .eval-group {
+        font-size: 1.6em;
+
+        .eval-group-label {
+            color: #57068c !important;
+        }
+    }
+
+    // logout link
+    #mastLogin{
+        position:absolute;
+        right:0px;
+        top:0px;
+        background: $menu-middle-background;
+        @include background-image(linear-gradient($menu-bottom-background 0, $menu-middle-background 10px, $menu-top-background 55%));
+        text-align: right;
+        padding: 0 15px;
+        margin: 0 1em 0 0;
+        @include border-bottom-radius(5px);
+        @include nav-text-shadow;	
+    }
+    #mastLogin a,#mastLogin a:visited{
+        font-weight:bold;
+        color:#333;
+        margin-top: 0;
+        text-decoration: none;
+        padding: 5px;
+        display: block;
+    }
+
+    #mastLogin a:hover{
+        color: $link-color-hover;
+    }
+}
+
+div#peerAssessmentOptions p.instruction {
+  color: red;
+}
+
+form#gradeForm div.highlightPanel {
+  border-color: #27d;
+}
+div.highlightPanel.itemNav { 
+  border-color:#eee !important;
+}
+table[summary='Table holds a list of learner attempts to use this content package. Column 1 holds the full name of the learner.'] th a img {
+  display: none; 
+} 
+table[summary='Table holds a list of learner attempts to use this content package. Column 1 holds the full name of the learner.'] th a:link {
+  text-decoration: none; 
+  color: #000;
+} 
+table[summary='Table holds a list of learner attempts to use this content package. Column 1 holds the full name of the learner.'] th a:visited { 
+  text-decoration: none; 
+  color: #000;
+}
+
+// NYU-16 Audio Recorder
+#audio-recorder-intro {
+  padding: 8px;
+}
+#audio-controls {
+    background-color: #ccc;
+	@include simple-border($button-border-pos, $button-border-width, $button-border-style, $button-border-color);
+    padding: 8px;
+	@include border-radius($button-border-radius);
+    width: 500px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#audio-controls button {
+    padding: 8px;
+  @include text-shadow($button-disabled-text-shadow);
+  opacity: $button-disabled-opacity;
+  @include simple-background-gradient($button-disabled-color, $button-disabled-gradient-pos, $button-disabled-gradient-stop-1, $button-disabled-gradient-stop-2);
+    margin-right: 10px;
+    width: 90px;
+    font-weight: bold;
+}
+#audio-controls #audio-upload {
+    width: 90px;
+  opacity: $button-disabled-opacity;
+}
+#audio-record {
+    background-color: green;
+}
+#audio-stop {
+  @include simple-background-gradient($button-cancel-color, $button-cancel-gradient-pos, $button-cancel-gradient-stop-1, $button-cancel-gradient-stop-2);
+}
+#audio-levelbar {
+    background-color: #ddd;
+    border: 1px solid #eee;
+    margin-top: 12px;
+    width: 98%;
+    height: 2px;
+}
+#audio-statusbar {
+    background-color: red;
+    border: 1px solid #eee;
+    margin-top: 12px;
+    width: 100%;
+    height: 6px;
+}
+#audio-timer-wrapper {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+#audio-analyzer {
+    height: 100px;
+    width: 500px;
+	@include border-radius($button-border-radius);
+    margin:20px auto;
+    background-color: #333;
+}
+
+.audioaudio {
+    visibility: hidden\9;
+    visibility: hidden\10;
+    visibility: hidden\0;
+    display: none\9;
+    display: none\10;
+    display: none\0;
+}
+
+.audioobject {
+    visibility: hidden;
+    display: none;
+    display: block\9;
+    display: block\10;
+    display: block\0;
+    visibility: visible\9;
+    visibility: visible\10;
+    visibility: visible\0;
+}
+
+// BBB Tool Overrides
+// CLASSES-680 fix width of time picker field clipping text
+.time-picker-field {
+    width: 44px !important;
+    min-width: 44px !important;
+}
+
+// CLASSES-798 New bugreport content
+.bugreport {
+    .bugreport-title {
+        margin-bottom: 20px;
+    }
+}
+
+// Tweaks for preview mode, Web content tool uses wrong skin
+// Breaking the new syllabus tool which uses jQuery UI accordians. Will comment out for now
+//video, 
+//object, 
+//embed {
+//  max-width: 100%;
+//  max-height: 100%;
+//}

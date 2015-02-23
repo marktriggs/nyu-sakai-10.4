@@ -1,0 +1,70 @@
+@import "compass/reset/utilities";
+@import "compass/css3";
+
+@import "partials/_base";
+
+body {
+  	font-family:  $mainfont;
+  	font-family: $mainfont;
+  	font-size:.875em;
+  	line-height:1.5em;
+}
+
+a:link{
+  color: $link-color;
+}
+
+a:visited {
+	color: $link-color-visited;
+}
+
+a:hover,a:active{
+	color: $link-color-hover;
+	text-decoration: underline;
+}
+
+a:focus{
+	color: $link-color;
+	text-decoration: underline;
+}
+
+.NYUhelpNav {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background:#999;
+  @include background-gradient(top, $mainmenu-top-background, 0, $mainmenu-middle-background, 20%, $mainmenu-bottom-background, 85%);
+  @include box-shadow(-1px 0px 10px rgba(0,0,0,.75));
+  ul {
+    text-align: right;
+    @include  reset-list-style;
+    margin:.5em;
+    height:2.5em;
+    li {
+      float: right;
+      display: inline;
+      margin:.5em;
+      font-weight: bold;
+      font-size:1.2em;
+      line-height:1em;
+      a {
+        text-decoration:none;
+        padding:.5em 1em;
+        height:1em;
+        @include background-gradient(top, $mainmenutab-top-background, 0, $mainmenutab-middle-background, 5px, $mainmenutab-bottom-background, 55%);
+        @include border-radius(5px);
+      	@include nav-text-shadow;
+      	@include box-shadow(1px 1px 1px rgba(0,0,0,.25));
+        &:hover {
+          @include background-gradient(top, $mainmenutab-bottom-background, 0, $mainmenutab-middle-background, 5px, $mainmenutab-top-background, 55%);
+          @include box-shadow(-1px -1px 2px rgba(0,0,0,.25));
+        }
+      }
+    }
+  } 
+}
+.helpBody {
+  margin: 60px 0 0 0;
+}

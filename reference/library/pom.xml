@@ -63,6 +63,48 @@
   </profiles>
   <build>
     <resources />
+    <plugins>
+      <plugin> 
+        <groupId>org.jruby.plugins</groupId> 
+        <artifactId>jruby-rake-plugin</artifactId> 
+        <version>1.6.8</version> 
+        <executions>
+          <execution> 
+            <id>compile-sass</id> 
+            <phase>compile</phase> 
+            <goals>
+              <goal>rake</goal>
+            </goals> 
+            <configuration> 
+              <script> 
+                task :default do 
+                  ENV['GEM_HOME'] = "#{File.dirname(__FILE__)}/../.gems"
+                  ENV['BUNDLE_PATH'] = "#{File.dirname(__FILE__)}/../.gems"
+
+                  puts "GEM_HOME=#{ENV['GEM_HOME']}"
+                  puts "BUNDLE_PATH=#{ENV['BUNDLE_PATH']}"
+
+                  puts "Installing gems"
+
+                  cmd = ["java", "-cp", ENV['JRUBY_PARENT_CLASSPATH'], "org.jruby.Main", "--1.9", "-S", "gem", "install", "bundler", "--version", "1.6.5"]
+                  puts "Running gem install with: #{cmd.inspect}"
+                  system(*cmd) or raise "Oops.  Couldn't install gems: #{$!}"
+
+                  cmd = ["java", "-cp", ENV['JRUBY_PARENT_CLASSPATH'], "org.jruby.Main", "--1.9", "-S", ".gems/bin/bundle", "install", "--gemfile", "${basedir}/src/webapp/skin/new-york-u/Gemfile"]
+                  puts "Running bundle install with: #{cmd.inspect}"
+                  system(*cmd) or raise "Oops.  Couldn't install gemfile: #{$!}"
+
+                  puts "Running compass for skin/new-york-u..."
+                  cmd = ["java", "-cp", ENV['JRUBY_PARENT_CLASSPATH'], "org.jruby.Main", "--1.9", ".gems/bin/compass", "compile", "-c", "${basedir}/src/webapp/skin/new-york-u/build_config.rb", "-s", "compressed", "--trace"]
+                  puts "Running compass with: #{cmd.inspect}"
+                  system(*cmd) or raise "Oops.  Couldn't run compass: #{$!}"
+                end 
+              </script> 
+            </configuration> 
+          </execution> 
+        </executions>
+      </plugin> 
+    </plugins>
 <!-- java source -->
   </build>
 </project>

@@ -1,0 +1,53 @@
+@mixin nav-text-shadow {
+  @include text-shadow( 0px 1px 1px rgba(255,255,255,.75)); 
+}
+
+@mixin mainnav-text-shadow {
+  @include text-shadow( 0px 1px 1px rgba(255,255,255,.35)); 
+}
+
+@mixin background-gradient($direction: top, $start: true, $start-pos: 0 default, $mid: false, $mid-pos: 33% default, $end: false, $end-pos: 66% default, $final: false) {
+  @if $end { background: $end; }
+  @else { background: $start; }  
+  @if $final { @include background-image(linear-gradient($direction, $start $start-pos, $mid $mid-pos, $end $end-pos, $final)); }
+  @else { @include background-image(linear-gradient($direction, $start $start-pos, $mid $mid-pos, $end $end-pos)); }
+}
+
+@mixin nc-box-shadow($box-shadow) {
+  @if $box-shadow { @include box-shadow($box-shadow) }
+}
+
+@mixin simple-background-gradient($button-color, $background-gradient-pos, $background-gradient-1, $background-gradient-2) {
+  color: $button-color;
+  background: mix($background-gradient-1, $background-gradient-2);
+  @include background-image(linear-gradient($background-gradient-pos, $background-gradient-1, $background-gradient-2));
+}
+
+@mixin simple-border($side: false, $color: #999, $style: "solid", $width: 1px) {
+  @if $side == none {
+    border: none;
+  } @else if $side {
+    border-#{$side}: $color $style $width;
+  }
+  @else {
+    border: $color $style $width;
+  }
+}
+
+@mixin simple-margin($amount, $side: false) {
+  @if $side {
+     margin-#{$side}: $amount;
+   }
+   @else {
+     margin: $amount;
+   }
+}
+
+@mixin simple-padding($amount, $side: false) {
+  @if $side {
+     padding-#{$side}: $amount;
+   }
+   @else {
+     padding: $amount;
+   }
+}
