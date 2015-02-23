@@ -992,11 +992,8 @@ tr.selectedFound td {
 }
 .login td.logo {
     width: 266px;
-    background: #444444 url(images/newlogowhite.png) 25px 12px no-repeat;
+    background: #57068c url(images/newlogowhite.png) 25px 12px no-repeat;
     background-position: 20px 12px;
-    border-width: 1px 0 1px 1px;
-    border-style: solid;
-    border-color: #ccc;
 }
 .login td.form {
 
@@ -1015,7 +1012,7 @@ tr.selectedFound td {
 .login {
     border: 1px solid #ccc;
     border-collapse: collapse;
-    background: #444;
+    background: #57068c;
 }
 /* ===[ Make a list based css menu ]=== */
 ul.makeMenu, ul.makeMenu ul {
