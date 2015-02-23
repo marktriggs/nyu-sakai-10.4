@@ -296,7 +296,8 @@ public class SiteAction extends PagedResourceActionII {
 			"-siteInfo-importSelection",   //58
 			"-siteInfo-importMigrate",    //59
 			"-importSitesMigrate",  //60
-			"-siteInfo-importUser"
+			"-siteInfo-importUser",
+			"-newSiteCreated" //62
 	};
 
 	/** Name of state attribute for Site instance id */
@@ -735,6 +736,10 @@ public class SiteAction extends PagedResourceActionII {
 	
 	// the maximum tool title length enforced in UI
 	private final static int MAX_TOOL_TITLE_LENGTH = 20;
+
+	//flag to indicate if we should reset the state and refresh the screen when a site is created etc.
+	//defaults to true to maintain backwards compatibility
+	private static final String STATE_RESET = "state_reset";
 	
 	private final static String SORT_KEY_SESSION = "worksitesetup.sort.key.session";
 	private final static String SORT_ORDER_SESSION = "worksitesetup.sort.order.session";
@@ -3419,7 +3424,36 @@ public class SiteAction extends PagedResourceActionII {
 			// only show those sites with same site type
 			putImportSitesInfoIntoContext(context, site, state, true);
 			return (String) getContext(data).get("template") + TEMPLATE[61];
+
+		case 62:
+		/*
+		 * build context for chef_site-newSiteCreated.vm
+		 */
+
+			String siteId = (String)state.getAttribute(STATE_NEW_SITE_STATUS_ID);
+
+			//ensure the user creating the site (ie current user) has the correct role in the site, switch if necessary.
+			ensureCreatorUserRole(siteId);
+
+			//create the url to the site
+			String siteUrl = getRelativeUrlToSite(siteId);
+			context.put("finish_site_url", siteUrl);
+			M_log.debug("siteUrl: " + siteUrl);
+
+			//create the url to reste the tool so we can make more sites
+			String toolPlacementId = SessionManager.getCurrentToolSession().getPlacementId();
+			String resetUrl = getRelativeUrlToResetTool(toolPlacementId);
+			context.put("finish_site_reset", resetUrl);
+			M_log.debug("resetUrl: " + resetUrl);
+
+			//trash the state so a reload doesnt show this screen again
+			cleanState(state);
+			cleanStateHelper(state);
+			//scheduleTopRefresh();
+
+			return TEMPLATE[62];
 		}
+
 		// should never be reached
 		return (String) getContext(data).get("template") + TEMPLATE[0];
 
@@ -6261,12 +6295,15 @@ private Map<String,List> getTools(SessionState state, String type, Site site) {
 			// TODO: hard coding this frame id is fragile, portal dependent, and
 			// needs to be fixed -ggolden
 			// schedulePeerFrameRefresh("sitenav");
-			scheduleTopRefresh();
 
-			resetPaging(state);
+			//need to wrap this in a check as we may not want to reset at this time
+			boolean reset = (Boolean) state.getAttribute(STATE_RESET);
 
-			// clean state variables
-			cleanState(state);
+			if(reset) {
+				scheduleTopRefresh();
+				resetPaging(state);
+				cleanState(state);
+			}
 
 			if (SITE_MODE_HELPER.equals(state.getAttribute(STATE_SITE_MODE))) {
 				state.setAttribute(SiteHelper.SITE_CREATE_SITE_ID, site.getId());
@@ -7770,6 +7807,11 @@ private Map<String,List> getTools(SessionState state, String type, Site site) {
 
 		//setup the NYU DB Helper
 		nyuDbHelper = new NYUDbHelper();
+
+		//init the state_reset flag. Default it to true to maintain backwards compatibility
+		if(state.getAttribute(STATE_RESET) == null) {
+			state.setAttribute(STATE_RESET, true);
+		}
 
 	} // init
 
@@ -11126,6 +11168,15 @@ private Map<String,List> getTools(SessionState state, String type, Site site) {
 				site.addMember(UserDirectoryService.getCurrentUser().getId(), site.getMaintainRole(), true, false);
 
 				String title = StringUtils.trimToNull(siteInfo.title);
+
+				//NYU mod, use whatever value is in the courseSiteTitle box as the site title, limited to whatever is configured as the max length 
+				String courseSiteTitle = params.getString("courseSiteTitle");
+				int siteTitleMaxLength = (Integer) state.getAttribute(STATE_SITE_TITLE_MAX);
+				courseSiteTitle = StringUtils.substring(courseSiteTitle, 0, siteTitleMaxLength);
+				if(StringUtils.isNotBlank(courseSiteTitle)) {
+					title=courseSiteTitle;
+				}
+
 				String description = siteInfo.description;
 				setAppearance(state, site, siteInfo.iconUrl);
 				site.setDescription(description);
@@ -12562,8 +12613,17 @@ private Map<String,List> getTools(SessionState state, String type, Site site) {
 	 */
 	public void doAdd_site_option(RunData data) {
 		String option = data.getParameters().getString("option");
+
 		if ("finish".equals(option)) {
+			//since we have injected another screen, we don't want doFinish to cleanState or schedule a refresh
+			//so we add a flag to disable it, and we handle it ourselves
+			SessionState state = ((JetspeedRunData) data).getPortletSessionState(((JetspeedRunData) data).getJs_peid());
+			state.setAttribute(STATE_RESET, false);
+
 			doFinish(data);
+
+			//NYU mod, add a final screen
+			doNewSiteCreated(data);
 		} else if ("cancel".equals(option)) {
 			doCancel_create(data);
 		} else if ("back".equals(option)) {
@@ -14681,12 +14741,6 @@ private Map<String,List> getTools(SessionState state, String type, Site site) {
 	 */
 	private void doNewSiteCreated(RunData data) {
 		SessionState state = ((JetspeedRunData) data).getPortletSessionState(((JetspeedRunData) data).getJs_peid());
-
-		//get the site just created
-		Site site = getStateSite(state);
-
-		//maintain the siteId in state
-		state.setAttribute(STATE_SITE_INSTANCE_ID, site.getId());
 
 		state.setAttribute(STATE_TEMPLATE_INDEX, "62");
 	}
