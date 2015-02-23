@@ -642,8 +642,9 @@ public class PortalSiteHelperImpl implements PortalSiteHelper
 				if (firstTool != null)
 				{
 					String menuClass = firstTool.getToolId();
-					menuClass = "icon-" + menuClass.replace('.', '-');
-					m.put("menuClass", menuClass);
+					menuClass = menuClass.replace('.', '-');
+					m.put("menuClass", "icon-" + menuClass);
+					m.put("menuOuterClass", "tool-" + menuClass);
 					Properties tmp = firstTool.getConfig();
 					if ( tmp != null ) {
 						String mc = tmp.getProperty(PROP_MENU_CLASS);
@@ -693,8 +694,9 @@ public class PortalSiteHelperImpl implements PortalSiteHelper
 					m.put("toolpopup", Boolean.valueOf(source!=null));
 					m.put("toolpopupurl", source);
 					String menuClass = placement.getToolId();
-					menuClass = "icon-" + menuClass.replace('.', '-');
-					m.put("menuClass", menuClass);
+					menuClass =  menuClass.replace('.', '-');
+					m.put("menuClass", "icon-" + menuClass);
+					m.put("menuOuterClass", "tool-" + menuClass);
 					Properties tmp = placement.getConfig();
 					if ( tmp != null ) {
 						String mc = tmp.getProperty(PROP_MENU_CLASS);

@@ -2399,3 +2399,12 @@ html > body .ui-pnotify {
 .portletTitleWrap.tool-sakai-summary-calendar .title a {
     display: none;
 }
+
+
+/* CLASSES-1445 Add "My" to selected my workspace tools */
+.workspace .tool-sakai-schedule .menuTitle:before,
+.workspace .tool-sakai-resources .menuTitle:before,
+.workspace .tool-sakai-announcements .menuTitle:before,
+.workspace .tool-sakai-dashboard .menuTitle:before {
+  content: "My ";
+}

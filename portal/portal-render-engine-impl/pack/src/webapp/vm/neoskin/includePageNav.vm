@@ -24,14 +24,14 @@
 					<ul>
 			#foreach( $page in $sitePages.pageNavTools )
 		  		#if (${page.current})
-						<li class="selectedTool">
-							<a class="toolMenuLink #if(${page.hidden})hidden#end" title="${page.pageTitle}" role="presentation" aria-disabled="true">
+						<li class="selectedTool ${page.menuOuterClass}">
+							<a class="toolMenuLink #if(${page.hidden})hidden#end ${}" title="${page.pageTitle}" role="presentation" aria-disabled="true">
 							<span class="toolMenuIcon ${page.menuClass} $!{page.menuClassOverride}"> </span><span class="menuTitle">${page.pageTitle}</span>
 							</a>
 						</li>
 		  		#else
 		  			 #if (${page.toolpopup})
-						<li>
+						<li class="${page.menuOuterClass}">
 							<a class="toolMenuLink #if(${page.hidden})hidden#end" href="${page.pageRefUrl}?sakai.popup=yes" title="${page.description}" 
 							onclick="window.open('${page.toolpopupurl}');">
 							<span class="toolMenuIcon ${page.menuClass} $!{page.menuClassOverride}"></span><span class="menuTitle">${page.pageTitle}</span>
@@ -39,13 +39,13 @@
 						</li>
 					 #else
 		  			 #if (${page.ispopup})
-						<li>
+						<li class="${page.menuOuterClass}">
 							<a class="toolMenuLink #if(${page.hidden})hidden#end" href="javascript:;" title="${page.pageTitle}" onclick="window.open('${page.pagePopupUrl}${page.pageId}','${page.jsPageTitle}','resizable=yes,toolbar=no,scrollbars=yes, width=1024,height=768')">
 							<span class="toolMenuIcon ${page.menuClass} $!{page.menuClassOverride}"> </span><span class="menuTitle">${page.pageTitle}</span>
 							</a>
 						</li>
 		   			#else
-						<li>
+						<li class="${page.menuOuterClass}">
 							<a class="toolMenuLink #if(${page.hidden})hidden#end" href="${page.pageRefUrl}" title="${page.description}">
 							<span class="toolMenuIcon ${page.menuClass} $!{page.menuClassOverride}"></span><span class="menuTitle">${page.pageTitle}</span>
 							</a>
