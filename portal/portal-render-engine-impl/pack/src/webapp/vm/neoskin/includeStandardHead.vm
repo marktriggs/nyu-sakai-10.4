@@ -57,11 +57,11 @@
 <!--[if gte IE 5]><![if lt IE 7]>
     <link href="$!{portalCDNPath}/portal/styles/portalstyles-ie5.css$!{portalCDNQuery}" type="text/css" rel="stylesheet" media="all" />
 <![endif]><![endif]-->
-<link href="${pageSkinRepo}/${pageSkin}/portal.css" type="text/css" rel="stylesheet" media="all" />
+<link href="${pageSkinRepo}/${pageSkin}/portal.css$!{portalCDNQuery}" type="text/css" rel="stylesheet" media="all" />
 #if ( $neoChat && $loggedIn )
-<link href="${pageSkinRepo}/${pageSkin}/portalchat.css" type="text/css" rel="stylesheet" media="all" />
+<link href="${pageSkinRepo}/${pageSkin}/portalchat.css$!{portalCDNQuery}" type="text/css" rel="stylesheet" media="all" />
 #end
-<link href="${pageScriptPath}jquery/cluetip/1.2.10/css/jquery.cluetip.css" type="text/css" rel="stylesheet" media="all" />
+<link href="${pageScriptPath}jquery/cluetip/1.2.10/css/jquery.cluetip.css$!{portalCDNQuery}" type="text/css" rel="stylesheet" media="all" />
 
 
 #if (! $currentPlacement && $isPDA )
@@ -139,7 +139,7 @@ ${sakai_html_head_js}
 <script type="text/javascript" src="$!{portalCDNPath}/portal/scripts/jquery.idle-timer.js$!{portalCDNQuery}"></script>
 <script type="text/javascript" src="$!{portalCDNPath}/portal/scripts/chat.js$!{portalCDNQuery}"></script>
 #if ( $neoChatVideo )
-<link href="${pageSkinRepo}/${pageSkin}/portalvideo.css" type="text/css" rel="stylesheet" media="all" />
+<link href="${pageSkinRepo}/${pageSkin}/portalvideo.css$!{portalCDNQuery}" type="text/css" rel="stylesheet" media="all" />
 <script type="text/javascript">
 
     portal.chat.video.enabled = true;
@@ -163,8 +163,8 @@ ${sakai_html_head_js}
         "pc_video_status_connection_established": "${rloader.pc_video_status_connection_established}"
     };
 </script>
-<script type="text/javascript" src="/portal/scripts/webrtc-adapter.js"></script>
-<script type="text/javascript" src="/portal/scripts/videocall.js"></script>
+<script type="text/javascript" src="/portal/scripts/webrtc-adapter.js$!{portalCDNQuery}"></script>
+<script type="text/javascript" src="/portal/scripts/videocall.js$!{portalCDNQuery}"></script>
 #end
 #end
 #if ( ${styleable} )
