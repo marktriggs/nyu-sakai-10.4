@@ -76,6 +76,8 @@ import org.sakaiproject.portal.util.PortalUtils;
 import org.sakaiproject.portal.util.ByteArrayServletResponse;
 import org.sakaiproject.util.Validator;
 
+import org.sakaiproject.site.api.Group;
+
 import org.sakaiproject.portal.charon.handlers.PDAHandler;
 
 /**
@@ -462,6 +464,24 @@ public class SiteHandler extends WorksiteHandler
 				rcontext.put(portal.SAKAI_NAV_MINIMIZED, Boolean.TRUE);
 			} else if ( reqParm != null &&  "true".equals(reqParm) && ! "false".equals(minStr) ) {
 				rcontext.put(portal.SAKAI_NAV_MINIMIZED, Boolean.TRUE);
+			}
+		}
+
+		if (site != null && SecurityService.unlock(SiteService.SECURE_UPDATE_SITE, site.getReference())) {
+			// NYU: Should we show siteinfo as "settings"?
+			rcontext.put("showSiteInfoAsSettings", "true");
+
+			// Actually, ignored in this case.
+			rcontext.put("showJoinableGroups", "false");
+		} else {
+			rcontext.put("showSiteInfoAsSettings", "false");
+			rcontext.put("showJoinableGroups", "false");
+
+			for (Group g : site.getGroups()) {
+				if (g.getProperties().getProperty(Group.GROUP_PROP_JOINABLE_SET) != null) {
+					rcontext.put("showJoinableGroups", "true");
+					break;
+				}
 			}
 		}
 

@@ -606,8 +606,13 @@ var setupSiteNav = function(){
                 dataType: "json",
                 success: function(data){
                     $.each(data, function(i, item){
-                    	var safeItemTitle = $('<p></p>').text(item.title).html();
-                        if (i <= maxToolsInt) {
+
+                        // defined by settings-renamer.js
+                        var NYURewriteItemTitle = (typeof renameSettingsToJoinable != 'undefined') ? renameSettingsToJoinable : function (arg) { return arg; };
+
+                    	var safeItemTitle = NYURewriteItemTitle($('<p></p>').text(item.title).html());
+
+                        if (safeItemTitle && i <= maxToolsInt) {
                             if (item.toolpopup) {
                                 navsubmenu = navsubmenu + '<li class=\"submenuitem\" ><span><a role=\"menuitem\" href=\"' + item.tools[0].url + "?sakai.popup=yes\" title=\"" + safeItemTitle + "\" onclick=\"window.open('" + item.toolpopupurl + "');\"><span class=\"toolMenuIcon icon-" + item.tools[0].toolId.replace(/\./gi, '-') + "\"></span>" + safeItemTitle + "</a></span></li>";
                             } else if (item.tools.length === 1) {

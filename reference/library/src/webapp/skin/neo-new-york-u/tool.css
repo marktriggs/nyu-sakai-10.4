@@ -1448,7 +1448,7 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
     content:"\e029"
 }
 
-.icon-sakai-membership:before {
+.icon-sakai-membership:before, .icon-sakai-joinable-groups:before {
     content:"\e02a"
 }
 

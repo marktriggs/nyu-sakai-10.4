@@ -27,6 +27,14 @@
 </script>
 #end
 #end
+
+<script>
+  var showSiteInfoAsSettings = ${showSiteInfoAsSettings};
+  var showJoinableGroups = ${showJoinableGroups};
+</script>
+
+<script type="text/javascript" src="${pageScriptPath}settings-renamer.js$!{portalCDNQuery}"></script>
+
 <!-- site.vm -->
 
 <!-- start includeSiteNav -->
