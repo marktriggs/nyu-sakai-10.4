@@ -1004,6 +1004,9 @@ tr.selectedFound td {
     list-style: none;
     margin: 0;
     padding-left: .1em;
+    /* CLASSES-459 Force a scrollbar when more than 6 students in the chat room */
+    overflow: auto;
+    max-height: 150px;
 }
 .presenceList li {
     padding: 0 0 0 .7em;
