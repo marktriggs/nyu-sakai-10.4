@@ -2401,3 +2401,17 @@ form[name="classInformationForm"] input#title {
   display: table-cell;
   width: 50%;
 }
+
+
+/* Fix scrollbar on LessonBuilder iframe - replicate .skip styles for .offscreen */
+.offscreen {
+  outline: 1px solid transparent;
+  display: inline !important;
+  position: fixed !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden !important;
+  top: 0px !important;
+  left: 0px;
+  padding: 0px 0px 0px 0px !important;
+}
