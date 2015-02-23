@@ -104,7 +104,7 @@ ${includeExtraHead}
 <div class="portletpda">
     <header style="clear: both">
         <div class="header-top">
-        <a href="${portalTopUrl}" class="nyu-classes-logo beta">
+        <a href="${portalTopUrl}" class="nyu-classes-logo">
             <img src="${pageSkinRepo}/${pageSkin}/images/nyu_classes.png"/>
         </a>
 
@@ -170,7 +170,7 @@ ${includeExtraHead}
 	  <li class="helpLink"><span><a accesskey="h" href="${currentPlacement.toolJSR168Help}" title="${rloader.sit_help}">?</a></span></li>		
     #else
 	  ## need to get string from bundle
-	  <li class="helpLink"><span><a accesskey="h" href="${currentPlacement.toolHelpActionUrl}" title="${rloader.sit_help}" target="_blank" onclick="openWindow('${currentPlacement.toolHelpActionUrl}', 'Help','resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=800,height=600'); return false">?</a></span></li>
+	  <li class="helpLink"><span><a accesskey="h" href="${currentPlacement.toolHelpActionUrl}" title="${rloader.sit_help}" target="_blank" onclick="openWindow('${currentPlacement.toolHelpActionUrl}', 'Help','resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=800,height=600'); return false"></a></span></li>
     #end
   #end
 #end
