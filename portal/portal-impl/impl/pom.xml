@@ -53,6 +53,11 @@
             <artifactId>sakai-presence-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>edu.nyu.classes.externalhelp</groupId>
+            <artifactId>externalhelp-api</artifactId>
+            <version>${sakai.version}</version>
+        </dependency>
+        <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
         </dependency>
