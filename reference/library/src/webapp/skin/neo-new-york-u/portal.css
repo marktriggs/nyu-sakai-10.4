@@ -2009,6 +2009,7 @@ everything except the tool icon is gone it is still distincts as the current too
     top: 25%;
     left: 50%;
     height: auto;
+    min-height: initial;
     color: #fff;
     font-weight: bold;
     width: 380px;
