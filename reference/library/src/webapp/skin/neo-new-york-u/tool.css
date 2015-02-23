@@ -1349,6 +1349,7 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 .icon-nyu-mediasite-stern:before,
 .icon-nyu-mediasite-libraries:before,
 .icon-nyu-panopto-law:before,
+.icon-nyu-panopto-poly:before,
 .category-title-information:before,
 .category-title-communication:before,
 .category-title-content:before,
@@ -1548,19 +1549,11 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
     content:"\e602"
 }
 
-.icon-nyu-mediasite-poly:before {
-    content:"\e04F"
-}
-
-.icon-nyu-mediasite-stern:before {
-    content:"\e04F"
-}
-
-.icon-nyu-mediasite-libraries:before {
-    content:"\e04F"
-}
-
-.icon-nyu-panopto-law:before {
+.icon-nyu-mediasite-poly:before,
+.icon-nyu-mediasite-stern:before,
+.icon-nyu-mediasite-libraries:before,
+.icon-nyu-panopto-law:before,
+.icon-nyu-panopto-poly:before {
     content:"\e04F"
 }
 
