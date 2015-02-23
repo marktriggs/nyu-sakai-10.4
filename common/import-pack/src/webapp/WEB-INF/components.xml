@@ -8,16 +8,23 @@
 			class="org.sakaiproject.importer.impl.SakaiArchiveFileParser"
 			singleton="false">
 	</bean>
-	
+<!--	
     <bean id="org.sakaiproject.importer.api.ImportFileParser-CommonCartridge"
 			class="org.sakaiproject.importer.impl.CommonCartridgeFileParser"
 			singleton="false">
 	</bean>
+-->
 	
-	<!-- <bean id="org.sakaiproject.importer.api.ImportFileParser-Bb6" -->
-	<!-- 		class="org.sakaiproject.importer.impl.Blackboard6FileParser" -->
-	<!-- 		singleton="false"> -->
-	<!-- </bean> -->
+	<bean id="org.sakaiproject.importer.api.ImportFileParser-Bb9NYU"
+	      class="org.sakaiproject.importer.impl.Blackboard9NYUFileParser"
+	      singleton="false">
+	</bean>
+
+
+	<bean id="org.sakaiproject.importer.api.ImportFileParser-Bb6"
+	      class="org.sakaiproject.importer.impl.Blackboard6FileParser"
+	      singleton="false">
+	</bean>
 	<!-- Handlers -->
 
 	<bean id="org.sakaiproject.importer.impl.handlers.ResourcesHandler"
@@ -38,16 +45,17 @@
 		<property name="parsers">
 			<list>
 				<ref bean="org.sakaiproject.importer.api.ImportFileParser-Sakai"/>
-				<ref bean="org.sakaiproject.importer.api.ImportFileParser-CommonCartridge"/>
-				<!-- <ref bean="org.sakaiproject.importer.api.ImportFileParser-Bb6"/> -->
+			<!--	<ref bean="org.sakaiproject.importer.api.ImportFileParser-CommonCartridge"/> -->
+				<ref bean="org.sakaiproject.importer.api.ImportFileParser-Bb9NYU"/>
+				<ref bean="org.sakaiproject.importer.api.ImportFileParser-Bb6"/>
 			</list>
 		</property>
 		<property name="resourceHandlers">
 			<list>
 				<ref bean="org.sakaiproject.importer.impl.handlers.ResourcesHandler"/>
-				<!-- <ref bean="org.sakaiproject.importer.impl.handlers.SamigoAssessmentHandler"/> -->
-				<!-- <ref bean="org.sakaiproject.importer.impl.handlers.SamigoPoolHandler"/> -->
-				<!-- <ref bean="org.sakaiproject.importer.impl.handlers.AnnouncementHandler"/> -->
+				<ref bean="org.sakaiproject.importer.impl.handlers.SamigoAssessmentHandler"/>
+				<ref bean="org.sakaiproject.importer.impl.handlers.SamigoPoolHandler"/>
+				<ref bean="org.sakaiproject.importer.impl.handlers.AnnouncementHandler"/>
 			</list>
 		</property>
 	</bean>
