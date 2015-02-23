@@ -902,22 +902,23 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     text-align: right;
     vertical-align: middle;
 }
-.portletTitle .action a#jsr-edit {
-    padding:5px 5px 10px 5px;
-    background: url(images/pencil.png) center right no-repeat;
-    background-size: 22px auto;
+.portletTitle .action a {
+  font-family: 'nyu-classes-icons';
+  background: none !important;
+  color: #444;
+  font-size: 20px;
 }
-.portletTitle .action a#jsr-edit:hover {
-    padding:5px 5px 10px 5px;
-	  background: url(images/pencil.png) center right no-repeat;
-	  background-size: 22px auto;
+.portletTitle .action a:before {
+  content: '\e003';
+}
+.portletTitle .action a#jsr-edit:before {
+  content: '\e025';
+}
+.portletTitle .action a.tool-directurl {
+  display: none;
 }
 .portletTitle .action img {
-    margin: 0;
-    vertical-align: text-bottom;
-    width: 18px;
-    border: none;
-    height: 18px;
+    display: none;
 }
 .portletTitle .action a {
     text-align: left;
