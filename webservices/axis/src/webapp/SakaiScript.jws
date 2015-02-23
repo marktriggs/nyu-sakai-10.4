@@ -1134,6 +1134,24 @@ public String removeSite( String sessionid, String siteid) throws AxisFault
 	return "success";
 }
 
+public String removeSites( String sessionid, String[] siteids) throws AxisFault
+{
+	Session session = establishSession(sessionid);
+	
+        for (String siteId : siteids) {
+            try {
+		Site siteEdit = null;
+		siteEdit = siteService.getSite(siteId);
+		siteService.removeSite(siteEdit);
+            } catch (Exception e) {  
+		LOG.error("WS removeSites(): " + e.getClass().getName() + " : " + e.getMessage());
+                LOG.error("Failed site was: " + siteId);
+            }
+	}
+
+	return "success";
+}
+
 /**
  * Create a new site based on another site. This will copy its tool structure, but not its content
  *
