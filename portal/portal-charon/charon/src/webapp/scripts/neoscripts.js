@@ -775,3 +775,8 @@ function rearrangeMoreSitesPane() {
 
 
 $(rearrangeMoreSitesPane);
+
+// Move the togglebar
+$(function() {
+  $("#togglebar").insertBefore("#toolMenu");
+});
