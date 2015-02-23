@@ -2179,6 +2179,7 @@ img[src$="cal.gif"] {
 .ui-widget-header {
   background: #2F7FAB !important;
   border-color: #2F7FAB !important;
+  color: #FFF !important;
 }
 
 .ui-widget-content {
@@ -2281,7 +2282,7 @@ table.tablesorter .header {
   display: inline-block;
   margin-left: 5px;
 }
-.neoPortletTitleWrap .portletTitle .title a:after {
+.neoPortletTitleWrap .portletTitle .title a.reload:after {
   -webkit-transition: width 0.5s, transform 0.5s;
   -moz-transition: width 0.5s;
   -ms-transition: width 0.5s;
@@ -2297,7 +2298,7 @@ table.tablesorter .header {
   vertical-align: top;
   margin-left: 5px;
 }
-.neoPortletTitleWrap .portletTitle .title a:hover:after {
+.neoPortletTitleWrap .portletTitle .title a.reload:hover:after {
   -webkit-transition: width 0.5s;
   -moz-transition: width 0.5s;
   -ms-transition: width 0.5s;
@@ -2313,7 +2314,7 @@ table.tablesorter .header {
   width: 120px;
   height: auto;
 }
-.neoPortletTitleWrap .portletTitle .title a:hover:after {
+.neoPortletTitleWrap .portletTitle .title a.reload:hover:after {
   content: 'Return to Tool Home';
   font-size: 12px;
   font-family:  'Helvetica Neue','Arial',sans-serif;
