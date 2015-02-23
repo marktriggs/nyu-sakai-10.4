@@ -74,6 +74,7 @@
                 <module>emailtemplateservice</module>
                 <module>entitybroker</module>
                 <module>external-calendaring-service</module>
+                <module>evaluation</module>
                 <module>gradebook</module>
                 <module>help</module>
                 <module>hierarchy</module>
