@@ -110,7 +110,8 @@ sakai.editor.editors.ckeditor.launch = function(targetId, config, w, h) {
             '/',
             ['Styles','Format','Font','FontSize'],
             ['TextColor','BGColor'],
-            ['Maximize', 'ShowBlocks']
+            ['Maximize', 'ShowBlocks'],
+            ['Audio', 'kalturaflash', 'magicembed', 'Youtube']
         ],
         toolbar: 'Full',
         resize_dir: 'both',
@@ -172,6 +173,10 @@ sakai.editor.editors.ckeditor.launch = function(targetId, config, w, h) {
 		   CKEDITOR.plugins.addExternal('wordcount',basePath+'wordcount/', 'plugin.js'); 
 		   CKEDITOR.plugins.addExternal('fmath_formula',basePath+'fmath_formula/', 'plugin.js'); 
 		   CKEDITOR.plugins.addExternal('audiorecorder',basePath+'audiorecorder/', 'plugin.js'); 
+ 		   CKEDITOR.plugins.addExternal('audio',basePath+'audio/', 'plugin.js'); 
+ 		   CKEDITOR.plugins.addExternal('kalturaflash',basePath+'kalturaflash/', 'plugin.js');
+ 		   CKEDITOR.plugins.addExternal('magicembed',basePath+'magicembed/', 'plugin.js');
+ 		   CKEDITOR.plugins.addExternal('youtube',basePath+'youtube/', 'plugin.js');
 			 /*
 			  To enable after the deadline uncomment these two lines and add atd-ckeditor to toolbar
 			  and to extraPlugins. This also needs extra stylesheets.
@@ -188,7 +193,7 @@ sakai.editor.editors.ckeditor.launch = function(targetId, config, w, h) {
 			 //ckconfig.extraPlugins+="atd-ckeditor,";
 			 //ckconfig.contentsCss = basePath+'/atd-ckeditor/atd.css';
 
-			 ckconfig.extraPlugins+="audiorecorder,movieplayer,wordcount,fmath_formula";
+			 ckconfig.extraPlugins+="audiorecorder,movieplayer,wordcount,fmath_formula,audio,kalturaflash,magicembed,youtube";
     })();
 
 	  CKEDITOR.replace(targetId, ckconfig);
