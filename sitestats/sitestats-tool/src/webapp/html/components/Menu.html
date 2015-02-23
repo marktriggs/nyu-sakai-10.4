@@ -28,6 +28,16 @@
         <li wicket:id="reports">[reports]</li>
         <li wicket:id="preferences">[preferences]</li>
 	</ul>
+
+  <script>
+    // CLASSES-1456 set the current toolbar item on the top most menu
+    $(function() {
+      var currentPage = $("h2").text().trim();
+      var $menu = $("body > div > .navIntraTool.actionToolbar a:contains('"+currentPage+"')")
+                    .closest("span").addClass("current");
+    });
+  </script>
+
 	
 </wicket:panel>
 </html>
