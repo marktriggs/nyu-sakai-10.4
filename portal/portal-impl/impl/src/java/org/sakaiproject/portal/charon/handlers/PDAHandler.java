@@ -379,6 +379,16 @@ public class PDAHandler extends SiteHandler
 					}
 				}
 
+				// NCM-81 Build a switch-to-desktop URL
+				String switchToDesktopUrl = Web.serverUrl(req)+ServerConfigurationService.getString("portalPath") + "/";
+				if (toolId != null) {
+					switchToDesktopUrl = switchToDesktopUrl + "directtool/" + toolId;
+				} else if (siteId != null) {
+					switchToDesktopUrl = switchToDesktopUrl + "site/" + siteId;
+				}
+				switchToDesktopUrl = switchToDesktopUrl + "?force.classic=yes";
+				rcontext.put("switchToDesktopUrl", switchToDesktopUrl);
+
 				//  TODO: Should this be a property?  Probably because it does cause an 
 				// uncached SQL query
 				portal.includeSubSites(rcontext, req, session,
