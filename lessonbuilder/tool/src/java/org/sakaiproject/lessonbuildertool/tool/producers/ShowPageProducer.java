@@ -149,6 +149,14 @@ import uk.org.ponder.rsf.viewstate.ViewParameters;
 import uk.org.ponder.rsf.viewstate.ViewParamsReporter;
 import org.apache.commons.lang.StringEscapeUtils;
 
+import org.sakaiproject.site.cover.SiteService;
+import org.sakaiproject.site.api.ToolConfiguration;
+
+import org.sakaiproject.authz.cover.SecurityService;
+import edu.nyu.classes.externalhelp.api.ExternalHelpSystem;
+import edu.nyu.classes.externalhelp.api.ExternalHelp;
+
+
 /**
  * This produces the primary view of the page. It also handles the editing of
  * the properties of most of the items (through JQuery dialogs).
@@ -809,7 +817,27 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		}
 
 		ToolSession toolSession = SessionManager.getCurrentToolSession();
+
 		String helpurl = (String)toolSession.getAttribute("sakai-portal:help-action");
+		String helpMessage = messageLocator.getMessage("simplepage.help-button");
+
+		ExternalHelpSystem helpSystem = (ExternalHelpSystem) ComponentManager.get("edu.nyu.classes.externalhelp.api.ExternalHelpSystem");
+		if (helpSystem.isActive()) {
+		    ToolConfiguration toolConfiguration = SiteService.findTool(toolSession.getPlacementId());
+		    String siteId = toolConfiguration.getSiteId();
+
+		    boolean instructor = SecurityService.unlock(SiteService.SECURE_UPDATE_SITE, SiteService.siteReference(siteId));
+
+		    ExternalHelp help = helpSystem.getHelp("sakai.lessonbuildertool", instructor ? "instructor" : "student");
+
+		    if (help != null) {
+			helpurl = help.getUrl();
+			helpMessage = help.getLabel();
+		    } else {
+			helpurl = null;
+		    }
+		}
+
 		String reseturl = (String)toolSession.getAttribute("sakai-portal:reset-action");
 		Placement placement = toolManager.getCurrentPlacement();
 
@@ -840,11 +868,9 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		    UILink.make(tofill, (pageItem.getPageId() == 0 ? "helpbutton" : "helpbutton2"), helpurl).
 			decorate(new UIFreeAttributeDecorator("onclick",
 			         "openWindow('" + helpurl + "', 'Help', 'resizeable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=800,height=600'); return false")).
-			decorate(new UIFreeAttributeDecorator("title",
-				 messageLocator.getMessage("simplepage.help-button")));
+			decorate(new UIFreeAttributeDecorator("title", helpMessage));
 		    UIOutput.make(tofill, (pageItem.getPageId() == 0 ? "helpimage" : "helpimage2")).
-			decorate(new UIFreeAttributeDecorator("alt",
-			         messageLocator.getMessage("simplepage.help-button")));
+			decorate(new UIFreeAttributeDecorator("alt", helpMessage));
 		    UIOutput.make(tofill, (pageItem.getPageId() == 0 ? "helpnewwindow" : "helpnewwindow2"), 
 				  messageLocator.getMessage("simplepage.opens-in-new"));
 		    UILink.make(tofill, "directurl").
