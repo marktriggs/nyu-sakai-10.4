@@ -86,7 +86,7 @@
 
 		<gbx:spreadsheetUI 
 			colLock="#{rosterBean.colLock}"
-			initialHeight="200px"
+			initialHeight="400px"
 			value="#{rosterBean.studentRows}" 
 			binding="#{rosterBean.rosterDataTable}" 
 			sortColumn="#{rosterBean.sortColumn}"
