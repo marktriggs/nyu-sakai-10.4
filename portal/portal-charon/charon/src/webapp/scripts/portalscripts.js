@@ -513,6 +513,16 @@ utils_trim = function(stringToTrim){
     return stringToTrim.replace(/^\s+|\s+$/g, "");
 };
 
+function publishSite(siteId) { 
+    var reqUrl = '/direct/site/'+siteId+"/edit"; 
+    var resp = $.ajax({ 
+      type: 'POST', 
+      data: 'published=true', 
+      url: reqUrl, 
+      success: function() { location.reload(); } 
+    }).responseText; 
+}
+
 var setupSkipNav = function(){
     //function called from site.vm to enable skip links for all browsers
      $('#skipNav a.internalSkip').click(function(){
