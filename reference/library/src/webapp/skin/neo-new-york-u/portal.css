@@ -46,6 +46,10 @@ body.portalBody {
     font-size: 15px;
 }
 
+.subnav .toolMenuIcon {
+    display: none;
+}
+
 .menuTitle {
     margin: 5px 10px;
     display:inline-block;
