@@ -1913,3 +1913,14 @@ h3 [class*="message"] {
 .radioOptionSelected {
   background: #D6E4F4;
 }
+span#cke_1_bottom {
+    height: 33px;
+}
+span#cke_1_bottom:after {
+    content: 'Ctrl+Right-Click to access the editor\'s context menu';
+    position: absolute;
+    bottom: 3px;
+    left: 13px;
+    text-shadow: 1px 1px 1px #FFF;
+}
+
