@@ -1147,7 +1147,7 @@ public class UserPrefsTool
 		}
 
 		List mySites = SiteService.getSites(org.sakaiproject.site.api.SiteService.SelectionType.ACCESS, null, null, null,
-				org.sakaiproject.site.api.SiteService.SortType.TITLE_ASC, null);
+				org.sakaiproject.site.api.SiteService.SortType.CREATED_ON_DESC, null);
 		// create excluded and order list of Sites and add balance mySites to excluded Site list for display in Form
 		List ordered = new Vector();
 		List excluded = new Vector();
