@@ -43,4 +43,14 @@
 	</h:panelGroup>
 </h:panelGrid>
 
-
+<script>
+  // CLASSES-1456 set the current toolbar item
+  $(function() {
+    $(".navIntraTool.actionToolbar li").each(function() {
+      var $menuItem = $(this);
+      if ($menuItem.find("a").length == 0) {
+        $menuItem.find("span").addClass("current");
+      }
+    });
+  });
+</script>
