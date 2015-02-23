@@ -55,7 +55,7 @@
                                                 #if (${tool.externalNews})
                                                     <a class="external-news" target="_blank" href="${tool.externalNews.url}" title="${tool.externalNews.label}"
                                                        onclick="openWindow('${tool.externalNews.url}', 
-                                                                   '${tool.externalNews.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); 
+                                                                   '${tool.externalNews.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); 
                                                                    return false"
                                                     >
                                                       ${tool.externalNews.label}
@@ -66,7 +66,7 @@
                                                     #if (${tool.externalHelp})
                                                        <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}"
                                                           onclick="openWindow('${tool.externalHelp.url}', 
-                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); 
+                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); 
                                                                    return false"
                                                        >
                                                           <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
@@ -105,7 +105,7 @@
                                                     #if (${tool.externalHelp})
                                                        <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}"
                                                           onclick="openWindow('${tool.externalHelp.url}', 
-                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); 
+                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); 
                                                                    return false"
                                                        >
                                                           <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
@@ -194,7 +194,7 @@
                                                     #if (${tool.externalHelp})
                                                        <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}"
                                                           onclick="openWindow('${tool.externalHelp.url}', 
-                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); 
+                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); 
                                                                    return false"
                                                        >
                                                           <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
@@ -233,7 +233,7 @@
                                                     #if (${tool.externalHelp})
                                                        <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}"
                                                           onclick="openWindow('${tool.externalHelp.url}', 
-                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); 
+                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); 
                                                                    return false"
                                                        >
                                                           <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
