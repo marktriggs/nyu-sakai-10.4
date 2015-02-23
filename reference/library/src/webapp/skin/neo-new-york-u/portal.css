@@ -253,6 +253,15 @@ form#loginForm input#submit {height: 28px !important; margin: 0 7px;}
 #loginLinks .nav-menu > span.drop {
     display: block !important;
 }
+#loginLinks .nav-menu .nav-submenu > .submenuitem:first-child {
+  border-bottom: 1px solid #DDD;
+  padding: 0 10px 12px;
+  width: auto;
+}
+#loginLinks .nav-menu .nav-submenu > .submenuitem:first-child:hover {
+  background: none !important;
+}
+
 /* link to toggle the user info and controls */
 #mastLogin span.drop {
     cursor: pointer;
@@ -512,7 +521,7 @@ ul.topnav li ul.subnav li:hover, ul.topnav li ul.subnav li a:hover, ul.topnav li
 
     text-decoration: none;
     color: #000;
-    background-color: #E7E7EB;
+    background-color: #D6E5F6;
     outline:none;
 }
 /* link to site */
