@@ -1356,7 +1356,7 @@ input[type="checkbox"][disabled="true"]:hover {
 
 [class*="icon-sakai"],
 [class*="icon-nyu"] {
-    font-family:"nyu-classes-icons"
+    font-family:"nyu-classes-icons";
 }
 
 [class*="icon-sakai"]:before,
@@ -1414,7 +1414,8 @@ input[type="checkbox"][disabled="true"]:hover {
 #toggleNormal:after,
 .icon-home:before {
     margin:0 .25em 0 0;
-    padding:.25em
+    padding:.25em;
+    font-family:"nyu-classes-icons" !important;
 }
 
 [class*="icon-sakai"]:before,
@@ -2446,4 +2447,9 @@ span.returnheader.nextprev a:hover {
 .portletTitle .title > span.returnheader.nextprev a:after:hover {
   content: '';
   display: none;
+}
+
+/* SU-81 */
+#toolSelectionList ul li {
+  font-family:  'Helvetica Neue','Arial',sans-serif !important;
 }
