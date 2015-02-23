@@ -3,7 +3,7 @@
  */
 /* SECTION 1 GENERIC SELECTORS */
 body {
-    font-family:  'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif !important;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
     font-size: 80%;
     font-weight: 300;
     color: #444;
@@ -18,11 +18,11 @@ hr.itemSeparator {
 }
 /* SECTION 2 LINKS */
 a:link {
-    color: #00acda;
+    color: #F93838;
     text-decoration: none;
 }
 a:visited {
-    color: #00acda;
+    color: #BF3B3B;
     text-decoration: none;
 }
 a:hover, a:active {
@@ -72,7 +72,7 @@ tr.selectedMove a:link, tr.selectedMove a:visited {
     text-decoration: none !important;
 }
 .listNav div.instruction, .searchNav div.instruction {
-    font-family:  'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
 }
 /* links associated with an item in alist */
 /* see links below announcement title in ann list */
@@ -116,7 +116,7 @@ see: http://www.quirksmode.org/bugreports/archives/2005/07/Wrapped_inlinenowrap_
     display: inline-block;
     color: #555;
     text-transform: uppercase;
-    font-family:  'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
     font-weight: 300;
 }
 .navIntraTool a:hover {
@@ -438,7 +438,7 @@ tr#selectedReorder td.arrowHere {
 /* see: assignment */
 .discTria {
     background-color: #ddd;
-    font-family:  'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
 }
 /* SECTION 6 HIERARCHY */
 /* headers are used in many places for structuring things semantically - these are the plain headers - below there are others contextually defined */
@@ -446,7 +446,7 @@ tr#selectedReorder td.arrowHere {
     color: #555;
     padding: 0;
     font-weight: 100;
-    font-family: 'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
     margin: 1em 0;
     background-color: transparent !important;
 }
@@ -463,7 +463,7 @@ h3, h4, h5 {
     color: #555;
     padding: 0;
     font-weight: 100;
-    font-family: 'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
     margin: 1em 0 0 0;
     background-color: transparent !important;
 }
@@ -477,14 +477,14 @@ see: resources, any legacy list */
     font-size: 1em;
     background: none;
     font-weight: 300;
-    font-family: 'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
 }
 /* SECTION 7 INPUTS */
 /* see: create any item */
 label {
     color: #000;
     font-weight: 100;
-    font-family: 'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
     margin-top: .3em;
 }
 /* a required marker for a shorttext label/input pair */
@@ -510,7 +510,7 @@ label {
 textarea {
     padding: .1em .3em;
     border: 1px solid #bbb;
-    font-family:  'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
     font-size: 100%;
 }
 textarea:focus {
@@ -554,16 +554,14 @@ textarea.cke_source:focus {
 }
 .navIntraTool {
     margin: 0 !important;
-    font-family:  'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
     font-size: 80%;
     text-align: left;
     background: transparent;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #EEE;
+    background: #f6f6f6;
 }
-.navIntraTool:hover {
-    background: #f5f5f5;
-    border-bottom: 1px solid #d9d9d9;
-}
+
 /* Button styling
 Turns the old links into buttons. The many different ways the tools have implemented the links in the past forces us to use these every specific and many selectors. The proper way is to use a UL with LIs as the buttons. */
 .navIntraTool>li>span, .navIntraTool>form>li, .navIntraTool>span, .navIntraTool>a, .navIntraTool>div>a, div.navIntraTool>ul>li>a, div.navIntraTool>ul>li>span>a, div.navIntraTool>ul>a, .navIntraTool>li.nav_item>a, ul.navIntraTool>li>a {
@@ -601,7 +599,9 @@ ul.navIntraTool>li>span.inactive {
     background-color: #fb5617 !important;
 }
 .navIntraTool li span.current, .navIntraTool li span.current, .navIntraTool .current {
-    color: #fff !important; text-transform: uppercase !important; background-color: #fb5617 !important;
+    color: #fff !important; text-transform: uppercase !important;
+    background-color: #3698db !important;
+    border-color: #3698db !important;
 }
 .navIntraTool li span.current:hover, .navIntraTool li span.current:hover, .navIntraTool .current:hover,
 .navIntraTool li span.current:active, .navIntraTool li span.current:active, .navIntraTool .current:active,
@@ -698,7 +698,7 @@ ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {ba
 }
 .navIntraTool #searchField {
     border: 1px solid #ccc !important;
-    font-family:  'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
     font-size: 1em;
     padding: 3px 4px !important;
 }
@@ -763,7 +763,7 @@ visibility gets toggled */
 #submitnotif {
     background: #fff url(images/warn-a.gif) .3em .3em no-repeat;
     border: 1px solid #b11;
-    font-family:  'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
     clear: none;
     color: #b11;
     font-size: small;
@@ -1174,7 +1174,7 @@ input[type="submit"], input[type="button"], input[type="reset"] {
     min-height: 24px !important;
     text-transform: uppercase;
     color: #555 !important;
-    font-family: 'Gotham SSm A','Gotham SSm B','Arial','Verdana',sans-serif;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
     border: none;
     border: 1px solid #ccc !important;
 }
