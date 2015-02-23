@@ -2575,3 +2575,10 @@ img[src$="cal.gif"] {
 .toggleAnchor {
   background: 
 }
+
+
+/* CLASSES-1463 */
+table.tablesorter .header {
+  padding-right: 16px;
+  cursor: pointer;
+}
