@@ -4,7 +4,7 @@
 /* SECTION 1 GENERIC SELECTORS */
 body {
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
-    font-size: 80%;
+    font-size: 0.9em;
     font-weight: 300;
     color: #444;
 }
@@ -440,7 +440,6 @@ tr#selectedReorder td.arrowHere {
 .portletBody h2, h6 {
     color: #555;
     padding: 0;
-    font-weight: 100;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
     margin: 1em 0;
     background-color: transparent !important;
@@ -457,7 +456,6 @@ h4, h5, h6 {
 h3, h4, h5 {
     color: #555;
     padding: 0;
-    font-weight: 100;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
     margin: 1em 0 0 0;
     background-color: transparent !important;
@@ -478,7 +476,6 @@ see: resources, any legacy list */
 /* see: create any item */
 label {
     color: #000;
-    font-weight: 100;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
     margin-top: .3em;
 }

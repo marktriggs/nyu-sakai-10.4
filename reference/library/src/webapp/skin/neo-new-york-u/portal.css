@@ -4,7 +4,7 @@ body.portalBody {
     width: 100%;
     padding: 0;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
-    font-size: .8em;
+    font-size: .9em;
     margin: 0;
     background-repeat: repeat-x;
 }
@@ -454,12 +454,12 @@ ul.topnav li ul.subnav li:hover, ul.topnav li ul.subnav li a:hover, ul.topnav li
 /* link to site */
 ul.topnav li a {
     padding: 8px 7px 8px 8px;
-    font-size: 13px;
+    font-size: 14px;
     color: #555;
     text-decoration: none;
     float: left;
     display: block;
-    font-weight: normal;
+    font-weight: 200;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
 }
 /* Note:not needed? tool submenu for sites in site list
