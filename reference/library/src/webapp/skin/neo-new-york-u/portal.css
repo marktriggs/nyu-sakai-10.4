@@ -46,7 +46,7 @@ body.portalBody {
     font-size: 15px;
 }
 
-.subnav .toolMenuIcon {
+.subnav .toolMenuIcon, .otherSiteTool .toolMenuIcon {
     display: none;
 }
 

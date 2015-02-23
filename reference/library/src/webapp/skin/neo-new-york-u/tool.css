@@ -1303,10 +1303,6 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
     content:"\e021"
 }
 
-.icon-sakai-chat:before {
-    content:"\e02c"
-}
-
 .icon-sakai-mailbox:before {
     content:"\e032"
 }
@@ -1317,10 +1313,6 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 
 .icon-sakai-sitesetup:before {
     content:"\e603"
-}
-
-.icon-sakai-messages:before {
-    content:"\e02f"
 }
 
 .icon-sakai-realms:before {
@@ -1367,10 +1359,6 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
     content:"\e017"
 }
 
-.icon-sakai-forums:before {
-    content:"\e030"
-}
-
 .icon-sakai-iframe:before {
     content:"\e60f"
 }
@@ -1393,10 +1381,6 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 
 .icon-sakai-blogwow:before {
     content:"\e043"
-}
-
-.icon-sakai-sections:before {
-    content:"\e02a"
 }
 
 .icon-sakai-kaltura:before {
@@ -1430,6 +1414,89 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 .icon-sakai-subsite:before {
     content:""
 }
+
+
+.icon-sakai-rwiki:before {
+    content:"\e038"
+}
+
+.icon-sakai-bbb:before {
+    content:"\e03C"
+}
+
+.icon-sakai-dashboard:before {
+    content:"\e036"
+}
+
+.icon-sakai-mailtool:before {
+    content:"\e05D"
+}
+
+.icon-sakai-rsf-evaluation:before {
+    content:"\e046"
+}
+
+.icon-sakai-basiclti:before {
+    content:"\e037"
+}
+
+.icon-sakai-scorm-tool:before {
+    content:"\e602"
+}
+
+.icon-nyu-mediasite-poly:before {
+    content:"\e04F"
+}
+
+.icon-nyu-mediasite-stern:before {
+    content:"\e04F"
+}
+
+.icon-nyu-mediasite-libraries:before {
+    content:"\e04F"
+}
+
+.icon-nyu-panopto-law:before {
+    content:"\e04F"
+}
+
+.icon-sakai-podcasts:before {
+    content:"\e02F"
+}
+
+.icon-sakai-poll:before {
+    content:"\e03E"
+}
+
+.icon-sakai-scorm-singlepackage-tool:before {
+    content:"\e602"
+}
+
+.icon-sakai-search:before {
+    content:"\e048"
+}
+
+.icon-sakai-signup:before {
+    content:"\e02A"
+}
+
+.icon-sakai-messages:before {
+    content:"\e05D"
+}
+
+.icon-sakai-chat:before {
+    content:"\e030"
+}
+
+.icon-sakai-sections:before {
+    content:"\e601"
+}
+
+.icon-sakai-forums:before {
+    content:"\e02C"
+}
+
+
 
 /* Button Overrides */
 .button.active, a.button.active, button.active, input[type="button"].active, input[type="submit"].active, input[name="eventSubmit_doSearch"], input[name=":submit"], #siteStatus a, .portletBody font a:nth-of-type(1), input[value="Publish entry"] {
