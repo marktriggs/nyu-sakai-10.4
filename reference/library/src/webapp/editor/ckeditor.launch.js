@@ -55,6 +55,12 @@ sakai.editor.editors.ckeditor.launch = function(targetId, config, w, h) {
         folder = "CurrentFolder=" + collectionId
     }
 
+    var imageType = "Image";
+    if (config && config.encodedImage) {
+	imageType = "EncodedImage";
+    }
+
+
     var language = sakai.locale && sakai.locale.userLanguage || '';
     var country = sakai.locale && sakai.locale.userCountry || null;
 
@@ -106,8 +112,8 @@ sakai.editor.editors.ckeditor.launch = function(targetId, config, w, h) {
             ['BidiLtr', 'BidiRtl' ],
             ['Link','Unlink','Anchor'],
             (sakai.editor.enableResourceSearch
-                ? ['AudioRecorder','ResourceSearch', 'Image','Movie',/*'Flash',*/'Table','HorizontalRule','Smiley','SpecialChar','fmath_formula']
-                : ['AudioRecorder','Image','Movie',/*'Flash',*/'Table','HorizontalRule','Smiley','SpecialChar','fmath_formula']),
+                ? ['AudioRecorder','ResourceSearch',imageType,'Movie',/*'Flash',*/'Table','HorizontalRule','Smiley','SpecialChar','fmath_formula']
+                : ['AudioRecorder',imageType,'Movie',/*'Flash',*/'Table','HorizontalRule','Smiley','SpecialChar','fmath_formula']),
             '/',
             ['Styles','Format','Font','FontSize'],
             ['TextColor','BGColor'],
@@ -196,7 +202,7 @@ sakai.editor.editors.ckeditor.launch = function(targetId, config, w, h) {
 			 //ckconfig.extraPlugins+="atd-ckeditor,";
 			 //ckconfig.contentsCss = basePath+'/atd-ckeditor/atd.css';
 
-			 ckconfig.extraPlugins+="audiorecorder,movieplayer,wordcount,fmath_formula,audio,kalturaflash,magicembed,youtube,ckeditor_wiris";
+			 ckconfig.extraPlugins+="encodedimage,audiorecorder,movieplayer,wordcount,fmath_formula,audio,kalturaflash,magicembed,youtube,ckeditor_wiris";
     })();
 
 	  CKEDITOR.replace(targetId, ckconfig);

@@ -585,7 +585,9 @@ public class RichTextEditArea extends Renderer
         // end fckeditor
     } else {
     // must be ckeditor
-    	writer.write("\n\tsakai.editor.launch(textarea_id,'','" + outCol + "','" + outRow + "');");
+	//Fix up the launch for the embedded editor
+    	writer.write("\n\tvar config = {}; config.encodedImage = true;");
+    	writer.write("\n\tsakai.editor.launch(textarea_id,config,'" + outCol + "','" + outRow + "');");
     }
     writer.write("\n\t}\n");
      
