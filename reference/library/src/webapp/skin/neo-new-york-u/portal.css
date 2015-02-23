@@ -382,7 +382,7 @@ ul.topnav li.nav-menu:hover, ul.topnav li.more-tab:hover {
 }
 /* current site control rendering */
  ul.topnav li.nav-selected, ul.topnav li.nav-selected:hover {
-     background: #3698DB;
+     background: #2F7FAB;
      border: 1px solid transparent;
 /*
     background: -moz-linear-gradient(top, #008DB9 0%, #007194 100%);
@@ -748,7 +748,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
 
 /* the current tool */
 #toolMenu li.selectedTool a {
-    color: #3698db !important;
+    color: #2F7FAB !important;
     cursor: default;
     background:#D6E5F6;
     -moz-border-radius: 0 0 0 0;

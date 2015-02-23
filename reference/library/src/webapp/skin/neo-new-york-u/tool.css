@@ -597,14 +597,14 @@ ul.navIntraTool>li>span.inactive {
 }
 .navIntraTool li span.current, .navIntraTool li span.current, .navIntraTool .current {
     color: #fff !important;
-    background-color: #3698db !important;
-    border-color: #3698db !important;
+    background-color: #2F7FAB !important;
+    border-color: #2F7FAB !important;
 }
 .navIntraTool li span.current:hover, .navIntraTool li span.current:hover, .navIntraTool .current:hover,
 .navIntraTool li span.current:active, .navIntraTool li span.current:active, .navIntraTool .current:active,
 .navIntraTool li span.current:focus, .navIntraTool li span.current:focus, .navIntraTool .current:focus {
     color: #FFF !important;
-    background-color: #3698db !important;
+    background-color: #2F7FAB !important;
 }
 ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {
   background-color: #ddd !important;
