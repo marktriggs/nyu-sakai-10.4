@@ -801,10 +801,10 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     cursor: pointer;
 }
 .toolMenusActive {
-    background: url(images/toolMenusActive.png)  no-repeat  10px -40px;
+    background: url(images/subnav_btn.png) no-repeat 10px -3px;
 }
 .toolMenusActive:hover {
-    background: url(images/toolMenusActive.png) no-repeat 10px -5px;
+    background: url(images/subnav_btn.png) no-repeat  10px -38px;
 }
 /* site hierarchy breadcrumb  */
 #siteHierarchy {
