@@ -122,6 +122,7 @@ function printPreview(target){
 				</td>
 			</tr>
 
+			#if ($!allowUpdate)
                         <!-- NYU modifications here -->
 			<tr>
 				<th>School</th>
@@ -141,6 +142,7 @@ function printPreview(target){
 					$!siteLocation
 				</td>
 			</tr>
+			#end
 
 
 			#if ($!allowUpdate)
@@ -194,6 +196,7 @@ function printPreview(target){
 		#end
 		
 
+		#if ($!allowUpdate)
 			<tr>
 				<th>
 					$tlang.getString("sitegen.siteinfolist.sitecont")
@@ -202,6 +205,8 @@ function printPreview(target){
 					$validator.escapeHtml($!contactName)#if($!contactEmail && !$contactEmail.equals("")), <a href="mailto:$!contactEmail">$!contactEmail</a>#end
 				</td>
 			</tr>
+		#end
+
 		#if ($!allowUpdate)
 			<tr> 
 				<th>

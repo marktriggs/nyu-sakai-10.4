@@ -1,5 +1,5 @@
 var OLD_TOOL_LABEL = 'Settings';
-var SETTINGS_TOOL_LABEL = 'Joinable Groups';
+var SETTINGS_TOOL_LABEL = 'Site Groups';
 
 function renameSettingsToJoinable(title) {
     if (showSiteInfoAsSettings || title != OLD_TOOL_LABEL) {
@@ -25,7 +25,7 @@ var findSettingsMenuLink = function () {
 
 var switchToJoinableGroups = function (link) {
     var title = $(link).find('.menuTitle');
-    title.text('Joinable Groups')
+    title.text(SETTINGS_TOOL_LABEL)
 
     var iconSpan = $(link).find('span.toolMenuIcon');
     iconSpan.removeClass('icon-sakai-siteinfo').addClass('icon-sakai-joinable-groups');

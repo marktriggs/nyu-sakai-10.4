@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Locale;
+import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -477,10 +478,17 @@ public class SiteHandler extends WorksiteHandler
 			rcontext.put("showSiteInfoAsSettings", "false");
 			rcontext.put("showJoinableGroups", "false");
 
-			for (Group g : site.getGroups()) {
-				if (g.getProperties().getProperty(Group.GROUP_PROP_JOINABLE_SET) != null) {
-					rcontext.put("showJoinableGroups", "true");
-					break;
+			Collection<Group> userGroups = site.getGroupsWithMember(session.getUserId());
+			if (userGroups != null && !userGroups.isEmpty()) {
+				// If the user is already in a group, show the tool
+				rcontext.put("showJoinableGroups", "true");
+			} else {
+				// Or if there are joinable groups they may want to join, show it.
+				for (Group g : site.getGroups()) {
+					if (g.getProperties().getProperty(Group.GROUP_PROP_JOINABLE_SET) != null) {
+						rcontext.put("showJoinableGroups", "true");
+						break;
+					}
 				}
 			}
 		}
