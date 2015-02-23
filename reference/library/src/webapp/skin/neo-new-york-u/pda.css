@@ -1078,9 +1078,11 @@ header nav {
 
 footer {
   border-top: 1px solid #AAA;
+  font-size: 0.8em;
 }
-
-
+footer #switch-link-w {
+  margin-bottom: 20px;
+}
 footer .nyu-logo {
   display: inline-block;
 }
@@ -1093,6 +1095,18 @@ footer .nyu-logo:before {
 footer .nyu-logo img {
   display: none;
 }
+footer #footerLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+footer #footerLinks li {
+  margin-bottom: 10px;
+}
+footer #footerLinks li:last-child {
+	margin-bottom: 0;
+}
+
 
 .portletpda > section {
   clear: both;

@@ -365,6 +365,28 @@ ${responseBody}
 #end
 </span>
 </div>
+
+  #if ( $selectedTimeZone )
+    <p class="selectedTimeZone">Timezone: ${selectedTimeZone}</p>
+  #end
+
+  <div class="footerExtNav">
+    <ul id="footerLinks">
+      #foreach ( $bn in $bottomNav )
+      <li><span>${bn}</span></li>
+      #end
+    </ul>
+  </div>
+
+  <p class="sakaiCopyrightInfo">
+    ${bottomNavCopyright}
+  </p>
+
+  <p class="footerServerInfo">
+    ${bottomNavServer} - Sakai ${bottomNavSakaiVersion}
+  </p>
+
+
         <a href="${portalTopUrl}" class="nyu-logo">
             <img src="${pageSkinRepo}/${pageSkin}/images/nyu_logo.png"/>
         </a>
