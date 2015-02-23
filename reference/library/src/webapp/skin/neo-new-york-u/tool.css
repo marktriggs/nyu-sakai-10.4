@@ -2539,8 +2539,16 @@ img[src$="cal.gif"] {
 }
 
 
-
 /* CLASSES-1454 */
 #participantForm #siteMembers input[name=selectedUser] {
   float: right;
+}
+
+
+/* CLASSES-1457 */
+.chat-block, .chat-select-date {
+  margin: 20px 0;
+}
+.chat-block label {
+  margin: 0 10px;
 }
