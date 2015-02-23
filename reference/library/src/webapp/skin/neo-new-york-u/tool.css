@@ -1973,3 +1973,7 @@ span#cke_1_bottom:after {
     text-shadow: 1px 1px 1px #FFF;
 }
 
+.cke_resizer.cke_resizer_ltr {
+    position: relative;
+    top: 13px;
+}
