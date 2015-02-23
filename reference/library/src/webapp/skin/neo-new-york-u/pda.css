@@ -1,264 +1,337 @@
 /*pda portal*/
 html {
-    font-family: Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
 }
+
 .portalBodyPDA {
-    margin: 0;
-    padding: 0;
-    width: auto;
+  margin: 0;
+  padding: 0;
+  width: auto;
 }
+
 /*several overrides for tool elements displayed in the pda portal*/
 /*the menu for sites*/
 .portletpda .portletBody {
-    font-size: 13px !important;
+  font-size: 13px !important;
 }
+
 /* Pad all direct descendants of .portletBody that are not a form (jsf tools) */
 .portletpda .portletBody > *:not(form) {
-    padding: 0 10px;
+  padding: 0 10px;
 }
-.portletpda .portletBody input[ type ="button"], .portletpda .portletBody input[ type = "submit"], .portletpda .portletBody input[ type = "reset"], .portletpda .portletBody input[ type = "text"], .portletpda .portletBody input[ type = "radio"], .portletpda .portletBody input[ type = "checkbox"], .portletpda .portletBody select {
-    margin: .3em 0;
-    font-size: .8em !important;
+
+.portletpda .portletBody input[type="button"], .portletpda .portletBody input[type="submit"], .portletpda .portletBody input[type="reset"], .portletpda .portletBody input[type="text"], .portletpda .portletBody input[type="radio"], .portletpda .portletBody input[type="checkbox"], .portletpda .portletBody select {
+  margin: .3em 0;
+  font-size: .8em !important;
 }
-.portletpda .portletBody input[type ="text"] {
-    margin: .3em 0;
-    font-size: 1.1em !important;
+
+.portletpda .portletBody input[type="text"] {
+  margin: .3em 0;
+  font-size: 1.1em !important;
 }
+
 .portletpda .portletBody .shorttext, .portletpda .portletBody .longtext, .portletpda .portletBody .checkbox {
-    padding: .3em 0;
+  padding: .3em 0;
 }
+
 .portletpda .portletBody .shorttext label, .portletpda .portletBody .longtext label, .portletpda .portletBody .checkbox label {
-    font-size: 1.1em;
+  font-size: 1.1em;
 }
+
+.portletpda .shorttext label, .portletpda .filepicker label {
+  float: none;
+  margin: 0;
+  width: auto;
+  display: block;
+}
+
 .portalBodyPDA .portletBody .navIntraTool {
-    padding: .5em 0;
+  padding: .5em 0;
 }
+
 .portalBodyPDA .portletBody .navIntraTool a {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
+
 #pda-portlet-menu {
-    font-size: 16px;
-    font-family: Helvetica, Arial, sans-serif;
-    width: 100%;
-    background: #009DCE;
-    background: -moz-linear-gradient(top, #009DCE 0%, #007EA5 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#009DCE), color-stop(100%,#007EA5));
-    background: -webkit-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: -o-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: -ms-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    list-style: none;
-    color: #fff;
-    margin: 0;
-    clear:  both;
-    overflow:  hidden;
-    line-height: 23px;
-    padding: 0;
-}
-#pda-portlet-menu li {
-    margin-left: 0;
-    padding: 0 10px;
-    list-style: none;
-    float: left;
-    text-shadow: rgba(0, 0, 0, 0.597656) 0px -1px 0px;
-}
-#pda-portlet-menu li.instanceNote {
-    padding-top: 7px;
-}
-#pda-portlet-menu li.backLink {
-    background: url(images/pda-back-l.png) 0 0 no-repeat;
-    padding: 0px 0 0 10px !important;
-    margin: 3px;
-    display: block;
-    height: 32px;
-}
-#pda-portlet-menu li.backLink span {
-    background: url(images/pda-back-m.png) 0 0 repeat;
-    display: block;
-    height: 32px;
-    padding: 0 !important;
-    overflow: hidden;
+  background: #efefef;
+  min-height: 38px;
+  color: #57068c;
+  margin: 0;
+  padding: 3px 0;
+  overflow: hidden;
+  list-style: none;
 }
 #pda-portlet-menu a {
-    text-decoration: none !important
+  display: table-cell;
 }
-#pda-portlet-menu li.backLink span a {
-    padding: 5px 10px 5px 5px !important;
-    display: block;
-    background: url(images/pda-back-r.png) top right no-repeat;
+#pda-portlet-menu a, #pda-portlet-menu a:hover {
+  text-decoration: none !important;
 }
-#pda-portlet-menu li.loginLink,#pda-portlet-menu li.logoutLink, #switch-link-w,.helpLink {
-    background: rgb(0,157,206);
-    background: -moz-linear-gradient(top, rgba(0,157,206,1) 0%, rgba(0,127,166,1) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,157,206,1)), color-stop(100%,rgba(0,127,166,1)));
-    background: -webkit-linear-gradient(top, rgba(0,157,206,1) 0%,rgba(0,127,166,1) 100%);
-    background: -o-linear-gradient(top, rgba(0,157,206,1) 0%,rgba(0,127,166,1) 100%);
-    background: -ms-linear-gradient(top, rgba(0,157,206,1) 0%,rgba(0,127,166,1) 100%);
-    background: linear-gradient(top, rgba(0,157,206,1) 0%,rgba(0,127,166,1) 100%);
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 1px solid #45505D;
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: bold;
-    height: 30px;
-    line-height: 30px;
-    margin: 0;
-    padding: 0 5px;
-    text-align: center;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    text-shadow: rgba(0, 0, 0, 0.597656) 0 -1px 0;
-    white-space: nowrap;
-    width: auto;
-    margin: 3px 5px;
-    display: block;
-}
-#pda-portlet-menu li.loginLink span,#pda-portlet-menu li.logoutLink span ,  #switch-link-w span,.helpLink span {}
-#pda-portlet-menu li.loginLink span a,#pda-portlet-menu li.logoutLink span a, #switch-link-w span a, .helpLink span a {}
-#switch-link-w {
-    margin: auto;
-    width: 50%;
-}
-#switch-link-w span a {
-    color: #fff;
-    text-decoration: none;
-}
-#pda-portlet-menu li.resetToolLink a, #pda-portlet-menu  li.jsreditLink a {
-    padding-left: 10px;
-}
-#pda-portlet-menu li.resetToolLink, #pda-portlet-menu li.jsreditLink {
-    margin-top: 10px;
+#pda-portlet-menu li:first-child {
+  padding-left: 3px;
 }
 #pda-portlet-menu a img {
-    border: none
-}
-/*put non site links to the right*/
-#pda-portlet-menu li.loginLink, #pda-portlet-menu li.logoutLink, #pda-portlet-menu li.helpLink,#pda-portlet-menu li.usersPresentLink {
-    float: right;
+  border: none;
 }
 #pda-portlet-menu li.helpLink {
-    margin-left: 5px;
+  position: absolute;
+  top: 8px;
+  right: 67px;
+  margin-top: 0;
 }
-#pda-portlet-menu li span a {
-    color: #fff;
-    text-decoration: none !important;
+#pda-portlet-menu li.helpLink a {
+  color: white;
 }
-#pda-portlet-menu li span a:hover {
-    text-decoration: none !important;
+#pda-portlet-menu li {
+  display: table-cell;
+  min-height: 30px;
 }
-#pda-portlet-menu li span a:focus {
-    outline: 1px dotted #fff !important;
+#pda-portlet-menu .backLink a {
+  padding: 10px 12px 10px 20px;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  text-shadow: 0 1px 0 #000;
+  white-space: nowrap;
 }
+#pda-portlet-menu .crumb:first-child a {
+  background-color: #57068c;
+}
+#pda-portlet-menu .crumb:nth-child(2) a {
+  background-color: #7508bd;
+}
+#pda-portlet-menu .crumb:nth-child(3) a {
+  background-color: #940aee;
+}
+#pda-portlet-menu .crumb:nth-child(4) a {
+  background-color: #aa35f6;
+}
+#pda-portlet-menu .crumb:nth-child(5) a {
+  background-color: #be66f8;
+}
+#pda-portlet-menu .crumb:nth-child(6) a {
+  background-color: #d396fb;
+}
+#pda-portlet-menu li.backLink:first-child a {
+  padding-left: 14px;
+  border-radius: 5px 0 0 5px;
+}
+#pda-portlet-menu .crumb a::after,
+#pda-portlet-menu .crumb a::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  margin-top: -18px;
+  border-top: 18px solid transparent;
+  border-bottom: 17px solid transparent;
+  border-left: 14px solid;
+  right: -14px;
+}
+#pda-portlet-menu .crumb a::after {
+  z-index: 2;
+}
+#pda-portlet-menu .crumb a::before {
+  right: -14px;
+  z-index: 1;
+}
+#pda-portlet-menu .crumb:first-child a::after,
+#pda-portlet-menu .crumb:first-child a::before,
+#pda-portlet-menu .crumb:nth-child(2) a::before {
+  border-left-color: #57068c;
+  border-right-color: #57068c;
+}
+#pda-portlet-menu .crumb:nth-child(2) a::after,
+#pda-portlet-menu .crumb:nth-child(3) a::before {
+  border-left-color: #7508bd;
+  border-right-color: #7508bd;
+}
+#pda-portlet-menu .crumb:nth-child(3) a::after,
+#pda-portlet-menu .crumb:nth-child(4) a::before {
+  border-left-color: #940aee;
+  border-right-color: #940aee;
+}
+#pda-portlet-menu .crumb:nth-child(4) a::after,
+#pda-portlet-menu .crumb:nth-child(5) a::before {
+  border-left-color: #aa35f6;
+  border-right-color: #aa35f6;
+}
+#pda-portlet-menu .crumb:nth-child(5) a::after,
+#pda-portlet-menu .crumb:nth-child(6) a::before {
+  border-left-color: #be66f8;
+  border-right-color: #be66f8;
+}
+#pda-portlet-menu .crumb:nth-child(6) a::after {
+  border-left-color: #d396fb;
+  border-right-color: #d396fb;
+}
+#pda-portlet-menu .crumb.site-my-workspace a {
+  background-color: #555;
+}
+#pda-portlet-menu .crumb.site-my-workspace a::after {
+  border-left-color: #555;
+  border-right-color: #555;
+}
+#pda-portlet-menu .crumb a:hover {
+  background-color: #d11255;
+}
+#pda-portlet-menu a:hover::after {
+  border-right-color: #d11255 !important;
+  border-left-color: #d11255 !important;
+}
+#pda-portlet-menu .current {
+  font-weight: bold;
+  background: none;
+  padding-left: 24px;
+  height: inherit;
+  line-height: 20px;
+  vertical-align: middle;
+  text-shadow: 1px 1px 2px #fff;
+  font-size: 18px;
+}
+#pda-portlet-menu .current::after,
+#pda-portlet-menu .current::before {
+  content: normal;
+}
+#pda-portlet-menu .instanceNote.current {
+  padding-left: 10px;
+  line-height: 2em;
+}
+#pda-portlet-menu .currentToolTitle {
+  margin: 0;
+  padding: 14px 10px 14px 40px;
+  display: block;
+  min-height: initial;
+}
+#pda-portlet-menu .resetToolLink {
+  position: absolute;
+  top: 110px;
+  left: 10px;
+}
+#pda-portlet-menu .current.site-my-workspace {
+  color: #333;
+}
+
+#switch-link-w {
+  margin: auto;
+  width: 50%;
+}
+
+#switch-link-w span a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#pda-portlet-site-menu li.site-my-workspace {
+  border-left: 4px solid #555;
+}
+
 /*all types of links in the breadcrumb are addressed in the markup and can be styled here*/
-.currentSiteParentLink {}
-.currentSiteChildLink {}
-.currentSiteTitle, .currentToolTitle {display:block;margin-top:8px;}
-.helpLink {}
-.logoutLink {}
-.loginLink {}
 /*the list menu (gateway sites, site lists, tool lists, may want to differentiate between them, if so can*/
 #pda-portlet-page-menu, #pda-portlet-site-menu {
-    font-size: 18px !important;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    line-height: 2em;
-    font-family: Helvetica, Arial, sans-serif;
-    border-collapse: collapse;
+  font-size: 18px !important;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 2em;
+  font-family: Helvetica, Arial, sans-serif;
+  border-collapse: collapse;
 }
+
 #pda-portlet-page-menu li, #pda-portlet-site-menu li {
-    margin: 0;
-    padding:.4em;
-    border-bottom: 1px solid #ccc;
+  margin: 0;
+  padding: .4em;
+  border-bottom: 1px solid #ccc;
 }
+
 #pda-portlet-page-menu li.subSites, #pda-portlet-site-menu li.subSites {
-    padding: 0
+  padding: 0;
 }
+
 #pda-portlet-page-menu li.subSites ul, #pda-portlet-site-menu li.subSites ul {
-    list-style: none;
-    margin: 0;
-    padding: 0 !important;
+  list-style: none;
+  margin: 0;
+  padding: 0 !important;
 }
+
 #pda-portlet-page-menu li.subSiteItem, #pda-portlet-site-menu li.subSiteItem {
-    padding-left: 0;
+  padding-left: 0;
 }
+
 .subSiteItem .textPanelFooter {
-    font-size: .8em;
-    font-style: normal;
-    color: #aaa;
+  font-size: .8em;
+  font-style: normal;
+  color: #aaa;
 }
+
 #pda-portlet-page-menu li:hover {
-    background: #eee url(images/pda-list-arrow.png) center right no-repeat;
+  background: #eeeeee url(images/pda-list-arrow.png) center right no-repeat;
 }
+
 #pda-portlet-page-menu > li.subSites {
-    background: none;
+  background: none;
 }
+
 #pda-portlet-page-menu li {
-   background: url(images/pda-list-arrow.png) center right no-repeat;
+  background: url(images/pda-list-arrow.png) center right no-repeat;
 }
+
 #pda-portlet-site-menu li {
-    background: url(images/pda-site-item.png) center right no-repeat;
+  background: url(images/pda-list-arrow.png) center right no-repeat;
 }
+
 #pda-portlet-site-menu a, #pda-portlet-page-menu a {
-    color: #333;
-    text-decoration: none;
-    padding: 0;
-    display: block;
-    margin: 0;
-    width: auto;
-    position:relative;
-}
-.toolMenuIcon { 
-    background-color: transparent;
-    background-image: url(/library/image/silk/fff-sprites/images/famfamfam.png);
-    background-repeat: no-repeat;
-    background-position: -36px -0px;
-    display: inline-block;
-    height: 16px;
-    width: 16px;
-    position:absolute;
-    top:10px;
-    left:5px;
-    vertical-align: middle;
+  color: #333;
+  text-decoration: none;
+  padding: 0;
+  display: block;
+  margin: 0;
+  width: auto;
 }
 
 #pda-portlet-page-menu a {
-    padding-left:40px
+  padding-left: 25px;
+  background-position: left center;
+  background-repeat: no-repeat;
 }
+
 #presdiv {
-    position: absolute;
-    top: 25px;right: 5px;
-    height: 75px;
-    width: 150px;
+  position: absolute;
+  top: 25px;
+  right: 5px;
+  height: 75px;
+  width: 150px;
 }
+
 #presenceIframePDA {
-    border: 1px solid #000;
-    height: 75px;
-    width: 150px;
-    overflow: auto;
+  border: 1px solid #000;
+  height: 75px;
+  width: 150px;
+  overflow: auto;
 }
+
 #pda-footer {
-    padding: 3px;
-    text-align: center;
-    background: #009DCE;
-    background: -moz-linear-gradient(top, #009DCE 0%, #007EA5 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#009DCE), color-stop(100%,#007EA5));
-    background: -webkit-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: -o-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: -ms-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    overflow: hidden;
+  padding: 3px;
+  text-align: center;
+  background: #009DCE;
+  background: -moz-linear-gradient(top, #009dce 0%, #007ea5 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #009dce), color-stop(100%, #007ea5));
+  background: -webkit-linear-gradient(top, #009dce 0%, #007ea5 100%);
+  background: -o-linear-gradient(top, #009dce 0%, #007ea5 100%);
+  background: -ms-linear-gradient(top, #009dce 0%, #007ea5 100%);
+  background: linear-gradient(top, #009dce 0%, #007ea5 100%);
+  overflow: hidden;
 }
+
 .skip {
-    display: inline;
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-    height: 0;
+  display: inline;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  height: 0;
 }
+
 /*
 iPhone, iPod Touch
 Breadcrumb is minimized (logo: link to sites list; site title: link to tool list, tool reload icon link, lti/jsr168 settings icon link).
@@ -266,270 +339,225 @@ Tool title, explicit link to sites, parent site link, help link are hidden. This
 it will make the experience better for any new takers
 */
 @media screen and (max-device-width: 480px) {
-html {
+  html {
     -webkit-text-size-adjust: none;
-}
-#pda-portlet-menu {
+  }
+
+  .notSmallDev {
+    display: none !important;
+  }
+
+  .logoutLink, .loginLink, .switch-link {
     position: absolute;
-    top: 0;
-    padding: 0;
-    height: 38px;
-    font-size: 14px !important;
-    width: 100%;
-    background: #009DCE;
-    background: -moz-linear-gradient(top, #009DCE 0%, #007EA5 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#009DCE), color-stop(100%,#007EA5));
-    background: -webkit-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: -o-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: -ms-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    border-bottom: 1px solid #222;
-    line-height: 23px;
-}
-#pda-portlet-site-menu, #pda-portlet-page-menu, .portletpda .portletBody {
-    margin-top: 40px;
-}
-#pda-portlet-menu a:focus,#pda-portlet-menu a:active {
-    text-decoration: none
-}
-.notSmallDev {
-  display: none !important
-}
-#pda-portlet-menu li {
-    padding-top: 10px;
-    padding-left: 10px;
-    position: relative;
-    height: 35px;
-    width: auto;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    text-shadow: rgba(0, 0, 0, 0.597656) 0px -1px 0px;
-}
-#pda-portlet-menu li.instanceNote a {
-    text-decoration: none;
-    display: block;
-    width: 55px;
-    margin-top: 5px;
-    height: 35px;
-}
-#pda-portlet-menu li.resetToolLink a, #pda-portlet-menu  li.jsreditLink a {
-    padding: 0 2px;
-}
-#pda-portlet-menu li.resetToolLink,#pda-portlet-menu  li.jsreditLink {
-    margin-top: 0;
-}
-#pda-portlet-menu li.helpLink, .currentSiteParentLink, .currentToolTitle {
-    display: none;
-}
-#pda-portlet-menu li span a {
-    color: #fff;
-}
-.logoutLink, .loginLink, .switch-link {
-    position: absolute;
-    top: 0;
+    top: 5px;
     right: 0;
-}
-.logoutLink:active, .loginLink:active, .switch-link:active,.logoutLink:focus, .loginLink:focus, .switch-link:focus {
+  }
+
+  .logoutLink:active, .loginLink:active, .switch-link:active, .logoutLink:focus, .loginLink:focus, .switch-link:focus {
     text-decoration: none !important;
-}
-.sitesLink span a {
-    max-width: 45px !important;
-    text-overflow: ellipsis;
-    overflow: hidden
-}
-.currentSiteTitle {
-    width: 140px !important;
-    margin-top: 0;
-    padding: 0;
-}
-.currentToolTitle span, .currentSiteTitle span {
+  }
+
+  .currentToolTitle span, .currentSiteTitle span {
     display: block;
     margin-top: -2px;
-}
-.currentSiteLink span a {
+  }
+
+  .currentSiteLink span a {
     width: 70px !important;
     text-overflow: ellipsis;
     overflow: hidden;
-}
-#pda-portlet-site-menu li, #pda-portlet-page-menu li {
+  }
+
+  #pda-portlet-site-menu li, #pda-portlet-page-menu li {
     -webkit-tap-highlight-color: #fff;
     -webkit-text-size-adjust: none;
-}
-#pda-portlet-site-menu a, #pda-portlet-page-menu a {
+  }
+
+  #pda-portlet-site-menu a, #pda-portlet-page-menu a {
     width: auto !important;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-.portletMainWrap+#pda-footer {
-    margin-top: 50px
-}
-#pda-footer {
+    -webkit-transform: translateZ(0);
+  }
+
+  .portletMainWrap + #pda-footer {
+    margin-top: 50px;
+  }
+
+  #pda-footer {
     padding: 2px;
     height: 100%;
     background: #009DCE;
-    background: -moz-linear-gradient(top, #009DCE 0%, #007EA5 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#009DCE), color-stop(100%,#007EA5));
-    background: -webkit-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: -o-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: -ms-linear-gradient(top, #009DCE 0%,#007EA5 100%);
-    background: linear-gradient(top, #009DCE 0%,#007EA5 100%);
+    background: -moz-linear-gradient(top, #009dce 0%, #007ea5 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #009dce), color-stop(100%, #007ea5));
+    background: -webkit-linear-gradient(top, #009dce 0%, #007ea5 100%);
+    background: -o-linear-gradient(top, #009dce 0%, #007ea5 100%);
+    background: -ms-linear-gradient(top, #009dce 0%, #007ea5 100%);
+    background: linear-gradient(top, #009dce 0%, #007ea5 100%);
     overflow: hidden;
-}
-.switch-link, .switch-link:visited {
+  }
+
+  .switch-link, .switch-link:visited {
     position: relative;
     top: 0;
     color: #fff !important;
     text-decoration: none !important;
-}
-/*below so that tool toolbar (.navIntraTool) will display*/
-.portletpda ul.navIntraTool>li>span.separator, .portletpda .navIntraTool>li>span:empty {
+  }
+
+  /*below so that tool toolbar (.navIntraTool) will display*/
+  .portletpda ul.navIntraTool > li > span.separator, .portletpda .navIntraTool > li > span:empty {
     display: inline !important;
-}
-/*
-tools that are iframed 
-*/
-.portletMainWrap > iframe{
-    margin-top:39px;
-}
-/*
-tweak the resources and dropbox list to make it usable in this format
-*/
-/*
-hide some columns
-*/
-form#showForm table th#access,form#showForm table th#creator,form#showForm table th#modified,form#showForm table th#size,form#showForm table td[headers='access'],form#showForm table td[headers='creator'],form#showForm table td[headers='modified'],form#showForm table td[headers='size'],form#showForm table td[colspan='4'] {
-    display: none
-}
-/*
-set the width of other columns
-*/
-form#showForm table td[headers='expansion'], form#showForm table td[headers='checkboxes'] {
+  }
+
+  /*
+  tools that are iframed 
+  */
+  .portletMainWrap > iframe {
+    margin-top: 39px;
+  }
+
+  /*
+  tweak the resources and dropbox list to make it usable in this format
+  */
+  /*
+  hide some columns
+  */
+  form#showForm table th#access, form#showForm table th#creator, form#showForm table th#modified, form#showForm table th#size, form#showForm table td[headers='access'], form#showForm table td[headers='creator'], form#showForm table td[headers='modified'], form#showForm table td[headers='size'], form#showForm table td[colspan='4'] {
+    display: none;
+  }
+
+  /*
+  set the width of other columns
+  */
+  form#showForm table td[headers='expansion'], form#showForm table td[headers='checkboxes'] {
     width: 3px;
-}
-/*
-make menus smaller
-*/
-form#showForm table .menuOpen {
+  }
+
+  /*
+  make menus smaller
+  */
+  form#showForm table .menuOpen {
     font-size: 85%;
     white-space: nowrap;
-}
-.navIntraToolLink input.enabled {
+  }
+
+  .navIntraToolLink input.enabled {
     border: none !important;
-}
-/*
-set the size of resource names (default for portrait orientation) and add a trim and ellipsis if longer
-*/
-form#showForm table td[headers='title'] h3,form#showForm table td[headers='title'] h4, form#showForm table td[headers='title'] h5, form#showForm table td[headers='title'] h6 {
+  }
+
+  /*
+  set the size of resource names (default for portrait orientation) and add a trim and ellipsis if longer
+  */
+  form#showForm table td[headers='title'] h3, form#showForm table td[headers='title'] h4, form#showForm table td[headers='title'] h5, form#showForm table td[headers='title'] h6 {
     width: 120px !important;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 90%;
     font-weight: bold;
     white-space: nowrap;
-}
-/*
-tweak the announcement list to make it usable in this format
-*/
-form[name='announcementListForm'] table td {
-    font-size: 90%
-}
-/*
-hide some metadata columns
-*/
-form[name='announcementListForm'] table th#releaseDate, form[name='announcementListForm'] table th#retractDate,
-form[name='announcementListForm'] table td[headers='releaseDate'],form[name='announcementListForm'] table td[headers='retractDate'] {
+  }
+
+  /*
+  tweak the announcement list to make it usable in this format
+  */
+  form[name='announcementListForm'] table td {
+    font-size: 90%;
+  }
+
+  /*
+  hide some metadata columns
+  */
+  form[name='announcementListForm'] table th#releaseDate, form[name='announcementListForm'] table th#retractDate,
+  form[name='announcementListForm'] table td[headers='releaseDate'], form[name='announcementListForm'] table td[headers='retractDate'] {
     display: none;
-}
-/*
-set the size of announc titles (default for portrait orientation) and add a trim and ellipsis of longer
-*/
-form[name='announcementListForm'] table td[headers='subject'] h4 {
+  }
+
+  /*
+  set the size of announc titles (default for portrait orientation) and add a trim and ellipsis of longer
+  */
+  form[name='announcementListForm'] table td[headers='subject'] h4 {
     width: 120px !important;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-/*set width and height of textarea in different contexts in portrait mode
- * Note: need to make sure that these are targetting unique things
- * */
-#gradeForm textarea, textarea[id^='Assignment'], [name='reviseForm'] textarea#body, #addContentForm textarea, #addFolderForm textarea[id^='description'], #detailsForm textarea[id^='description'], form[name='newAssignmentForm'] textarea {
+  }
+
+  /*set width and height of textarea in different contexts in portrait mode
+   * Note: need to make sure that these are targetting unique things
+   * */
+  #gradeForm textarea, textarea[id^='Assignment'], [name='reviseForm'] textarea#body, #addContentForm textarea, #addFolderForm textarea[id^='description'], #detailsForm textarea[id^='description'], form[name='newAssignmentForm'] textarea {
     width: 100%;
     height: 100px;
-}
-form[name='newAssignmentForm'] fieldset {
+  }
+
+  form[name='newAssignmentForm'] fieldset {
     width: 80% !important;
     min-width: 80%;
     max-width: 80%;
-}
-form[name='newAssignmentForm'] fieldset textarea {
+  }
+
+  form[name='newAssignmentForm'] fieldset textarea {
     width: 90%;
-    margin-left: -1em
-}
-/*some adjustments to elements in resources and assignments*/
-form[name='newAssignmentForm'] .shorttext label {
+    margin-left: -1em;
+  }
+
+  /*some adjustments to elements in resources and assignments*/
+  form[name='newAssignmentForm'] .shorttext label {
     display: block;
-    float: none
-}
-#gradeForm .navPanel .viewNav {
     float: none;
-    width: 100% !important
-}
-#gradeForm .navPanel .viewNav span.act input[name="save"], #gradeForm .navPanel .viewNav span.act input[name="return"],#gradeForm .navPanel .viewNav span.act input[name="preview"], #gradeForm .navPanel .viewNav span.act input[name="cancel"] {
-   margin-top: .5em;
-   float: left;
-}
-#gradeForm .navPanel .viewNav span.act input[name="preview"] {
+  }
+
+  #gradeForm .navPanel .viewNav {
+    float: none;
+    width: 100% !important;
+  }
+
+  #gradeForm .navPanel .viewNav span.act input[name="save"], #gradeForm .navPanel .viewNav span.act input[name="return"], #gradeForm .navPanel .viewNav span.act input[name="preview"], #gradeForm .navPanel .viewNav span.act input[name="cancel"] {
+    margin-top: .5em;
+    float: left;
+  }
+
+  #gradeForm .navPanel .viewNav span.act input[name="preview"] {
     clear: left;
-}
-form[name='reviseForm'] input#subject, #addContentForm input[id^='content'], #detailsForm input[id^='displayName'] {
+  }
+
+  form[name='reviseForm'] input#subject, #addContentForm input[id^='content'], #detailsForm input[id^='displayName'] {
     width: 100%;
-}
-#addContentForm  .labelindnt, #addFolderForm .labelindnt, #detailsForm .labelindnt, form[name='newAssignmentForm'] .labelindnt {
-    margin-left: 1em !important
-}
-#fileURLHolder {
+  }
+
+  #addContentForm .labelindnt, #addFolderForm .labelindnt, #detailsForm .labelindnt, form[name='newAssignmentForm'] .labelindnt {
+    margin-left: 1em !important;
+  }
+
+  #fileURLHolder {
     width: 50px;
-}
+  }
 }
 /*
 adjust text trimming for site link in toolbar and in Sites menu (as well as Resource titles
 for a landscape orientation of the iPhone/iPod  T
 */
 @media only screen and (orientation: landscape) and (max-device-width: 480px) {
-#pda-portlet-menu li.currentSiteLink, #pda-portlet-menu li.currentSiteChildLink {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-#pda-portlet-site-menu a, #pda-portlet-page-menu a {
-    width: auto !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.sitesLink span a {
-    max-width: 45px !important;
-    text-overflow: ellipsis;
-    overflow: hidden
-}
-.currentSiteTitle {
+  .currentSiteTitle {
     width: 300px !important;
-} 
-.currentToolTitle {
+  }
+
+  .currentToolTitle {
     width: 220px !important;
-}
-.currentSiteLink span a {
+  }
+
+  .currentSiteLink span a {
     width: 70px !important;
     text-overflow: ellipsis;
-    overflow: hidden
-}
-/* resource title length in landscape orientation */
-form#showForm table td[headers='title'] h3,form#showForm table td[headers='title'] h4, form#showForm table td[headers='title'] h5, form#showForm table td[headers='title'] h6 {
+    overflow: hidden;
+  }
+
+  /* resource title length in landscape orientation */
+  form#showForm table td[headers='title'] h3, form#showForm table td[headers='title'] h4, form#showForm table td[headers='title'] h5, form#showForm table td[headers='title'] h6 {
     width: 250px !important;
     overflow: hidden;
-}
+  }
 }
 /*end of @ media selector for landscape orientation*/
 /*
@@ -539,283 +567,526 @@ NOTE: some functionality is removed from the tool by this:
  - chat: cannot see list of people in room
 */
 #createCommentLink, #commentsList .itemAction, #rwiki_tabholder #preview {
-    display: none;
+  display: none;
 }
-#chatPresenceWrapper {
-    display: none;
-}
-#chatListWrapper {
-    float: none !important;
-    clear: both !important;
-    width: 100% !important
-}
-/* PART 9 - Tool Icons */
 
+#chatPresenceWrapper {
+  display: none;
+}
+
+#chatListWrapper {
+  float: none !important;
+  clear: both !important;
+  width: 100% !important;
+}
+
+/* PART 9 - Tool Icons */
 .icon-osp-evaluation {
-    background-position: -252px -504px;
+  background-image: url(../../image/silk/thumb_up.png);
 }
+
 .icon-osp-glossary {
-    background-position: -468px -486px;
+  background-image: url(../../image/silk/text_list_bullets.png);
 }
-.icon-osp-matrix, .icon-osp-exposedmatrix {
-    background-position: -558px -450px;
+
+.icon-osp-matrix {
+  background-image: url(../../image/silk/table.png);
 }
+
 .icon-osp-presentation {
-    background-position: -234px -54px;
+  background-image: url(../../image/silk/briefcase.png);
 }
+
 .icon-osp-presLayout {
-    background-position: -198px -270px;
+  background-image: url(../../image/silk/layout_content.png);
 }
+
 .icon-osp-presTemplate {
-    background-position: -54px -18px;
+  background-image: url(../../image/silk/application_view_tile.png);
 }
+
 .icon-osp-style {
-    background-position: -360px -450px;
+  background-image: url(../../image/silk/style.png);
 }
-.icon-osp-wizard, .icon-osp-exposedwizard {
-    background-position: -270px -522px;
+
+.icon-osp-wizard {
+  background-image: url(../../image/silk/wand.png);
 }
+
 .icon-sakai-announcements {
-    background-position: -324px -216px;
+  background-image: url(../../image/silk/flag_blue.png);
 }
+
 .icon-sakai-chat {
-    background-position: -558px -504px;
+  background-image: url(../../image/silk/user_comment.png);
 }
+
 .icon-sakai-datapoint {
-    background-position: -180px -108px;
+  background-image: url(../../image/silk/chart_line.png);
 }
+
 .icon-sakai-discussion {
-    background-position: -324px -126px;
+  background-image: url(../../image/silk/comments.png);
 }
+
 .icon-sakai-dropbox {
-    background-position: -216px -234px;
+  background-image: url(../../image/silk/folder_page.png);
 }
+
 .icon-sakai-emailtemplateservice {
-    background-position: -162px -198px;
+  background-image: url(../../image/silk/email_edit.png);
 }
+
 .icon-sakai-gmt {
-    background-position: -54px -36px;
+  background-image: url(../../image/silk/award_star_gold_3.png);
 }
+
 .icon-sakai-help {
-    background-position: -54px -252px;
+  background-image: url(../../image/silk/help.png);
 }
+
 .icon-sakai-iframe {
-    background-position: -432px -360px;
+  background-image: url(../../image/silk/page_world.png);
 }
+
 .icon-sakai-iframe-site {
-    background-position: -162px -252px;
+  background-image: url(../../image/silk/house.png);
 }
-.icon-sakai-web-168 {
-    background-position: -270px -0px;
-}
+
 .icon-sakai-mailbox {
-    background-position: -90px -198px;
+  background-image: url(../../image/silk/email.png);
 }
+
 .icon-sakai-messages {
-    background-position: -252px -126px;
+  background-image: url(../../image/silk/comment.png);
 }
+
 .icon-sakai-metaobj {
-    background-position: -162px -0px;
+  background-image: url(../../image/silk/application_form.png);
 }
+
 .icon-sakai-membership {
-    background-position: -432px -234px;
+  background-image: url(../../image/silk/group.png);
 }
+
 .icon-sakai-news {
-    background-position: -432px -396px;
+  background-image: url(../../image/silk/rss.png);
 }
+
 .icon-sakai-podcasts {
-   background-position: -450px -252px;
+  background-image: url(../../image/silk/ipod_cast.png);
 }
+
 .icon-sakai-postem {
-    background-position: -450px -162px;
+  background-image: url(../../image/silk/database_table.png);
 }
+
 .icon-sakai-preferences {
-    background-position: -54px -126px;
+  background-image: url(../../image/silk/cog.png);
 }
+
 .icon-sakai-rutgers-linktool {
-    background-position: -36px -0px;
+  background-image: url(../../image/silk/application.png);
 }
+
 .icon-sakai-sections {
-    background-position: -522px -234px;
+  background-image: url(../../image/silk/group_gear.png);
 }
+
 .icon-sakai-singleuser {
-    background-position: -522px -504px;
+  background-image: url(../../image/silk/user.png);
 }
+
 .icon-sakai-syllabus {
-    background-position: -90px -414px;
+  background-image: url(../../image/silk/script.png);
 }
-.icon-blogger {
-    background-position: -522px -36px;
+
+.icon-blogger, .icon-sakai-clog {
+  background-image: url(../../image/silk/book_edit.png);
 }
-.icon-sakai-assignment-grades, .icon-sakai-assignment2 {
-    background-position: -324px -324px;
+
+.icon-sakai-assignment-grades {
+  background-image: url(../../image/silk/page_edit.png);
 }
-.icon-sakai-forums, .icon-sakai-jforum-tool {
-    background-position: -324px -126px;
+
+.icon-sakai-forums {
+  background-image: url(../../image/silk/comments.png);
 }
-.icon-sakai-gradebook-tool, .icon-sakai-gradebook-gwt-rpc {
-    background-position: -126px -396px;
+
+.icon-sakai-gradebook-tool {
+  background-image: url(../../image/silk/report.png);
 }
+
 .icon-sakai-mailtool {
-    background-position: -198px -198px;
+  background-image: url(../../image/silk/email_go.png);
 }
+
 .icon-sakai-poll {
-    background-position: -540px -90px;
+  background-image: url(../../image/silk/chart_bar.png);
 }
+
 .icon-sakai-sitestats {
-    background-position: -540px -90px;
+  background-image: url(../../image/silk/chart_bar.png);
 }
+
 .icon-sakai-sitestats-admin {
-    background-position: -180px -108px;
+  background-image: url(../../image/silk/chart_line.png);
 }
+
 .icon-sakai-presentation {
-    background-position: -234px -306px;
+  background-image: url(../../image/silk/monitor.png);
 }
+
 .icon-sakai-profile {
-    background-position: -198px -522px;
+  background-image: url(../../image/silk/vcard_edit.png);
 }
+
 .icon-sakai-reports {
-    background-position: -270px -396px;
+  background-image: url(../../image/silk/report_magnify.png);
 }
+
 .icon-sakai-resetpass {
-    background-position: -0px -270px;
+  background-image: url(../../image/silk/key.png);
 }
+
 .icon-sakai-resources {
-    background-position: -450px -216px;
+  background-image: url(../../image/silk/folder.png);
 }
+
 .icon-sakai-rwiki {
-    background-position: -324px -342px;
+  background-image: url(../../image/silk/page_white_edit.png);
 }
-.icon-sakai-samigo, .icon-sakai-mneme-admin, .icon-sakai-mneme {
-    background-position: -540px -360px;
+
+.icon-sakai-samigo {
+  background-image: url(../../image/silk/pencil.png);
 }
+
 .icon-sakai-schedule {
-    background-position: -504px -72px;
+  background-image: url(../../image/silk/calendar.png);
 }
+
 .icon-sakai-search {
-    background-position: -306px -216px;
+  background-image: url(../../image/silk/find.png);
 }
+
 .icon-sakai-siteinfo {
-    background-position: -324px -0px;
+  background-image: url(../../image/silk/application_lightning.png);
 }
+
 .icon-sakai-sitesetup {
-    background-position: -324px -0px;
+  background-image: url(../../image/silk/application_lightning.png);
 }
-.icon-sakai-site-roster {
-    background-position: -144px -522px;
+
+.icon-sakai-site-roster,
+.icon-sakai-site-roster2 {
+  background-image: url(../../image/silk/vcard.png);
 }
+
 .icon-sakai-synoptic-messagecenter {
-    background-position: -252px -126px;
+  background-image: url(../../image/silk/comment.png);
 }
+
 .icon-sakai-conferencing {
-    background-position: -396px -522px;
+  background-image: url(../../image/silk/webcam.png);
 }
+
 .icon-sakai-profile2 {
-    background-position: -144px -522px;
+  background-image: url(../../image/silk/vcard.png);
 }
-.icon-sakai-summary-calendar {
-    background-position: -504px -72px;
+
+.icon-sakai-kaltura {
+  background-image: url(../../image/silk/film.png);
 }
-.icon-sakai-synoptic-announcement {
-    background-position: -324px -216px;
+
+.icon-sakai-turningtool {
+  background-image: url(../../image/sakai/ttech.png);
 }
-.icon-sakai-synoptic-chat {
-    background-position: -558px -504px;
-}
-.icon-sakai-subsite {
-    background-position: -288px -108px;
-}
-.icon-sakai-iframe-service {
-    background-position: -162px -252px;
-}
-.icon-sakai-iframe-myworkspace {
-    background-position: -162px -252px;
-}
-.icon-sakai-basiclti {
-    background-position: -270px -0px;
-}
-.icon-sakai-basiclti-admin {
-    background-position: -270px -0px;
-}
+
 .icon-sakai-lessonbuildertool {
-    background-position: -36px -54px;
+  background-image: url(../../image/silk/book_open.png);
 }
-.icon-my-libintro, .icon-my-libguides {
-    background-position: -450px -36px;
-}
-.icon-sakai-see-all-tools {
-    background-position: -126px -72px;
-}
-.icon-sakai-signup {
-    background-position: -468px -162px;
-}
-.icon-sakai-privacy {
-    background-position: -522px -198px;
-}
-.icon-sakai-rsf-evaluation {
-    background-position: -324px -324px;
-}
-.icon-sakai-iclicker, .icon-sakai-turningtool {
-    background-position: -396px -72px;
-}
-.icon-sakai-bbb, .icon-sakai-rutgers-connect, .icon-portlet-\/sakai-elluminate-tool-sakai-elluminate {
-    background-position: -432px -234px;
-}
-.icon-sakai-melete {
-    background-image: url(../../image/sakai/tool-icons/sakai.melete.png);
-}
-.icon-sakai-blogwow {
-    background-position: -0px -18px;
-}
-.icon-sakai-scormcloud {
-    background-position: -90px -414px;
-}
-.icon-sakai-njvidbrowser {
-    background-position: -144px -216px;
-}
-.icon-role-enter {
-    background-position: -432px -18px;
-}
-.icon-role-exit {
-    background-position: -270px -18px;
-}
-/* admin tools  */
+
+/*admin tools*/
 .icon-sakai-users {
-    background-position: -324px -234px;
+  background-image: url(../../image/silk/folder_user.png);
 }
+
 .icon-sakai-aliases {
-    background-position: -288px -468px;
+  background-image: url(../../image/silk/tag_blue.png);
 }
+
 .icon-sakai-sites {
-    background-position: -72px -0px;
+  background-image: url(../../image/silk/application_cascade.png);
 }
+
 .icon-sakai-realms {
-    background-position: -558px -432px;
+  background-image: url(../../image/silk/sitemap_color.png);
 }
+
 .icon-sakai-online {
-    background-position: -306px -396px;
+  background-image: url(../../image/silk/report_user.png);
 }
+
 .icon-sakai-memory {
-    background-position: -378px -414px;
+  background-image: url(../../image/silk/server_chart.png);
 }
+
 .icon-sakai-archive {
-    background-position: -180px -342px;
+  background-image: url(../../image/silk/page_white_compressed.png);
 }
+
 .icon-sakai-scheduler {
-    background-position: -450px -108px;
+  background-image: url(../../image/silk/clock.png);
 }
+
 .icon-sakai-su {
-    background-position: -36px -522px;
+  background-image: url(../../image/silk/user_go.png);
 }
+
 .icon-sakai-usermembership {
-    background-position: -504px -180px;
+  background-image: url(../../image/silk/drive_user.png);
 }
+
 .icon-sakai-motd {
-    background-position: -162px -252px;
+  background-image: url(../../image/silk/house.png);
 }
+
 .icon-sakai-sitebrowser {
-    background-position: -468px -522px;
+  background-image: url(../../image/silk/world.png);
 }
+
 .icon-sakai-createuser {
-    background-position: -540px -504px;
+  background-image: url(../../image/silk/user_add.png);
+}
+
+.icon-sakai-subsite {
+  background-image: url(../../image/silk/chart_organisation.png);
+}
+
+.icon-sakai-iframe-service {
+  background-image: url(../../image/silk/house.png);
+}
+
+.icon-sakai-iframe-myworkspace {
+  background-image: url(../../image/silk/house.png);
+}
+
+.icon-sakai-basiclti {
+  background-image: url(../../image/silk/application_go.png);
+}
+
+.icon-sakai-mneme {
+  background-image: url(../../image/sakai/tool-icons/sakai.mneme.png);
+}
+
+.icon-sakai-mneme-admin {
+  background-image: url(../../image/sakai/tool-icons/sakai.mneme.admin.png);
+}
+
+.icon-sakai-jforum-tool {
+  background-image: url(../../image/sakai/sakai.jforum.tool.png);
+}
+
+.icon-sakai-melete {
+  background-image: url(../../image/sakai/sakai.melete.png);
+}
+
+.icon-nyu-libraries {
+  background-image: url(images/nyu_libguides.png);
+}
+
+.icon-sakai-delegatedaccess {
+  background-image: url(../../image/silk/key_go.png);
+}
+
+.icon-sakai-blogwow {
+  background-image: url(../../image/silk/feed_edit.png);
+}
+
+.icon-sakai-clickers {
+  background-image: url(../../image/silk/calculator.png);
+}
+
+.icon-nyu-echo360 {
+  background-image: url(../../image/silk/application_go.png);
+}
+
+.icon-sakai-rsf-evaluation {
+  background-image: url(../../image/silk/page_edit.png);
+}
+
+.icon-sakai-scorm-singlepackage-tool, .icon-sakai-scorm-tool {
+  background-image: url(../../image/silk/application_view_gallery.png);
+}
+
+.icon-nyu-echo360 {
+  background-image: url(../../image/silk/application_go.png);
+}
+
+.icon-nyu-echo360-hosted {
+  background-image: url(../../image/silk/application_go.png);
+}
+
+.icon-sakai-bbb {
+  background-image: url(images/bbb.png);
+}
+
+.icon-nyu-foliotek {
+  background-image: url(images/foliotek.png);
+}
+
+/* PDA synoptic icons */
+.icon-sakai-synoptic-announcement {
+  background-image: url(../../image/silk/flag_blue.png);
+}
+
+.icon-sakai-summary-calendar {
+  background-image: url(../../image/silk/calendar.png);
+}
+
+header {
+  background-color: #efefef;
+}
+header .header-top {
+  height: 50px;
+  overflow: hidden;
+}
+header .nyu-classes-logo {
+  display: inline-block;
+}
+header .nyu-classes-logo img {
+  height: 60px;
+}
+header .nyu-classes-logo.beta {
+  padding-right: 75px;
+  background-image: url(images/mobile_beta.png);
+  background-repeat: no-repeat;
+  background-position: right 16px;
+}
+
+header .logoutLink, header .loginLink {
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
+
+#pda-footer {
+  background: #c8c8c8;
+}
+
+.loginLink, .logoutLink, #switch-link-w, .helpLink {
+  background: #009dce;
+  background: -moz-linear-gradient(top, #7f20bc 0%, #57068c 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7f20bc), color-stop(100%, #57068c));
+  background: -webkit-linear-gradient(top, #7f20bc 0%, #57068c 100%);
+  background: -o-linear-gradient(top, #7f20bc 0%, #57068c 100%);
+  background: -ms-linear-gradient(top, #7f20bc 0%, #57068c 100%);
+  background: linear-gradient(top, #7f20bc 0%, #57068c 100%);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  margin: 0;
+  padding: 0 5px;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  text-shadow: 0 -1px 0 #000;
+  white-space: nowrap;
+  width: auto;
+  margin: 3px 5px;
+  display: block;
+}
+
+.loginLink a, .logoutLink a {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.loginLink a, .logoutLink a, #switch-link-w a, .helpLink a {
+  display: block;
+}
+
+.loginLink a, .logoutLink a, .helpLink a {
+  padding: 0 5px;
+}
+
+nav {
+  min-height: 38px;
+}
+
+.loginLink a, .logoutLink a, #switch-link-w span a {
+  display: block;
+}
+
+body.portalBodyPDA {
+  background-color: #c8c8c8;
+}
+
+#portalToolBody {
+  background-color: white;
+}
+
+header nav {
+  border-top: 1px solid rgba(87, 6, 140, 0.2);
+  border-bottom: 1px solid rgba(87, 6, 140, 0.2);
+}
+
+footer {
+  border-top: 1px solid rgba(87, 6, 140, 0.2);
+}
+
+.portletpda > section {
+  clear: both;
+  overflow-x: auto;
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
+}
+
+.portalBodyPDA .select-inline-help {
+  display: block;
+  color: #666;
+  font-size: .8em;
+}
+
+#pdaPopupContinue {
+  width: 100%;
+  height: 2.5em;
+}
+
+.portal-pda-banner {
+  margin-left: 1px;
+  margin-top: 1px;
+  padding: 3px 5px;
+  font-weight: bold;
+}
+.portal-pda-banner.warning {
+  border-left: 4px solid #df9829;
+}
+
+@media only screen and (orientation: portrait) and (min-device-width: 320px) and (max-device-width: 360px) {
+  header .nyu-classes-logo.beta {
+    background-image: url(images/mobile_beta.png);
+    background-repeat: no-repeat;
+    background-position: 130px 6px;
+    padding-top: 10px;
+  }
+}
+/* NCM-41 Wrap text in attach button so visible on portrait mobile devices */
+.portalBodyPDA #addSubmissionForm input#attach {
+  white-space: normal;
+}
+
+/* NCM-86 Suppress synoptic and summary tools from nav */
+.portalBodyPDA #portalToolBody #pda-portlet-page-menu li.icon-sakai-iframe-site-item,
+.portalBodyPDA #portalToolBody #pda-portlet-page-menu li.icon-sakai-synoptic-announcement-item,
+.portalBodyPDA #portalToolBody #pda-portlet-page-menu li.icon-sakai-summary-calendar-item,
+.portalBodyPDA #portalToolBody #pda-portlet-page-menu li.icon-sakai-synoptic-messagecenter-item,
+.portalBodyPDA #portalToolBody #pda-portlet-page-menu li.icon-sakai-synoptic-chat-item {
+  display: none;
 }
