@@ -36,7 +36,7 @@ CKEDITOR.plugins.add( 'encodedimage',
 				//To show the image icon
 				icon: 'image',
 				icon: iconpath,
-			       	iconOffset : 36,
+			       	iconOffset : -936,
 				label : editor.lang.common.image,
 				command : pluginName,
 			});
