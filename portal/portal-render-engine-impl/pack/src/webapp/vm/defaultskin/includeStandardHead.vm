@@ -55,9 +55,10 @@ ${tool.toolRenderResult.getTitle()}
     <title>${pageTitle}</title>
 ${sakai_html_head_css}
      <script type="text/javascript" language="JavaScript" src="${pageScriptPath}headscripts.js"></script>
-     <script type="text/javascript" language="JavaScript" src="${pageScriptPath}jquery.js"></script>
+     <script type="text/javascript" src="${pageScriptPath}jquery/jquery-1.9.1.min.js$!{portalCDNQuery}"></script>
+     <script type="text/javascript" src="${pageScriptPath}jquery/jquery-migrate-1.2.1.min.js$!{portalCDNQuery}"></script>
 
-#end
+	#end
 
 <script type="text/javascript" language="JavaScript" src="/portal/scripts/portalscripts.js"></script>
 
@@ -68,9 +69,11 @@ ${sakai_html_head_css}
     setTimeoutInfo ($!{timeoutDialogEnabled}, $!{timeoutDialogWarningSeconds});
     setUIToggleState ($!{portal_allow_auto_minimize}, $!{portal_allow_minimize_tools}, $!{portal_allow_minimize_navigation});
 </script>
-   
-<script type="text/javascript" language="JavaScript" src="/library/js/jquery/qtip/jquery.qtip-latest.min.js"></script>
-<script type="text/javascript" language="JavaScript" src="/library/js/jquery/qtip/tutorial.js"></script>
+
+<script type="text/javascript" src="${pageScriptPath}jquery/qtip/jquery.qtip-latest.min.js"></script>
+<link type="text/css" rel="stylesheet" href="${pageScriptPath}jquery/qtip/jquery.qtip-latest.min.css">
+<script type="text/javascript" src="${pageScriptPath}jquery/qtip/tutorial.js"></script>
+
 <!-- <script type="text/javascript" language="JavaScript" src="/portal/scripts/timezone_check.js?t=1381962531"></script> -->
 
 #if ( $tutorial && $loggedIn )
@@ -97,7 +100,7 @@ ${sakai_html_head_css}
     #end
 #end
 
-<script type="text/javascript" src="${pageScriptPath}jquery/cluetip/1.2.10/jquery.cluetip.min.js$!{portalCDNQuery}"></script>
+<script type="text/javascript" src="${pageScriptPath}jquery/cluetip/1.2.10/jquery.cluetip.min.js"></script>
 
 ## required CSS for cluetip, bundled with the release
 <link href="${pageScriptPath}jquery/cluetip/1.2.10/css/jquery.cluetip.css" type="text/css" rel="stylesheet" media="all" />
