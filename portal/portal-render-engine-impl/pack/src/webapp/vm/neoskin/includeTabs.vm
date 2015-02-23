@@ -213,7 +213,7 @@
 							#if (( ${tabDisplayLabel} == 2 ) && ( ${site.shortDescription} ))
 								<a href="${site.siteUrl}" title="${site.fullTitle}"><span  class="fullTitle">${site.shortDescription}</span></a><a href="#" id="${site.siteId}" class="toolMenus">&nbsp;<span class="skip">Tools</span></a>
 							#else
-								<a href="${site.siteUrl}" title="${site.fullTitle}"><span  class="fullTitle">${site.siteTitle}</span></a><a href="#" id="${site.siteId}" class="toolMenus">&nbsp;<span class="skip">Tools</span></a>
+								<a href="${site.siteUrl}" title="${site.fullTitle}"><span  class="fullTitle">${site.longerSiteTitle}</span></a><a href="#" id="${site.siteId}" class="toolMenus">&nbsp;<span class="skip">Tools</span></a>
 							#end
 						</li>
 					#end

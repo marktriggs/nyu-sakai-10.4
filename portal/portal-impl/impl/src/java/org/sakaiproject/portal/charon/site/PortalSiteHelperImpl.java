@@ -359,6 +359,11 @@ public class PortalSiteHelperImpl implements PortalSiteHelper
 		String titleStr = FormattedText.makeShortenedText(fullTitle, ServerConfigurationService.getInt("site.title.tab.maxlength", 25), null, null);
 		m.put("siteTitle", Web.escapeHtml(titleStr));
 		m.put("fullTitle", Web.escapeHtml(fullTitle));
+		m.put("longerSiteTitle",
+              Web.escapeHtml(FormattedText.makeShortenedText(fullTitle,
+                                                             ServerConfigurationService.getInt("site.title.tab.longerlength",
+                                                                                               40),
+                                                             null, null)));
 		m.put("siteDescription", s.getHtmlDescription());
 
 		if ( s.getShortDescription() !=null && s.getShortDescription().trim().length()>0 ){
