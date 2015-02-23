@@ -12,7 +12,7 @@ body {
 /* stub in tool_base.css - skinned here */
 hr.itemSeparator {
     height: 1px;
-    border-color: #00acda;
+    border-color: #3698DB;
     border-style: solid;
     border-width: 1px 0 0 0;
 }
@@ -43,11 +43,9 @@ table.calendar td a:hover {
 /* some links are jscripted so the href is the same - cannot provide visited functionality - so make both the same */
 /* see: list of assignments - the cells are classed with "specialLink" */
 .specialLink a:link, .specialLink a:visited {
-    color: #00acda;
     text-decoration: none;
 }
 .specialLink a:hover {
-    color: #00acda;
     text-decoration: underline;
 }
 /* links in resources - selected for move */
@@ -77,24 +75,13 @@ tr.selectedMove a:link, tr.selectedMove a:visited {
 /* links associated with an item in alist */
 /* see links below announcement title in ann list */
 .itemAction a, .itemAction a:link {
-    color: #00acda;
     padding: .2em .3em 1px 0;
     white-space: nowrap;
     border-bottom: none;
 }
 .itemAction a:visited {
-    color: #00acda;
     text-decoration: none;
     border-bottom: 1px solid #fff;
-}
-.itemAction a:hover {
-    color: #00acda; /*for ie*/
-    text-decoration: underline !important;
-}
-html>body .itemAction a:hover {
-    color: #00acda;
-    text-decoration: none !important; /*for other browsers*/
-    border-bottom: 1px solid #00acda;
 }
 /* certain links are highlighted in resources after a selection */
 /* see "Paste copied here" after ccopying a selection in resources */
@@ -115,19 +102,20 @@ see: http://www.quirksmode.org/bugreports/archives/2005/07/Wrapped_inlinenowrap_
     white-space: nowrap;
     display: inline-block;
     color: #555;
-    text-transform: uppercase;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
     font-weight: 300;
 }
 .navIntraTool a:hover {
-    color: #fb5617;
+    background: #FFF !important;
+    color: #BF3B3B !important;
+    border-color: #BF3B3B !important;
     text-decoration: underline;
 }
 .navIntraTool a:link:hover, #actionToolbar a:link:hover {
-    color: #fb5617 !important;
+    color: #BF3B3B !important;
 }
 .navIntraTool .current a, .navIntraTool .current a {color: #fff !important;}
-.navIntraTool .current a:hover, .navIntraTool .current a:hover {color: #fb5617 !important;}
+.navIntraTool .current a:hover, .navIntraTool .current a:hover {color: #BF3B3B !important;}
 /* where one is at in hierarchy - can be static or active links */
 .breadCrumb {
     font-size: 1.2em
@@ -137,11 +125,11 @@ see: http://www.quirksmode.org/bugreports/archives/2005/07/Wrapped_inlinenowrap_
     font-size: 85%
 }
 .breadCrumb a:link, .breadCrumb a:visited {
-    color: #00acda;
+    color: #3698DB;
     text-decoration: none;
 }
 .breadCrumb a:hover {
-    color: #00acda;
+    color: #3698DB;
     text-decoration: underline;
 }
 /* SECTION 3 CALENDAR SELECTORS */
@@ -157,7 +145,7 @@ table.calendar th {
 }
 .bgActivity {
     background-color: #ffc;
-    border: 1px solid #00acda;
+    border: 1px solid #3698DB;
     text-align: right;
 }
 .bgWithoutActivity {
@@ -328,7 +316,7 @@ table.calendar .event {
     font-weight: bold !important;
 }
 .listHier th a:hover {
-    color: #00acda
+    color: #3698DB
 }
 /* skinned cell of standard tab. data table */
 .listHier td {
@@ -489,7 +477,7 @@ label {
 }
 /* a required marker for a shorttext label/input pair */
 .shorttext .reqStar {
-    color: #00acda;
+    color: #3698DB;
     width: auto;
     margin: 0 0 0 -1em;
     font-weight: bold;
@@ -564,24 +552,27 @@ textarea.cke_source:focus {
 
 /* Button styling
 Turns the old links into buttons. The many different ways the tools have implemented the links in the past forces us to use these every specific and many selectors. The proper way is to use a UL with LIs as the buttons. */
-.navIntraTool>li>span, .navIntraTool>form>li, .navIntraTool>span, .navIntraTool>a, .navIntraTool>div>a, div.navIntraTool>ul>li>a, div.navIntraTool>ul>li>span>a, div.navIntraTool>ul>a, .navIntraTool>li.nav_item>a, ul.navIntraTool>li>a {
+.navIntraTool>li>span>a,.navIntraTool>li>span.current, .navIntraTool>form>li, .navIntraTool>span, .navIntraTool>a, .navIntraTool>div>a, div.navIntraTool>ul>li>a, div.navIntraTool>ul>li>span>a, div.navIntraTool>ul>a, .navIntraTool>li.nav_item>a, ul.navIntraTool>li>a {
     display: inline-block !important;
     margin-right: 4px !important;
     margin-bottom: 4px !important;
     padding: 3px 8px !important;
     border: 1px solid #ccc !important;
     background: #ddd !important;
-    text-transform: uppercase !important;
     color: #444 !important;
 }
-.navIntraTool>li>span:hover, .navIntraTool>form>li:hover, .navIntraTool>span:hover, .navIntraTool>a:hover, .navIntraTool>div>a:hover, div.navIntraTool>ul>li>a:hover, div.navIntraTool>ul>li>span>a:hover, div.navIntraTool>ul>a:hover, .navIntraTool>li.nav_item>a:hover, ul.navIntraTool>li>a:hover {background: #ffffff !important; color: #fb5617 !important;}
+.navIntraTool>li>span>a:hover, .navIntraTool>form>li:hover, .navIntraTool>span:hover, .navIntraTool>a:hover, .navIntraTool>div>a:hover, div.navIntraTool>ul>li>a:hover, div.navIntraTool>ul>li>span>a:hover, div.navIntraTool>ul>a:hover, .navIntraTool>li.nav_item>a:hover, ul.navIntraTool>li>a:hover {
+  background: #ffffff !important;
+  color: #BF3B3B !important;
+  border-color: #BF3B3B !important;
+}
 /* IE chokes on the whole ruleset if it sees a NOT selector, so this rule has to be written separately */
 .navIntraTool>div>span:not(.navSeparator) {
     display: inline-block !important;
     margin-right: 4px !important;
     margin-bottom: 4px !important;
     padding: 3px 8px !important;
-    border: 1px solid #ccc !important;
+    border: 1px solid #BF3B3B !important;
     background: #ddd !important;
 }
 /* Make invisible any unruly empty spans or .separator class items (remnants of old skin styles) */
@@ -595,7 +586,6 @@ ul.navIntraTool>li>span.separator, .navIntraTool>li>span:empty, span.navSeparato
 ul.navIntraTool>li>span.inactive {
     border: 1px solid #ccc !important;
     color: #444 !important;
-    text-transform: uppercase !important;
     background-color: #fb5617 !important;
 }
 .navIntraTool li span.current, .navIntraTool li span.current, .navIntraTool .current {
@@ -606,14 +596,15 @@ ul.navIntraTool>li>span.inactive {
 .navIntraTool li span.current:hover, .navIntraTool li span.current:hover, .navIntraTool .current:hover,
 .navIntraTool li span.current:active, .navIntraTool li span.current:active, .navIntraTool .current:active,
 .navIntraTool li span.current:focus, .navIntraTool li span.current:focus, .navIntraTool .current:focus {
-    color: #fb5617 !important; text-transform: uppercase !important; background-color: #fb5617 !important;
+    color: #FFF !important;
+    background-color: #3698db !important;
 }
 ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {background-color: #ddd !important;}
-.navIntraTool li span.current:hover, .navIntraTool li span.current:hover, .navIntraTool .current:hover, ul.navIntraTool>li>span.inactive:hover {background: #fff !important;}
+.navIntraTool li span.current:hover, .navIntraTool li span.current:hover, .navIntraTool .current:hover, ul.navIntraTool>li>span.inactive:hover {background: #3698db !important;}
 .specialLink ul.navIntraTool.actionToolBar li .current {color: #fff !important;}
-.specialLink ul.navIntraTool.actionToolBar li .current:hover {color: #fb5617 !important;}
+.specialLink ul.navIntraTool.actionToolBar li .current:hover {color: #FFF !important;}
 .specialLink ul.navIntraTool.actionToolBar li span a {color: #555;}
-.specialLink ul.navIntraTool.actionToolBar li span a:hover {color: #fb5617;}
+.specialLink ul.navIntraTool.actionToolBar li span a:hover {color: #BF3B3B !important;}
 
 /* Add a slight border to #search inputs that appear in navIntraTool */
 .navIntraTool li #search {
@@ -641,7 +632,7 @@ ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {ba
     min-height: 15px;
     margin-left: 5px !important;
     padding: 1px !important;
-    background: #00acda;
+    background: #3698DB;
     border: 2px solid white !important;
     border-radius: 20pt;
     color: #fff !important;
@@ -716,7 +707,7 @@ ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {ba
 /* button link color */
 .neoPortletTitleWrap {
     width: 99%;
-    border-bottom: 2px solid #00acda;
+    border-bottom: 2px solid #3698DB;
     border-radius: 3px;
 }
 /* SECTION 9 MESSAGES */
@@ -732,7 +723,7 @@ ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {ba
 /* the generic required marker */
 /* see: create any item */
 .reqStar {
-    color: #00acda;
+    color: #3698DB;
     width: auto;
     margin-left: -1em;
     font-weight: bold;
@@ -744,7 +735,7 @@ ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {ba
 /* the required marker for a longtext label/input pair */
 /* see: create any item with a textarea */
 .longtext .reqStar {
-    color: #00acda;
+    color: #3698DB;
     font-size: 1.2em;
     font-weight: normal;
     padding: 0 0 0 .1em;
@@ -753,7 +744,7 @@ ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {ba
 /* when need to display the required marker inline as a part of a text */
 /* see: create any item - instruction message about requireed fields */
 .reqStarInline {
-    color: #00acda;
+    color: #3698DB;
     font-size: 1.2em;
     vertical-align: middle;
     width: 1em;
@@ -781,7 +772,7 @@ visibility gets toggled */
 you loose the native buttonishness affordance of the os/browser */
 /* create any item - like an announcement */
 .act .active {
-    color: #00acda
+    color: #3698DB
 }
 .act .active[disabled="disabled"] {
     color: gray
@@ -791,11 +782,11 @@ you loose the native buttonishness affordance of the os/browser */
     border: 1px solid #eee
 }
 .infoPanel {
-    border: 1px solid #00acda
+    border: 1px solid #3698DB
 }
 .infoPanelHead {
-    border: 1px solid #00acda;
-    background: #00acda;
+    border: 1px solid #3698DB;
+    background: #3698DB;
     color: #ffd;
 }
 /* see: topic content in discussion */
@@ -1084,7 +1075,7 @@ ul.makeMenu li a {
     width: 100%;
     text-decoration: none;
     padding: 6px;
-    color: #00acda !important;
+    color: #3698DB !important;
 }
 ul.makeMenu li a:active {
     outline: none
@@ -1150,7 +1141,7 @@ ul.makeMenu li.menuClose a:hover {
 /* ===[ Lessons ]=== */
 .lessonsHeader {
     width: 99%;
-    border-bottom: 2px solid #00acda !important;
+    border-bottom: 2px solid #3698DB !important;
     border-radius: 3px !important;
     height: 25px;
 }
@@ -1172,15 +1163,15 @@ input[type="submit"], input[type="button"], input[type="reset"] {
     font-size: 12px !important;
     font-weight: 300 !important;
     min-height: 24px !important;
-    text-transform: uppercase;
     color: #555 !important;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
     border: none;
     border: 1px solid #ccc !important;
 }
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
-    background: #fefefe !important;
-    color: #fb5617 !important;
+    background: #FFF !important;
+    color: #BF3B3B !important;
+    border-color: #BF3B3B !important;
 }
 input[type="submit"][disabled="disabled"],
   input[type="button"][disabled="disabled"],
@@ -1433,4 +1424,19 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 
 .icon-sakai-subsite:before {
     content:""
+}
+
+/* Button Overrides */
+.button.active, a.button.active, button.active, input[type="button"].active, input[type="submit"].active, input[name="eventSubmit_doSearch"], input[name=":submit"], #siteStatus a, .navIntraTool>li span.fieldSibling, .portletBody font a:nth-of-type(1), input[value="Publish entry"] {
+  background-color: #3698DB !important;
+  color: #FFF !important;
+  border-color: #3698DB !important;
+  cursor: pointer !important;
+}
+.button.active:hover, a.button.active:hover, button.active:hover, input[type="button"].active:hover, input[type="submit"].active:hover, input[name="eventSubmit_doSearch"]:hover, input[name=":submit"]:hover, #siteStatus a:hover, .navIntraTool>li span.fieldSibling:hover, .portletBody font a:nth-of-type(1):hover, input[value="Publish entry"]:hover {
+  background-color: #FFF !important;
+  color: #3698DB !important;
+}
+.button.cancel, a.button.cancel, button.cancel, input[type="button"][value*="Cancel"], input[type="submit"][value*="Cancel"], button[name="eventSubmit_doCancel"], input#reset, .actionItem a#restdef {
+  cursor: pointer !important;
 }
