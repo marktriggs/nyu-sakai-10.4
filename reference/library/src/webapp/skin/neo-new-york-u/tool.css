@@ -596,7 +596,7 @@ ul.navIntraTool>li>span.inactive {
     background-color: #fb5617 !important;
 }
 .navIntraTool li span.current, .navIntraTool li span.current, .navIntraTool .current {
-    color: #fff !important; text-transform: uppercase !important;
+    color: #fff !important;
     background-color: #3698db !important;
     border-color: #3698db !important;
 }
