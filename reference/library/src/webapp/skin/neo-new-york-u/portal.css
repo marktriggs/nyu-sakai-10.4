@@ -623,7 +623,6 @@ li.more-tab a span {
     vertical-align: middle
 }
 ul#otherSitesMenu {
-    border-bottom: 1px solid #aaa;
     font-size: .9em;
     text-align: right;
     margin: 0;
@@ -704,7 +703,7 @@ ul#otherSiteList li, ul.otherSitesCategorList li {
     overflow: hidden;
     margin: 6px 6px 0 0;; /*Note: check uncategorized */
     line-height: 1.1em;
-    width: 18em;
+    width: 240px;
     float: left;
     display: block;
 }

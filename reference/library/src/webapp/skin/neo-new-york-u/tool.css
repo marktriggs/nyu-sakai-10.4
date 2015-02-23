@@ -1183,7 +1183,9 @@ ul.makeMenu li.menuClose a:hover {
 .information {
 }
 /* override native button things rendering */
-input[type="submit"], input[type="button"], input[type="reset"] {
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
     -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
@@ -1199,13 +1201,17 @@ input[type="submit"], input[type="button"], input[type="reset"] {
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
     border: none;
     border: 1px solid #DBDCDE !important;
+
+    margin-right: 2px;
 }
 h2 input[type="submit"],
 h2 input[type="button"],
 h2 input[type="reset"] {
   font-size: 0.8em !important;
 }
-input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+input[type="submit"]:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover {
     -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
@@ -1215,6 +1221,56 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
     background: #FFF !important;
     color: #2F7FAB !important;
     border-color: #2F7FAB !important;
+}
+
+.button.active,
+a.button.active,
+button.active,
+input[type="button"].active,
+input[type="submit"].active,
+input[name="eventSubmit_doSearch"],
+input[name=":submit"],
+#siteStatus a,
+.portletBody font a:nth-of-type(1),
+input[value="Publish entry"] {
+  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+  background: #3698DB !important;
+  color: #FFF !important;
+  border-color: #3698DB !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+
+.button.active:hover,
+a.button.active:hover,
+button.active:hover,
+input[type="button"].active:hover,
+input[type="submit"].active:hover,
+input[name="eventSubmit_doSearch"]:hover,
+input[name=":submit"]:hover, #siteStatus a:hover,
+.portletBody font a:nth-of-type(1):hover,
+input[value="Publish entry"]:hover {
+  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+  background: #FFF !important;
+  color: #2F7FAB !important;
+  border-color: #2F7FAB !important;
+}
+.button.cancel, a.button.cancel, button.cancel, input[type="button"][value*="Cancel"], input[type="submit"][value*="Cancel"], button[name="eventSubmit_doCancel"], input#reset, .actionItem a#restdef {
+  cursor: pointer !important;
+}
+.navIntraTool.actionToolBar .inputItem input {
+  padding: 4px !important;
+  border: 1px solid #DBDCDE !important;
 }
 input[type="submit"][disabled="disabled"],
   input[type="button"][disabled="disabled"],
@@ -1241,13 +1297,13 @@ input[type="submit"][disabled="disabled"],
     background: #E7E7EB !important;
     color: #bbb !important;
     border: 1px solid #E0E3E5 !important;
-    font-size: 11px !important;
-    font-weight: bold !important;
-    height: 24px;
     margin-left: 0 !important;
-    margin-right: 3px;
 }
-input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="true"], input[type="checkbox"][class="disabled"], input[type="checkbox"][disabled="disabled"]:hover, input[type="checkbox"][disabled="true"]:hover {
+input[type="checkbox"][disabled="disabled"],
+input[type="checkbox"][disabled="true"],
+input[type="checkbox"][class="disabled"],
+input[type="checkbox"][disabled="disabled"]:hover,
+input[type="checkbox"][disabled="true"]:hover {
     -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
@@ -1256,7 +1312,6 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 
     background: #DBDCDE !important;
     border: 1px solid #E0E3E5 !important;
-    margin-right: 3px;
 }
 .listNav input[type="submit"], .listNav input[type="button"] {
     height: 20px !important
@@ -1596,41 +1651,6 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 
 .icon-sakai-forums:before {
     content:"\e02C"
-}
-
-
-
-/* Button Overrides */
-.button.active, a.button.active, button.active, input[type="button"].active, input[type="submit"].active, input[name="eventSubmit_doSearch"], input[name=":submit"], #siteStatus a, .portletBody font a:nth-of-type(1), input[value="Publish entry"] {
-  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-
-  background: #3698DB !important;
-  color: #FFF !important;
-  border-color: #3698DB !important;
-  cursor: pointer !important;
-  text-decoration: none !important;
-}
-.button.active:hover, a.button.active:hover, button.active:hover, input[type="button"].active:hover, input[type="submit"].active:hover, input[name="eventSubmit_doSearch"]:hover, input[name=":submit"]:hover, #siteStatus a:hover, .portletBody font a:nth-of-type(1):hover, input[value="Publish entry"]:hover {
-  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-
-  background: #FFF !important;
-  color: #2F7FAB !important;
-  border-color: #2F7FAB !important;
-}
-.button.cancel, a.button.cancel, button.cancel, input[type="button"][value*="Cancel"], input[type="submit"][value*="Cancel"], button[name="eventSubmit_doCancel"], input#reset, .actionItem a#restdef {
-  cursor: pointer !important;
-}
-.navIntraTool.actionToolBar .inputItem input {
-  padding: 4px !important;
-  border: 1px solid #DBDCDE !important;
 }
 
 /* Alerts */
@@ -2516,4 +2536,11 @@ img[src$="cal.gif"] {
 /* line 139, sass/base/forms/_forms.scss */
 #userlistForm .sectionContainerNav .right .act input {
   margin: 0 .5em 0 0;
+}
+
+
+
+/* CLASSES-1454 */
+#participantForm #siteMembers input[name=selectedUser] {
+  float: right;
 }
