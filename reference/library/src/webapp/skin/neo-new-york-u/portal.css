@@ -2534,8 +2534,10 @@ html > body .ui-pnotify {
 
 /* System Alerts */
 .system-alert-banner {
-  background-color: #FDF6CA;
-  color: #760;
+  /*background-color: #FDF6CA;
+  color: #760;*/
+  background-color: #f7e084;
+  color: #000;
   padding: 10px 0;
   position: relative;
 }

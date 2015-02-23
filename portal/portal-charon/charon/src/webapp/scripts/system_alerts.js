@@ -45,12 +45,15 @@ $(function() {
     $.each(alerts, function(i, alert) {
       var alertId = "bannerAlert"+alert.id;
 
-      if (!hasAlertBeenDismissed(alertId)) {
+      if (!alert.dismissible || !hasAlertBeenDismissed(alertId)) {
         activeAlertIds.push(alertId);
 
         if ($("#"+alertId).length == 0) {
             var $alert = $($("#systemAlertsBannerTemplate").html()).attr("id", alertId);
             $alert.find(".system-alert-banner-message").html(alert.message);
+            if (!alert.dismissible) {
+              $alert.find(".system-alert-banner-close").remove();
+            }
             $alert.hide();
             $(document.body).prepend($alert);
             $alert.slideDown();

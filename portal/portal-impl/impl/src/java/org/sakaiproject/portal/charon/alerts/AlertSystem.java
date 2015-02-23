@@ -31,7 +31,11 @@ public class AlertSystem {
         ResultSet rs = ps.executeQuery();
         try {
           while (rs.next()) {
-            BannerAlert alert = new BannerAlert(rs.getString("id"), rs.getString("message"), rs.getString("hosts"), rs.getInt("active"));
+            BannerAlert alert = new BannerAlert(rs.getString("id"),
+                                                rs.getString("message"),
+                                                rs.getString("hosts"),
+                                                rs.getInt("active"),
+                                                rs.getInt("dismissible"));
 
             if (alert.isActiveForHost(serverId)) {
               alerts.add(alert); 

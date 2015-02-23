@@ -8,16 +8,22 @@ public class BannerAlert {
 
   private String hosts; 
   private boolean isActive;
+  private boolean isDismissible;
 
-  public BannerAlert(String id, String message, String hosts, int active) {
+  public BannerAlert(String id, String message, String hosts, int active, int dismissible) {
     this.id = id;
     this.message = message;
     this.hosts = hosts;
     this.isActive = (active == 1);
+    this.isDismissible = (dismissible == 1);
   }
-  
+
   public boolean isActive() {
     return this.isActive;
+  }
+
+  public boolean isDismissible() {
+    return this.isDismissible;
   }
 
   public boolean isActiveForHost(String hostname) {

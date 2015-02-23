@@ -45,6 +45,7 @@ public class SystemAlertHandler extends BasePortalHandler
           JSONObject alertData = new JSONObject();
           alertData.put("id", alert.id);
           alertData.put("message", alert.message);
+          alertData.put("dismissible", alert.isDismissible());
           alerts.add(alertData);
         }
 
