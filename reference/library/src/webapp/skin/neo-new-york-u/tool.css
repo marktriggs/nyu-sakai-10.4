@@ -5,7 +5,6 @@
 body {
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
     font-size: 0.9em;
-    font-weight: 300;
     color: #444;
 }
 
@@ -103,7 +102,7 @@ see: http://www.quirksmode.org/bugreports/archives/2005/07/Wrapped_inlinenowrap_
     display: inline-block;
     color: #555;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
-    font-weight: 300;
+    font-weight: normal;
 }
 .navIntraTool a:hover {
     background: #FFF !important;
@@ -475,7 +474,7 @@ see: resources, any legacy list */
     color: #000;
     font-size: 1em;
     background: none;
-    font-weight: 300;
+    font-weight: normal;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
 }
 /* SECTION 7 INPUTS */
@@ -590,7 +589,7 @@ ul.navIntraTool>li>a>span {
 ul.navIntraTool>li>a>span:hover {
   color: #2F7FAB !important;
 }
-/* IE chokes on the whole ruleset if it sees a NOT selector, so this rule has to be written separately */
+/* IE chokes on the whole ruleset if it sees a NOT selector, so this rule has to be owritten separately */
 .navIntraTool>div>span:not(.navSeparator) {
     display: inline-block !important;
     margin-right: 4px !important;
@@ -1193,7 +1192,7 @@ input[type="submit"], input[type="button"], input[type="reset"] {
     cursor: pointer;
     background-color: #E7E7EB !important;
     font-size: 12px !important;
-    font-weight: 300 !important;
+    font-weight: normal !important;
     min-height: 24px !important;
     color: #555 !important;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
