@@ -544,6 +544,10 @@ span.topnav li ul.subnav li {
 }
 */
 /* treatment of a tool that has been hidden via Page Order tool - below takes care of tools in submenus as well as in the site tool menu */
+li.submenuitem span.hidden,
+#toolMenu li a.hidden {
+  font-style: italic;
+}
 li.submenuitem span.hidden:after,
 #toolMenu li a.hidden:after {
   font-family: 'nyu-classes-icons';
