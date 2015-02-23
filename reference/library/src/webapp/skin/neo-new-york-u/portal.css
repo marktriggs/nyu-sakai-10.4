@@ -266,6 +266,11 @@ form#loginForm input#submit {height: 28px !important; margin: 0 7px;}
   background: none !important;
 }
 
+#loginLinks .nav-submenu {
+  top: 37px !important;
+  right: 130px !important;
+}
+
 /* link to toggle the user info and controls */
 #mastLogin span.drop {
     cursor: pointer;
@@ -286,7 +291,8 @@ form#loginForm input#submit {height: 28px !important; margin: 0 7px;}
     font-size: 20px;
     color: #FFF;
 }
-#mastLogin span.drop:hover:before {
+#mastLogin span.drop:hover:before,
+#mastLogin span.drop.active:before {
     -webkit-transition: color 0.2s;
     -moz-transition: color 0.2s;
     -ms-transition: color 0.2s;
@@ -332,12 +338,13 @@ ul.nav-submenu li.submenuitem .toolMenuIcon, #mastLogin li.submenuitem a .toolMe
     top:1px;
 }
 
-ul.nav-submenu li.submenuitem a, #mastLogin li.submenuitem a, #otherSiteTools li a {
+ul.topnav ul.nav-submenu li.submenuitem a,
+#mastLogin li.submenuitem a,
+#otherSiteTools li a {
     text-decoration: none;
     width: 180px;
     font-weight: normal;
-    color: #111;
-    color: #444;
+    color: #444 !important;
     padding: 7px 15px 6px 15px !important;
     font-size: 1em !important;
     position:relative;
@@ -473,6 +480,9 @@ ul.topnav li span.drop {
     height: 26px;
     float: left;
     background: url(images/subnav_btn.png) no-repeat center -3px;
+}
+ul.topnav li span.drop.active {
+  background-image: url(images/subnav_flip_btn.png);
 }
 /* site submenu trigger hover, move the subnav_btn.png sprite up*/
 ul.topnav li span.subhover {
@@ -724,8 +734,6 @@ ul#otherSiteList li a, ul.otherSitesCategorList li a {
     overflow: hidden;
 }
 ul#otherSiteList li a:focus, ul.otherSitesCategorList li a:focus{
-    color:#000;
-    background:#eee;
 }
 ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     width: 14em;
@@ -840,10 +848,10 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     cursor: pointer;
 }
 .toolMenusActive {
-    background: url(images/subnav_btn.png) no-repeat 10px -3px;
+    background: url(images/subnav_flip_btn.png) no-repeat 10px -3px;
 }
 .toolMenusActive:hover {
-    background: url(images/subnav_btn.png) no-repeat  10px -38px;
+    background: url(images/subnav_flip_btn.png) no-repeat  10px -38px;
 }
 /* site hierarchy breadcrumb  */
 #siteHierarchy {

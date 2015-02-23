@@ -10,6 +10,9 @@ var dhtml_view_sites = function(){
     // then recast the function to the post initialized state which will run from then on
     dhtml_view_sites = function(){
         if (jQuery('#selectSite').css('display') == 'none') {
+            // hide any active submenus
+            jQuery(".drop.active").trigger("click");
+
             jQuery('div#selectSite').css('top', Math.ceil($('.more-tab').position().top + $('.more-tab').height() + 10));
             jQuery('div#selectSite div').show();
             jQuery('div#selectSite').slideDown('fast', function(){
@@ -513,34 +516,43 @@ var setupSiteNav = function(){
         // Add an escape key handler to slide the page menu up
         $(this).keydown(function(e) {
             if (e.keyCode == 27) {
-                $(this).parent().children('a').focus();
+                $(this).parent().children('a').removeClass("active").focus();
                 $(this).slideUp('fast');
             }
         });
         $(this).children('li:last').addClass('lastMenuItem')
     });
     
-    jQuery("ul.topnav > li").mouseleave(function(){
-        $(this).find('ul').slideUp('fast')
-    });
+    //jQuery("ul.topnav > li").mouseleave(function(){
+    //    $(this).find('ul').slideUp('fast')
+    //});
 
-    jQuery("#loginLinks ul.nav-submenu").mouseleave(function(){
-        $(this).slideUp('fast')
-    });
+    //jQuery("#loginLinks ul.nav-submenu").mouseleave(function(){
+    //    $(this).slideUp('fast')
+    //});
 
     jQuery("#loginLinks span.drop").click(function(e){
-        $(this).prev('ul').slideDown('fast')
+        var $menu = $(this).prev('ul');
+        if ($menu.is(":visible")) {
+          $(this).removeClass("active");
+          $menu.slideUp('fast');
+        } else {
+          $(".drop.active").trigger("click");
+          $(this).addClass("active");
+          $menu.slideDown('fast');
+        }
      });
 
 	fixTopNav = function(e){
         if (e.keyCode == 40) { // downarrow
             e.preventDefault();
             jQuery('#selectSite').hide();
-            $('.nav-submenu').hide();
+            jQuery(".drop.active").trigger("click");
             // Trigger click on the drop <span>, passing true to set focus on
             // the first tool in the dropdown.
             jQuery(this).parent().find(".drop").trigger('click',[true]);
         } else if (e.keyCode == 38) { // uparrow
+            jQuery(this).parent().find(".drop").removeClass("active");
             $(this).parent().children('a').focus();
             $('.nav-submenu').hide();
         }
@@ -555,9 +567,9 @@ var setupSiteNav = function(){
 		$('.topnav > li.nav-menu > a').live('keydown', fixTopNav);
 	}
     
-    jQuery("ul.topnav > li").mouseleave(function(){
-        $(this).find('ul').slideUp('fast')
-    });
+    //jQuery("ul.topnav > li").mouseleave(function(){
+    //    $(this).find('ul').slideUp('fast')
+    //});
     // focusFirstLink is only ever passed from the keydown handler. We
     // don't want to focus on click; it looks odd.
     jQuery("ul.topnav li span.drop").click(function(e, focusFirstLink){
@@ -569,8 +581,15 @@ var setupSiteNav = function(){
          */
         e.preventDefault()
         var jqObjDrop = $(e.target);
-        if (jqObjDrop.parent('li').find('ul').length) {
-            jqObjDrop.parent('li').find('ul').slideDown('fast')
+        var $menu = jqObjDrop.parent('li').find('ul');
+
+        if ($menu.length > 0 && $menu.is(":visible")) {
+            jqObjDrop.removeClass("active");
+            $menu.slideUp("fast");
+        } else if ($menu.length) {
+            $(".drop.active").trigger("click");
+            jqObjDrop.addClass("active");
+            $menu.slideDown('fast')
             if(focusFirstLink) {
                 jqObjDrop.parent().find("ul.subnav a:first").focus();
             }
@@ -601,6 +620,8 @@ var setupSiteNav = function(){
                     }
                     navsubmenu = navsubmenu + "</ul>"
                     jqObjDrop.after(navsubmenu);
+                    $(".drop.active").trigger("click");
+                    jqObjDrop.addClass("active");
                     if(focusFirstLink) {
                         jqObjDrop.parent().find("ul.subnav a:first").focus();
                     }
@@ -698,6 +719,7 @@ function addArrowNavAndDisableTabNav(ul,callback) {
             e.preventDefault();
             var next = obj.parent().parent().next();
             if(next[0] === undefined) {
+                obj.parent().parent().parent().parent().children('a').removeClass("active");
                 ul.slideUp('fast');
                 if(callback !== undefined) {
                     callback();
@@ -708,12 +730,14 @@ function addArrowNavAndDisableTabNav(ul,callback) {
                 next.find('a').focus();
             }
         } else if(e.keyCode == 9) { // Suck up the menu if tab is pressed 
+            obj.parent().parent().parent().parent().children('a').removeClass("active");
             ul.slideUp('fast');
         } else if(e.keyCode == 38) {
             // Up arrow
             e.preventDefault();
             var prev = obj.parent().parent().prev();
             if(prev[0] === undefined) {
+                obj.parent().parent().parent().parent().children('.drop').removeClass("active");
                 ul.slideUp('fast');
                 if(callback !== undefined) {
                     callback();
