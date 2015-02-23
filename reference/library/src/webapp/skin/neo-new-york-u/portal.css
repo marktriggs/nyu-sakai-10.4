@@ -101,6 +101,10 @@ body.portalBody {
   min-height: 200px;
 }
 
+.portletBody.siteDescription {
+  min-height: 443px; /* CLASSES-1448 display in line with two min-height portlets in col2 */
+}
+
 /* wrapper for footer blocks  */
 #footer {
     clear: both;
