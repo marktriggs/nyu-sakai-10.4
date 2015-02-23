@@ -62,6 +62,16 @@
 						</li>
 			#end
 			#if (${sitePages.pageNavShowHelp})
+				#if ($usingExternalHelp)
+					#if ($externalHelpMain)
+						<li>
+							<a class="toolMenuLink" accesskey="6" href="${externalHelpMain.url}" target="_blank">
+								<span  class="toolMenuIcon ${sitePages.helpMenuClass}"></span>
+								<span class="menuTitle">${externalHelpMain.label}</span>
+							</a>
+						</li>
+					#end
+				#else
 						 <li>
 								<a class="toolMenuLink" accesskey="6" href="${sitePages.pageNavHelpUrl}" target="_blank" 
 									onclick="openWindow('${sitePages.pageNavHelpUrl}', 
@@ -71,6 +81,7 @@
 								<span class="skip">${rloader.site_newwindow}</span> </a>
 								</a>
 						 </li>
+				#end
 			#end
 #if (${sitePages.pageNavCanAddMoreTools}) 
 			<li>

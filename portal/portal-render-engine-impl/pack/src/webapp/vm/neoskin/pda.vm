@@ -291,7 +291,17 @@ ${responseBody}
 	       </ul>
        </li>
     #end
-	#if (${currentSite.sitePages.pageNavShowHelp})
+	#if ($usingExternalHelp)
+		#if ($externalHelpMain)
+			<li>
+				<span>
+					<a class="icon-sakai-help" accesskey="6" href="${externalHelpMain.url}" target="_blank">
+						${externalHelpMain.label}
+					</a>
+				</span>
+			</li>
+		#end
+	#elseif (${currentSite.sitePages.pageNavShowHelp})
 		<li>
 			<a  class="${currentSite.sitePages.helpMenuClass}" accesskey="6" href="${sitePages.pageNavHelpUrl}" target="_blank" 
 				onclick="openWindow('${currentSite.sitePages.pageNavHelpUrl}', 
