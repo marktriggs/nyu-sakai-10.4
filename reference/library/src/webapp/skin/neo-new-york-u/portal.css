@@ -2053,6 +2053,9 @@ everything except the tool icon is gone it is still distincts as the current too
 }
 
 /* Qtip overrides used by tutorial*/
+.qtip {
+  max-width: 480px !important;
+}
 a.qtipLinkButton {
      right: 0px;
     top: 85px;

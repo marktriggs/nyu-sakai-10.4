@@ -17,7 +17,7 @@ $(function () {
 	    text: "Set your time zone",
 	    button: '<a href="#"><img src="/library/image/silk/cancel.png"/></a>'
           },
-          text: "<iframe id=\"set_timezone_" + id + "\" height=\"600\" width=\"750\">"
+          text: "<iframe id=\"set_timezone_" + id + "\" height=\"600\" width=\"460\" style=\"border:none;\">"
         },
 
         position: {
@@ -31,7 +31,8 @@ $(function () {
         },
         hide: false,
         style: {
-          classes: "qtip-tipped qtip-shadow qtipBodyContent qtip-setTimezone"
+          classes: "qtip-tipped qtip-shadow qtipBodyContent qtip-setTimezone",
+          width: "480px"
         },
         events: {
           show: function()
