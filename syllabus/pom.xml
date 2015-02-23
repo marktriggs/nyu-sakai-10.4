@@ -4,7 +4,7 @@
   <parent>
     <artifactId>master</artifactId>
     <groupId>org.sakaiproject</groupId>
-    <version>10.2</version>
+    <version>10.4</version>
     <relativePath>../master/pom.xml</relativePath>
   </parent>
   <name>Sakai Syllabus Project</name>
@@ -34,7 +34,7 @@
       <dependency>
         <groupId>org.sakaiproject</groupId>
         <artifactId>sakai-syllabus-hbm</artifactId>
-        <version>10.2</version>
+        <version>10.4</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

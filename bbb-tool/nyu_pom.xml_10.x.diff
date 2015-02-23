@@ -14,7 +14,7 @@ Index: pom.xml
            <groupId>org.sakaiproject</groupId>
 -          <version>2.8.1</version>
 -          <relativePath>../pom.xml</relativePath>
-+          <version>10.2</version>
++          <version>10.4</version>
 +          <relativePath>../master/pom.xml</relativePath>
          </parent>
 -    
