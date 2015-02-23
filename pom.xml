@@ -95,6 +95,7 @@
                 <module>msgcntr</module>
                 <module>nyugrades</module>
                 <module>nyuhome-feed</module>
+                <module>nyuclasses-job-test</module>
                 <module>osp</module>
                 <module>podcasts</module>
                 <module>polls</module>
