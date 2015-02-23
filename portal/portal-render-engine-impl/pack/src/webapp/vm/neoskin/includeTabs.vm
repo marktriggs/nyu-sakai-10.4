@@ -70,7 +70,7 @@
 			#end
 			## CLASSES-1015
 			#if ($enableTutorialPopup)
-<li class="submenuitem"><span><a id="tutorialPopupLink" role="menuitem" href="#" onclick="sakai.tutorial_popup.open_it();"><span class="toolMenuIcon submenuitem-tutorial-popup"></span> What's New in NYU Classes</a></span></li>
+<li class="submenuitem"><span><a id="tutorialPopupLink" role="menuitem" href="#" onclick="sakai.tutorial_popup.open_it(); return false;"><span class="toolMenuIcon submenuitem-tutorial-popup"></span> What's New in NYU Classes</a></span></li>
 			#end
 
 </ul>

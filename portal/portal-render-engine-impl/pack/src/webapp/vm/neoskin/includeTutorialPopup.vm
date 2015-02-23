@@ -6,34 +6,36 @@
 		<a href="javascript:void(0);" class="tutorialPopupContinue ui-button"></a>
 	</header>
 	<section id="tutorialPopupData">
-		<p>NYU Classes has received an upgrade, providing a cleaner, more modern user interface, as well as functional enhancements in a number of system tools. Don’t worry - the basic interface layout and tool interactions are the same as before. You will <strong>not</strong> need to relearn the system. Get started by watching the following brief introduction:</p>
+		<p>NYU Classes has been upgraded to provide a more modern interface and enhanced features. You do not need to relearn the system and your content is right where you left it. Watch a brief intro video:</p>
 		<div>
 			<center>
-				<a id="tutorialPopupIntroductionVideo" href="http://youtu.be/2TBO3iYIj5E" target="_blank">
-					<img src="$!{portalCDNPath}/portal/styles/images/tutorial/upgrade-introduction-screenshot.gif">
+				<a id="tutorialPopupIntroductionVideo" href="http://youtu.be/2TBO3iYIj5E" target="_blank" title="YouTube video: Introduction to the new version of NYU Classes">
+					<img src="$!{portalCDNPath}/portal/styles/images/tutorial/upgrade-introduction-screenshot.gif$!{portalCDNQuery}" alt="Screenshot of the NYU Classes Introduction video"/>
 				</a>
 			</center>
 		</div>
-		<h3 id="tutorialPopupFeaturesHeading">Here is a sample of the enhancements available:</h3>
+		<h3 id="tutorialPopupFeaturesHeading">Enhanced Features Include:</h3>
 		<ul id="tutorialPopupFeatures">
 			<li>
-				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature1.png"/>
-				<p><strong>Faster system navigation</strong> via drop-down site menus available in the "Favorite Sites" bar and "More Sites" menu.</p>
+				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature1.png$!{portalCDNQuery}"/>
+				<p><strong>More drag-and-drop</strong> functionality, from reordering sites to uploading Resources.</p>
 			</li>
+
 			<li>
-				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature2.png"/>
-				<p><strong>More drag-and-drop</strong> functionality throughout the system, from reordering sites to uploading Resources.</p>
+				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature2.png$!{portalCDNQuery}"/>
+				<p><strong>New group features</strong>, including joinable groups and group assignments.</p>
 			</li>
+
 			<li>
-				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature3.png"/>
-				<p><strong>Enhanced recipient-selection</strong> process in Messages - recipients may be typed or selected from a list and easily removed.</p>
+				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature3.png$!{portalCDNQuery}"/>
+				<p><strong>Improved contextual help</strong> in site tools, providing direct access to relevant help articles.</p>
 			</li>
 		</ul>
 		<h3>Want to learn more?</h3>
 		<ul id="tutorialPopupLearningBits">
-			<li>"Getting Started" videos and tool articles are available in the new Help tool, located in the left tool menu of every site.</li>
-			<li>Contextual help is also available in individual tools - select the "Help" icon in the upper-right of site tools to be directed to relevant articles.</li>
-			<li>Instructors will find "See the New Features" links in the upper-right of applicable tools.</li>
+			<li>Find help articles and “Getting Started” videos in the new <strong>Help</strong> tool, located in the left menu of every site.</li>
+			<li>Instructors will find "See the New Features" links in the upper right of applicable tools.</li>
+			<li>For ongoing updates on NYU Classes, see the "NYU Classes Info" area in My Workspace.</li>
 		</ul>
 	</section>
 	<footer id="tutorialPopupFooter">

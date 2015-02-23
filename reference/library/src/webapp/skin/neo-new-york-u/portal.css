@@ -2504,6 +2504,9 @@ html > body .ui-pnotify {
 #qtip-tutorialPopup #tutorialPopupLearningBits li {
   margin-top: 10px;
 }
+#qtip-tutorialPopup h3 {
+  font-size: 1.4em;
+}
 @media only screen and (max-device-width: 520px), only screen and (max-width: 520px) {
   #qtip-tutorialPopup #tutorialPopupFeatures {
     display: block;
@@ -2514,7 +2517,7 @@ html > body .ui-pnotify {
     text-align: center;
   }
   #qtip-tutorialPopup #tutorialPopupFeatures li img {
-    width: 75%;
+    width: 60%;
   }
   #qtip-tutorialPopup #tutorialPopupIntroductionVideo img {
     width: 90%;
