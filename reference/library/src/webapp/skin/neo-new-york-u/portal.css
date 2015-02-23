@@ -525,8 +525,11 @@ ul.topnav li.nav-menu a[title="My Workspace"]:before {
     border: none;
 }
 /* treatment for focus and hover in the site and user sub-menus, as well as submenus in other sites */
-ul.topnav li ul.subnav li:hover, ul.topnav li ul.subnav li a:hover, ul.topnav li ul.subnav li a:focus,
-#mastLogin li.submenuitem:hover, #mastLogin ul.subnav li.submenuitem a:focus, #otherSiteTools li:hover, #otherSiteTools a:focus{
+ul.topnav li ul.subnav li:hover,
+ul.topnav li ul.subnav li a:hover,
+ul.topnav li ul.subnav li a:focus,
+#mastLogin li.submenuitem:hover,
+#otherSiteTools li:hover {
     -webkit-transition: background-color 0.2s, color 0.2s;
     -moz-transition: background-color 0.2s, color 0.2s;
     -ms-transition: background-color 0.2s, color 0.2s;

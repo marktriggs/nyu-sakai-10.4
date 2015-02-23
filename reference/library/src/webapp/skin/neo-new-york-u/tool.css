@@ -2415,3 +2415,13 @@ form[name="classInformationForm"] input#title {
   left: 0px;
   padding: 0px 0px 0px 0px !important;
 }
+
+/* CLASSES-1539 Lesson Builder */
+.mainList li.canEdit > div.edit-col {
+  padding-top: 0 !important;
+}
+
+.mainList li.canEdit > div.edit-col .usebutton {
+  min-height: initial !important;
+  padding: 2px 0 !important;
+}
