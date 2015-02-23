@@ -58,6 +58,7 @@ ${tool.toolRenderResult.getTitle()}
 #else 
     <title>${pageTitle}</title>
 ${sakai_html_head_css}
+${sakai_html_head_js}
      <script type="text/javascript" language="JavaScript" src="${pageScriptPath}headscripts.js"></script>
      <script type="text/javascript" src="${pageScriptPath}jquery/jquery-1.9.1.min.js$!{portalCDNQuery}"></script>
      <script type="text/javascript" src="${pageScriptPath}jquery/jquery-migrate-1.2.1.min.js$!{portalCDNQuery}"></script>
@@ -104,6 +105,10 @@ ${sakai_html_head_css}
     };
 </script>
 
+#if ( $loggedIn )
+<script type="text/javascript" src="$!{portalCDNPath}/portal/scripts/sessionstoragemanager.js$!{portalCDNQuery}"></script>
+#end
+
 ## SAK-20576 Moved declaration of the javascript variable 'portal' into the script that uses it (portalscripts.js) to
 ##   so that this velocity macro is not a dependency for using that script
 <script type="text/javascript" language="JavaScript">
@@ -113,7 +118,8 @@ ${sakai_html_head_css}
 </script>
 
 <script type="text/javascript" src="${pageScriptPath}/trimpath-template-latest.js$!{portalCDNQuery}"></script>
-
+<script type="text/javascript" src="${pageScriptPath}jquery/bgiframe/jquery.bgiframe.min.js$!{portalCDNQuery}"></script>
+<script type="text/javascript" src="${pageScriptPath}jquery/notify/1.2.2/jquery.pnotify.min.js$!{portalCDNQuery}"></script>
 <script type="text/javascript" src="${pageScriptPath}jquery/qtip/jquery.qtip-latest.min.js"></script>
 <link type="text/css" rel="stylesheet" href="${pageScriptPath}jquery/qtip/jquery.qtip-latest.min.css">
 <script type="text/javascript" src="${pageScriptPath}jquery/qtip/tutorial.js"></script>
