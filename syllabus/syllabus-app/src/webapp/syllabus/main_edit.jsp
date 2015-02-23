@@ -365,4 +365,16 @@
 		</h:form>
 	</sakai:view_content>
 	</sakai:view_container>
+
+  <!-- CLASSES-1601 force set active toolbar action as 'current' -->
+  <script>
+    $(function() {
+      $(".navIntraTool.actionToolbar li").each(function() {
+        var $menuItem = $(this);
+        if ($menuItem.find("a").length == 0) {
+          $menuItem.find("span").addClass("current");
+        }
+      });
+    });
+  </script>
 </f:view>
