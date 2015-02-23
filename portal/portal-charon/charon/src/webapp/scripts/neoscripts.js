@@ -725,3 +725,13 @@ function addArrowNavAndDisableTabNav(ul,callback) {
         }
     });
 }
+
+/* CLASSES-1319 NYU When neo templates are used, ensure the content pane matches the tool menu height */
+$(function() {
+  var $toolMenu = $("#toolMenu");
+  var $portlet = $("#col1 .portletMainWrap");
+
+  if ($portlet.length == 1) {
+    $portlet.css("minHeight", $toolMenu.height() + "px");
+  }
+});
