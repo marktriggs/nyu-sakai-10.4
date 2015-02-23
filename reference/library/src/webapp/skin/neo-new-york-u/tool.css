@@ -1987,3 +1987,20 @@ span#cke_1_bottom:after {
     background: none !important;
     padding-left: 5px !important;
 }
+
+.more-sites-courses, .more-sites-other {
+    display: inline-block;
+    overflow: hidden;
+    width: 49%;
+}
+
+.more-sites-courses ul li, .more-sites-other ul li {
+    margin-left: 0;
+}
+
+
+@media screen and (max-device-width: 800px) {
+    .more-sites-courses, .more-sites-other {
+        display: block !important;
+    }
+}

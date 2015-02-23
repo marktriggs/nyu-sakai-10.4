@@ -741,3 +741,37 @@ $(function() {
 $(function() {
   $(".portletTitle .title a[title='Tool Home']").removeAttr("title");
 });
+
+
+function rearrangeMoreSitesPane() {
+    var $container = $('#otherSitesCategorWrap');
+
+    if ($container.length == 0) {
+        return;
+    }
+
+    var $courses_pane = $('<div class="more-sites-courses" />');
+    var $other_sites_pane = $('<div class="more-sites-other"/>');
+
+    $('.otherSitesCategorList').each(function (i, list) {
+        var $list = $(list);
+        var $heading = $list.prev();
+
+        var $target;
+        if (/^(other|projects)$/i.test($heading.text())) {
+            $target = $other_sites_pane;
+        } else {
+            $target = $courses_pane;
+        }
+
+        $target.append($heading);
+        $target.append($list);
+    });
+
+    $container.empty();
+    $container.append($courses_pane);
+    $container.append($other_sites_pane);
+}
+
+
+$(rearrangeMoreSitesPane);
