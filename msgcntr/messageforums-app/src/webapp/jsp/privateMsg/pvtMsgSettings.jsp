@@ -64,7 +64,7 @@
 		         </h:panelGrid>
 		         
 		         
-		       <h:panelGroup rendered="#{PrivateMessagesTool.instructor}" style="display: none;">	  
+		       <h:panelGroup rendered="#{PrivateMessagesTool.instructor}">	  
 		         <f:verbatim><h4></f:verbatim><h:outputText value="#{msgs.pvt_site_settings}" /><f:verbatim></h4></f:verbatim>
 		         
                          <h:panelGrid styleClass="jsfFormTable" columns="2" >			  
@@ -115,6 +115,17 @@
 			</sakai:button_bar>
 
 		</h:form>
+
+<script>
+// CLASSES-1476 Hide the sendToEmail inputs
+// And hide the entire Site Settings section if there are no fields to displayEmail
+$("[id='pvtMsgSettings:email_sendout']").closest("tr").hide();
+// if nothing else in the form, then hide the whole section
+if ($("[id='pvtMsgSettings:nonHiddenGroup']").length == 0) {
+  $("[id='pvtMsgSettings:email_sendout']").closest(".jsfFormTable").hide();
+  $("h4:contains('Site Settings')").hide();
+}
+</script>
 
 	</sakai:view>
 </f:view>
