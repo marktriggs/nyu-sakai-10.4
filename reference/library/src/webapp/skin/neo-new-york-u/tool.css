@@ -2374,3 +2374,22 @@ form[name="classInformationForm"] input#title {
   font-size: 1em;
   padding: 5px;
 }
+
+
+/* CLASSES-1513 */
+.ui-tabs-nav.ui-widget-header {
+  background: #F6F6F6 !important;
+  border-radius: 0 !important;
+  border-bottom-color: #828282 !important;
+}
+
+.ui-tabs.ui-widget-content,
+.ui-tabs-panel.ui-widget-content {
+  background: #FFFFFF !important;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-state-active {
+  border-color: #828282 !important;
+  border-bottom: none !important;
+  top: 1px;
+}
