@@ -647,6 +647,7 @@ public class EvaluationDaoImplTest extends AbstractTransactionalSpringContextTes
         assertEquals(19, l.size());
         // check the order
         ids = EvalTestDataLoad.makeIdList(l);
+
         assertEquals(ids.get(0), etdl.evaluationViewable.getId());
         assertEquals(ids.get(1), etdl.evaluationClosed_viewIgnoreDates.getId());
         assertEquals(ids.get(2), etdl.evaluationClosed.getId());
