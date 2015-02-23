@@ -213,7 +213,7 @@ html {
   color: #FFF;
 }
 #pda-portlet-menu .resetToolLink a:before {
-  content: '\e005';
+  content: '\e610';
 }
 #pda-portlet-menu .resetToolLink a img {
   display: none;

@@ -1069,41 +1069,42 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
   display: none;
 }
 .portletTitle .title a:before {
-content: '\e61b';
-font-size: 18px;
-font-family: 'nyu-classes-icons';
+  content: '\e61b';
+  font-size: 18px;
+  font-family: 'nyu-classes-icons';
+  display: inline-block;
 }
-@-webkit-keyframes rotate {
+@-webkit-keyframes resetRotate {
    from { -webkit-transform: rotate(90deg); }
      to { -webkit-transform: rotate(0deg); }
 }
-@-moz-keyframes rotate {
+@-moz-keyframes resetRotate {
    from { -moz-transform: rotate(90deg); }
      to { -moz-transform: rotate(0deg); }
 }
-@-ms-keyframes rotate {
+@-ms-keyframes resetRotate {
    from { -ms-transform: rotate(90deg); }
      to { -ms-transform: rotate(0deg); }
 }
-@-o-keyframes rotate {
+@-o-keyframes resetRotate {
    from { -o-transform: rotate(90deg); }
      to { -o-transform: rotate(0deg); }
 }
-@keyframes rotate {
+@keyframes resetRotate {
    from { transform: rotate(90deg); }
      to { transform: rotate(0deg); }
 }
 .portletTitle .title a:hover:before {
-    -webkit-animation: rotate 0.4s linear;
-    -moz-animation:    rotate 0.4s linear;
-    -ms-animation:     rotate 0.4s linear;
-    -o-animation:      rotate 0.4s linear;
-    animation          rotate 0.4s linear;
+    -webkit-animation: resetRotate 0.4s linear forwards;
+    -moz-animation:    resetRotate 0.4s linear forwards;
+    -ms-animation:     resetRotate 0.4s linear forwards;
+    -o-animation:      resetRotate 0.4s linear forwards;
+    animation          resetRotate 0.4s linear forwards;
 
     content: '\e610';
 }
 .portletTitle .title a:after {
-    -webkit-transition: width 1s;
+    -webkit-transition: width 1s, transform 0.5s;
     -moz-transition: width 1s;
     -ms-transition: width 1s;
     -o-transition: width 1s;
@@ -1111,11 +1112,12 @@ font-family: 'nyu-classes-icons';
     
     display: inline-block;
     width: 0;
+    content: 'Return to Tool Home';
     overflow: hidden;
-    height: 0;
-    content: "";
     white-space: nowrap;
     margin-left: 5px;
+    line-height: 18px;
+    vertical-align: top;
 }
 .portletTitle .title a:hover:after {
     -webkit-transition: width 1s;
@@ -1132,12 +1134,10 @@ font-family: 'nyu-classes-icons';
 
     width: 150px;
     height: auto;
-    margin-left: 5px;
 }
 .portletTitle .title a:hover:after {
     content: 'Return to Tool Home';
     font-size: 12px;
-    line-height: 18px;
     font-family:  'Helvetica Neue','Arial',sans-serif;
 }
 .portletMainIframe {
