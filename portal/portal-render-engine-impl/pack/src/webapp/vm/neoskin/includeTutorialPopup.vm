@@ -46,6 +46,5 @@
 	sakai.tutorial_popup = {
 		display_on_load: $!{displayTutorialPopup}
 	};
-	console.log(sakai.tutorial_popup.display_on_load);
 </script>
 <script type="text/javascript" src="$!{portalCDNPath}/portal/scripts/tutorial-popup.js$!{portalCDNQuery}"></script>
