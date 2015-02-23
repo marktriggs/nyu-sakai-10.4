@@ -223,21 +223,26 @@
 			#if ( !$pagepopup)
 			<div id="footer" role="contentinfo">
 
+				#if ( $selectedTimeZone )
+					<div class="selectedTimeZone">Timezone: ${selectedTimeZone}</div>
+				#end
 				<div class="footerExtNav">
-					<ul id="footerLinks">#foreach ( $bn in $bottomNav )<li><span>${bn}</span></li>#end</ul>
+					<ul id="footerLinks">
+						#foreach ( $bn in $bottomNav )
+						<li><span>${bn}</span></li>
+						#end
+					</ul>
 				</div>
 				<div id="footerInfo">
-			#foreach ( $pb in $bottomNavPoweredBy )	
+					#foreach ( $pb in $bottomNavPoweredBy )
 					<a href="${pb.poweredByUrl}" target="_blank">
-					 <img border="0" src="${pb.poweredByImage}" alt="${pb.poweredByAltText}" />
-					 <span class="skip"> (${rloader.site_newwindow})</span>
+						<img border="0" src="${pb.poweredByImage}" alt="${pb.poweredByAltText}" />
+						<span class="skip"> (${rloader.site_newwindow})</span>
 					</a>
-			#end
-
-			<!-- end include Bottom -->
+					#end
 				</div>
 				<div class="sakaiCopyrightInfo">${bottomNavCopyright}</div>
-				<div class="serviceInfo">${bottomNavService} - ${bottomNavServiceVersion} - Sakai ${bottomNavSakaiVersion} (Kernel ${bottomNavKernelVersion}) - Server ${bottomNavServer}</div>
+				<div class="serviceInfo">${bottomNavServer} - Sakai ${bottomNavSakaiVersion}</div>
 				#if ($showServerTime == "true")
 			 	<div class="server-time-container" aria-live="off">
 					#if ($showPreferredTzTime == "true")
