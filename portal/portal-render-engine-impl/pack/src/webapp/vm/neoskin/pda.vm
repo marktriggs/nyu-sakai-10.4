@@ -153,7 +153,7 @@ ${includeExtraHead}
 #if ($currentSite && $currentPlacement)
   ##user is in a tool
   <li class="sitesLink backLink crumb"><span><a href="${portalTopUrl}" title="$rloader.getString("pda_back_to_sites")">$rloader.getString("pda_sites")</a></span></li>
-  <li class="backLink crumb #if($currentSite.isMyWorkspace) site-my-workspace #end"><span><a href="${currentSite.siteUrl}" title="${currentSite.siteTitle}">#if(!$currentSite.isMyWorkspace)${currentSite.siteTitle}#else $rloader.getString('sit_mywor') #end</a></span></li>
+  <li class="backLink crumb #if($currentSite.isMyWorkspace) site-my-workspace #end"><span><a href="${currentSite.siteUrl}" title="${currentSite.siteTitle}"><span>#if(!$currentSite.isMyWorkspace)${currentSite.siteTitle}#else $rloader.getString('sit_mywor') #end</span></a></span></li>
   <li class="currentToolTitle crumb current"><span>${currentPlacement.toolTitle}</span></li>
   #if ($showResetButton)
     <li class="resetToolLink"><span>

@@ -54,7 +54,7 @@ html {
 }
 
 #pda-portlet-menu {
-  background: #57068c;
+  background: #DBDCDE;
   min-height: 38px;
   color: #FFFFFF;
   margin: 0;
@@ -186,7 +186,8 @@ html {
   line-height: 20px;
   vertical-align: middle;
   font-size: 18px;
-  text-shadow: 1px 1px 2px #444;
+  text-shadow: 1px 1px 2px #FFF;
+  color: #444;
 }
 #pda-portlet-menu .current::after,
 #pda-portlet-menu .current::before {
@@ -210,7 +211,7 @@ html {
 #pda-portlet-menu .resetToolLink a {
   font-family: 'nyu-classes-icons';
   font-size: 20px;
-  color: #FFF;
+  color: #444;
 }
 #pda-portlet-menu .resetToolLink a:before {
   content: '\e610';
@@ -232,8 +233,11 @@ html {
   text-decoration: none;
 }
 
-#pda-portlet-site-menu li.site-my-workspace {
-  border-left: 4px solid #555;
+.site-my-workspace a:before,
+.currentSiteTitle.site-my-workspace span:before,
+.crumb.site-my-workspace a span:before {
+  font-family: 'nyu-classes-icons';
+  content: '\e616';
 }
 
 /*all types of links in the breadcrumb are addressed in the markup and can be styled here*/
