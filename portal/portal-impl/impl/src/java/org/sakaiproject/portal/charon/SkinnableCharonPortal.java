@@ -1089,7 +1089,8 @@ public class SkinnableCharonPortal extends HttpServlet implements Portal
 	public void doLogout(HttpServletRequest req, HttpServletResponse res,
 			Session session, String returnPath) throws ToolException
 	{
-		
+		clearF5StickySession(res);
+	
 		// SAK-16370 to allow multiple logout urls
 		String loggedOutUrl = null;
 		String userType = UserDirectoryService.getCurrentUser().getType();
@@ -1109,6 +1110,20 @@ public class SkinnableCharonPortal extends HttpServlet implements Portal
 		String context = req.getContextPath() + req.getServletPath() + "/logout";
 		tool.help(req, res, context, "/logout");
 	}
+
+
+	private void clearF5StickySession(HttpServletResponse res) {
+		String cookieName = ServerConfigurationService.getString("nyu.f5.cookie", null);
+
+		if (cookieName != null) {
+			Cookie cookie = new Cookie(cookieName, null);
+			cookie.setPath("/");
+			cookie.setSecure(false);
+			cookie.setMaxAge(0);
+			res.addCookie(cookie);
+		}
+	}
+
 
 	/**
 	 * Check if we are on a mobile device. Only does this once per session.

@@ -238,6 +238,10 @@ public class RequestFilter implements Filter
 	private String [] loginPaths;
 	private String [] contentExceptions;
 
+
+	private String f5CookieName = null;
+
+
 	/**
 	 * Compute the URL that would return to this server based on the current request.
 	 *
@@ -568,6 +572,8 @@ public class RequestFilter implements Filter
 		// Requesting the ServerConfigurationService here also triggers the promotion of certain
 		// sakai.properties settings to system properties - see SakaiPropertyPromoter()
 		ServerConfigurationService configService = org.sakaiproject.component.cover.ServerConfigurationService.getInstance();
+
+		f5CookieName = configService.getString("nyu.f5.cookie", null);
 
 		// knl-640
 		appUrl = configService.getString("serverUrl", null);
@@ -953,9 +959,21 @@ public class RequestFilter implements Filter
 		return new WrappedRequestFileUpload(req, map);
 	}
 
+
+	private void clearF5StickySession(HttpServletResponse res) {
+		if (f5CookieName != null) {
+			Cookie cookie = new Cookie(f5CookieName, null);
+			cookie.setPath("/");
+			cookie.setSecure(false);
+			cookie.setMaxAge(0);
+			res.addCookie(cookie);
+		}
+	}
+
+
 	/**
 	 * Make sure we have a Sakai session.
-	 *
+	 * 
 	 * @param req
 	 *        The request object.
 	 * @param res
@@ -1043,6 +1061,15 @@ public class RequestFilter implements Filter
 			if (reqsession && s != null && s.getUserId() == null) {
 				s = null;
 			}
+
+
+			if (s == null && c != null) {
+				// The user has shown up with a cookie but they have no session.
+				// Assume this means their session has expired.
+				M_log.info("Clearing expired session: " + sessionId);
+				clearF5StickySession(res);
+			}
+
 		}
 
 		// if found and not automatic, mark it as active
