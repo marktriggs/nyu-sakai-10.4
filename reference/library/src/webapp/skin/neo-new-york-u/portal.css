@@ -40,11 +40,11 @@ body.portalBody {
     float: right;
 }
 
-/*
 .toolMenuIcon { 
-    display: none;
+    display: inline-block;
+    vertical-align: text-bottom;
+    font-size: 15px;
 }
-*/
 
 .menuTitle {
     margin: 5px 10px;
@@ -92,9 +92,8 @@ body.portalBody {
     text-align: center;
     width: 90%;
     margin: 0 auto 50px auto;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
+    z-index: 2000;
+    font-size: 0.9em;
 }
 #footerLinks {
     text-align: center;
@@ -396,7 +395,6 @@ ul.topnav li.nav-menu:hover, ul.topnav li.more-tab:hover {
 */ }
 ul.topnav > li.nav-selected > a {
     color:#fff;
-    text-shadow: 1px 1px 1px #444;
 }
 /* site submenu trigger */
 ul.topnav li span.drop {
@@ -457,9 +455,8 @@ ul.topnav li a {
     text-decoration: none;
     float: left;
     display: block;
-    font-weight: 100;
+    font-weight: normal;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
-    text-shadow: 1px 1px 1px #FFF;
 }
 /* Note:not needed? tool submenu for sites in site list
 span.topnav li ul.subnav li {
@@ -720,7 +717,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
 /* PART 4 - SITE TOOL LINKS - children of #toolMenuWrap
 /* wrapper for ul that lists the links to tools, and the wrapper that lists links to subsites */
 #toolMenu, #subSites {
-    width: 94%;
+    width: 90%;
     padding: 0;
     margin: 0 0 0 6%;
     color: #000;
@@ -780,7 +777,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     display: block;
     text-decoration: none;
     color: #444;
-    padding: 10px 6px;
+    padding: 6px;
     margin-bottom: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -959,8 +956,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     margin: 0;
     padding: 0;
     color: #444;
-    font-weight: 100;
-    text-shadow: 1px 1px 1px #CCC;
+    font-weight: normal;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
     font-size: 1.5em !important;
 }
@@ -1564,6 +1560,7 @@ div#privacy_overlay {
  * */
 /* container for tool menu display toggle control */
 #togglebar {
+    display: none;
     float: left;
     width: 13px;
     height: 30px;
