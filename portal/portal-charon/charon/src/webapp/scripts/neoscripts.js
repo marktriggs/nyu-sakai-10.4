@@ -583,6 +583,11 @@ var setupSiteNav = function(){
         var jqObjDrop = $(e.target);
         var $menu = jqObjDrop.parent('li').find('ul');
 
+        if (jqObjDrop.hasClass("loading")) {
+          // ajax is happening... hold your horses!
+          return;
+        }
+
         if ($menu.length > 0 && $menu.is(":visible")) {
             jqObjDrop.removeClass("active");
             $menu.slideUp("fast");
@@ -595,6 +600,7 @@ var setupSiteNav = function(){
             }
         }
         else {
+            jqObjDrop.addClass("loading");
             var navsubmenu = "<ul class=\"nav-submenu subnav\" role=\"menu\" style=\"display:block\">";
             var siteId = jqObjDrop.attr('data');
             var maxToolsInt = parseInt($('#maxToolsInt').text());
@@ -626,7 +632,7 @@ var setupSiteNav = function(){
                     navsubmenu = navsubmenu + "</ul>"
                     jqObjDrop.after(navsubmenu);
                     $(".drop.active").trigger("click");
-                    jqObjDrop.addClass("active");
+                    jqObjDrop.removeClass("loading").addClass("active");
                     if(focusFirstLink) {
                         jqObjDrop.parent().find("ul.subnav a:first").focus();
                     }
@@ -634,6 +640,7 @@ var setupSiteNav = function(){
                 },
                 error: function(XMLHttpRequest, status, error){
                     // Something happened getting the tool list. 
+                    jqObjDrop.removeClass("loading");
                 }
             });
         }
