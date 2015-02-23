@@ -2425,3 +2425,24 @@ form[name="classInformationForm"] input#title {
   min-height: initial !important;
   padding: 2px 0 !important;
 }
+.portletTitle .title > span.returnheader.nextprev {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.portletTitle .title > span.returnheader.nextprev a {
+  margin-left: 0;
+}
+span.returnheader.nextprev a {
+  background: #E7E7EB !important;
+}
+span.returnheader.nextprev a:hover {
+  background: #FFF !important;
+}
+.portletTitle .title > span.returnheader.nextprev a:after {
+  content: '';
+  display: none;
+}
+.portletTitle .title > span.returnheader.nextprev a:after:hover {
+  content: '';
+  display: none;
+}
