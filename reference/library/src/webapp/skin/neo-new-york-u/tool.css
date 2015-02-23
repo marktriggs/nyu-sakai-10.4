@@ -1192,13 +1192,18 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 
     cursor: pointer;
     background-color: #E7E7EB !important;
-    font-size: 12px !important;
     font-weight: normal !important;
-    min-height: 24px !important;
+    min-height: 26px !important;
     color: #555 !important;
+    font-size: 1em !important;
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
     border: none;
     border: 1px solid #DBDCDE !important;
+}
+h2 input[type="submit"],
+h2 input[type="button"],
+h2 input[type="reset"] {
+  font-size: 0.8em !important;
 }
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
     -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
@@ -2105,4 +2110,410 @@ span.cke_bottom:after {
 #timezone_form select,
 #locale_form select {
   font-size: 1em;
+}
+
+
+/* CLASSES-1447 Bring across 2.8.1 new-york-u-2 input styles */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+}
+
+/* line 63, ../../../../.gems/gems/compass-normalize-1.4.3/stylesheets/normalize/_forms.scss */
+button,
+input {
+  line-height: normal;
+}
+
+/* line 73, ../../../../.gems/gems/compass-normalize-1.4.3/stylesheets/normalize/_forms.scss */
+button,
+select {
+  text-transform: none;
+}
+
+/* line 90, ../../../../.gems/gems/compass-normalize-1.4.3/stylesheets/normalize/_forms.scss */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+/* line 101, ../../../../.gems/gems/compass-normalize-1.4.3/stylesheets/normalize/_forms.scss */
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/* line 113, ../../../../.gems/gems/compass-normalize-1.4.3/stylesheets/normalize/_forms.scss */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* line 126, ../../../../.gems/gems/compass-normalize-1.4.3/stylesheets/normalize/_forms.scss */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* line 137, ../../../../.gems/gems/compass-normalize-1.4.3/stylesheets/normalize/_forms.scss */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* line 144, ../../../../.gems/gems/compass-normalize-1.4.3/stylesheets/normalize/_forms.scss */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* line 152, ../../../../.gems/gems/compass-normalize-1.4.3/stylesheets/normalize/_forms.scss */
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+input[type="search"]::-webkit-search-decoration {
+  display: none;
+}
+
+/* line 52, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+input:invalid,
+button:invalid,
+a.button:invalid,
+select:invalid,
+textarea:invalid {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 56, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+input:focus,
+button:focus,
+a.button:focus,
+select:focus,
+textarea:focus {
+  -webkit-box-shadow: #0066ff 0 0 5px 0;
+  -moz-box-shadow: #0066ff 0 0 5px 0;
+  box-shadow: #0066ff 0 0 5px 0;
+  z-index: 1;
+}
+
+/* line 64, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+input[type="file"]:focus, input[type="file"]:active,
+input[type="radio"]:focus,
+input[type="radio"]:active,
+input[type="checkbox"]:focus,
+input[type="checkbox"]:active {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+textarea,
+select,
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+  background-color: white;
+  border: 1px solid;
+  border-color: #848484 #c1c1c1 #e1e1e1;
+  color: black;
+  outline: 0;
+  margin: 0;
+  padding: 2px 3px;
+  text-align: left;
+  font-size: 13px;
+  font-family: Arial, "Liberation Sans", FreeSans, sans-serif;
+  height: 1.8em;
+  vertical-align: top;
+}
+/* line 163, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+textarea[disabled],
+select[disabled],
+input[type="date"][disabled],
+input[type="datetime"][disabled],
+input[type="datetime-local"][disabled],
+input[type="email"][disabled],
+input[type="month"][disabled],
+input[type="number"][disabled],
+input[type="password"][disabled],
+input[type="search"][disabled],
+input[type="tel"][disabled],
+input[type="text"][disabled],
+input[type="time"][disabled],
+input[type="url"][disabled],
+input[type="week"][disabled] {
+  background-color: #eeeeee;
+}
+
+/* line 166, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+button[disabled],
+input[disabled],
+select[disabled],
+select[disabled] option,
+select[disabled] optgroup,
+textarea[disabled],
+a.button_disabled {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  color: #888888;
+  cursor: default;
+}
+
+/* line 184, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #888888;
+}
+
+/* line 188, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #888888;
+}
+
+/* line 192, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+input.placeholder_text,
+textarea.placeholder_text {
+  color: #888888;
+}
+
+/* line 196, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+textarea,
+select[size],
+select[multiple] {
+  height: auto;
+}
+
+/* line 203, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+select[size="0"],
+select[size="1"] {
+  height: 1.8em;
+}
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  /* line 212, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+  select[size],
+  select[multiple],
+  select[multiple][size] {
+    background-image: none;
+    padding-right: 3px;
+  }
+
+  /* line 218, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+  select,
+  select[size="0"],
+  select[size="1"] {
+    background-image: url(data:image/png;base64,R0lGODlhDQAEAIAAAAAAAP8A/yH5BAEHAAEALAAAAAANAAQAAAILhA+hG5jMDpxvhgIAOw==);
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 20px;
+  }
+
+  /* line 227, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+  ::-webkit-validation-bubble-message {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, black));
+    border: 0;
+    color: white;
+    font: 13px/17px "Lucida Grande", Arial, "Liberation Sans", FreeSans, sans-serif;
+    overflow: hidden;
+    padding: 15px 15px 17px;
+    text-shadow: black 0 0 1px;
+    min-height: 16px;
+  }
+
+  /* line 239, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+  ::-webkit-validation-bubble-arrow,
+  ::-webkit-validation-bubble-top-outer-arrow,
+  ::-webkit-validation-bubble-top-inner-arrow {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background: #666666;
+    border-color: #666666;
+  }
+}
+/* line 247, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+textarea {
+  min-height: 40px;
+  overflow: auto;
+  resize: vertical;
+  width: 100%;
+}
+
+/* line 253, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+optgroup {
+  color: black;
+  font-style: normal;
+  font-weight: normal;
+  font-family: Arial, "Liberation Sans", FreeSans, sans-serif;
+}
+/* line 262, ../../../../.gems/gems/compass_formalize-0.0.5/stylesheets/_formalize.sass */
+optgroup::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* line 5, sass/base/forms/_forms_extendables.scss */
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+textarea,
+select {
+  vertical-align: baseline;
+  background-color: white;
+  font-family: inherit;
+  font-size: inherit;
+  -webkit-border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
+  border-radius: 0.25em;
+}
+/* line 12, sass/base/forms/_forms_extendables.scss */
+input[type]:focus,
+textarea:focus,
+select:focus {
+  border-color: #333333;
+}
+
+/* line 8, sass/base/forms/_forms.scss */
+label {
+  cursor: pointer;
+}
+
+/* line 21, sass/base/forms/_forms.scss */
+input[type="checkbox"],
+input[type="radio"],
+input[type="image"] {
+  margin: .25em .25em 0 .05em;
+}
+/* line 28, sass/base/forms/_forms.scss */
+input[type="checkbox"] + label,
+input[type="radio"] + label,
+input[type="image"] + label {
+  display: inline;
+  margin-right: 1em;
+}
+/* line 33, sass/base/forms/_forms.scss */
+input[type="checkbox"]:focus + label,
+input[type="radio"]:focus + label,
+input[type="image"]:focus + label {
+  background: #faedab;
+}
+/* line 37, sass/base/forms/_forms.scss */
+input[type="checkbox"][disabled] + label,
+input[type="radio"][disabled] + label,
+input[type="image"][disabled] + label {
+  color: #888;
+}
+
+/* line 43, sass/base/forms/_forms.scss */
+input[required],
+textarea[required] {
+  border-color: #666666;
+}
+
+/* line 63, sass/base/forms/_forms.scss */
+.shorttext,
+.longtext,
+.filepicker {
+  margin: 1em 0;
+  border: none;
+}
+
+/* line 70, sass/base/forms/_forms.scss */
+p.radio,
+p.checkbox {
+  margin: .25em 0;
+}
+
+/* line 101, sass/base/forms/_forms.scss */
+.reqStar {
+  color: red !important;
+  float: left;
+  margin-right: .25em;
+}
+
+/* line 107, sass/base/forms/_forms.scss */
+.reqStarInline {
+  color: red;
+}
+
+/* line 112, sass/base/forms/_forms.scss */
+img[src$="cal.gif"] {
+  margin: 0 .25em;
+}
+
+/* line 116, sass/base/forms/_forms.scss */
+.pager {
+  white-space: nowrap;
+  display: inline-block;
+  margin: 1em 0;
+}
+
+/* line 122, sass/base/forms/_forms.scss */
+#userlistForm .sectionContainerNav {
+  width: auto !important;
+}
+/* line 127, sass/base/forms/_forms.scss */
+#userlistForm .sectionContainerNav .left label {
+  margin: 0 .5em 0 0;
+}
+/* line 132, sass/base/forms/_forms.scss */
+#userlistForm .sectionContainerNav .right {
+  vertical-align: top;
+  text-align: left;
+}
+/* line 136, sass/base/forms/_forms.scss */
+#userlistForm .sectionContainerNav .right .act {
+  margin: 1.25em;
+}
+/* line 139, sass/base/forms/_forms.scss */
+#userlistForm .sectionContainerNav .right .act input {
+  margin: 0 .5em 0 0;
 }
