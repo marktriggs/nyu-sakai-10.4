@@ -51,6 +51,7 @@
                 <module>master</module>
                 <module>access</module>
                 <module>alias</module>
+                <module>admin-perms-tool</module>
                 <module>announcement</module>
                 <module>archive</module>
                 <module>assignment</module>
