@@ -381,12 +381,10 @@ ul.nav-submenu li.submenuitem a, #mastLogin li.submenuitem a, #otherSiteTools li
  * if you do not have a logo you can eliminate it to save some room */
 #linkNav ul.topnav {
     list-style: none;
-    padding: 5px 13px 3px;
+    padding: 10px 13px 0;
     margin: 0;
     clear: both;
-    background-color: #DBDCDE;
-    border-top: 1px solid #FAFAFA;
-    border-bottom: 1px solid #FFF;
+    background-color: #F6F6F6;
 }
 /* the individual containers for the site links, tool menu control, tool menu*/
 ul.topnav > li {
@@ -438,8 +436,8 @@ ul.topnav li.nav-menu:hover a, ul.topnav li.more-tab:hover a {
      border: 1px solid transparent;
      box-shadow: 1px 1px 2px #AAA;
 }
-ul.topnav li.nav-selected a, 
-ul.topnav li.nav-selected:hover a {
+ul.topnav li.nav-selected.nav-menu a span, 
+ul.topnav li.nav-selected.nav-menu:hover a span {
     color: #FFF !important;
 }
 ul.topnav > li.nav-selected > a {
