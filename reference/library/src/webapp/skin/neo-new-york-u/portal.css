@@ -252,11 +252,19 @@ form#loginForm input#submit {height: 28px !important; margin: 0 7px;}
 /* link to toggle the user info and controls */
 #mastLogin span.drop {
     cursor: pointer;
-    background: transparent url(images/user.png) 0 0 no-repeat;
     margin: 3px 2px 0 10px; 
     width: 30px;
     height: 30px;
     background-size: 22px auto;
+}
+#mastLogin span.drop:before {
+    font-family: 'nyu-classes-icons';
+    content: '\e616';
+    font-size: 20px;
+    color: #FFF;
+}
+#mastLogin span.drop:hover:before {
+    color: #BF3B3B;
 }
 /* menu for user actions (could be one of several:link to profile, preferences, add a new site, view tutorial, other)*/
 #mastLogin ul.subnav {
@@ -441,6 +449,11 @@ ul.topnav li ul.subnav li, #mastLogin ul.subnav li, .otherSiteTool {
     background: #fff;
     width: 100%;
     position:relative;
+}
+ul.topnav li.nav-menu a[title="My Workspace"]:before {
+    font-family: 'nyu-classes-icons';
+    content: '\e616';
+    padding-right: 8px;
 }
 /* some overrides for the menu in #mastLogin */
 #mastLogin ul.subnav li {
@@ -974,22 +987,34 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     font-size: 1.5em !important;
 }
 .portletTitle .title h2 .siteTitle {
-    color: #333
+    color: #333;
+    display: none;
 }
 .portletTitle .title a {
-  font-family: 'nyu-classes-icons';
-  font-size: 20px;
-  color: #444;
-  vertical-align: text-bottom;
+    font-family: 'nyu-classes-icons';
+    color: #444;
+    vertical-align: text-bottom;
+    font-size: 16px;
+    padding: 2px 11px;
+    margin: 0 4px 0 0;
+    border: 1px solid #ccc !important;
+    background: #ddd !important;
+    color: #444 !important;
+    font-size: 0;
+    display: inline-block;
+    height: 18px;
 }
 .portletTitle .title a:hover {
-  color: #BF3B3B;
+    background: #ffffff !important;
+    color: #BF3B3B !important;
+    border-color: #BF3B3B !important;
 }
 .portletTitle .title a img {
   display: none;
 }
 .portletTitle .title a:before {
-  content: '\e005';
+  content: '\e628';
+  font-size: 18px;
 }
 .portletMainIframe {
     text-align: left;
@@ -1471,7 +1496,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     font-size: 16px;
 }
 #presenceToggle:before {
-  content: '\e02b';
+  content: '\e02a';
 }
 
 #presenceToggle img {

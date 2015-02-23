@@ -109,7 +109,7 @@
 						#foreach ( $site in $tabsSites.tabsSites ) 
 							#if (${site.isCurrentSite})
 								#if (${site.isMyWorkspace})
-<li class="nav-selected nav-menu"><a href="#" role="menuitem" aria-haspopup="true"><span>${rloader.sit_mywor}</span></a>
+<li class="nav-selected nav-menu"><a href="#" title="${rloader.sit_mywor}" role="menuitem" aria-haspopup="true"><span>${rloader.sit_mywor}</span></a>
 								#else
 									#if (( ${tabDisplayLabel} == 2 ) && ( ${site.shortDescription} ))
 <li class="nav-selected nav-menu"><a href="#" title="${site.fullTitle}" role="menuitem" aria-haspopup="true"><span>${site.shortDescription}</span></a>
