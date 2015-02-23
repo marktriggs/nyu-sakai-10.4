@@ -218,7 +218,7 @@ ${includeExtraHead}
 <section id="portalToolBody">
 #if ($currentPlacement)
   #if ($showPDAToolBanner)
-    #parse("/vm/defaultskin/includePDABanner.vm")
+    #parse("/vm/neoskin/includePDABanner.vm")
   #end
   #if ( ${bufferedResponse} && ${responseBody} )
 <!-- Buffered Body Tool Content -->
@@ -361,7 +361,7 @@ ${responseBody}
 </footer>
 
 #if ($showPdaPopup)
-	#parse("/vm/defaultskin/includePDAPopup.vm")
+	#parse("/vm/neoskin/includePDAPopup.vm")
 #end
 
 </div>

@@ -1,0 +1,10 @@
+<div id="pdaWelcomeDialog"></div>
+
+<script id="pdaWelcomeDialogContent" type="text/template">
+    <p>
+        NYU Classes mobile is optimized for viewing your course site information. 
+        For complex content creation, the desktop site is recommended.
+    </p>
+    <button id="pdaPopupContinue" class="primary active">Continue</button>
+</script>
+<script type="text/javascript" language="JavaScript" src="/library/js/jquery/qtip/jquery.qtip-latest.min.js"></script>
