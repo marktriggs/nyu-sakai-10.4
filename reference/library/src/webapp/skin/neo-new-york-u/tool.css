@@ -568,10 +568,16 @@ Turns the old links into buttons. The many different ways the tools have impleme
     background: #ddd !important;
     color: #444 !important;
 }
+ul.navIntraTool>li>a>span {
+    color: #444 !important;
+}
 .navIntraTool>li>span>a:hover, .navIntraTool>form>li:hover, .navIntraTool>span:hover, .navIntraTool>a:hover, .navIntraTool>div>a:hover, div.navIntraTool>ul>li>a:hover, div.navIntraTool>ul>li>span>a:hover, div.navIntraTool>ul>a:hover, .navIntraTool>li.nav_item>a:hover, ul.navIntraTool>li>a:hover {
   background: #ffffff !important;
   color: #BF3B3B !important;
   border-color: #BF3B3B !important;
+}
+ul.navIntraTool>li>a>span:hover {
+  color: #BF3B3B !important;
 }
 /* IE chokes on the whole ruleset if it sees a NOT selector, so this rule has to be written separately */
 .navIntraTool>div>span:not(.navSeparator) {
@@ -595,7 +601,10 @@ ul.navIntraTool>li>span.inactive {
     color: #444 !important;
     background-color: #fb5617 !important;
 }
-.navIntraTool li span.current, .navIntraTool li span.current, .navIntraTool .current {
+.navIntraTool li span.current,
+.navIntraTool li span.current,
+.navIntraTool .current,
+.navIntraTool .current span {
     color: #fff !important;
     background-color: #2F7FAB !important;
     border-color: #2F7FAB !important;
@@ -610,7 +619,7 @@ ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {
   background-color: #ddd !important;
   border-color: #ddd !important;
 }
-.navIntraTool li span.current:hover, .navIntraTool li span.current:hover, .navIntraTool .current:hover, ul.navIntraTool>li>span.inactive:hover {background: #3698db !important;}
+.navIntraTool li span.current:hover, .navIntraTool li span.current:hover, .navIntraTool .current:hover, ul.navIntraTool>li>span.inactive:hover {background: #2F7FAB !important;}
 .specialLink ul.navIntraTool.actionToolBar li .current {color: #fff !important;}
 .specialLink ul.navIntraTool.actionToolBar li .current:hover {color: #FFF !important;}
 .specialLink ul.navIntraTool.actionToolBar li span a {color: #555;}
@@ -1500,15 +1509,16 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 
 /* Button Overrides */
 .button.active, a.button.active, button.active, input[type="button"].active, input[type="submit"].active, input[name="eventSubmit_doSearch"], input[name=":submit"], #siteStatus a, .portletBody font a:nth-of-type(1), input[value="Publish entry"] {
-  background-color: #3698DB !important;
+  background: #3698DB !important;
   color: #FFF !important;
   border-color: #3698DB !important;
   cursor: pointer !important;
   text-decoration: none !important;
 }
 .button.active:hover, a.button.active:hover, button.active:hover, input[type="button"].active:hover, input[type="submit"].active:hover, input[name="eventSubmit_doSearch"]:hover, input[name=":submit"]:hover, #siteStatus a:hover, .portletBody font a:nth-of-type(1):hover, input[value="Publish entry"]:hover {
-  background-color: #FFF !important;
+  background: #FFF !important;
   color: #3698DB !important;
+  border-color: #3698DB !important;
 }
 .button.cancel, a.button.cancel, button.cancel, input[type="button"][value*="Cancel"], input[type="submit"][value*="Cancel"], button[name="eventSubmit_doCancel"], input#reset, .actionItem a#restdef {
   cursor: pointer !important;
