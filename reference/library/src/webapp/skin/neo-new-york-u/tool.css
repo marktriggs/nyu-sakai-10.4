@@ -1432,14 +1432,14 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 }
 
 /* Button Overrides */
-.button.active, a.button.active, button.active, input[type="button"].active, input[type="submit"].active, input[name="eventSubmit_doSearch"], input[name=":submit"], #siteStatus a, .navIntraTool>li span.fieldSibling a, .portletBody font a:nth-of-type(1), input[value="Publish entry"] {
+.button.active, a.button.active, button.active, input[type="button"].active, input[type="submit"].active, input[name="eventSubmit_doSearch"], input[name=":submit"], #siteStatus a, .portletBody font a:nth-of-type(1), input[value="Publish entry"] {
   background-color: #3698DB !important;
   color: #FFF !important;
   border-color: #3698DB !important;
   cursor: pointer !important;
   text-decoration: none !important;
 }
-.button.active:hover, a.button.active:hover, button.active:hover, input[type="button"].active:hover, input[type="submit"].active:hover, input[name="eventSubmit_doSearch"]:hover, input[name=":submit"]:hover, #siteStatus a:hover, .navIntraTool>li span.fieldSibling a:hover, .portletBody font a:nth-of-type(1):hover, input[value="Publish entry"]:hover {
+.button.active:hover, a.button.active:hover, button.active:hover, input[type="button"].active:hover, input[type="submit"].active:hover, input[name="eventSubmit_doSearch"]:hover, input[name=":submit"]:hover, #siteStatus a:hover, .portletBody font a:nth-of-type(1):hover, input[value="Publish entry"]:hover {
   background-color: #FFF !important;
   color: #3698DB !important;
 }
