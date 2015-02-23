@@ -375,7 +375,14 @@ ul.nav-submenu li.submenuitem a, #mastLogin li.submenuitem a, #otherSiteTools li
 }
 /* wrapper for the site links, link to the 'more sites' tray, logout controls - children are #mastLogin and #linkNav*/
 #siteNav {
-    background: #57068c url(images/newlogowhite.png) 16px 16px no-repeat;
+    background: #57068c;
+}
+#siteNav:before {
+  font-family: 'nyu-classes-icons';
+  content: '\e000';
+  color: #FFFFFF;
+  font-size: 70px;
+  line-height: 60px;
 }
 /* wrapper for the site link list and link to the 'more sites' tray - since the logo is displayed here on left, it is padded.*/
 #linkNav {

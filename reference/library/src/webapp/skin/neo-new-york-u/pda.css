@@ -982,9 +982,17 @@ header .header-top {
 header .nyu-classes-logo {
   display: inline-block;
 }
+header .nyu-classes-logo:before {
+  font-family: 'nyu-classes-icons';
+  content: '\e000';
+  color: #FFFFFF;
+  font-size: 57px;
+  line-height: 54px;
+}
 header .nyu-classes-logo img {
   height: 24px;
   margin: 12px;
+  display: none;
 }
 header .nyu-classes-logo.beta {
   padding-right: 75px;
@@ -1070,6 +1078,20 @@ header nav {
 
 footer {
   border-top: 1px solid #AAA;
+}
+
+
+footer .nyu-logo {
+  display: inline-block;
+}
+footer .nyu-logo:before {
+  font-family: 'nyu-classes-icons';
+  content: '\e001';
+  color: #57068c;
+  font-size: 70px;
+}
+footer .nyu-logo img {
+  display: none;
 }
 
 .portletpda > section {
