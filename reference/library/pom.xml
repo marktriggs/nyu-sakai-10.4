@@ -61,4 +61,29 @@
       </dependencies>
     </profile>
   </profiles>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.7</version>
+        <executions>
+          <execution>
+            <id>copy-neo-new-york-u-skin</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/library-${project.version}/skin/new-york-u</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/webapp/skin/neo-new-york-u</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
