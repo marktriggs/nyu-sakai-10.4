@@ -62,7 +62,8 @@ $(function () {
 
 
   var check_timezone = function () {
-    if (document.cookie.indexOf("nyu_timezone_warning_dismissed=true") < 0) {
+    if ((document.cookie.indexOf("nyu_timezone_warning_dismissed=true") < 0) &&
+        (document.cookie.indexOf("nyu_timezone_ok=true") < 0)) {
       $.ajax({
         url: '/portal/timezoneCheck',
         data: {timezone: tz.name()},
@@ -82,6 +83,9 @@ $(function () {
             $('#setTimezoneLink').show();
           } else {
             $('#setTimezoneLink').hide();
+	      var expire_time = new Date();
+	      expire_time.setTime(expire_time.getTime() + (1 * 60 * 60 * 1000));
+              document.cookie = "nyu_timezone_ok=true; path=/; expires=" + expire_time.toGMTString() + ";";
           }
         }
       });

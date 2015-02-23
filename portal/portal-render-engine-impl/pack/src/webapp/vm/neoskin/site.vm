@@ -32,6 +32,17 @@
 <!-- start includeSiteNav -->
 <div id="portalOuterContainer">
 		<div id="portalContainer" #if (${sakai_nav_minimized} && ${portal_allow_minimize_navigation}) class="sakaiMinimizeSiteNavigation" #end >
+
+                #if (!${loginTopLogin})
+                  <div id="setTimezoneLink" class="tz-warning" style="display: none">
+                    <div class="tz-msg">
+                      <a href="#" id="setTimezoneMsg">Your computer's time zone <span class="computerTimezone"></span> does not match your NYU Classes time zone of <span class="prefsTimezone"></span>.  Click here to update your time zone preferences.</a>
+                      <span class="tz-close"><a href="#" id="timezoneDismiss"></a></span>
+                    </div>
+                  </div>
+                #end
+
+
 		#if (${tabsSites} )
 		<div id="headerMax">
 			<div id="skipNav">
@@ -58,6 +69,7 @@
 			</div>
 
 			<div id="siteNavWrapper" class="${logoSiteClass}">
+
 				<div id="mastHead" role="banner">
 					<div id="mastLogo">
 						<img title="Logo" alt="Logo" src="${logoSkinRepo}/${logoSkin}/images/logo_inst.gif" />

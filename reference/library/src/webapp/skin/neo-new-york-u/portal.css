@@ -1979,3 +1979,44 @@ html > body .ui-pnotify {
 .trysakaiSignup .qtip-titlebar{
 	background: #333333 !important;
 }
+
+.tz-warning {
+    line-height: 3em;
+}
+
+
+#setTimezoneLink {
+    background-color: #bce8f1;
+    color: #396987;
+    border-color: #96e2f0;
+}
+
+.tz-msg a, .tz-msg a:visited, .tz-msg a:link {
+    color: #2a4d63;
+}
+
+.tz-msg span {
+    font-weight: bold;
+}
+
+.tz-msg:before {
+    font-family: 'nyu-classes-icons';
+    font-size: 20px;
+    content: '\e01d';
+    vertical-align: middle;
+    margin-left: 0.25em;
+    margin-right: 0.25em;
+}
+
+#timezoneDismiss {
+    float: right;
+}
+
+#timezoneDismiss:before {
+    color: #444;
+    font-family: 'nyu-classes-icons';
+    content: '\e600';
+    font-size: 20px;
+    vertical-align: middle;
+    margin-right: 0.25em;
+}

@@ -184,6 +184,9 @@ ${sakai_html_head_js}
 	</script>
     #end
 #end
+
+<script type="text/javascript" language="JavaScript" src="/portal/scripts/timezone_check.js$!{portalCDNQuery}"></script>
+
 <script type="text/javascript">
 document.write('<!-- jquery version '+jQuery.fn.jquery+' -->\n');
 </script>

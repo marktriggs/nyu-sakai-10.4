@@ -521,3 +521,4 @@
 		<!-- end includePageBody -->
 <!-- END from includePageBody.vm -->
 <div id="tutorial"></div>
+<div id="set_timezone_container"></div>
