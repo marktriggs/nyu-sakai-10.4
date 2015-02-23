@@ -2100,3 +2100,9 @@ span.cke_bottom:after {
 #prefs_form #layoutReorderer p:first-child {
   margin-top: 0;
 }
+/* Time Zone/Langauge */
+/* CLASSES-1441 increase font size of selects */
+#timezone_form select,
+#locale_form select {
+  font-size: 1em;
+}
