@@ -116,6 +116,13 @@ see: http://www.quirksmode.org/bugreports/archives/2005/07/Wrapped_inlinenowrap_
 }
 .navIntraTool .current a, .navIntraTool .current a {color: #fff !important;}
 .navIntraTool .current a:hover, .navIntraTool .current a:hover {color: #BF3B3B !important;}
+.navIntraTool span.current > a, .navIntraTool span.current > a:hover {
+  border: none !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #FFF !important;
+}
 /* where one is at in hierarchy - can be static or active links */
 .breadCrumb {
     font-size: 1.2em
@@ -599,7 +606,10 @@ ul.navIntraTool>li>span.inactive {
     color: #FFF !important;
     background-color: #3698db !important;
 }
-ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {background-color: #ddd !important;}
+ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {
+  background-color: #ddd !important;
+  border-color: #ddd !important;
+}
 .navIntraTool li span.current:hover, .navIntraTool li span.current:hover, .navIntraTool .current:hover, ul.navIntraTool>li>span.inactive:hover {background: #3698db !important;}
 .specialLink ul.navIntraTool.actionToolBar li .current {color: #fff !important;}
 .specialLink ul.navIntraTool.actionToolBar li .current:hover {color: #FFF !important;}
@@ -1422,21 +1432,24 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 }
 
 /* Button Overrides */
-.button.active, a.button.active, button.active, input[type="button"].active, input[type="submit"].active, input[name="eventSubmit_doSearch"], input[name=":submit"], #siteStatus a, .navIntraTool>li span.fieldSibling, .portletBody font a:nth-of-type(1), input[value="Publish entry"] {
+.button.active, a.button.active, button.active, input[type="button"].active, input[type="submit"].active, input[name="eventSubmit_doSearch"], input[name=":submit"], #siteStatus a, .navIntraTool>li span.fieldSibling a, .portletBody font a:nth-of-type(1), input[value="Publish entry"] {
   background-color: #3698DB !important;
   color: #FFF !important;
   border-color: #3698DB !important;
   cursor: pointer !important;
   text-decoration: none !important;
 }
-.button.active:hover, a.button.active:hover, button.active:hover, input[type="button"].active:hover, input[type="submit"].active:hover, input[name="eventSubmit_doSearch"]:hover, input[name=":submit"]:hover, #siteStatus a:hover, .navIntraTool>li span.fieldSibling:hover, .portletBody font a:nth-of-type(1):hover, input[value="Publish entry"]:hover {
+.button.active:hover, a.button.active:hover, button.active:hover, input[type="button"].active:hover, input[type="submit"].active:hover, input[name="eventSubmit_doSearch"]:hover, input[name=":submit"]:hover, #siteStatus a:hover, .navIntraTool>li span.fieldSibling a:hover, .portletBody font a:nth-of-type(1):hover, input[value="Publish entry"]:hover {
   background-color: #FFF !important;
   color: #3698DB !important;
 }
 .button.cancel, a.button.cancel, button.cancel, input[type="button"][value*="Cancel"], input[type="submit"][value*="Cancel"], button[name="eventSubmit_doCancel"], input#reset, .actionItem a#restdef {
   cursor: pointer !important;
 }
-
+.navIntraTool.actionToolBar .inputItem input {
+  padding: 4px !important;
+  border: 1px solid #DDD !important;
+}
 
 /* Alerts */
 .messageInformation:before,
