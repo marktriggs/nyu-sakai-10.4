@@ -74,30 +74,6 @@
 					</ul>
 				</div>
 			#end
-			#if (${sitePages.pageNavShowPresenceLoggedIn})
-				<h1 class="skip">${rloader.sit_presencehead}</h1>
-				<div id="presenceWrapper">
-					<div id="presenceTitle">${rloader.sit_presencetitle}</div>
-#if (${sitePages.pageNavPresenceIframe})
-					<iframe name="presenceIframe" id="presenceIframe" title="${rloader.sit_presencetitle}"
-						frameborder="0" marginwidth="0" marginheight="0" scrolling="auto" src="${sitePages.pageNavPresenceUrl}?auto=true" >
-					</iframe>
-#else
-				<div id="presenceIframe">
-					&nbsp;
-				</div>
-<script type="text/javascript">
-var sakaiPresenceTimeDelay = ${sitePages.sakaiPresenceTimeDelay};
-var sakaiPresenceFragment = "${sitePages.pageNavPresenceUrl}?output_fragment=yes&auto=true";
-
-$(document).ready(function() {
-## Lets have presence delay a bit in case they are clicking really fast.
-    sakaiLastPresenceTimeOut = setTimeout('updatePresence()', sakaiPresenceTimeDelay); 
-} );
-</script>
-#end
-				</div>
-			#end
 			</div>
 			<h1 class="skip" id="tocontent">${rloader.sit_contentshead}</h1>
 		<!-- end includePageNav -->
