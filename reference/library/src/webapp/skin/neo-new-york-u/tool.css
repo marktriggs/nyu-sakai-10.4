@@ -2072,3 +2072,31 @@ span.cke_bottom:after {
   background: none !important;
   text-align: center;
 }
+
+
+/* Customize Tabs */
+/* CLASSES-1441 Fix sites moved into the empty area slot in under that empty box.*/
+#prefs_form .col1,
+#prefs_form .col2,
+#prefs_form .col3 {
+  min-height: 350px;
+  border: 1px solid #DDD;
+  margin-right: 1% !important;
+}
+#prefs_form .colTitle {
+  min-height: 62px;
+  border-bottom: 1px solid #EEE;
+}
+#prefs_form #reorderCol3 > span {
+  outline: none !important;
+}
+#prefs_form #reorderCol1 > span,
+#prefs_form #reorderCol2 > span,
+#prefs_form #reorderCol3 > span {
+  min-height: initial !important;
+  height: auto !important;
+}
+/* CLASSES-1441 Reduce space between Update Preferences button and "Mouse Instructions" by half */
+#prefs_form #layoutReorderer p:first-child {
+  margin-top: 0;
+}

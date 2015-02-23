@@ -85,17 +85,18 @@ jQuery(document).ready(function () {
 				
                           <sakai:messages rendered="#{!empty facesContext.maximumSeverity}" />
 <f:verbatim>
-<div class="layoutReorderer-container fl-container-flex" id="layoutReorderer" style="margin:.5em 0">
+<div class="layoutReorderer-container fl-container-flex" id="layoutReorderer">
     <p>
         <h:outputText value="#{msgs.prefs_mouse_instructions}" escape="false"/>
     </p>
     <p>
-        <h:outputText value="#{msgs.prefs_keyboard_instructions}" escape="false"/>
+        <h:outputText styleClass="skip" value="#{msgs.prefs_multitples_instructions_scru}" escape="false"/>
     </p>
     <p>
-        <h:outputText styleClass="skip" value="#{msgs.prefs_multitples_instructions_scru}" escape="false"/>
-    <p>
         <h:outputText value="#{msgs.prefs_multitples_instructions}" escape="false"/>
+    </p>
+    <p>
+        <h:outputText value="#{msgs.prefs_keyboard_instructions}" escape="false"/>
     </p>
 
     <div id="movePanel">
@@ -229,13 +230,14 @@ jQuery(document).ready(function () {
 </div>
 </f:verbatim>
 
-
+<div class="act">
 	 	<h:commandButton accesskey="s" id="prefAllSub" styleClass="active formButton" value="#{msgs.update_pref}" action="#{UserPrefsTool.processActionSaveOrder}"></h:commandButton>
 		 <h:commandButton accesskey="x" id="cancel"  value="#{msgs.cancel_pref}" action="#{UserPrefsTool.processActionCancel}" styleClass="formButton"></h:commandButton>
 		<h:inputHidden id="prefTabString" value="#{UserPrefsTool.prefTabString}" />
 		<h:inputHidden id="prefDrawerString" value="#{UserPrefsTool.prefDrawerString}" />
 		<h:inputHidden id="prefHiddenString" value="#{UserPrefsTool.prefHiddenString}" />
 		<h:inputHidden id="reloadTop" value="#{UserPrefsTool.reloadTop}" />
+</div>
 <f:verbatim>
 <p>
 <h:outputText value="#{msgs.prefs_auto_refresh}" />
