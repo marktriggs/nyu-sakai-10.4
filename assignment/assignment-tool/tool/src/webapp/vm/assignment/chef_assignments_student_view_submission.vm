@@ -301,7 +301,7 @@ function submitform(id)
 						</th>
 							<td>
 							#if ($submission.getReviewReport().equalsIgnoreCase("Error"))
-								<div class="alertMessage" >$!submission.getReviewError()</div>
+								<img src="/library/skin/images/error.png" alt="$!submission.getReviewError()" title="$!submission.getReviewError()">
 							#else
 								<img src="$submission.getReviewIconUrl()" alt="$submission.getReviewScore()">
 							
