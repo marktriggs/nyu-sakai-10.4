@@ -573,3 +573,4 @@
 #if ($enableTutorialPopup)
 #parse("/vm/neoskin/includeTutorialPopup.vm")
 #end
+#parse("/vm/neoskin/includeSystemAlerts.vm")

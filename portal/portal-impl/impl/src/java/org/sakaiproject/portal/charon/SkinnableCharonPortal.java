@@ -99,6 +99,7 @@ import org.sakaiproject.portal.charon.handlers.XLoginHandler;
 import org.sakaiproject.portal.charon.handlers.TimezoneCheckHandler;
 import org.sakaiproject.portal.charon.handlers.SamlLoginHandler;
 import org.sakaiproject.portal.charon.handlers.YouTubeHandler;
+import org.sakaiproject.portal.charon.handlers.SystemAlertHandler;
 import org.sakaiproject.portal.charon.site.PortalSiteHelperImpl;
 import org.sakaiproject.portal.render.api.RenderResult;
 import org.sakaiproject.portal.render.cover.ToolRenderService;
@@ -2236,6 +2237,7 @@ public class SkinnableCharonPortal extends HttpServlet implements Portal
 		addHandler(new TimeoutDialogHandler());
 		addHandler(new JoinHandler());
 		addHandler(new YouTubeHandler());
+		addHandler(new SystemAlertHandler());
 	}
 
 	/**

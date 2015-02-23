@@ -1,0 +1,6 @@
+<script id="systemAlertsBannerTemplate" type="text/template">
+	<div class="system-alert-banner">
+		<span class="system-alert-banner-message"></span>
+		<a class="system-alert-banner-close "href="javascript:void(0)"></a>
+	</div>
+</script>

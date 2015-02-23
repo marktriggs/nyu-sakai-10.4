@@ -2531,3 +2531,33 @@ html > body .ui-pnotify {
     width: 90%;
   }
 }
+
+/* System Alerts */
+.system-alert-banner {
+  background-color: #FDF6CA;
+  color: #760;
+  padding: 10px 0;
+  position: relative;
+}
+
+.system-alert-banner:before {
+  font-family: 'nyu-classes-icons';
+  font-size: 20px;
+  content: '\e019';
+  vertical-align: middle;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+.system-alert-banner .system-alert-banner-close {
+  position: absolute;
+  right: 0;
+}
+.system-alert-banner .system-alert-banner-close:before {
+    color: #444;
+    font-family: 'nyu-classes-icons';
+    content: '\e600';
+    font-size: 20px;
+    vertical-align: middle;
+    margin-right: 0.25em;
+} 
+
