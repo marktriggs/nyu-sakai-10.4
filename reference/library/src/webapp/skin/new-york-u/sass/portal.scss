@@ -1200,3 +1200,184 @@ div.qtip-titlebar{
    font-size: 1.3em !important;
    min-width: 400px !important;
 }
+
+/* PART 10: specific functionality: presence, chat */
+
+/* presence and chat rendering */
+#presenceArea {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    position: fixed;
+    height: 265px;
+    width: 175px;
+    bottom: 26px;
+    right: 18px;
+}
+
+/* wrapper for all elements of presence display   */
+#presenceWrapper {
+    width: 100%;
+    height: 100%;
+}
+/* wrapper for title of iframe ("Users present")*/
+#presenceTitle, #pc_title {
+    color: #000;
+    border-bottom: 1px solid #ccc;
+    padding: 3px 3px 4px 3px;
+    background: #eee;
+    vertical-align: bottom;
+    border-bottom: 1px solid #ddd;
+    height: 15px;
+    font-weight: bold;
+}
+#presenceTitle div, #pc_title div {
+    position: absolute;
+    top: 0px;
+    text-align: center;
+    right: 0px;
+    bottom: 0;
+    width: 22px;
+    height: 22px;
+    font-size: 120%;
+    border-left: 1px solid #ccc;
+}
+#presenceTitle div a, #pc_title div a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-image: url(../../image/silk/cross.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: transparent;
+    font-size: 0;
+}
+#pc_title div {
+    position: absolute;
+    top: 0px;
+    text-align: center;
+    right: 0px;
+    bottom: 0;
+    width: 17px;
+    height: 17px;
+    font-size: 120%;
+    border-left: 1px solid #ccc;
+    padding: 4px 5px 4px 4px;
+}
+/* this used to be an iframe, hence the name  */
+#presenceIframe {
+    height: 242px;
+    width: 100%;
+    overflow: auto;
+}
+.presenceList {
+    list-style: none;
+    margin: 3px !important;
+    padding: 0;
+}
+.presenceList li.inChat {
+    background: url(images/chatpresicon.png) right center no-repeat !important
+}
+.presenceList li {;
+    padding: 3px 16px 3px 2px !important
+}
+/* list item when the user is an a chat room is a link to that chat room */
+.presenceList li a {
+    color: #009DCE;
+    text-decoration: none;
+}
+
+/* main container for presence and portal chat.*/
+#footerAppTray {
+    font-size: .9em;
+    position: fixed;
+    right: 18px;
+    bottom: 0;
+    line-height: 1.2em;
+    text-align: center;
+    padding: 0;
+    z-index: 9999;
+    border: 1px solid #ccc;
+    border-width: 1px 1px 0 1px;
+    background: #eeeeee;
+    background: -moz-linear-gradient(top, #eeeeee 0%, #e4e4e4 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#e4e4e4));
+    background: -webkit-linear-gradient(top, #eeeeee 0%,#e4e4e4 100%);
+    background: -o-linear-gradient(top, #eeeeee 0%,#e4e4e4 100%);
+    background: -ms-linear-gradient(top, #eeeeee 0%,#e4e4e4 100%);
+    background: linear-gradient(top, #eeeeee 0%,#e4e4e4 100%);
+    *width: 30px;
+}
+#footerAppTray #chattableCount {
+    font-size: 80%;
+    margin-left: 10px;
+    outline: none;
+}
+#footerAppTray #presenceCount {
+    font-size: 80%;
+    outline: none;
+}
+#footerAppTray span.present {
+    margin: -2px 0 0 5px !important;
+    border: 2px solid #fff;
+    background-color: #444;
+    padding: 0 5px;
+    color: #fff;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 14px;
+    width: auto;
+    display: inline;
+}
+#footerAppTray span.empty {
+    display: none;
+}
+#footerAppPresence {
+    height: 100%;
+    width: auto;
+    color: #888;
+    vertical-align: middle;
+    float: right;
+    padding: 5px;
+    text-align: center;
+    white-space: nowrap;
+}
+#footerAppChat {
+    vertical-align: bottom;
+    color: #000;
+    float: left;
+    text-align: left;
+    width: 200px;
+    height: 27px;
+    line-height: 27px;
+    font-size: 1.2em;
+}
+#presenceToggle {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+
+#chatToggle {
+    display: inline;
+    padding: 6px 6px 5px 6px;
+    color: #222;
+    text-decoration: none;
+    height: 16px;
+    font-weight: bold;
+}
+#presenceToggle:focus, #chatToggle:focus {
+    outline: 1px dotted #000;
+}
+.workspace #footerAppPresence {
+    display: none;
+    border: none;
+}
+#chattableCount {
+    display: inline-block;
+    vertical-align: middle !important;
+    padding: 2px 5px !important;
+    line-height: normal;
+    width: auto !important;
+    height: auto !important;
+}
