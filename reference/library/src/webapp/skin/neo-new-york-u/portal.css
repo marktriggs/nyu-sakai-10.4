@@ -258,12 +258,24 @@ form#loginForm input#submit {height: 28px !important; margin: 0 7px;}
     background-size: 22px auto;
 }
 #mastLogin span.drop:before {
+    -webkit-transition: color 0.2s;
+    -moz-transition: color 0.2s;
+    -ms-transition: color 0.2s;
+    -o-transition: color 0.2s;
+    transition: color 0.2s;
+
     font-family: 'nyu-classes-icons';
     content: '\e616';
     font-size: 20px;
     color: #FFF;
 }
 #mastLogin span.drop:hover:before {
+    -webkit-transition: color 0.2s;
+    -moz-transition: color 0.2s;
+    -ms-transition: color 0.2s;
+    -o-transition: color 0.2s;
+    transition: color 0.2s;
+
     color: #BF3B3B;
 }
 /* menu for user actions (could be one of several:link to profile, preferences, add a new site, view tutorial, other)*/
@@ -376,6 +388,12 @@ ul.nav-submenu li.submenuitem a, #mastLogin li.submenuitem a, #otherSiteTools li
 }
 /* the individual containers for the site links, tool menu control, tool menu*/
 ul.topnav > li {
+    -webkit-transition: background-color 0.2s, color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
+
     background:#EBF0F0;
     display: inline-block;
     /* Note: IE 7 hack and IE 8 compat mode*/
@@ -393,6 +411,12 @@ ul.topnav li.nav-menu:hover, ul.topnav li.more-tab:hover {
 }
 /* current site control rendering */
  ul.topnav li.nav-selected, ul.topnav li.nav-selected:hover {
+    -webkit-transition: background-color 0.2s, color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
+
      background: #2F7FAB;
      border: 1px solid transparent;
 /*
@@ -461,7 +485,13 @@ ul.topnav li.nav-menu a[title="My Workspace"]:before {
 }
 /* treatment for focus and hover in the site and user sub-menus, as well as submenus in other sites */
 ul.topnav li ul.subnav li:hover, ul.topnav li ul.subnav li a:hover, ul.topnav li ul.subnav li a:focus,
-    #mastLogin li.submenuitem:hover, #mastLogin ul.subnav li.submenuitem a:focus, #otherSiteTools li:hover, #otherSiteTools a:focus{
+#mastLogin li.submenuitem:hover, #mastLogin ul.subnav li.submenuitem a:focus, #otherSiteTools li:hover, #otherSiteTools a:focus{
+    -webkit-transition: background-color 0.2s, color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
+
     text-decoration: none;
     color: #000;
     background-color: #eeeeee;
@@ -810,6 +840,12 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     font-family:  'Helvetica Neue','Arial',sans-serif !important;
 }
 #toolMenu li a:hover, #subSites li a:hover, #toolMenu li a:focus, #subSites li a:focus {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
     text-decoration: none;
     background: #D6E5F6;
     color: #333333;
@@ -925,13 +961,25 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     vertical-align: middle;
 }
 .portletTitle .action a {
-  font-family: 'nyu-classes-icons';
-  background: none !important;
-  color: #444;
-  font-size: 20px;
+    -webkit-transition: color 0.2s;
+    -moz-transition: color 0.2s;
+    -ms-transition: color 0.2s;
+    -o-transition: color 0.2s;
+    transition: color 0.2s;
+
+    font-family: 'nyu-classes-icons';
+    background: none !important;
+    color: #444;
+    font-size: 20px;
 }
 .portletTitle .action a:hover {
-  color: #BF3B3B;
+    -webkit-transition: color 0.2s;
+    -moz-transition: color 0.2s;
+    -ms-transition: color 0.2s;
+    -o-transition: color 0.2s;
+    transition: color 0.2s;
+
+    color: #BF3B3B;
 }
 .portletTitle .action a:before {
   content: '\e003';
@@ -991,30 +1039,106 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     display: none;
 }
 .portletTitle .title a {
+    -webkit-transition: background-color 0.5s, color 0.5s;
+    -moz-transition: background-color 0.5s, color 0.5s;
+    -ms-transition: background-color 0.5s, color 0.5s;
+    -o-transition: background-color 0.5s, color 0.5s;
+    transition: background-color 0.5s, color 0.5s;
+
     font-family: 'nyu-classes-icons';
     color: #444;
     vertical-align: text-bottom;
     font-size: 16px;
-    padding: 2px 11px;
-    margin: 0 4px 0 0;
-    border: 1px solid #ccc !important;
-    background: #ddd !important;
-    color: #444 !important;
+    padding: 2px 4px;
+    margin: 0;
     font-size: 0;
     display: inline-block;
     height: 18px;
 }
 .portletTitle .title a:hover {
+    -webkit-transition: background-color 0.5s, color 0.5s;
+    -moz-transition: background-color 0.5s, color 0.5s;
+    -ms-transition: background-color 0.5s, color 0.5s;
+    -o-transition: background-color 0.5s, color 0.5s;
+    transition: background-color 0.5s, color 0.5s;
+
     background: #ffffff !important;
     color: #BF3B3B !important;
-    border-color: #BF3B3B !important;
 }
 .portletTitle .title a img {
   display: none;
 }
 .portletTitle .title a:before {
-  content: '\e628';
-  font-size: 18px;
+content: '\e61b';
+font-size: 18px;
+font-family: 'nyu-classes-icons';
+}
+@-webkit-keyframes rotate {
+   from { -webkit-transform: rotate(90deg); }
+     to { -webkit-transform: rotate(0deg); }
+}
+@-moz-keyframes rotate {
+   from { -moz-transform: rotate(90deg); }
+     to { -moz-transform: rotate(0deg); }
+}
+@-ms-keyframes rotate {
+   from { -ms-transform: rotate(90deg); }
+     to { -ms-transform: rotate(0deg); }
+}
+@-o-keyframes rotate {
+   from { -o-transform: rotate(90deg); }
+     to { -o-transform: rotate(0deg); }
+}
+@keyframes rotate {
+   from { transform: rotate(90deg); }
+     to { transform: rotate(0deg); }
+}
+.portletTitle .title a:hover:before {
+    -webkit-animation: rotate 0.4s linear;
+    -moz-animation:    rotate 0.4s linear;
+    -ms-animation:     rotate 0.4s linear;
+    -o-animation:      rotate 0.4s linear;
+    animation          rotate 0.4s linear;
+
+    content: '\e610';
+}
+.portletTitle .title a:after {
+    -webkit-transition: width 1s;
+    -moz-transition: width 1s;
+    -ms-transition: width 1s;
+    -o-transition: width 1s;
+    transition: width 1s;
+    
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    height: 0;
+    content: "";
+    white-space: nowrap;
+    margin-left: 5px;
+}
+.portletTitle .title a:hover:after {
+    -webkit-transition: width 1s;
+    -moz-transition: width 1s;
+    -ms-transition: width 1s;
+    -o-transition: width 1s;
+    transition: width 1s;
+
+    -webkit-transition-delay: 0.4s;
+    -moz-transition-delay: 0.4s;
+    -ms-transition-delay: 0.4s;
+    -o-transition-delay: 0.4s;
+    transition-delay: 0.4s;
+
+    width: 150px;
+    height: auto;
+    margin-left: 5px;
+}
+.portletTitle .title a:hover:after {
+    content: 'Return to Tool Home';
+    font-size: 12px;
+    line-height: 18px;
+    font-family:  'Helvetica Neue','Arial',sans-serif;
 }
 .portletMainIframe {
     text-align: left;

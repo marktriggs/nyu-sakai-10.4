@@ -338,6 +338,12 @@ table.lines th {
     border-width: 1px 0 1px 0 !important
 }
 table.lines tr:hover {
+    -webkit-transition: background-color 0.2s;
+    -moz-transition: background-color 0.2s;
+    -ms-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
+    transition: background-color 0.2s;
+
     background-color: #DEEEFF
 }
 table.lines td {
@@ -557,6 +563,12 @@ textarea.cke_source:focus {
 /* Button styling
 Turns the old links into buttons. The many different ways the tools have implemented the links in the past forces us to use these every specific and many selectors. The proper way is to use a UL with LIs as the buttons. */
 .navIntraTool>li>span>a,.navIntraTool>li>span.current, .navIntraTool>form>li, .navIntraTool>span, .navIntraTool>a, .navIntraTool>div>a, div.navIntraTool>ul>li>a, div.navIntraTool>ul>li>span>a, div.navIntraTool>ul>a, .navIntraTool>li.nav_item>a, ul.navIntraTool>li>a {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
     display: inline-block !important;
     margin-right: 4px !important;
     margin-bottom: 4px !important;
@@ -1170,6 +1182,13 @@ ul.makeMenu li.menuClose a:hover {
 }
 /* override native button things rendering */
 input[type="submit"], input[type="button"], input[type="reset"] {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+    cursor: pointer;
     background-color: #ddd !important;
     font-size: 12px !important;
     font-weight: 300 !important;
@@ -1180,6 +1199,12 @@ input[type="submit"], input[type="button"], input[type="reset"] {
     border: 1px solid #ccc !important;
 }
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
     background: #FFF !important;
     color: #BF3B3B !important;
     border-color: #BF3B3B !important;
@@ -1200,6 +1225,12 @@ input[type="submit"][disabled="disabled"],
   input[type="button"][disabled]:hover,
   input[type="submit"][class="disabled"]:hover,
   input[type="button"][class="disabled"]:hover {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
     background: #eeeeee !important;
     color: #bbb !important;
     border: 1px solid #E0E3E5 !important;
@@ -1210,6 +1241,12 @@ input[type="submit"][disabled="disabled"],
     margin-right: 3px;
 }
 input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="true"], input[type="checkbox"][class="disabled"], input[type="checkbox"][disabled="disabled"]:hover, input[type="checkbox"][disabled="true"]:hover {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
     background: #ccc !important;
     border: 1px solid #E0E3E5 !important;
     margin-right: 3px;
@@ -1506,6 +1543,12 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 
 /* Button Overrides */
 .button.active, a.button.active, button.active, input[type="button"].active, input[type="submit"].active, input[name="eventSubmit_doSearch"], input[name=":submit"], #siteStatus a, .portletBody font a:nth-of-type(1), input[value="Publish entry"] {
+  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
   background: #3698DB !important;
   color: #FFF !important;
   border-color: #3698DB !important;
@@ -1513,6 +1556,12 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
   text-decoration: none !important;
 }
 .button.active:hover, a.button.active:hover, button.active:hover, input[type="button"].active:hover, input[type="submit"].active:hover, input[name="eventSubmit_doSearch"]:hover, input[name=":submit"]:hover, #siteStatus a:hover, .portletBody font a:nth-of-type(1):hover, input[value="Publish entry"]:hover {
+  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
   background: #FFF !important;
   color: #3698DB !important;
   border-color: #3698DB !important;
