@@ -65,7 +65,11 @@
 				#if ($usingExternalHelp)
 					#if ($externalHelpMain)
 						<li>
-							<a class="toolMenuLink" accesskey="6" href="${externalHelpMain.url}" target="_blank">
+							<a class="toolMenuLink" accesskey="6" href="${externalHelpMain.url}" target="_blank"
+								onclick="openWindow('${externalHelpMain.url}', 
+									'${externalHelpMain.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); 
+									return false"
+							>
 								<span  class="toolMenuIcon ${sitePages.helpMenuClass}"></span>
 								<span class="menuTitle">${externalHelpMain.label}</span>
 							</a>

@@ -1100,6 +1100,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     vertical-align: initial;
     display: inline-block;
     margin: 2px 0 0;
+    white-space: nowrap;
 }
 .portletTitle .action a:hover {
     -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
@@ -1150,7 +1151,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
   font-size: 14px;
 }
 .portletTitle .action a.external-news:before {
-  content: '';
+  content: initial;
 }
 .portletTitle .title {
   padding: 2px 2px 4px;
