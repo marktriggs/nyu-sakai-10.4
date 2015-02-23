@@ -719,20 +719,58 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     overflow: auto;
     background-color: #FFF;
     border-radius: 0 0 5px 5px;
+    display: table;
+    width: 100%;
 }
+
+/* Narrow displays show a single column of sites */
+@media screen and (max-width: 799px) {
+    #otherSitesCategorWrap {
+        display: block !important;
+    }
+
+    .more-sites-courses, .more-sites-other {
+        display: inline-block;
+        overflow: hidden;
+        padding: 0 0 0 20px !important;
+    }
+}
+
+/* Everyone else gets two columns */
+@media screen and (min-width: 800px) {
+    #otherSitesCategorWrap .more-sites-courses,
+    #otherSitesCategorWrap .more-sites-other {
+        display: table-cell !important;
+        vertical-align: top;
+        width: 50%;
+        padding: 20px;
+    }
+}
+
 #otherSitesCategorWrap h4 {
     float: none;
     clear: both;
     color: #555;
     font-size: 90%;
     text-transform: uppercase;
-    padding: 4px 10px 0 7px;
+    padding: 20px 0 0 0;
     margin: 0 0 0 0;
 }
-#otherSitesCategorWrap .more-sites-courses,
-#otherSitesCategorWrap .more-sites-other {
-    display: table-cell !important;
+
+
+
+/* Align headers */
+.more-sites-courses ul, .more-sites-other ul {
+    padding: 0;
 }
+
+/* Show a single column of sites */
+.more-sites-courses ul li, .more-sites-other ul li {
+    margin-left: 0;
+    clear: both;
+}
+
+
 /* tool submenu for sites in the "More sites" tray (both flat and categorized)*
  * shares attr/vals with  ul.topnav li ul.subnav, #mastLogin ul.subnav, #otherSiteTools above, here are the overrides needed for this context */
 #otherSiteTools {
