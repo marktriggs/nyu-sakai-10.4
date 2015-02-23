@@ -2393,3 +2393,11 @@ form[name="classInformationForm"] input#title {
   border-bottom: none !important;
   top: 1px;
 }
+
+
+/* CLASSES-1469 */
+.site-manage-import-sessions,
+.site-manage-import-other {
+  display: table-cell;
+  width: 50%;
+}
