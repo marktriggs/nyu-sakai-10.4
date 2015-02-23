@@ -29,7 +29,9 @@ $(function() {
 
   var handleBannerAlertClose = function($alert) {
     markAlertAsDismissed($alert.attr("id"));
-    $alert.remove();
+    $alert.slideUp(function() {
+      $alert.remove();
+    });
   };
 
   var renderBannerAlerts = function(alerts) {
@@ -49,7 +51,9 @@ $(function() {
         if ($("#"+alertId).length == 0) {
             var $alert = $($("#systemAlertsBannerTemplate").html()).attr("id", alertId);
             $alert.find(".system-alert-banner-message").html(alert.message);
+            $alert.hide();
             $(document.body).prepend($alert);
+            $alert.slideDown();
         }
       }
     });
