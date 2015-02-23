@@ -600,9 +600,24 @@ li.more-tab a span {
     top: 0;
     vertical-align: middle;
     width: 80%;
+    min-width: 800px;
     z-index: 10001;
     box-shadow: 0px 1px 10px 0px #666;
     border-radius: 0 0 5px 5px;
+}
+@media screen and (max-width: 1000px) {
+  #selectSite {
+    left: 50%;
+    margin-left: -400px;
+  }
+}
+@media screen and (max-width: 800px) {
+  #selectSite {
+    width: 94%;
+    min-width: initial;
+    left: 3%;
+    margin-left: initial;
+  }
 }
 /* mask that gets applied to the portal when "More sites" is triggered, making the tray modal sort of*/
 #portalMask {
@@ -705,7 +720,7 @@ ul#otherSiteList li, ul.otherSitesCategorList li {
     position: relative;
     margin: 6px 6px 0 0;; /*Note: check uncategorized */
     line-height: 1.1em;
-    width: 280px;
+    width: 340px;
     float: left;
     display: block;
 }
@@ -772,20 +787,20 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
 }
 
 /* Narrow displays show a single column of sites */
-@media screen and (max-width: 799px) {
+@media screen and (max-width: 800px) {
     #otherSitesCategorWrap {
         display: block !important;
     }
 
     .more-sites-courses, .more-sites-other {
-        display: inline-block;
+        display: block;
         overflow: hidden;
         padding: 0 0 0 20px !important;
     }
 }
 
 /* Everyone else gets two columns */
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 801px) {
     #otherSitesCategorWrap .more-sites-courses,
     #otherSitesCategorWrap .more-sites-other {
         vertical-align: top;
