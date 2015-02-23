@@ -217,8 +217,10 @@ $(function(){
         header: '.permissionCustomize',
         active: false,
         collapsible: true,
+        heightStyle: "content",
         autoHeight: false,
-        change: function(event, ui){
+        clearStyle: true,
+        activate: function(event, ui){
             resizeFrame('grow');
         } 
     });
