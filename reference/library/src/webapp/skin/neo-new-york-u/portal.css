@@ -46,13 +46,16 @@ body.portalBody {
     vertical-align: text-bottom;
     font-size: 15px;
 }
-
+#toolMenu .toolMenuIcon {
+    position: absolute;
+    top: 12px;
+}
 .subnav .toolMenuIcon, .otherSiteTool .toolMenuIcon {
     display: none;
 }
 
 .menuTitle {
-    margin: 5px 10px;
+    margin: 5px 10px 5px 38px;
     display:inline-block;
     text-align: left;
 }
@@ -462,7 +465,7 @@ in constructing menu for user links in #mastLogin, as well as the submenus for t
 ul.topnav li ul.subnav, #mastLogin ul.subnav, #otherSiteTools {
     list-style: none;
     position: absolute;
-    top: 31px;
+    top: 30px;
     background: #fff;
     font-size: .9em;
     margin: 0;
