@@ -10,6 +10,7 @@ var dhtml_view_sites = function(){
     // then recast the function to the post initialized state which will run from then on
     dhtml_view_sites = function(){
         if (jQuery('#selectSite').css('display') == 'none') {
+            jQuery('div#selectSite').css('top', Math.ceil($('.more-tab').position().top + $('.more-tab').height() + 10));
             jQuery('div#selectSite div').show();
             jQuery('div#selectSite').slideDown('fast', function(){
                 // check if $('#otherSiteList li').length > some number, then show search
