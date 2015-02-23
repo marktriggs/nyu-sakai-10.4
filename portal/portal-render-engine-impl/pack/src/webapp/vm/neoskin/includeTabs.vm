@@ -78,7 +78,7 @@
 						#if (${loginHasImage1}) 
 							<a href="${loginLogInOutUrl}" title="${loginMessage}" id="loginLink1" ><img src="${loginImage1}" alt="${loginMessage}"/></a>
 						#else
-							<a href="${loginLogInOutUrl}" title="${loginMessage}" id="loginLink1" >${loginMessage}</a>
+							<a href="${loginLogInOutUrl}" title="${loginMessage}" id="loginLink1" >${loginMessage} (${loginUserDispId})</a>
 						#end
 						#if (${loginHasLogInOutUrl2})
 							#if (${loginHasImage2}) 

@@ -208,7 +208,6 @@ that can be used or hidden,can also use a background: url(images/<image name>.<e
 guests, for example */ 
 #loginLink1, #loginLink2 {
     margin: 0 7px;
-    text-transform: uppercase;
 }
 /* main rendering for all links and the submit button */
 #loginLink1, #loginLink2, form#loginForm input#submit {
@@ -224,7 +223,7 @@ guests, for example */
   font-family:  'Helvetica Neue','Arial',sans-serif !important;
   font-weight: 300 !important;
 }
-form#loginForm input#submit {height: 28px !important; text-transform: uppercase; margin: 0 7px;}
+form#loginForm input#submit {height: 28px !important; margin: 0 7px;}
 #headerMin #loginLink1, #headerMin #loginLink2 {margin-top: -2px;}
 #loginLink1:hover, #loginLink2:hover, form#loginForm input#submit:hover {
     background: #fff;
