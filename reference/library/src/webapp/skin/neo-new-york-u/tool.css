@@ -487,7 +487,6 @@ label {
 }
 /* a required marker for a shorttext label/input pair */
 .shorttext .reqStar {
-    color: #2F7FAB;
     width: auto;
     margin: 0 0 0 -1em;
     font-weight: bold;
@@ -2478,8 +2477,8 @@ textarea[required] {
 .shorttext,
 .longtext,
 .filepicker {
-  margin: 1em 0;
   border: none;
+  margin: 1em;
 }
 
 /* line 70, sass/base/forms/_forms.scss */
