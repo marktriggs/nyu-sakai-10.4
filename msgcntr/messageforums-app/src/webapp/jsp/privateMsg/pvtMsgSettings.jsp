@@ -64,7 +64,7 @@
 		         </h:panelGrid>
 		         
 		         
-		       <h:panelGroup rendered="#{PrivateMessagesTool.instructor}">	  
+		       <h:panelGroup rendered="#{PrivateMessagesTool.instructor}" style="display: none;">	  
 		         <f:verbatim><h4></f:verbatim><h:outputText value="#{msgs.pvt_site_settings}" /><f:verbatim></h4></f:verbatim>
 		         
                          <h:panelGrid styleClass="jsfFormTable" columns="2" >			  
