@@ -165,9 +165,12 @@
 	       			<f:verbatim>
 	       			</a>
 	       		</f:verbatim>
+
+                          <h:inputHidden value="#{PrivateMessagesTool.booleanEmailOut}" id="send_email_out"></h:inputHidden>
 			</h:panelGroup>
-		
-	
+
+                        <%
+                        /**
 			 <h:panelGroup styleClass="shorttext" rendered= "#{PrivateMessagesTool.emailCopyOptional || PrivateMessagesTool.emailCopyAlways}">
 			   <h:outputLabel><h:outputText value="#{msgs.pvt_send_cc}"/></h:outputLabel>
 			 </h:panelGroup>
@@ -176,6 +179,8 @@
 			  <h:selectBooleanCheckbox value="#{PrivateMessagesTool.booleanEmailOut}" id="send_email_out"></h:selectBooleanCheckbox>
 			  <h:outputLabel for="send_email_out"><h:outputText value="#{msgs.pvt_send_as_email}"/></h:outputLabel>
 			</h:panelGroup>	
+                        **/
+                        %>
 			
 			<h:outputText value="#{msgs.pvt_send_as_email_always}" rendered= "#{PrivateMessagesTool.emailCopyAlways}"></h:outputText>
 	
