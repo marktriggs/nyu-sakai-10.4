@@ -71,7 +71,7 @@
     <br/>
      <%-- activates the valueChangeListener --%>
      <h:commandButton value="#{authorImportExport.import_action}" type="submit"
-       style="act" action="#{author.getImportOutcome}" />
+       style="act" action="#{author.getImportOutcome}" styleClass="active" />
      <%-- immediate=true bypasses the valueChangeListener --%>
      <h:commandButton value="#{commonMessages.cancel_action}" type="submit"
        style="act" action="author" immediate="true"/>

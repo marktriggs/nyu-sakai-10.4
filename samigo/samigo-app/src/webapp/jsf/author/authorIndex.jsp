@@ -209,7 +209,7 @@ $(document).ready(function() {
       	</div>
     
 		<div>
-	      <h:commandButton id="createnew" type="submit" value="#{authorFrontDoorMessages.button_create}" action="#{author.getOutcome}">
+	      <h:commandButton id="createnew" type="submit" value="#{authorFrontDoorMessages.button_create}" action="#{author.getOutcome}" styleClass="active">
 	        <f:actionListener type="org.sakaiproject.tool.assessment.ui.listener.author.AuthorAssessmentListener" />
 	      </h:commandButton>
     	</div>
@@ -225,7 +225,7 @@ $(document).ready(function() {
       		<h:outputText value="#{authorFrontDoorMessages.assessment_import}" rendered="#{authorization.createAssessment}"/>
 		</span>
     <h:commandButton id="import" value="#{authorFrontDoorMessages.button_import}" immediate="true" type="submit" 
-      rendered="#{authorization.createAssessment}" action="importAssessment">
+      rendered="#{authorization.createAssessment}" action="importAssessment" styleClass="active">
     </h:commandButton>
 	  </div>
   </div>
