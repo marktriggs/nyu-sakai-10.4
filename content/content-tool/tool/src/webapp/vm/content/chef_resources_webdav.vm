@@ -80,19 +80,16 @@
 ##			<p><strong>$tlang.getString("dav.graf10") - </strong> $tlang.getString("dav.graf11"):</p>
 
 ##	<p class="indnt3">
-<input id="webDavUrl" type="hidden" value="
 #if("$!inMyWorkspace" == "true")
-${server_url}${dav_user}$user_id
+	#set( $webDavUrl = "$!{server_url}$!{dav_user}$user_id" )
 #elseif("$!dropboxMode" == "true" && "$!maintainer" == "true")
-${server_url}${dav_group_user}$site_id
+	#set( $webDavUrl = "$!{server_url}$!{dav_group_user}$site_id" )
 #elseif("$!dropboxMode" == "true")
-${server_url}${dav_group_user}$site_id/$user_id
-#elseif("${site_alias}" != "")
-${server_url}${dav_group}${site_alias}
+	#set( $webDavUrl = "$!{server_url}$!{dav_group_user}$site_id/$user_id" )
 #else
-${server_url}${dav_group}$site_id
+	#set( $webDavUrl = "$!{server_url}$!{dav_group}$site_id" )
 #end
-" readonly />
+<input id="webDavUrl" type="hidden" value="$webDavUrl" readonly />
 ##	</p>
 ##	
 ##	<script type="text/javascript">
