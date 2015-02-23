@@ -187,10 +187,13 @@ public class DefaultSiteViewImpl extends AbstractSiteViewImpl
 		String profileToolId = serverConfigurationService.getString("portal.profiletool","sakai.profile2");
 		String preferencesToolId = serverConfigurationService.getString("portal.preferencestool","sakai.preferences");
 		String worksiteToolId = serverConfigurationService.getString("portal.worksitetool","sakai.sitesetup");
+		String userMembershipsToolId = serverConfigurationService.getString("portal.usermembershiptool","sakai.membership");
 
  		String profileToolUrl = null;
  		String worksiteToolUrl = null;
  		String prefsToolUrl = null;
+ 		String userMembershipsToolUrl = null;
+
         if ( myWorkspaceSiteId != null ) {
             for (Iterator iSi = mySites.iterator(); iSi.hasNext();) {
                 Site s = (Site) iSi.next();
@@ -208,6 +211,8 @@ public class DefaultSiteViewImpl extends AbstractSiteViewImpl
                                 prefsToolUrl = Web.returnUrl(request, "/site/" + Web.escapeUrl(siteHelper.getSiteEffectiveId(s)) + "/page/" + Web.escapeUrl(p.getId()));
                             } else if ( worksiteToolId.equals(placement.getToolId()) ) {
                                 worksiteToolUrl = Web.returnUrl(request, "/site/" + Web.escapeUrl(siteHelper.getSiteEffectiveId(s)) + "/page/" + Web.escapeUrl(p.getId()));
+                            }  else if ( userMembershipsToolId.equals(placement.getToolId()) ) {
+                                userMembershipsToolUrl = Web.returnUrl(request, "/site/" + Web.escapeUrl(siteHelper.getSiteEffectiveId(s)) + "/page/" + Web.escapeUrl(p.getId()));
                             }
                         }
                     }
@@ -223,6 +228,9 @@ public class DefaultSiteViewImpl extends AbstractSiteViewImpl
 		}
 		if ( worksiteToolUrl != null ) {
 			renderContextMap.put("worksiteToolUrl", worksiteToolUrl);
+		}
+		if ( userMembershipsToolUrl != null ) {
+			renderContextMap.put("userMembershipsToolUrl", userMembershipsToolUrl);
 		}
 		if (serverConfigurationService.getBoolean("portal.use.tutorial", true)) {
 			renderContextMap.put("tutorial", true);
