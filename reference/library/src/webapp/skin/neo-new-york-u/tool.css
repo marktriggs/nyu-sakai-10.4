@@ -2004,3 +2004,40 @@ span#cke_1_bottom:after {
         display: block !important;
     }
 }
+
+
+/* Override dropzone styles */
+.dropzone {
+  border: 4px dashed #DDD !important;
+  background: none !important;
+  font-size: 16px;
+}
+.dz-message:before {
+  content: "Choose files to upload";
+  position: absolute;
+  top: 4em;
+  width: 200px;
+  margin-left: -100px;
+  left: 50%;
+  border: 1px solid #2F7FAB;
+  background-color: #2F7FAB;
+  color: #FFF;
+  padding: 4px 8px;
+}
+.dz-message:hover:before {
+  background-color: #FFF;
+  color: #2F7FAB;
+}
+.dz-message:after {
+  content: "or";
+  position: absolute;
+  top: 2em;
+  left: 50%;
+  width: 20px;
+  margin-left: -10px;
+  color: #999;
+}
+.dz-message {
+  background: none !important;
+  text-align: center;
+}
