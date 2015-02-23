@@ -22,6 +22,7 @@
 package org.sakaiproject.portal.charon.handlers;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
@@ -37,6 +38,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.authz.api.SecurityAdvisor;
+import org.sakaiproject.site.api.Group;
 import org.sakaiproject.authz.cover.SecurityService;
 import org.sakaiproject.component.cover.ServerConfigurationService;
 import org.sakaiproject.exception.IdUnusedException;
@@ -67,6 +69,9 @@ import org.sakaiproject.exception.IdUsedException;
 import org.sakaiproject.user.api.Preferences;
 import org.sakaiproject.user.api.PreferencesEdit;
 import org.sakaiproject.user.api.PreferencesService;
+
+import org.sakaiproject.portal.charon.site.NYUSiteInfoRename;
+
 /**
  * 
  * @author csev
@@ -274,9 +279,6 @@ public class PDAHandler extends SiteHandler
 					} catch (PermissionException e) {
 					}
 				}
-				if (site != null) {
-					super.setSiteLanguage(site);
-				}
 
 				// See if we can buffer the content, if not, pass the request through
 				boolean allowBuffer = false;
@@ -316,6 +318,14 @@ public class PDAHandler extends SiteHandler
 						"pda",
 						/* doPages */false, /* resetTools */true,
 						/* includeSummary */false, /* expandSite */false);
+
+
+				if (site != null) {
+					super.setSiteLanguage(site);
+
+					new NYUSiteInfoRename().applySettings(rcontext, site, session.getUserId());
+				}
+
 
 				if ( allowBuffer ) {
 					BC = bufferContent(req, res, session, toolId, 

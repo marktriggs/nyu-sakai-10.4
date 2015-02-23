@@ -86,6 +86,13 @@ ${includeExtraHead}
 
 <script type="text/javascript" language="JavaScript" src="/portal/scripts/pda.js"></script>
 
+<script>
+  var showSiteInfoAsSettings = ${showSiteInfoAsSettings};
+  var showJoinableGroups = ${showJoinableGroups};
+</script>
+
+<script type="text/javascript" src="${pageScriptPath}settings-renamer.js$!{portalCDNQuery}"></script>
+
 </head>
 <body class="portalBodyPDA">
 #if ( $pageTop )
