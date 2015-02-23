@@ -1177,6 +1177,7 @@ ul.makeMenu li.menuClose a:hover {
 }
 /* override native button things rendering */
 .ui-button,
+a.button,
 input[type="submit"],
 input[type="button"],
 input[type="reset"] {

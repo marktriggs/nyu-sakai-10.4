@@ -2428,3 +2428,94 @@ html > body .ui-pnotify {
 .workspace .tool-sakai-dashboard .menuTitle:before {
   content: "My ";
 }
+
+
+/* CLASSES-1015 Tutorial Popup Styles */
+#qtip-tutorialPopup {
+  top: 10px !important;
+  background: #FFF !important;
+  border-color: #333 !important;
+  width: 95% !important;
+  max-width: 800px !important;
+  min-width: 320px !important;
+}
+#qtip-tutorialPopup .qtip-tip {
+  display: none !important;
+}
+#qtip-tutorialPopup #tutorialPopupHeader {
+  background: #57068c;
+  padding: 10px 20px;
+  color: #FFF;
+  text-align: center;
+  font-size: 2em;
+  padding-right: 50px;
+  position: relative;
+}
+#qtip-tutorialPopup #tutorialPopupHeader .tutorialPopupContinue {
+  position: absolute;
+  right: 6px;
+  padding: 0 8px;
+  background: transparent !important;
+  color: #FFF !important;
+  top: 8px;
+}
+#qtip-tutorialPopup #tutorialPopupHeader .tutorialPopupContinue:hover {
+  background: #FFF !important;
+  color: #2F7FAB !important;
+
+}
+#qtip-tutorialPopup #tutorialPopupHeader .tutorialPopupContinue:before {
+    font-family: 'nyu-classes-icons';
+    content: '\e600';
+    font-size: 20px;
+}
+#qtip-tutorialPopup #tutorialPopupData {
+  padding: 0 10px;
+}
+#qtip-tutorialPopup #tutorialPopupFooter .tutorialPopupContinue {
+  display: block;
+  padding: 8px 0;
+  line-height: 25px;
+  text-align: center;
+  font-size: 18px !important;
+}
+#qtip-tutorialPopup #tutorialPopupFooter {
+  padding: 20px;
+}
+#qtip-tutorialPopup #tutorialPopupFeaturesHeading {
+  margin: 20px 0 10px;
+}
+#qtip-tutorialPopup #tutorialPopupFeatures {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: table-row;
+  background-color: #F1f1f1;
+}
+#qtip-tutorialPopup #tutorialPopupFeatures li {
+  width: 30%;
+  display: table-cell;
+  padding: 8px;
+}
+#qtip-tutorialPopup #tutorialPopupFeatures li img {
+  width: 100%;
+}
+#qtip-tutorialPopup #tutorialPopupLearningBits li {
+  margin-top: 10px;
+}
+@media only screen and (max-device-width: 520px), only screen and (max-width: 520px) {
+  #qtip-tutorialPopup #tutorialPopupFeatures {
+    display: block;
+  }
+  #qtip-tutorialPopup #tutorialPopupFeatures li {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+  #qtip-tutorialPopup #tutorialPopupFeatures li img {
+    width: 75%;
+  }
+  #qtip-tutorialPopup #tutorialPopupIntroductionVideo img {
+    width: 90%;
+  }
+}

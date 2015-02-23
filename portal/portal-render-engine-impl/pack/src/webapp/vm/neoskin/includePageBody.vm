@@ -570,3 +570,6 @@
 <!-- END from includePageBody.vm -->
 <div id="tutorial"></div>
 <div id="set_timezone_container"></div>
+#if ($enableTutorialPopup)
+#parse("/vm/neoskin/includeTutorialPopup.vm")
+#end

@@ -1894,6 +1894,55 @@ public class SkinnableCharonPortal extends HttpServlet implements Portal
 				rcontext.put("bottomNavServer", server);
 			}
 
+			// CLASSES-1015 show a tutorial popup if the user hasn't already had it pop up before
+			boolean tutorialPopupEnabled = ServerConfigurationService.getBoolean("portal.use.tutorial.popup", false);
+			rcontext.put("enableTutorialPopup", tutorialPopupEnabled);
+			rcontext.put("displayTutorialPopup", false); // default to false
+			if(tutorialPopupEnabled && thisUser != null) {
+				if (!("1".equals(prefs.getProperties().getProperty("popupTutorialFlag")))) {
+					rcontext.put("displayTutorialPopup", true);
+					//now save this in the user's prefefences so we don't show it again
+					PreferencesEdit preferences = null;
+					SecurityAdvisor secAdv = null;
+					try {
+						secAdv = new SecurityAdvisor(){
+							@Override
+							public SecurityAdvice isAllowed(String userId, String function,
+																							String reference) {
+								if("prefs.add".equals(function) || "prefs.upd".equals(function)){
+									return SecurityAdvice.ALLOWED;
+								}
+								return null;
+							}
+						};
+						securityService.pushAdvisor(secAdv);
+
+						try {
+							preferences = preferencesService.edit(thisUser);
+						} catch (IdUnusedException ex1 ) {
+							try {
+								preferences = preferencesService.add( thisUser );
+							} catch (IdUsedException ex2) {
+								M_log.error(ex2);
+							} catch( PermissionException ex3) {
+								M_log.error(ex3);
+							}
+						}
+						if (preferences != null) {
+							ResourcePropertiesEdit props = preferences.getPropertiesEdit();
+							props.addProperty("popupTutorialFlag", "1");
+							preferencesService.commit(preferences);
+						}
+					} catch (Exception e1) {
+						M_log.error(e1);
+					}finally{
+						if(secAdv != null){
+							securityService.popAdvisor(secAdv);
+						}
+					}
+				}
+			}
+
 			Session session = SessionManager.getCurrentSession();
                         TimeZone timeZone;
                         PreferencesService preferenceService = (PreferencesService)ComponentManager.get("org.sakaiproject.user.api.PreferencesService");

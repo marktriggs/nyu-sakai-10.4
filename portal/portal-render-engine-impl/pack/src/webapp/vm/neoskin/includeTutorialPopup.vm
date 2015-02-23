@@ -1,0 +1,49 @@
+<!-- CLASSES-1015 -->
+<div id="tutorialPopup"></div>
+<script id="tutorialPopupContent" type="text/template">
+	<header id="tutorialPopupHeader">
+		Welcome to the Upgraded NYU Classes!
+		<a href="javascript:void(0);" class="tutorialPopupContinue ui-button"></a>
+	</header>
+	<section id="tutorialPopupData">
+		<p>NYU Classes has received an upgrade, providing a cleaner, more modern user interface, as well as functional enhancements in a number of system tools. Don’t worry - the basic interface layout and tool interactions are the same as before. You will <strong>not</strong> need to relearn the system. Get started by watching the following brief introduction:</p>
+		<div>
+			<center>
+				<a id="tutorialPopupIntroductionVideo" href="http://youtu.be/2TBO3iYIj5E" target="_blank">
+					<img src="$!{portalCDNPath}/portal/styles/images/tutorial/upgrade-introduction-screenshot.gif">
+				</a>
+			</center>
+		</div>
+		<h3 id="tutorialPopupFeaturesHeading">Here is a sample of the enhancements available:</h3>
+		<ul id="tutorialPopupFeatures">
+			<li>
+				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature1.png"/>
+				<p><strong>Faster system navigation</strong> via drop-down site menus available in the "Favorite Sites" bar and "More Sites" menu.</p>
+			</li>
+			<li>
+				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature2.png"/>
+				<p><strong>More drag-and-drop</strong> functionality throughout the system, from reordering sites to uploading Resources.</p>
+			</li>
+			<li>
+				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature3.png"/>
+				<p><strong>Enhanced recipient-selection</strong> process in Messages - recipients may be typed or selected from a list and easily removed.</p>
+			</li>
+		</ul>
+		<h3>Want to learn more?</h3>
+		<ul id="tutorialPopupLearningBits">
+			<li>"Getting Started" videos and tool articles are available in the new Help tool, located in the left tool menu of every site.</li>
+			<li>Contextual help is also available in individual tools - select the "Help" icon in the upper-right of site tools to be directed to relevant articles.</li>
+			<li>Instructors will find "See the New Features" links in the upper-right of applicable tools.</li>
+		</ul>
+	</section>
+	<footer id="tutorialPopupFooter">
+		<a href="javascript:void(0)" class="tutorialPopupContinue button active">Take me to the upgraded NYU Classes</a>
+	</footer>
+</script>
+<script>
+	sakai.tutorial_popup = {
+		display_on_load: $!{displayTutorialPopup}
+	};
+	console.log(sakai.tutorial_popup.display_on_load);
+</script>
+<script type="text/javascript" src="$!{portalCDNPath}/portal/scripts/tutorial-popup.js$!{portalCDNQuery}"></script>

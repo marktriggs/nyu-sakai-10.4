@@ -68,6 +68,10 @@
 			#if (${tabsSites.tutorial})
 <li class="submenuitem"><span><a id="tutorialLink" role="menuitem" href="#" onclick="startTutorial({});"><span class="toolMenuIcon submenuitem-tutorial"> </span>${rloader.sit_tutorial}</a></span></li>
 			#end
+			## CLASSES-1015
+			#if ($enableTutorialPopup)
+<li class="submenuitem"><span><a id="tutorialPopupLink" role="menuitem" href="#" onclick="sakai.tutorial_popup.open_it();"><span class="toolMenuIcon submenuitem-tutorial-popup"></span> What's New in NYU Classes</a></span></li>
+			#end
 
 </ul>
 
