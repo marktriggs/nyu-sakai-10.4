@@ -866,8 +866,6 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 
 		if (helpurl != null) {
 		    UILink.make(tofill, (pageItem.getPageId() == 0 ? "helpbutton" : "helpbutton2"), helpurl).
-			decorate(new UIFreeAttributeDecorator("onclick",
-			         "openWindow('" + helpurl + "', 'Help', 'resizeable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); return false")).
 			decorate(new UIFreeAttributeDecorator("title", helpMessage));
 		    UIOutput.make(tofill, (pageItem.getPageId() == 0 ? "helpimage" : "helpimage2")).
 			decorate(new UIFreeAttributeDecorator("alt", helpMessage));

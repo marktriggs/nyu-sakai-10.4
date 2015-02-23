@@ -53,22 +53,14 @@
 						#end
 
                                                 #if (${tool.externalNews})
-                                                    <a class="external-news" target="_blank" href="${tool.externalNews.url}" title="${tool.externalNews.label}"
-                                                       onclick="openWindow('${tool.externalNews.url}', 
-                                                                   '${tool.externalNews.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); 
-                                                                   return false"
-                                                    >
+                                                    <a class="external-news" target="_blank" href="${tool.externalNews.url}" title="${tool.externalNews.label}">
                                                       ${tool.externalNews.label}
                                                     </a>
                                                 #end
 
 						#if (${tool.toolShowHelpButton} && ${tool.usingExternalHelp})
                                                     #if (${tool.externalHelp})
-                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}"
-                                                          onclick="openWindow('${tool.externalHelp.url}', 
-                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); 
-                                                                   return false"
-                                                       >
+                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}">
                                                           <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
                                                                <span class="skip">${rloader.site_newwindow}</span>
                                                        </a>
@@ -103,11 +95,7 @@
 									<div class="action">
 						#if (${tool.toolShowHelpButton} && ${tool.usingExternalHelp})
                                                     #if (${tool.externalHelp})
-                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}"
-                                                          onclick="openWindow('${tool.externalHelp.url}', 
-                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); 
-                                                                   return false"
-                                                       >
+                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}">
                                                           <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
                                                                <span class="skip">${rloader.site_newwindow}</span>
                                                        </a>
@@ -192,11 +180,7 @@
 						#end
 						#if (${tool.toolShowHelpButton} && ${tool.usingExternalHelp})
                                                     #if (${tool.externalHelp})
-                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}"
-                                                          onclick="openWindow('${tool.externalHelp.url}', 
-                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); 
-                                                                   return false"
-                                                       >
+                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}">
                                                           <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
                                                                <span class="skip">${rloader.site_newwindow}</span>
                                                        </a>
@@ -231,11 +215,7 @@
 									<div class="action">
 						#if (${tool.toolShowHelpButton} && ${tool.usingExternalHelp})
                                                     #if (${tool.externalHelp})
-                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}"
-                                                          onclick="openWindow('${tool.externalHelp.url}', 
-                                                                   '${tool.externalHelp.label}', 'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1240,height=768'); 
-                                                                   return false"
-                                                       >
+                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}">
                                                           <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
                                                                <span class="skip">${rloader.site_newwindow}</span>
                                                        </a>
