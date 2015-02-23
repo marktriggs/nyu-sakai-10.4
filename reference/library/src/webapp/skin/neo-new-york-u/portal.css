@@ -908,6 +908,9 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
   color: #444;
   font-size: 20px;
 }
+.portletTitle .action a:hover {
+  color: #BF3B3B;
+}
 .portletTitle .action a:before {
   content: '\e003';
 }
@@ -965,17 +968,19 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     color: #333
 }
 .portletTitle .title a {
-    background: url(images/refresh.png) center left no-repeat;
-    text-decoration: none !important;
-    border: none;
-    height: 1.5em;
-    outline: none;
-    padding: 6px 0 0 5px;
-    background-size: 22px auto;
+  font-family: 'nyu-classes-icons';
+  font-size: 20px;
+  color: #444;
+  vertical-align: text-bottom;
 }
-.portletTitle .title a:hover, .portletTitle .title a:focus {
-    background: url(images/refresh.png) center left no-repeat;
-    background-size: 22px auto;
+.portletTitle .title a:hover {
+  color: #BF3B3B;
+}
+.portletTitle .title a img {
+  display: none;
+}
+.portletTitle .title a:before {
+  content: '\e005';
 }
 .portletMainIframe {
     text-align: left;
