@@ -1319,7 +1319,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
 /* presence and chat rendering */
 #presenceArea {
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid #15A885;
     position: fixed;
     height: 265px;
     width: 175px;
@@ -1334,12 +1334,11 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
 }
 /* wrapper for title of iframe ("Users present")*/
 #presenceTitle, #pc_title {
-    color: #000;
-    border-bottom: 1px solid #ccc;
+    color: #FFF;
     padding: 3px 3px 4px 3px;
-    background: #eee;
+    background: #15A885;
     vertical-align: bottom;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #15A885;
     height: 15px;
     font-weight: bold;
 }
@@ -1352,21 +1351,20 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     width: 22px;
     height: 22px;
     font-size: 120%;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #15A885;
 }
 #presenceTitle div a, #pc_title div a {
-    width: 100%;
-    height: 100%;
-    display: block;
-    background-image: url(../../image/silk/cross.png);
-    background-position: center center;
-    background-repeat: no-repeat;
-    color: transparent;
-    font-size: 0;
+  font-family: 'nyu-classes-icons';
+  color: #BF3B3B;
+  font-size: 0;
+}
+#presenceTitle div a:before, #pc_title div a:before {
+  content: '\e600';
+  font-size: 20px;
 }
 #pc_title div {
     position: absolute;
-    top: 0px;
+    top: 2px;
     text-align: center;
     right: 0px;
     bottom: 0;
@@ -1409,15 +1407,9 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     text-align: center;
     padding: 0;
     z-index: 9999;
-    border: 1px solid #ccc;
+    border: 1px solid #15A885;
     border-width: 1px 1px 0 1px;
-    background: #eeeeee;
-    background: -moz-linear-gradient(top, #eeeeee 0%, #e4e4e4 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#e4e4e4));
-    background: -webkit-linear-gradient(top, #eeeeee 0%,#e4e4e4 100%);
-    background: -o-linear-gradient(top, #eeeeee 0%,#e4e4e4 100%);
-    background: -ms-linear-gradient(top, #eeeeee 0%,#e4e4e4 100%);
-    background: linear-gradient(top, #eeeeee 0%,#e4e4e4 100%);
+    background-color: #15A885;
     *width: 30px;
 }
 #footerAppTray #chattableCount {
@@ -1466,6 +1458,15 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     color: white;
     text-decoration: none;
     text-align: center;
+    font-family: 'nyu-classes-icons';
+    font-size: 16px;
+}
+#presenceToggle:before {
+  content: '\e02b';
+}
+
+#presenceToggle img {
+  display: none;
 }
 
 #chatToggle {
@@ -1748,7 +1749,7 @@ div.qtip-titlebar{
     font-family: inherit !important;
 }
 
-.qtipClose{
+.qtipBodyContent{
     float: left;
     position: absolute;
     right: 5px;
