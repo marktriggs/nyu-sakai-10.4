@@ -1246,3 +1246,187 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
   width: 100px;
   padding-right: 6px;
 }
+
+
+/* Tool icons */
+
+@font-face {
+    font-family:"nyu-classes-icons";
+    src:url(fonts/nyu-classes-icons.eot);
+    src:url(fonts/nyu-classes-icons.eot?#iefix) format("embedded-opentype"),url(fonts/nyu-classes-icons.woff) format("woff"),url(fonts/nyu-classes-icons.ttf) format("truetype"),url(fonts/nyu-classes-icons.svg#nyu-classes-icons) format("svg");
+    font-weight:400;
+    font-style:normal
+}
+
+[class*="icon-sakai"] {
+    font-family:"nyu-classes-icons"
+}
+
+[class*="icon-sakai"]:before,.icon-sakai-help:before,.icon-sakai-iframe-site:before,.icon-sakai-motd:before,.icon-sakai-schedule:before,.icon-sakai-announcements:before,.icon-sakai-resources:before,.icon-sakai-assignment-grades:before,.icon-sakai-dropbox:before,.icon-sakai-chat:before,.icon-sakai-mailbox:before,.icon-sakai-siteinfo:before,.icon-sakai-sitesetup:before,.icon-sakai-messages:before,.icon-sakai-realms:before,.icon-sakai-memory:before,.icon-sakai-sites:before,.icon-sakai-users:before,.icon-sakai-su:before,.icon-sakai-profile2:before,.icon-sakai-membership:before,.icon-sakai-preferences:before,.icon-sakai-singleuser:before,.icon-sakai-syllabus:before,.icon-sakai-forums:before,.icon-sakai-iframe:before,.icon-sakai-lessonbuildertool:before,.icon-nyu-libraries:before,.icon-sakai-samigo:before,.icon-sakai-gradebook-tool:before,.icon-sakai-blogwow:before,.icon-sakai-sections:before,.icon-sakai-kaltura:before,.icon-sakai-sitestats:before,.icon-sakai-delegatedaccess:before,.icon-sakai-site-roster:before,.icon-sakai-site-roster2:before,.icon-sakai-news:before,.icon-sakai-turningtool:before,.icon-sakai-subsite:before,.category-title-information:before,.category-title-communication:before,.category-title-content:before,.category-title-activities-and-assessment:before,.category-title-utilities:before,#toggleToolMax:after,#toggleNormal:after {
+    margin:0 .25em 0 0;
+    padding:.25em
+}
+
+[class*="icon-sakai"]:before {
+    content:"\e60d"
+}
+
+.icon-sakai-help:before {
+    content:"\e003"
+}
+
+.icon-sakai-iframe-site:before {
+    content:"\e005"
+}
+
+.icon-sakai-motd:before {
+    content:"\e005"
+}
+
+.icon-sakai-schedule:before {
+    content:"\e028"
+}
+
+.icon-sakai-announcements:before {
+    content:"\e006"
+}
+
+.icon-sakai-resources:before {
+    content:"\e01e"
+}
+
+.icon-sakai-assignment-grades:before {
+    content:"\e00e"
+}
+
+.icon-sakai-dropbox:before {
+    content:"\e021"
+}
+
+.icon-sakai-chat:before {
+    content:"\e02c"
+}
+
+.icon-sakai-mailbox:before {
+    content:"\e032"
+}
+
+.icon-sakai-siteinfo:before {
+    content:"\e034"
+}
+
+.icon-sakai-sitesetup:before {
+    content:"\e603"
+}
+
+.icon-sakai-messages:before {
+    content:"\e02f"
+}
+
+.icon-sakai-realms:before {
+    content:"\e03a"
+}
+
+.icon-sakai-realms:before {
+    content:"\e03a"
+}
+
+.icon-sakai-memory:before {
+    content:"\e04a"
+}
+
+.icon-sakai-sites:before {
+    content:"\e038"
+}
+
+.icon-sakai-users:before {
+    content:"\e02a"
+}
+
+.icon-sakai-su:before {
+    content:"\e02e"
+}
+
+.icon-sakai-profile2:before {
+    content:"\e029"
+}
+
+.icon-sakai-membership:before {
+    content:"\e02a"
+}
+
+.icon-sakai-preferences:before {
+    content:"\e034"
+}
+
+.icon-sakai-singleuser:before {
+    content:"\e02b"
+}
+
+.icon-sakai-syllabus:before {
+    content:"\e017"
+}
+
+.icon-sakai-forums:before {
+    content:"\e030"
+}
+
+.icon-sakai-iframe:before {
+    content:"\e60f"
+}
+
+.icon-sakai-lessonbuildertool:before {
+    content:"\e60b"
+}
+
+.icon-nyu-libraries:before {
+    content:"\e051"
+}
+
+.icon-sakai-samigo:before {
+    content:"\e60c"
+}
+
+.icon-sakai-gradebook-tool:before {
+    content:"\e050"
+}
+
+.icon-sakai-blogwow:before {
+    content:"\e043"
+}
+
+.icon-sakai-sections:before {
+    content:"\e02a"
+}
+
+.icon-sakai-kaltura:before {
+    content:"\e04f"
+}
+
+.icon-sakai-sitestats:before {
+    content:"\e035"
+}
+
+.icon-sakai-delegatedaccess:before {
+    content:"\e02e"
+}
+
+.icon-sakai-site-roster:before {
+    content:"\e052"
+}
+
+.icon-sakai-site-roster2:before {
+    content:"\e052"
+}
+
+.icon-sakai-news:before {
+    content:"\e053"
+}
+
+.icon-sakai-turningtool:before {
+    content:"\e054"
+}
+
+.icon-sakai-subsite:before {
+    content:""
+}
