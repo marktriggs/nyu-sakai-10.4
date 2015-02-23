@@ -1,0 +1,6 @@
+EVALSYS-1351 Improved hierarchy loading interface
+EVALSYS-1356 - Add option to increase item limit on scales for evaluation
+EVALSYS-1254 Cannot open comments box
+EVALSYS-991 Hide Instructor/TA selection when no corresponding category items exist
+COL-99 When editing a template > add item, you get a drop-down for hierarchy that can be slow to load
+EVALSYS-1375 Comma in survey title breaks results PDF in Google Chrome
