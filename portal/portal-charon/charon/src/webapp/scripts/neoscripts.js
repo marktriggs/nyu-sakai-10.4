@@ -735,3 +735,8 @@ $(function() {
     $portlet.css("minHeight", $toolMenu.height() + "px");
   }
 });
+
+/* CLASSES-1319 Remove the tooltip from the reset button */
+$(function() {
+  $(".portletTitle .title a[title='Tool Home']").removeAttr("title");
+});
