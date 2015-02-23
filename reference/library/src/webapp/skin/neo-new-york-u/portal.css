@@ -703,7 +703,6 @@ ul#otherSiteList li, ul.otherSitesCategorList li {
     background: #E7E7EB;
     border: 1px solid #DBDCDE;
     position: relative;
-    overflow: hidden;
     margin: 6px 6px 0 0;; /*Note: check uncategorized */
     line-height: 1.1em;
     width: 280px;
@@ -789,10 +788,10 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
 @media screen and (min-width: 800px) {
     #otherSitesCategorWrap .more-sites-courses,
     #otherSitesCategorWrap .more-sites-other {
-        display: table-cell !important;
         vertical-align: top;
-        width: 50%;
-        padding: 20px;
+        width: 44%;
+        float: left;
+        padding: 3%;
     }
 }
 
