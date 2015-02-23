@@ -1917,7 +1917,7 @@ span#cke_1_bottom {
     height: 33px;
 }
 span#cke_1_bottom:after {
-    content: 'Ctrl+Right-Click to access the editor\'s context menu';
+    content: 'Ctrl/Command+Right-Click to access the editor\'s context menu';
     position: absolute;
     bottom: 3px;
     left: 13px;
