@@ -5,11 +5,7 @@ function renameSettingsToJoinable(title) {
     if (showSiteInfoAsSettings || title != OLD_TOOL_LABEL) {
         return title;
     } else {
-        if (showJoinableGroups) {
-            return SETTINGS_TOOL_LABEL;
-        } else {
-            return false;
-        }
+        return SETTINGS_TOOL_LABEL;
     }
 }
 
