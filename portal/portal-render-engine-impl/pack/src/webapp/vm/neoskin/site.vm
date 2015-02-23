@@ -36,7 +36,7 @@
                 #if (!${loginTopLogin})
                   <div id="setTimezoneLink" class="tz-warning" style="display: none">
                     <div class="tz-msg">
-                      <a href="#" id="setTimezoneMsg">Your computer's time zone <span class="computerTimezone"></span> does not match your NYU Classes time zone of <span class="prefsTimezone"></span>.  Click here to update your time zone preferences.</a>
+                      <a href="#" id="setTimezoneMsg">Your computer's time zone <span class="computerTimezone"></span> does not match your NYU Classes time zone of <span class="prefsTimezone"></span>.  <u>Click here to update your time zone preferences</u>.</a>
                       <span class="tz-close"><a href="#" id="timezoneDismiss"></a></span>
                     </div>
                   </div>
