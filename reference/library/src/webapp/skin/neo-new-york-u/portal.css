@@ -2504,6 +2504,10 @@ html > body .ui-pnotify {
 #qtip-tutorialPopup #tutorialPopupLearningBits li {
   margin-top: 10px;
 }
+#qtip-tutorialPopup #tutorialPopupFeatures p {
+  margin: -8px 6% 10px;
+  text-align: center;
+}
 #qtip-tutorialPopup h3 {
   font-size: 1.4em;
 }

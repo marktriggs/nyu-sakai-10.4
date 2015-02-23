@@ -18,17 +18,17 @@
 		<ul id="tutorialPopupFeatures">
 			<li>
 				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature1.png$!{portalCDNQuery}"/>
-				<p><strong>More drag-and-drop</strong> functionality, from reordering sites to uploading Resources.</p>
+				<p><strong>More drag-and-drop</strong><br/> functionality, from reordering sites to uploading Resources.</p>
 			</li>
 
 			<li>
 				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature2.png$!{portalCDNQuery}"/>
-				<p><strong>New group features</strong>, including joinable groups and group assignments.</p>
+				<p><strong>New group features</strong>,<br/> including joinable groups and group assignments.</p>
 			</li>
 
 			<li>
 				<img src="$!{portalCDNPath}/portal/styles/images/tutorial/feature3.png$!{portalCDNQuery}"/>
-				<p><strong>Improved contextual help</strong> in site tools, providing direct access to relevant help articles.</p>
+				<p><strong>Improved contextual help</strong><br/> in site tools, providing direct access to relevant help articles.</p>
 			</li>
 		</ul>
 		<h3>Want to learn more?</h3>
