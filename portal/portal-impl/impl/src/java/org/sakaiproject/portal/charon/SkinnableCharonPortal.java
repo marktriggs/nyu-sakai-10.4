@@ -1910,6 +1910,9 @@ public class SkinnableCharonPortal extends HttpServlet implements Portal
 				rcontext.put("bottomNavServer", server);
 			}
 
+			// CLASSES-1587 add if banner alerts are enabled to the context
+			rcontext.put("enableBannerAlerts", ServerConfigurationService.getBoolean("nyu.portal.banneralerts.enable", false));
+
 			// CLASSES-1015 show a tutorial popup if the user hasn't already had it pop up before
 			boolean tutorialPopupEnabled = ServerConfigurationService.getBoolean("portal.use.tutorial.popup", false);
 			rcontext.put("enableTutorialPopup", tutorialPopupEnabled);
