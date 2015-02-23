@@ -797,6 +797,19 @@ function rearrangeMoreSitesPane() {
     $container.append($other_sites_pane);
 }
 
+// CLASSES-1449 support clicking away from the 
+// subnav tool menus to hide them
+$(document).on("click", function(event) {
+  if ($(event.target).closest(".nav-menu").length == 0) {
+    $(".drop.active").trigger("click");
+  }
+});
+$(document).on("click", "#selectSite", function(event) {
+  if ($(event.target).closest(".toolMenus").length == 0 && $(event.target).closest("#otherSiteTools").length == 0) {
+    $(".toolMenus.toolMenusActive").trigger("click");
+  }
+});
+
 
 $(rearrangeMoreSitesPane);
 
