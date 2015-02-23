@@ -98,60 +98,49 @@
 </head>
 <body onload="(window.frameElement) ? setMainFrameHeight(trim(window.frameElement.id)):'';localizeData()">
 <div>
-  <div id="davdocs_step2">
-
-    <p><strong>Step 2 - </strong>Configure Cyberduck by following the instructions below.</p>
-  </div>
-
   <div class="webdav_os">
-    <a name="osx"></a>
     <h4>Setting up WebDAV using Cyberduck</h4>
 
-    <p><strong>Note</strong>: There must be at least one object (file, folder etc.) in the course or project resource area before you begin the setup procedure. This procedure needs to be done once for each site before you can use WebDAV to transfer files to and from any one site.</p>
+    <p><strong>Note:</strong> If you already have downloaded Cyberduck to connect to another site's Resources tool, you will still need to follow steps 3 - 6 below, as each site in NYU Classes has a different address configuration.</p>
 
     <ol>
-      <li>Download the Cyberduck WebDAV client.
-        <ul>
-          <li>Download the most recent version of
-            Cyberduck at: <a href="http://cyberduck.io/"
-                             target="_blank">http://cyberduck.io/</a>.
-            There are versions for OSX and Windows, so
-            select the appropriate version for your
-            operating system.</li>
-          <li>Double-click the downloaded file
+      <li>
+        <p>Download the free Cyberduck WebDAV client.</p>
+        <ul style="list-style-type: lower-alpha;">
+          <li>
+            <p>Download the most recent version of Cyberduck at <a href="http://cyberduck.io/" target="_blank">http://cyberduck.io/</a>. There are versions available for OS X (.zip) and Windows (.exe) on the left side of the screen, so select the appropriate version for your operating system.</p>
+            <p><strong>Note for OS X users:</strong> While a “Download on the Mac App Store” link is available, this version of Cyberduck is not free. To download a free version, select the .zip version available above.</p>
+          </li>
+          <li>Double-click the downloaded file.
             <ul>
-              <li>For OSX, a disk image with a name similar to <em>Cyberduck-4.2.1</em> (or higher) should now be available. Simply drag and drop the folder from the disk image to your Applications folder.</li>
-              <li>For Windows, the Cyberduck installer
-                should run and guide you through the
-                installation process.</li>
+              <li>For OS X, a disk image with a name similar to Cyberduck-4.6.1 (or higher) should now be available. Simply drag and drop the folder from the disk image to your Applications folder.</li>
+              <li>For Windows, the Cyberduck installer should run and guide you through the installation process.</li>
             </ul>
           </li>
         </ul>
 
-      <li>Once installed, open the Cyberduck application.</li>
-      <li>Click the <strong>Open Connection</strong> button (or the menu item <strong>File</strong> &gt; <strong>Open Connection</strong>).</li>
-      <li>You will be presented with a form similar to this (taken from Cyberduck v4.2.1 on Mac OS X): <div><img src="webdav_cyberduck_screenshot.png" alt="Screenshot of Cyberduck Add Connection form" /></div></li>
-      <li>Complete the form as follows:</li>
-      <ul>
-        <li>Select <strong>WebDAV <span class="webDavService"></span></strong></li>
-        <li><b>Server</b>, type (or copy and paste): <b><span class="webDavHostName">hostname</span></b></li>
-        <li><b>Port</b>, type (or copy and paste): <strong><span class="webDavPort">80</span></strong></li>
-        <li><b>Username</b>, enter your NYU NetID: <strong><span class="webDavUsername"></span></strong></li>
-        <li><b>Password</b>, enter your NYU password</li>
-        <li>Click and expand <i>More options</i>.</li>
-        <li><b>Path</b>, type (or copy and paste) the last part of the "Step 1" URL noted above: <strong><span class="webDavFolderUrlEncoded">dav/xxxx-xxxx-xxxx</span></strong></li>
-        <li>Click  <b>Connect</b>.</li>
-      </ul>
+      <li><p>Once installed, open the Cyberduck application.</p></li>
+      <li><p>Click the Open Connection button (or the menu item File > Open Connection).</p></li>
+      <li>
+        <p>You will be presented with a form similar to this (taken from Cyberduck v4.6.1 on Mac OS X):</p>
+        <div><img src="webdav_cyberduck_screenshot-4.6.1.jpg" alt="Screenshot of Cyberduck Add Connection form" /></div>
+      </li>
+      <li>
+        <p>Complete the form as follows:</p>
+        <ul style="list-style-type: lower-alpha;">
+          <li>Select <strong>WebDAV <span class="webDavService"></span></strong> protocol from the drop-down list</li>
+          <li>Type or paste the following into the "Server" field: <strong><span class="webDavHostName">hostname</span></strong></li>
+          <li>Type or paste the following into the "Port" field: <strong><span class="webDavPort">80</span></strong></li>
+          <li>Type or paste your <em>netID</em> into the "Username" field: <strong><span class="webDavUsername"></span></strong></li>
+          <li>Enter your <em>NYU password</em> into the "Password" field.
+          <li>Click and expand "More Options." Within the "Path" field, type or paste the following: <strong><span class="webDavFolderUrlEncoded">dav/xxxx-xxxx-xxxx</span></strong></li>
+        </ul>
+      </li>
+      <li><p>Click <strong>Connect</strong>.</p></li>      
     </ol>
 
-    <p>You will now see a window on your screen that
-      represents the resources that are in your site.
-      Simply drag and drop between this window and other
-      windows to transfer files to and from your NYU Classes
-      site's resources folder.</p>
-
+    <p>You will now see a window on your screen showing the Resources in your site. Simply drag-and-drop between your computer and this window to transfer files to and from your NYU Classes site's Resources tool.</p>
   </div>
 </div>
-
 </body>
 </html>

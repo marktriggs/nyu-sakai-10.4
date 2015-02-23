@@ -1154,9 +1154,9 @@ ul.makeMenu li.menuClose a:hover {
     margin-right: 1.5em;
 }
 .webdav_os {
-    margin-top: 4em;
+    margin-top: 1em;
     border: 1px solid #eee;
-    padding: 2em;
+    padding: 1em 2em;
 }
 /* ===[ Lessons ]=== */
 .lessonsHeader {
