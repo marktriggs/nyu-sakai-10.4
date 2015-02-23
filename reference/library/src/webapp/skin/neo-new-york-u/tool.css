@@ -2573,6 +2573,16 @@ img[src$="cal.gif"] {
 .toggleAnchor {
   background: 
 }
+.ui-dialog .ui-dialog-content {
+  padding: 0 !important;
+}
+.ui-dialog .ui-dialog-titlebar-close {
+  right: 7px !important;
+  width: 24px !important;
+  margin: -13px 0 0 0 !important;
+  padding: 0 !important;
+  height: 24px !important;
+}
 
 
 /* CLASSES-1463 */
