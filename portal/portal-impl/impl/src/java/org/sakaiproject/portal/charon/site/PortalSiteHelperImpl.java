@@ -356,7 +356,7 @@ public class PortalSiteHelperImpl implements PortalSiteHelper
 				&& (s.getId().equals(myWorkspaceSiteId) || effectiveSite
 						.equals(myWorkspaceSiteId))));
 		String fullTitle = s.getTitle();
-		String titleStr = FormattedText.makeShortenedText(fullTitle, null, null, null);
+		String titleStr = FormattedText.makeShortenedText(fullTitle, ServerConfigurationService.getInt("site.title.tab.maxlength", 25), null, null);
 		m.put("siteTitle", Web.escapeHtml(titleStr));
 		m.put("fullTitle", Web.escapeHtml(fullTitle));
 		m.put("siteDescription", s.getHtmlDescription());
