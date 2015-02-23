@@ -23,15 +23,14 @@ $(function() {
 
 			$("#pdaWelcomeDialog").qtip({
 				content: {
-					title: {
-						text: "Welcome to NYU Classes Mobile",
-						button: '<a href="#"><img src="/library/image/silk/cancel.png"/></a>'
-					},
+					title: "Welcome to NYU Classes Mobile",
+					button: '<a href="#"><img src="/library/image/silk/cancel.png"/></a>',
 					text: $("#pdaWelcomeDialogContent").html()
 				},
 				position: {
-					target: $(document.body), // Position it via the document body...
-					corner: 'center' // ...at the center of the viewport
+					target: $(document.body),
+					my: 'center',
+					at: 'center'
 				},
 				show: {
 					ready: true, // Show it when ready
@@ -50,8 +49,8 @@ $(function() {
 					padding: '14px',
 					name: 'light'
 				},
-				api: {
-					beforeShow: function() {
+				events: {
+					show: function() {
 						$('<div id="qtip-blanket">')
 								.css({
 									 position: 'absolute',
@@ -65,21 +64,21 @@ $(function() {
 								}).appendTo(document.body).fadeIn();
 						$(window).bind("scroll", _onScroll);
 						$(window).bind("resize", _onResize);
+
+						$("#pdaPopupContinue").click(function() {
+							$("#pdaWelcomeDialog").qtip("hide");
+						});
 					},
-					onHide: function() {
+					hide: function() {
 						$('#qtip-blanket').fadeOut(function() {
 							$('#qtip-blanket').remove();
 						});
-						$("#previewInfoDialog").qtip("destroy");
+						$("#pdaWelcomeDialog").qtip("destroy");
 						$(window).unbind("scroll", _onScroll);
 						$(window).unbind("resize", _onResize);
 					},
 				}
 			});
-
-      $("#pdaPopupContinue").click(function() {
-        $("#pdaWelcomeDialog").qtip("hide");
-      });
 		}
 	};
 

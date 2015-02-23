@@ -41,7 +41,7 @@ ${sakai_html_head_css}
 ## portalscripts.js seems to only apply to the main portal and the dhthml "More" capability
 ## It depends on jquery - so we either have to include both jquery and portalscripts or neither
 ## and since we don't use any of this in pda.vm - we don't include either one
-   <script type="text/javascript" src="${pageScriptPath}jquery-latest.min.js$!{portalCDNQuery}"></script>
+   <script type="text/javascript" src="${pageScriptPath}jquery/jquery-1.9.1.min.js$!{portalCDNQuery}"></script>
 ## <script type="text/javascript" src="/portal/scripts/portalscripts.js"></script>
 ## These may someday be needed for styleable - if so - move them into styleable below
 #if ( ${bufferedResponse} && ${responseHead} ) 
@@ -361,7 +361,7 @@ ${responseBody}
 </footer>
 
 #if ($showPdaPopup)
-	#parse("/vm/neoskin/includePDAPopup.vm")
+#parse("/vm/neoskin/includePDAPopup.vm")
 #end
 
 </div>

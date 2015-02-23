@@ -1,10 +1,12 @@
 <div id="pdaWelcomeDialog"></div>
 
+<link type="text/css" rel="stylesheet" href="${pageScriptPath}jquery/qtip/jquery.qtip-latest.min.css">
+
 <script id="pdaWelcomeDialogContent" type="text/template">
-    <p>
-        NYU Classes mobile is optimized for viewing your course site information. 
-        For complex content creation, the desktop site is recommended.
-    </p>
-    <button id="pdaPopupContinue" class="primary active">Continue</button>
+	<p>
+		NYU Classes mobile is optimized for viewing your course site content.
+		For complex content creation, the desktop interface is recommended.
+	</p>
+	<button id="pdaPopupContinue" class="primary active">Continue</button>
 </script>
-<script type="text/javascript" language="JavaScript" src="/library/js/jquery/qtip/jquery.qtip-latest.min.js"></script>
+<script type="text/javascript" src="${pageScriptPath}jquery/qtip/jquery.qtip-latest.min.js"></script>

@@ -61,6 +61,12 @@ import org.sakaiproject.tool.cover.SessionManager;
 import org.sakaiproject.util.Validator;
 import org.sakaiproject.util.Web;
 
+import org.sakaiproject.component.cover.ComponentManager;
+import org.sakaiproject.entity.api.ResourcePropertiesEdit;
+import org.sakaiproject.exception.IdUsedException;
+import org.sakaiproject.user.api.Preferences;
+import org.sakaiproject.user.api.PreferencesEdit;
+import org.sakaiproject.user.api.PreferencesService;
 /**
  * 
  * @author csev
@@ -179,6 +185,7 @@ public class PDAHandler extends SiteHandler
 				// /portal/pda/site-id/tool-reset/toolId
 				// 0 1 2 3 4
 				String toolId = null;
+				String commonToolId = null;
 				if ((siteId != null) && (parts.length == 5)
 						&& (parts[3].equals("tool-reset")))
 				{
@@ -274,7 +281,6 @@ public class PDAHandler extends SiteHandler
 				// See if we can buffer the content, if not, pass the request through
 				boolean allowBuffer = false;
 				ToolConfiguration siteTool = SiteService.findTool(toolId);
-				String commonToolId = null;
 
 				String toolContextPath = null;
 				String toolPathInfo = null;
@@ -328,6 +334,48 @@ public class PDAHandler extends SiteHandler
 						log.warn(msg);
 						bufferResponse.forwardResponse();
 						return END;
+					}
+				}
+
+				// NCM-71 Show a warning if the user is an instructor for the current site
+				// and the tool is configured to show the banner warning;
+				// OR the tool is configured to show the banner for any user.
+				if (siteId != null && session.getUserId() != null && commonToolId != null) {
+					String toolsToShowBanner = ServerConfigurationService.getString("nyu.pda.banner.tools", "");
+					if (toolsToShowBanner.contains(commonToolId)) {
+						rcontext.put("showPDAToolBanner", true);
+					} else if (SecurityService.unlock(SiteService.SECURE_UPDATE_SITE, SiteService.siteReference(siteId))) {
+						String toolsToShowInstructorBanner = ServerConfigurationService.getString("nyu.pda.instructor-banner.tools", "");
+						if (toolsToShowInstructorBanner.contains(commonToolId)) {
+							rcontext.put("showPDAToolBanner", true);
+						}
+					}
+				}
+
+				// NCM-67 Is this the user's first time? Determine if we should show a welcome popup.
+				if (session.getUserId() != null) {
+					PreferencesService preferencesService = (PreferencesService) ComponentManager.get(PreferencesService.class);
+					Preferences prefs = preferencesService.getPreferences(session.getUserId());
+					if (!("1".equals(prefs.getProperties().getProperty("sakaiPDAPopupFlag")))) {
+						rcontext.put("showPdaPopup", true);
+						//now save this in the user's prefefences so we don't show it again
+						PreferencesEdit preferences = null;
+						try {
+							preferences = preferencesService.edit(session.getUserId());
+						} catch (Exception e1) {
+							try {
+								preferences = preferencesService.add(session.getUserId());
+							} catch (IdUsedException e2) {
+								log.error(e2);
+							} catch (PermissionException e2) {
+								log.error(e2);
+							}
+						}
+						if (preferences != null) {
+							ResourcePropertiesEdit props = preferences.getPropertiesEdit();
+							props.addProperty("sakaiPDAPopupFlag", "1");
+							preferencesService.commit(preferences);
+						}
 					}
 				}
 
