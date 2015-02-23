@@ -62,6 +62,7 @@
                 <module>calendar</module>
                 <module>chat</module>
                 <module>citations</module>
+                <module>clickers</module>
                 <module>common</module>
                 <module>common/import-parsers/blackboard_6</module>
                 <module>common/import-parsers/blackboard_9_nyu</module>
