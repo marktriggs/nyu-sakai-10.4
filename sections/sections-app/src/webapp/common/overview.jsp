@@ -14,7 +14,7 @@
 		        <f:param value="#{overviewBean.siteRole}"/>
 		    </h:outputFormat>
 		</h3>
-		<h:outputText value="#{overviewBean.instructions}"/>
+		<h:outputText value="#{overviewBean.instructions}" escape="false" />
 	</div>
 
     <%@ include file="/inc/globalMessages.jspf"%>
@@ -90,6 +90,8 @@
                     </t:div>
             </t:dataList>
         </h:column>
+
+        <%-- CLASSES-498 Remove day, time, location and avail. columns
         <h:column>
             <f:facet name="header">
                 <t:commandSortHeader columnName="meetingDays" immediate="false" arrow="true">
@@ -128,19 +130,21 @@
         </h:column>
         <h:column>
             <f:facet name="header">
-                <t:commandSortHeader columnName="totalEnrollments" immediate="false" arrow="true">
-                    <h:outputText value="#{msgs.overview_table_header_current_size}" />
-                </t:commandSortHeader>
-            </f:facet>
-            <h:outputText value="#{section.totalEnrollments}"/>
-        </h:column>
-        <h:column>
-            <f:facet name="header">
                 <t:commandSortHeader columnName="available" immediate="false" arrow="true">
                     <h:outputText value="#{msgs.overview_table_header_available}" />
                 </t:commandSortHeader>
             </f:facet>
             <h:outputText value="#{section.spotsAvailable}"/>
+        </h:column>
+        --%>
+
+        <h:column>
+            <f:facet name="header">
+                <t:commandSortHeader columnName="totalEnrollments" immediate="false" arrow="true">
+                    <h:outputText value="#{msgs.overview_table_header_current_size}" />
+                </t:commandSortHeader>
+            </f:facet>
+            <h:outputText value="#{section.totalEnrollments}"/>
         </h:column>
         <h:column rendered="#{overviewBean.deleteRendered}">
             <f:facet name="header">
@@ -152,7 +156,7 @@
 
     <t:div styleClass="verticalPadding" rendered="#{empty overviewBean.sections}">
         <h:outputText value="#{msgs.no_sections_available}"/>
-        <h:outputText value="#{msgs.no_sections_instructions}" rendered="#{overviewBean.sectionManagementEnabled}"/>
+        <h:outputText value="#{msgs.no_sections_instructions}" rendered="#{overviewBean.sectionManagementEnabled}" escape="false" />
     </t:div>
 
     <t:div rendered="#{overviewBean.deleteRendered}" styleClass="verticalPadding">
