@@ -952,6 +952,15 @@ below they are contextually defined depending on the column as an example,as you
     background: url(images/page_edit.gif) center right no-repeat;
 }     
 
+.portletTitle .action a.tool-directurl{
+	padding:2px;
+	background: url(/library/image/silk/link.png) center right no-repeat;
+}
+        
+.portletTitle .action a.tool-directurl:hover{
+	background: url(/library/image/silk/link.png) center right no-repeat;
+}
+
 /*iframes for portlet title and portlet content*/
 /*gone for 2.3
 .portletTitleIframe{
