@@ -27,7 +27,7 @@ public class BannerAlert {
     }
 
     // if no hosts then assume active for any host
-    if (this.hosts.isEmpty()) {
+    if (this.hosts == null || this.hosts.isEmpty()) {
       return true;
     }
 
