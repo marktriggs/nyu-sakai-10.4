@@ -2486,3 +2486,8 @@ span.returnheader.nextprev a:hover {
   background-color: #15A885 !important;
   color: #FFF !important
 }
+
+/* CLASSES-1567 */
+.ui-widget-content a {
+  color: #3698DB !important;
+}
