@@ -1176,17 +1176,12 @@ a.qtipLinkButton:hover {
      color: #7AA3CC !important;
 }
 
-div.qtip-titlebar{
-    border-bottom-width: 0 !important;
-    color: #fff !important;
-    background: #009DCE !important;
-    background: -moz-linear-gradient(top, #009DCE 0%, #007EA5 100%) !important;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#009DCE), color-stop(100%,#007EA5)) !important;
-    background: -webkit-linear-gradient(top, #009DCE 0%,#007EA5 100%) !important;
-    background: -o-linear-gradient(top, #009DCE 0%,#007EA5 100%) !important;
-    background: -ms-linear-gradient(top, #009DCE 0%,#007EA5 100%) !important;
-    background: linear-gradient(top, #009DCE 0%,#007EA5 100%) !important;
-    border-bottom: 1px solid #007194 !important;	
+.qtip-tipped .qtip-titlebar{
+    font-weight: bold;
+    padding: 7px 12px;
+    color: #454545 !important;
+    zoom: 0;
+    background: #f1f1f1 !important
 }
 
 .qtip{
@@ -1204,10 +1199,20 @@ div.qtip-titlebar{
     background: none !important;
 }
 
+.qtip-tipped {
+    border: 6px solid #666 !important;
+}
+
 .qtipBodyContent{
-   font-family: 'Helvetica Neue', Arial,sans-serif !important;
-   font-size: 1.3em !important;
-   min-width: 400px !important;
+    font-family: 'Helvetica Neue', Arial,sans-serif !important;
+    font-size: 1.3em !important;
+    min-width: 400px !important;
+}
+
+.qtip-content {
+    background-color: #FFF;
+    font-size: 14px;
+    padding: 12px 12px 0;
 }
 
 /* PART 10: specific functionality: presence, chat */
