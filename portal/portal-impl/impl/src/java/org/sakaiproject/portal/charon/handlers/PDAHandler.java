@@ -161,7 +161,9 @@ public class PDAHandler extends SiteHandler
 					res.addCookie(c);
 
 					//redirect to classic view
-					res.sendRedirect(req.getContextPath());
+					//res.sendRedirect(req.getContextPath());
+					//SU-175 redirect to the full URL so user is taken to the Site/Tool instead of their Workspace
+					res.sendRedirect(req.getRequestURI());
 				}
 
 
@@ -392,7 +394,10 @@ public class PDAHandler extends SiteHandler
 				// NCM-81 Build a switch-to-desktop URL
 				String switchToDesktopUrl = Web.serverUrl(req)+ServerConfigurationService.getString("portalPath") + "/";
 				if (toolId != null) {
-					switchToDesktopUrl = switchToDesktopUrl + "directtool/" + toolId;
+					//SU-175 to hit the tool use site/<site>/tool/<tool> as directtool/<tool> doesn't
+					//honor the query string and will not set the classic-mode cookie.
+					//This is a core issue that is mentioned in SAK-26625.
+					switchToDesktopUrl = switchToDesktopUrl + "site/" + siteId + "/tool/" + toolId;
 				} else if (siteId != null) {
 					switchToDesktopUrl = switchToDesktopUrl + "site/" + siteId;
 				}
