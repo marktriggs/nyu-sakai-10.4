@@ -106,6 +106,10 @@ http://cxf.apache.org/schemas/jaxws.xsd">
                     implementor="#org.sakaiproject.webservices.TestsAndQuizzes"
                     address="/soap/testsandquizzes"/>
 
+    <jaxws:endpoint id="WSLongsight"
+                    implementor="#org.sakaiproject.webservices.WSLongsight"
+                    address="/soap/longsight"/>
+
     <bean id="org.sakaiproject.webservices.AbstractWebService" class="org.sakaiproject.webservices.AbstractWebService" init-method="init">
         <property name="serverConfigurationService" ref="org.sakaiproject.component.api.ServerConfigurationService"/>
         <property name="sessionManager" ref="org.sakaiproject.tool.api.SessionManager"/>
@@ -142,5 +146,6 @@ http://cxf.apache.org/schemas/jaxws.xsd">
     <bean id="org.sakaiproject.webservices.SakaiScript" class="org.sakaiproject.webservices.SakaiScript" init-method="init" parent="org.sakaiproject.webservices.AbstractWebService" />
     <bean id="org.sakaiproject.webservices.ShortenedUrl" class="org.sakaiproject.webservices.ShortenedUrl" init-method="init" parent="org.sakaiproject.webservices.AbstractWebService" />
     <bean id="org.sakaiproject.webservices.TestsAndQuizzes" class="org.sakaiproject.webservices.TestsAndQuizzes" init-method="init" parent="org.sakaiproject.webservices.AbstractWebService" />
+    <bean id="org.sakaiproject.webservices.WSLongsight" class="org.sakaiproject.webservices.WSLongsight" init-method="init" parent="org.sakaiproject.webservices.AbstractWebService" />
 
 </beans>
