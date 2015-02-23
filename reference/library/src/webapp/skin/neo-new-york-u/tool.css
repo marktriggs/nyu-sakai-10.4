@@ -1402,10 +1402,12 @@ input[type="checkbox"][disabled="true"]:hover {
 .icon-sakai-subsite:before,
 .icon-nyu-libraries:before,
 .icon-nyu-mediasite-poly:before,
+.icon-nyu-mediasite-engineering:before,
 .icon-nyu-mediasite-stern:before,
 .icon-nyu-mediasite-libraries:before,
 .icon-nyu-panopto-law:before,
 .icon-nyu-panopto-poly:before,
+.icon-nyu-panopto-engineering:before,
 .category-title-information:before,
 .category-title-communication:before,
 .category-title-content:before,
@@ -1607,10 +1609,12 @@ input[type="checkbox"][disabled="true"]:hover {
 }
 
 .icon-nyu-mediasite-poly:before,
+.icon-nyu-mediasite-engineering:before,
 .icon-nyu-mediasite-stern:before,
 .icon-nyu-mediasite-libraries:before,
 .icon-nyu-panopto-law:before,
-.icon-nyu-panopto-poly:before {
+.icon-nyu-panopto-poly:before,
+.icon-nyu-panopto-engineering:before {
     content:"\e04F"
 }
 
