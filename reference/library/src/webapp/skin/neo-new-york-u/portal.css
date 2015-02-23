@@ -703,7 +703,7 @@ ul#otherSiteList li, ul.otherSitesCategorList li {
     overflow: hidden;
     margin: 6px 6px 0 0;; /*Note: check uncategorized */
     line-height: 1.1em;
-    width: 240px;
+    width: 280px;
     float: left;
     display: block;
 }
