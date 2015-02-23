@@ -6299,7 +6299,8 @@ private Map<String,List> getTools(SessionState state, String type, Site site) {
 				// publish the site or not based on the template choice
 				site.setPublished(state.getAttribute(STATE_TEMPLATE_PUBLISH) != null?true:false);
 				
-				userNotificationProvider.notifyTemplateUse(templateSite, UserDirectoryService.getCurrentUser(), site);	
+				// CLASSES-1579: Nope.
+				// userNotificationProvider.notifyTemplateUse(templateSite, UserDirectoryService.getCurrentUser(), site);	
 			}
 				
 			ResourcePropertiesEdit rp = site.getPropertiesEdit();
