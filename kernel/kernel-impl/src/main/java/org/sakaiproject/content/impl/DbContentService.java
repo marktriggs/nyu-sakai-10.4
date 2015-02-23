@@ -1955,6 +1955,8 @@ public class DbContentService extends BaseContentService
 			   }
 			   else
 			   {
+                               M_log.warn("*** Getting delete resources where LIKE: " + collection.getId() + "%");
+
 				   rv = m_resourceDeleteStore.getAllResourcesWhereLike("IN_COLLECTION", collection.getId() + "%");
 			   }
 			   return rv;
