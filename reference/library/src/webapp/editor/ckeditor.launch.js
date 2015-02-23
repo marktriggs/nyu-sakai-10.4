@@ -91,7 +91,7 @@ sakai.editor.editors.ckeditor.launch = function(targetId, config, w, h) {
         disableNativeSpellChecker: false,
         browserContextMenuOnCtrl: true,
         entities_additional: '',
-        removePlugins: 'scayt,menubutton,contextmenu',
+        removePlugins: 'language,liststyle,tabletools,scayt,menubutton,contextmenu',
 
         toolbar_Basic:
         [
