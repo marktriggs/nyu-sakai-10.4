@@ -1107,6 +1107,15 @@ div#privacy_overlay {
   width: 20px;
 }
 
+.qtip-setTimezone {
+    width: 800px;
+    max-width: 800px !important;
+}
+
+.qtip-setTimezone iframe {
+    border: 0px;
+}
+
 /** Disable some new layout features when the original skin is used **/
 #myWorkspaceLink {
   display: none;
