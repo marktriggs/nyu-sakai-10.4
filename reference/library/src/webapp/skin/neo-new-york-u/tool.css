@@ -543,11 +543,11 @@ textarea.cke_source:focus {
 /* Unstyle all of the items in the actionToolBar, then selectively re-style them since there are some artifacts in the toolbars */
 .actionToolBar *, .navIntraTool * {
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 2px !important;
     border: none !important;
     letter-spacing: normal !important;
     color: #000;
-    font-size: 12px !important;
+    font-size: 16px !important;
     text-decoration: none !important;
 }
 .navIntraTool {
@@ -570,7 +570,7 @@ Turns the old links into buttons. The many different ways the tools have impleme
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
     display: inline-block !important;
-    margin-right: 4px !important;
+    margin-right: 8px !important;
     margin-bottom: 4px !important;
     padding: 3px 8px !important;
     border: 1px solid #ccc !important;
