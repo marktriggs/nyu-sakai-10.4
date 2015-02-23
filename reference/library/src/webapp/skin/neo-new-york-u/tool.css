@@ -734,12 +734,6 @@ ul#actionToolBar.navIntraTool.actionToolBar li.dummyToolBarLink span.current {
 .navIntraToolLink {
     color: #fff;
 }
-/* button link color */
-.neoPortletTitleWrap {
-    width: 99%;
-    border-bottom: 2px solid #2F7FAB;
-    border-radius: 3px;
-}
 /* SECTION 9 MESSAGES */
 /* see: create any item */
 .instruction {
@@ -1183,6 +1177,7 @@ ul.makeMenu li.menuClose a:hover {
 .information {
 }
 /* override native button things rendering */
+.ui-button,
 input[type="submit"],
 input[type="button"],
 input[type="reset"] {
@@ -1193,7 +1188,7 @@ input[type="reset"] {
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
     cursor: pointer;
-    background-color: #E7E7EB !important;
+    background: #E7E7EB !important;
     font-weight: normal !important;
     min-height: 26px !important;
     color: #555 !important;
@@ -1203,12 +1198,15 @@ input[type="reset"] {
     border: 1px solid #DBDCDE !important;
 
     margin-right: 2px;
+
+    border-radius: 0 !important;
 }
 h2 input[type="submit"],
 h2 input[type="button"],
 h2 input[type="reset"] {
   font-size: 0.8em !important;
 }
+.ui-button:hover,
 input[type="submit"]:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover {
@@ -2581,4 +2579,165 @@ img[src$="cal.gif"] {
 table.tablesorter .header {
   padding-right: 16px;
   cursor: pointer;
+}
+
+
+/* CLASSES-1460 */
+.neoPortletTitleWrap {
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0 !important;
+}
+.neoPortletTitleWrap .portletTitle .title {
+  padding: 2px 2px 4px;
+  float: left;
+  color: #000;
+  height: auto !important;
+}
+.neoPortletTitleWrap .portletTitle .title img {
+    margin: 0;
+    vertical-align: text-bottom;
+    width: 18px;
+    border: none;
+    height: 18px;
+}
+.neoPortletTitleWrap .portletTitle .title h2 {
+    display: inline;
+    margin: 0 0 0 2px;
+    padding: 0;
+    color: #444;
+    font-weight: normal;
+    font-family:  'Helvetica Neue','Arial',sans-serif !important;
+    font-size: 1.5em !important;
+}
+.neoPortletTitleWrap .portletTitle .title h2 .siteTitle {
+    color: #333;
+    display: none;
+}
+.neoPortletTitleWrap .portletTitle .title a.reload {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+    font-family: 'nyu-classes-icons';
+    color: #444;
+    vertical-align: text-bottom;
+    font-size: 16px;
+    padding: 4px 4px;
+    margin: 0;
+    font-size: 0;
+    display: inline-block;
+    height: 18px !important;
+
+    border: 1px solid #DBDCDE !important;
+    background: #E7E7EB !important;
+    color: #444 !important;
+    vertical-align: initial;
+    margin-right: 10px;
+}
+.neoPortletTitleWrap .portletTitle .title a.reload:hover {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+    background: #ffffff !important;
+    color: #2F7FAB !important;
+    border-color: #2F7FAB !important;
+}
+.neoPortletTitleWrap .portletTitle .title a.reload img {
+  display: none;
+}
+.neoPortletTitleWrap .portletTitle .title a.reload:before {
+  content: '\e628';
+  font-size: 18px;
+  font-family: 'nyu-classes-icons';
+  display: inline-block;
+  margin-left: 5px;
+}
+.neoPortletTitleWrap .portletTitle .title a:after {
+  -webkit-transition: width 0.5s, transform 0.5s;
+  -moz-transition: width 0.5s;
+  -ms-transition: width 0.5s;
+  -o-transition: width 0.5s;
+  transition: width 0.5s;
+  
+  display: inline-block;
+  width: 0;
+  content: 'Return to Tool Home';
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 18px;
+  vertical-align: top;
+  margin-left: 5px;
+}
+.neoPortletTitleWrap .portletTitle .title a:hover:after {
+  -webkit-transition: width 0.5s;
+  -moz-transition: width 0.5s;
+  -ms-transition: width 0.5s;
+  -o-transition: width 0.5s;
+  transition: width 0.5s;
+
+  -webkit-transition-delay: 0.5s;
+  -moz-transition-delay: 0.5s;
+  -ms-transition-delay: 0.5s;
+  -o-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+
+  width: 120px;
+  height: auto;
+}
+.neoPortletTitleWrap .portletTitle .title a:hover:after {
+  content: 'Return to Tool Home';
+  font-size: 12px;
+  font-family:  'Helvetica Neue','Arial',sans-serif;
+}
+.neoPortletTitleWrap .portletTitle .ui-button-text {
+  font-size: 1em !important;
+  font-weight: normal !important;
+  padding: 4px 8px !important;
+}
+.neoPortletTitleWrap .portletTitle .action a.help {
+  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+  text-align: left;
+  text-decoration: none !important;
+  padding: 0 6px;
+  line-height: 26px;
+  height: 26px;
+  vertical-align: top;
+
+  background: none !important;
+  color: #444;
+  font-size: 18px;
+
+  border: 1px solid #DBDCDE;
+  background: #E7E7EB !important;
+  color: #444 !important;
+  display: inline-block;
+  margin: 0;
+}
+.neoPortletTitleWrap .portletTitle .action a.help:hover {
+  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+  background: #ffffff !important;
+  color: #2F7FAB !important;
+  border-color: #2F7FAB !important;
+}
+.neoPortletTitleWrap .portletTitle .action a.help:before {
+  font-family: 'nyu-classes-icons';
+  content: '\e003';
+}
+.neoPortletTitleWrap .portletTitle .action img {
+    display: none;
 }
