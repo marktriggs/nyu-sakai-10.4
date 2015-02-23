@@ -18,11 +18,6 @@
     </organization>
     <inceptionYear>2005</inceptionYear>
 
-    <properties>
-        <sakairsf.sakai.version>2.2.x</sakairsf.sakai.version>
-        <rsfutil.version>0.8-SNAPSHOT</rsfutil.version>
-    </properties>
-
     <packaging>war</packaging>
 
     <profiles>
@@ -145,7 +140,6 @@
             <id>sakai2.7</id>
 			<activation> 
 				<property><name>sakai2.7</name></property>
-                <activeByDefault>true</activeByDefault>
 			</activation>
 		    <properties>
 		        <sakairsf.sakai.version>2.2.x</sakairsf.sakai.version>
@@ -238,11 +232,12 @@
             <id>sakai2.9</id>
 			<activation> 
 				<property><name>sakai2.9</name></property>
+                                <activeByDefault>true</activeByDefault>
 			</activation>
-		    <properties>
-                <rsfutil.version>0.7.5</rsfutil.version>
-                <sakairsf.version>0.7.5</sakairsf.version>
-		    </properties>
+		<!--     <properties> -->
+                <!-- <rsfutil.version>0.7.5</rsfutil.version> -->
+                <!-- <sakairsf.version>0.7.5</sakairsf.version> -->
+		<!--     </properties> -->
             <dependencies>
                 <dependency>
                     <groupId>org.sakaiproject.kernel</groupId>
