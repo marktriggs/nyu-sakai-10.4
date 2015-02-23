@@ -170,7 +170,7 @@
 	  <configuration name="imsti.allowsettings" />
 	  <configuration name="imsti.allowroster" />
 	  <configuration name="imsti.contentlink" />
-          <configuration name="imsti.splash" value="false" />
+          <configuration name="imsti.splash" />
           <configuration name="imsti.allowoutcomes" value="false" />
           <configuration name="imsti.allowlori" value="false" />
 
@@ -294,7 +294,7 @@
 	  <configuration name="imsti.contentlink" />
           <configuration name="imsti.allowoutcomes" value="false" />
           <configuration name="imsti.allowlori" value="false" />
-	  <configuration name="imsti.splash" value="false" />
+	  <configuration name="imsti.splash" />
 
 	  <configuration name="final.xml" value="true"/>
 	  <configuration name="final.secret" value="true"/>
@@ -356,7 +356,7 @@
 	  <configuration name="imsti.contentlink" />
           <configuration name="imsti.allowoutcomes" value="false" />
           <configuration name="imsti.allowlori" value="false" />
-	  <configuration name="imsti.splash" value="false" />
+	  <configuration name="imsti.splash" />
 
           <configuration name="final.launch" value="false"/> <!-- allow this one to be set -->
           <configuration name="final.xml" value="false"/> <!-- this needs to be editable as well so that the launch is editable -->
@@ -419,7 +419,7 @@
 	  <configuration name="imsti.contentlink" />
           <configuration name="imsti.allowoutcomes" value="false" />
           <configuration name="imsti.allowlori" value="false" />
-	  <configuration name="imsti.splash" value="false" />
+	  <configuration name="imsti.splash" />
 
 	  <configuration name="final.xml" value="true"/>
 	  <configuration name="final.secret" value="true"/>
@@ -482,7 +482,7 @@
           <configuration name="imsti.contentlink" />
           <configuration name="imsti.allowoutcomes" value="false" />
           <configuration name="imsti.allowlori" value="false" />
-          <configuration name="imsti.splash" value="false" />
+          <configuration name="imsti.splash" />
 
 
           <configuration name="final.xml" value="true"/>
@@ -545,7 +545,7 @@
           <configuration name="imsti.contentlink" />
           <configuration name="imsti.allowoutcomes" value="false" />
           <configuration name="imsti.allowlori" value="false" />
-          <configuration name="imsti.splash" value="false" />
+          <configuration name="imsti.splash" />
 
 
           <configuration name="final.xml" value="true"/>
