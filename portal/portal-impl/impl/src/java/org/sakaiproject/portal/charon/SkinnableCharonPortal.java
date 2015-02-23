@@ -791,6 +791,7 @@ public class SkinnableCharonPortal extends HttpServlet implements Portal
 		toolMap.put("toolShowHelpButton", Boolean.valueOf(showHelpButton));
 		toolMap.put("toolHelpActionUrl", helpActionUrl);
 		toolMap.put("toolId", toolId);
+		toolMap.put("toolClass", toolId.replace('.', '-'));
 		toolMap.put("toolInline", Boolean.valueOf(toolInline));
 		
 		String directToolUrl = ServerConfigurationService.getPortalUrl() + "/" + DirectToolHandler.URL_FRAGMENT +"/" + Web.escapeUrl(placement.getId()) + "/";

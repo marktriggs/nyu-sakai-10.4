@@ -20,7 +20,7 @@
 					       <!-- Tool has requested the title be suppressed -->
                                             #else
 						#if (${tool.hasRenderResult})
-							<div class="portletTitleWrap">
+							<div class="portletTitleWrap tool-${tool.toolClass}"">
 								<div class="portletTitle">
 									<div class="title">
 						#if (${tool.toolShowResetButton})
@@ -81,7 +81,7 @@
 								</div>
 							</div>
 						#else
-							<div class="portletTitleWrap">
+							<div class="portletTitleWrap tool-${tool.toolClass}"">
 								<div class="portletTitle">
 									<div class="title">
 						#if (${tool.toolShowResetButton})
@@ -149,7 +149,7 @@
 					<!-- start include tool -->
 					<!-- start Tool Col2 -->
 						#if (${tool.hasRenderResult})
-							<div class="portletTitleWrap">
+							<div class="portletTitleWrap tool-${tool.toolClass}"">
 								<div class="portletTitle">
 									<div class="title">
 						#if (${tool.toolShowResetButton})
@@ -201,7 +201,7 @@
 								</div>
 							</div>
 						#else
-							<div class="portletTitleWrap">
+							<div class="portletTitleWrap tool-${tool.toolClass}"">
 								<div class="portletTitle">
 									<div class="title">
 						#if (${tool.toolShowResetButton})

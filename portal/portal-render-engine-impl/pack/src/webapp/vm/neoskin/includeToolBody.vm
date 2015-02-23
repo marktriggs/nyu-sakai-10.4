@@ -19,7 +19,7 @@
 				#if ( $tool ) 
 					<!-- start Tool -->
 					#if (${tool.hasRenderResult})
-							<div class="portletTitleWrap">
+							<div class="portletTitleWrap tool-${tool.toolClass}">
 								<div class="portletTitle">
 									<div class="title">
 						#if (${tool.toolShowResetButton})
@@ -51,7 +51,7 @@
 								</div>
 							</div>
 						#else
-							<div class="portletTitleWrap">
+							<div class="portletTitleWrap tool-${tool.toolClass}">
 								<div class="portletTitle">
 									<div class="title">
 						#if (${tool.toolShowResetButton})

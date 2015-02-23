@@ -685,6 +685,7 @@ public class PortalSiteHelperImpl implements PortalSiteHelper
 					m.put("isPage", Boolean.valueOf(false));
 					m.put("toolId", Web.escapeUrl(placement.getId()));
 					m.put("jsToolId", Web.escapeJavascript(placement.getId()));
+					m.put("toolClass", placement.getId().replace('.', '-'));
 					m.put("toolRegistryId", placement.getToolId());
 					m.put("toolTitle", Web.escapeHtml(placement.getTitle()));
 					m.put("jsToolTitle", Web.escapeJavascript(placement.getTitle()));

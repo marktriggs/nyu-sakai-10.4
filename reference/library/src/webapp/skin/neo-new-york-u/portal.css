@@ -98,6 +98,7 @@ body.portalBody {
 .portletMainWrap {
   border-bottom: 1px solid #EEE;
   padding: 4px;
+  min-height: 200px;
 }
 
 /* wrapper for footer blocks  */
@@ -534,9 +535,14 @@ span.topnav li ul.subnav li {
 }
 */
 /* treatment of a tool that has been hidden via Page Order tool - below takes care of tools in submenus as well as in the site tool menu */
-li.submenuitem span.hidden, #toolMenu li a.hidden {
-    font-style: italic;
-    opacity: 0.7;
+li.submenuitem span.hidden:after,
+#toolMenu li a.hidden:after {
+  font-family: 'nyu-classes-icons';
+  content: '\e607';
+  color: #AAA;
+  margin-left: 4px;
+  float: right;
+  line-height: 27px;
 }
 /* "More sites" link container, link and image background container */
 li.more-tab {
@@ -2353,4 +2359,10 @@ html > body .ui-pnotify {
     font-size: 20px;
     vertical-align: middle;
     margin-right: 0.25em;
+}
+
+
+/* CLASSES-1419 Hide the Calendar synoptic tool reset action */
+.portletTitleWrap.tool-sakai-summary-calendar .title a {
+    display: none;
 }
