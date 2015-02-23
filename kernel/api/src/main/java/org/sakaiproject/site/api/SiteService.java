@@ -280,6 +280,10 @@ public interface SiteService extends EntityProducer
 
 		/** Get any deleted sites, normally used by admin or purge job. */
 		public static final SelectionType ANY_DELETED = new SelectionType("anyDeleted", false, false, false, false);
+		
+		/** Get sites that the current user has read access to (non-myWorkspace, non-special), includes unpublished, see KNL-1207. */
+            public static final SelectionType ACCESS_ALL = new SelectionType("access_all", true, true, false, true);
+
 	}
 
 	/**

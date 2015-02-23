@@ -133,12 +133,20 @@
 							#end
 						</a>
 					</th>
+					<th id="roster">$tlang.getString("gen.roster")</th>
+					<th id="instructor">$tlang.getString("gen.instructor")</th>
 					<th id="description">$tlang.getString("gen.description")</th>
+					<th id="term">$tlang.getString("gen.term")</th>
+					<th id="status">$tlang.getString("gen.status")</th>
 				</tr>
 				<tbody>
 					#set ($rowCount =0)
 					#foreach ($site in $unjoinableSites)
 					#set ($rowCount =$rowCount + 1)
+					
+					## setup metadata object for this site as well
+					#set($meta=${metadata.get($site.Id)})
+					
 						<tr>
 							<td headers="checkbox" class="screenOnly attach">
 								#set($siteType=$site.Type)
@@ -149,14 +157,36 @@
 							</td>	
 	
 							<td headers="worksite" style="white-space:nowrap" class="attach" id="mcstR-$rowCount">
-								<h4><a href="$site.Url" target="_top" title="$tlang.getString('mb.gotosite') $validator.escapeHtml($site.Title)">$validator.escapeHtml($site.Title)</a></h4>
+								#if($site.Published)
+									<h4><a href="$site.Url" target="_top" title="$tlang.getString('mb.gotosite') $validator.escapeHtml($site.Title)">$validator.escapeHtml($site.Title)</a></h4>
+								#else
+									<h4>$validator.escapeHtml($site.Title)</h4>
+								#end
 							</td>
+							
+							<td headers="roster">
+								#foreach ($gse in $meta.groupSectionEids)
+								$gse<br />
+								#end
+							</td>
+							
+							<td headers="instructor">
+								$meta.instructorEids
+							</td>
+							
 							<td headers="description mcstR-$rowCount" class="specialLink">
 								#if ($validator.escapeHtml($site.Description) != '')
 									$!membershipTextEdit.doPlainTextAndLimit($site.Description,65,"...")
 									<span class="itemAction"><a class="getSiteDesc" id="$site.Id" href="#">$tlang.getString("list.desc.more")</a></span>
 								#end
-					    </td>
+					    	</td>
+					    	
+					    	<td headers="term">
+								$meta.term
+							</td>
+							<td headers="status">
+								$meta.siteStatus
+							</td>
 						</tr>
 					#end
 				</tbody>	
