@@ -2759,3 +2759,30 @@ form[name="classInformationForm"] input#title {
   font-size: 1em;
   padding: 5px;
 }
+
+
+/* CLASSES-1467 */
+/* Fix doubled up info message */
+.act.messageInformation {
+  background: none;
+  border: none;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.act.messageInformation:before {
+  content: "";
+}
+
+.act.messageInformation .messageInformation {
+  margin-top: 0 !important;
+}
+.act.messageInformation label[for="Assignment.view_submission_honor_pledge_yes"] {
+  display: inline;
+  font-weight: bold;
+  color: #595959;
+}
+.act.messageInformation p.checkbox.highlightPanel {
+  margin: 1em 0;
+  background: #faedab;
+  padding: 1em;
+}
