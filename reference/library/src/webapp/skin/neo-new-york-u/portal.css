@@ -33,7 +33,7 @@ body.portalBody {
     width: 15em;
     color: #000;
     text-align: left;
-    padding: 0;
+    padding: 6px 0 0;
     margin-bottom: 30px;
 }
 #toolMenuWrap #toggler {
@@ -77,26 +77,27 @@ body.portalBody {
     margin-bottom: 10px;
 }
 #col1 .portletTitleWrap {
-    width: 99%;
     border-bottom: 2px solid #eee !important;
 }
 #col1 .portletMainWrap {
-    width: 99%;
    margin-bottom: 10px;
 }
 .portletTitleWrap,
 .portletMainWrap {
   background: #FFFFFF;
-  padding: 5px;
+}
+.portletTitleWrap {
+  padding: 4px 4px 0;
 }
 #col1 .portletTitleWrap {
-  padding: 5px 10px;
+
 }
 #col1 .portletMainWrap {
-  padding:  5px 10px;
+
 }
 .portletMainWrap {
   border-bottom: 1px solid #EEE;
+  padding: 4px;
 }
 
 /* wrapper for footer blocks  */
@@ -117,7 +118,7 @@ body.portalBody {
 }
 #footerLinks li {
     margin: 0;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #DBDCDE;
     display: inline;
     list-style-type: none;
     padding: 0;
@@ -186,7 +187,7 @@ that can be used or hidden,can also use a background: url(images/<image name>.<e
     color: #eee;
 }
 #eid, #pw {
-    border: 1px solid #ccc;
+    border: 1px solid #DBDCDE;
     padding: 3px;
     margin-right: 15px;
     width: 7em;
@@ -278,7 +279,7 @@ form#loginForm input#submit {height: 28px !important; margin: 0 7px;}
     -o-transition: color 0.2s;
     transition: color 0.2s;
 
-    color: #BF3B3B;
+    color: #2F7FAB;
 }
 /* menu for user actions (could be one of several:link to profile, preferences, add a new site, view tutorial, other)*/
 #mastLogin ul.subnav {
@@ -397,7 +398,7 @@ ul.topnav > li {
     -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
-    background:#DBDCDE;
+    background:#E7E7EB;
     display: inline-block;
     /* Note: IE 7 hack and IE 8 compat mode*/
     *display: inline;
@@ -406,11 +407,7 @@ ul.topnav > li {
     padding: 0;
     position: relative; /*--Declare X and Y axis base for sub navigation--*/
     font-weight: bold;
-    border: 1px solid #CCC;
-
-    border-bottom-color: #EEE;
-    border-left-color: #CCC;
-    border-right-color: #e3e3e3;
+    border: 1px solid #DBDCDE;
 }
 /* hover treatment for site links*/
 ul.topnav li.nav-menu:hover, ul.topnav li.more-tab:hover {
@@ -420,7 +417,7 @@ ul.topnav li.nav-menu:hover, ul.topnav li.more-tab:hover {
     -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
-    border: 1px solid #2F7FAB;
+    border-color: #2F7FAB;
     background-color: #FFF;
 }
 ul.topnav li.nav-menu:hover a, ul.topnav li.more-tab:hover a {
@@ -436,11 +433,12 @@ ul.topnav li.nav-menu:hover a, ul.topnav li.more-tab:hover a {
 /* current site control rendering */
  ul.topnav li.nav-selected, ul.topnav li.nav-selected:hover {
      background: #2F7FAB;
-     border: 1px solid transparent;
+     border: 1px solid #2F7FAB;
      box-shadow: 1px 1px 2px #AAA;
 }
 ul.topnav li.nav-selected.nav-menu a span, 
-ul.topnav li.nav-selected.nav-menu:hover a span {
+ul.topnav li.nav-selected.nav-menu:hover a span,
+ul.topnav li.nav-selected.nav-menu:hover a[title="My Workspace"]:before {
     color: #FFF !important;
 }
 ul.topnav > li.nav-selected > a {
@@ -466,6 +464,7 @@ ul.topnav li ul.subnav, #mastLogin ul.subnav, #otherSiteTools {
     list-style: none;
     position: absolute;
     top: 30px;
+    left: -1px;
     background: #fff;
     font-size: .9em;
     margin: 0;
@@ -473,7 +472,7 @@ ul.topnav li ul.subnav, #mastLogin ul.subnav, #otherSiteTools {
     display: none;
     float: left;
     width: 210px;
-    border: 1px solid #ccc;
+    border: 1px solid #DBDCDE;
     border-width: 1px 1px 0 1px;
     z-index: 100;
     -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
@@ -505,7 +504,7 @@ ul.topnav li ul.subnav li:hover, ul.topnav li ul.subnav li a:hover, ul.topnav li
 
     text-decoration: none;
     color: #000;
-    background-color: #eeeeee;
+    background-color: #E7E7EB;
     outline:none;
 }
 /* link to site */
@@ -548,7 +547,7 @@ li.more-tab a span {
 }
 /* container for tray that opens when "More sites" is activated, both the default and the categorized one when portal.use.dhtml.more=true in sak.props. */
 #selectSite {
-    background: #15A885;
+    background: #57068c;
     color: #FFF;
     left: 10%;
     line-height: 1.5em;
@@ -595,23 +594,33 @@ ul#otherSitesMenu {
 ul#otherSitesMenu li, #siteStatus a {
     width: auto;
     font-size: 1.1em;
-    padding: 2px 10px 3px;
+    padding: 0;
     display: inline-block;
     margin: 0 4px 4px 0;
-    border: 1px solid #ccc;
-    background: #eee;
+    border: 1px solid #DBDCDE;
+    background: #E7E7EB;
 }
 #otherSitesMenu li a, #otherSitesMenu li a:visited {
     display: block;
-    padding: 3px;
+    padding: 2px 6px;
     text-decoration: none;
-    color: #444;``
-    font-weight: bold;
+    color: #444;
 }
 /* since the publish site link is the same, doubled up here */ 
 #otherSitesMenu li:hover, #siteStatus a:hover, #siteStatus a:focus {
-    border: 1px solid #555;
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+    background: #ffffff !important;
+    color: #2F7FAB !important;
+    border-color: #2F7FAB !important;
     outline:none
+}
+#otherSitesMenu li:hover a {
+    color: #2F7FAB !important;
 }
 /*container and control to close the "Other sites tray"*/
 #otherSitesMenu #otherSiteCloseW {
@@ -619,6 +628,7 @@ ul#otherSitesMenu li, #siteStatus a {
 }
 #otherSitesMenu #otherSiteCloseW a {
     color: #c00;
+    padding: 2px 10px;
 }
 /* the lists in the tray (sites and controls): two types, depending on whether portal.use.dhtml.more=true in sak.props*/
 ul#otherSiteList {
@@ -634,8 +644,8 @@ ul#otherSiteList {
 ul.otherSitesCategorList {
     float:none;
     clear: both;
+    height:100%;
     margin:0;
-    overflow:
 }
 /* list of sites in the "More sites" tray (both flat and categorized via s.p. "portal.use.dhtml.more=true" *), since there
  * is a lot of commonalities they are both mixed up here. The flat view container is ul#otherSiteList and the categorized one is
@@ -648,8 +658,8 @@ ul#otherSiteList li, ul.otherSitesCategorList li {
     -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
-    background: #eee;
-    border: 1px solid #ccc;
+    background: #E7E7EB;
+    border: 1px solid #DBDCDE;
     position: relative;
     overflow: hidden;
     margin: 6px 6px 0 0;; /*Note: check uncategorized */
@@ -681,6 +691,7 @@ ul#otherSiteList li a, ul.otherSitesCategorList li a {
     text-decoration: none;
     color: #555;
     white-space: nowrap;
+    overflow: hidden;
 }
 ul#otherSiteList li a:focus, ul.otherSitesCategorList li a:focus{
     color:#000;
@@ -689,8 +700,6 @@ ul#otherSiteList li a:focus, ul.otherSitesCategorList li a:focus{
 ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     width: 14em;
     display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 /* search elements for flat other sites tray search */
 #otherSiteSearch {
@@ -814,7 +823,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     padding: 10px;
     margin: 0;
     background-color: #f3f3f3;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #DBDCDE;
     font-size: .85em;
     color: #aaa;
 }
@@ -866,7 +875,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
 
 /* the current tool */
 #toolMenu li.selectedTool {
-  border-bottom: 1px solid #EEEEEE;
+  border-bottom: 1px solid #E7E7EB;
 }
 #toolMenu li.selectedTool a {
     color: #2F7FAB !important;
@@ -984,7 +993,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     font-weight: bold;
     line-height: 130%;
     padding: 10px 3px;
-    border: 1px solid #ccc;
+    border: 1px solid #DBDCDE;
     border-width: 0 0 1px 0;
     text-align: center;
     margin: 0;
@@ -1029,30 +1038,40 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     overflow: hidden;
 }
 .portletTitle .action {
-    padding: 2px 4px 6px 2px;
+    position: relative;
+    height: 32px;
     text-align: right;
-    vertical-align: middle;
+    float: right;
 }
 .portletTitle .action a {
-    -webkit-transition: color 0.2s;
-    -moz-transition: color 0.2s;
-    -ms-transition: color 0.2s;
-    -o-transition: color 0.2s;
-    transition: color 0.2s;
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
     font-family: 'nyu-classes-icons';
     background: none !important;
     color: #444;
-    font-size: 20px;
+    font-size: 18px;
+
+    border: 1px solid #DBDCDE;
+    background: #E7E7EB !important;
+    color: #444 !important;
+    vertical-align: initial;
+    display: inline-block;
+    margin: 2px 0 0;
 }
 .portletTitle .action a:hover {
-    -webkit-transition: color 0.2s;
-    -moz-transition: color 0.2s;
-    -ms-transition: color 0.2s;
-    -o-transition: color 0.2s;
-    transition: color 0.2s;
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
-    color: #BF3B3B;
+    background: #ffffff !important;
+    color: #2F7FAB !important;
+    border-color: #2F7FAB !important;
 }
 .portletTitle .action a:before {
   content: '\e003';
@@ -1068,25 +1087,18 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
 }
 .portletTitle .action a {
     text-align: left;
-    padding: 0;
     text-decoration: none !important;
-    width: 1em;
-    height: 1.5em;
-    outline: none;
-    background: url(images/question.png) center right no-repeat;
-    background-size: 22px auto;
-    padding: 5px 5px 10px 5px;
+    padding: 4px 6px;
+    margin: 0;
 }
 .portletTitle .title a:focus, .portletTitle .action a:focus {
     outline: black dotted thin;
 }
 .portletTitle .action a:hover, .portletTitle .action a:focus {
-    background: url(images/question.png) center right no-repeat;
-    background-size: 22px auto;
-    padding: 5px 5px 10px 5px;
+    padding: 4px 6px;
 }
 .portletTitle .title {
-  padding: 2px 4px 0;
+  padding: 2px 2px 4px;
   float: left;
   color: #000;
   width: 80%;
@@ -1100,7 +1112,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
 }
 .portletTitle .title h2 {
     display: inline;
-    margin: 0;
+    margin: 0 0 0 2px;
     padding: 0;
     color: #444;
     font-weight: normal;
@@ -1112,42 +1124,50 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     display: none;
 }
 .portletTitle .title a {
-    -webkit-transition: background-color 0.5s, color 0.5s;
-    -moz-transition: background-color 0.5s, color 0.5s;
-    -ms-transition: background-color 0.5s, color 0.5s;
-    -o-transition: background-color 0.5s, color 0.5s;
-    transition: background-color 0.5s, color 0.5s;
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
     font-family: 'nyu-classes-icons';
     color: #444;
     vertical-align: text-bottom;
     font-size: 16px;
-    padding: 2px 4px;
+    padding: 4px 4px;
     margin: 0;
     font-size: 0;
     display: inline-block;
     height: 18px;
+
+    border: 1px solid #DBDCDE;
+    background: #E7E7EB !important;
+    color: #444 !important;
+    vertical-align: initial;
+    margin-right: 10px;
 }
 .portletTitle .title a:hover {
-    -webkit-transition: background-color 0.5s, color 0.5s;
-    -moz-transition: background-color 0.5s, color 0.5s;
-    -ms-transition: background-color 0.5s, color 0.5s;
-    -o-transition: background-color 0.5s, color 0.5s;
-    transition: background-color 0.5s, color 0.5s;
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
     background: #ffffff !important;
-    color: #BF3B3B !important;
+    color: #2F7FAB !important;
+    border-color: #2F7FAB !important;
 }
 .portletTitle .title a img {
   display: none;
 }
 .portletTitle .title a:before {
-  content: '\e61b';
+  content: '\e628';
   font-size: 18px;
   font-family: 'nyu-classes-icons';
   display: inline-block;
+  margin-left: 5px;
 }
-@-webkit-keyframes resetRotate {
+/*@-webkit-keyframes resetRotate {
    from { -webkit-transform: rotate(90deg); }
      to { -webkit-transform: rotate(0deg); }
 }
@@ -1175,7 +1195,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     animation          resetRotate 0.4s linear forwards;
 
     content: '\e610';
-}
+}*/
 .portletTitle .title a:after {
     -webkit-transition: width 1s, transform 0.5s;
     -moz-transition: width 1s;
@@ -1188,9 +1208,9 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     content: 'Return to Tool Home';
     overflow: hidden;
     white-space: nowrap;
-    margin-left: 5px;
     line-height: 18px;
     vertical-align: top;
+    margin-left: 5px;
 }
 .portletTitle .title a:hover:after {
     -webkit-transition: width 1s;
@@ -1205,7 +1225,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     -o-transition-delay: 0.4s;
     transition-delay: 0.4s;
 
-    width: 150px;
+    width: 120px;
     height: auto;
 }
 .portletTitle .title a:hover:after {
@@ -1586,7 +1606,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
 }
 #presenceTitle div a, #pc_title div a {
   font-family: 'nyu-classes-icons';
-  color: #BF3B3B;
+  color: #2F7FAB;
   font-size: 0;
 }
 #presenceTitle div a:before, #pc_title div a:before {
@@ -1602,7 +1622,7 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     width: 17px;
     height: 17px;
     font-size: 120%;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #DBDCDE;
     padding: 4px 5px 4px 4px;
 }
 /* this used to be an iframe, hence the name  */
@@ -1798,79 +1818,131 @@ div#privacy_overlay {
  * */
 /* container for tool menu display toggle control */
 #togglebar {
-    display: none;
-    float: left;
-    width: 13px;
-    height: 30px;
-    padding-top: 2em;
+  margin-left: 14px;
+  text-align: right;
 }
-/* hover effect for control */
-#togglebar .toggleToolMenuHover {
-    background-position: 0 0 !important;
+#togglebar #toggleToolMenu {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+    display: inline-block;
+    border: 1px solid #DBDCDE !important;
+    background: #E7E7EB !important;
+    color: #444 !important;
+    vertical-align: initial;
+    margin-bottom: 4px;
+    margin-right: 4px;
+    text-align: left;
+}
+#togglebar #toggleToolMenu:hover {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+    background: #ffffff !important;
+    color: #2F7FAB !important;
+    border-color: #2F7FAB !important;
 }
 #togglebar #toggleToolMax {
-    background: url(images/toggleClose.png) -2px 0 no-repeat;
-    padding: 4px;
+    padding: 5px 0px 4px 6px;
     display: block;
-    height: 50px;
-    display: none;
+}
+#togglebar #toggleToolMax:before {
+    font-family: 'nyu-classes-icons';
+    content: '\e023';
+    color: #444;
 }
 #togglebar #toggleNormal {
-    background: url(images/toggleOpen.png) -2px 0 no-repeat;
-    padding: 4px;
-    display: block;
-    height: 50px;
+  height: 20px;
+}
+#togglebar #toggleNormal:before {
+    font-family: 'nyu-classes-icons';
+    content: '\e024';
+    display: inline-block;
+}
+#togglebar #toggleToolMax:hover:before,
+#togglebar #toggleNormal:hover:before {
+    color: #2F7FAB;
 }
 a#toggleToolMenu {
     text-decoration: none
 }
+#togglebar #toggleToolMax:after {
+    -webkit-transition: width 1s, transform 0.5s;
+    -moz-transition: width 1s;
+    -ms-transition: width 1s;
+    -o-transition: width 1s;
+    transition: width 1s;
+    
+    display: inline-block;
+    content: 'Minimize tool menu';
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left: 4px;
+    font-size: 0;
+    width: 0;
+    line-height: 12px;
+    padding: 0;
+    color: #2F7FAB;
+}
+#togglebar #toggleToolMax:hover:after {
+    -webkit-transition: width 1s;
+    -moz-transition: width 1s;
+    -ms-transition: width 1s;
+    -o-transition: width 1s;
+    transition: width 1s;
+
+    -webkit-transition-delay: 0.4s;
+    -moz-transition-delay: 0.4s;
+    -ms-transition-delay: 0.4s;
+    -o-transition-delay: 0.4s;
+    transition-delay: 0.4s;
+
+    width: 150px;
+    font-size: 12px;
+}
 
 .sakaiMinimizePageNavigation #toolMenuWrap {
    /* display: none; uncomment if not using icons for the tool menu */
-    width: 30px;
+    width: 44px;
     overflow: hidden;
     text-align:left;
 }
 .sakaiMinimizePageNavigation #toolMenuWrap li {
-    text-align: left;
-    overflow: hidden;
+  position: relative;
+}
+.sakaiMinimizePageNavigation  #toolMenu li {
+  padding: 0;
+  text-align: center;
 }
 .sakaiMinimizePageNavigation  #toolMenu li.selectedTool {
     background: #fff;
 }
-.sakaiMinimizePageNavigation  #toolMenu li.selectedTool span {
-    -moz-opacity: 0.5;
-    opacity: 0.5;
-}
 .sakaiMinimizePageNavigation #toolMenu li span.menuTitle, .sakaiMinimizePageNavigation #subSites li span.menuTitle {
-    display: inline !important; 
-    position: fixed !important; 
-    height: 1px !important; 
-    width: 1px !important; 
-    overflow: hidden !important;
-    top: 0px !important;
-    left: 0px; 
-    padding: 0px 0px 0px 0px !important; 
+  display: none;
 }
-.sakaiMinimizePageNavigation #toolMenu li span.toolMenuIcon, .sakaiMinimizePageNavigation #subSites li span.toolMenuIcon {
-    top:2px;
-    left:2px;   
-}
-
 .sakaiMinimizePageNavigation #toolMenu li a, .sakaiMinimizePageNavigation #subSites li a {
-    width:20px;
-    height: 16px;
+  text-align: centerchrchrom;
+}
+.sakaiMinimizePageNavigation .toolMenuIcon {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  display: block;
+padding: 5px;
 }
 /*when the tool menu is shoved away a class of .sakaiMinimizePageNavigation gets added to parent block, here we style the selected tool link so that when 
 everything except the tool icon is gone it is still distincts as the current tool (also hover treatment for tools and subsites)*/
-.sakaiMinimizePageNavigation #toolMenu li.selectedTool a, .sakaiMinimizePageNavigation #toolMenu li a:hover, .sakaiMinimizePageNavigation #subSites li a:hover,.sakaiMinimizePageNavigation #toolMenu li a:focus, .sakaiMinimizePageNavigation #subSites li a:focus {
-    background: #9cd1e8;
-    background: -moz-linear-gradient(top, #9cd1e8 0%, #7bc1e1 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9cd1e8), color-stop(100%,#7bc1e1));
-    background: -webkit-linear-gradient(top, #9cd1e8 0%,#7bc1e1 100%);
-    background: -o-linear-gradient(top, #9cd1e8 0%,#7bc1e1 100%);
-    background: -ms-linear-gradient(top, #9cd1e8 0%,#7bc1e1 100%);
-    background: linear-gradient(top, #9cd1e8 0%,#7bc1e1 100%);
+.sakaiMinimizePageNavigation #toolMenu li a:hover, .sakaiMinimizePageNavigation #subSites li a:hover,.sakaiMinimizePageNavigation #toolMenu li a:focus, .sakaiMinimizePageNavigation #subSites li a:focus {
+    background: #D6E5F6;
+}
+.sakaiMinimizePageNavigation #toolMenu li.selectedTool a {
+    background: #FFF;
 }
 .sakaiMinimizePageNavigation #togglebar {
     padding-left: 0em;
@@ -1883,6 +1955,19 @@ everything except the tool icon is gone it is still distincts as the current too
 .sakaiMinimizePageNavigation #content {
     /* adjust if not using icons in tool menu */
     padding-left: 45px;
+}
+.sakaiMinimizePageNavigation #toolMenu,
+.sakaiMinimizePageNavigation #subSites {
+  margin: 0;
+  width: 44px;
+  position: absolute;
+}
+.sakaiMinimizePageNavigation #toggleToolMenu {
+  width: 39px;
+  text-align: center !important;
+  display: block;
+  padding: 5px 0px 4px;
+  margin-left: 2px;
 }
 /* portal timeout display*/
 #timeout_alert_body {
@@ -1929,7 +2014,7 @@ a.qtipLinkButton {
     text-align: center;
     width: auto;
     border-radius: 4px;
-    border: 1px solid #ccc !important;
+    border: 1px solid #DBDCDE !important;
     border-width: 1px 1px 1px 1px !important;
     font-size: .85em;
     text-transform: capitalize;
@@ -1980,8 +2065,17 @@ div.qtip-titlebar{
   background: none !important;
   border: none !important;
   font-family: 'nyu-classes-icons' !important;
-  color: #BF3B3B !important;
-  font-size: 20px;
+  font-size: 18px;
+  border: 1px solid #DBDCDE !important;
+  background: #E7E7EB !important;
+  color: #444 !important;
+  padding: 2px 1px 2px 2px;
+  border-radius: 0 !important;
+}
+.qtipClose:hover {
+  background: #ffffff !important;
+  color: #2F7FAB !important;
+  border-color: #2F7FAB !important;
 }
 .qtipClose:before {
   content: '\e600';
