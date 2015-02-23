@@ -47,6 +47,7 @@ html {
 
 .portalBodyPDA .portletBody .navIntraTool {
   padding: .5em 0;
+  background-color: #F0F0F0;
 }
 
 .portalBodyPDA .portletBody .navIntraTool a {
@@ -54,7 +55,7 @@ html {
 }
 
 #pda-portlet-menu {
-  background: #DBDCDE;
+  background: #EEEEEE;
   min-height: 38px;
   color: #FFFFFF;
   margin: 0;
@@ -199,22 +200,31 @@ html {
 }
 #pda-portlet-menu .currentToolTitle {
   margin: 0;
-  padding: 14px 10px 14px 40px;
+  padding: 14px 10px 14px 44px;
   display: block;
   min-height: initial;
 }
 #pda-portlet-menu .resetToolLink {
   position: absolute;
-  top: 103px;
-  left: 10px;
+  top: 101px;
+  left: 8px;
 }
 #pda-portlet-menu .resetToolLink a {
-  font-family: 'nyu-classes-icons';
-  font-size: 20px;
+  border: 1px solid #DBDCDE;
+  background: #E7E7EB;
   color: #444;
+  padding: 2px 4px;
+}
+#pda-portlet-menu .resetToolLink a:hover,
+#pda-portlet-menu .resetToolLink a:active {
+  background: #ffffff;
+  color: #2F7FAB;
+  border-color: #2F7FAB;
 }
 #pda-portlet-menu .resetToolLink a:before {
-  content: '\e610';
+  font-family: 'nyu-classes-icons';
+  font-size: 20px;
+  content: '\e628';
 }
 #pda-portlet-menu .resetToolLink a img {
   display: none;
