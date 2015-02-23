@@ -1097,12 +1097,16 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
     text-decoration: none !important;
     padding: 4px 6px;
     margin: 0;
+    line-height: 18px;
 }
 .portletTitle .title a:focus, .portletTitle .action a:focus {
     outline: black dotted thin;
 }
 .portletTitle .action a:hover, .portletTitle .action a:focus {
     padding: 4px 6px;
+}
+.portletTitle .action a.external-news:before {
+  content: '';
 }
 .portletTitle .title {
   padding: 2px 2px 4px;
