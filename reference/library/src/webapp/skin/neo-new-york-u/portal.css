@@ -1093,6 +1093,14 @@ ul#otherSiteList li a span, ul.otherSitesCategorList li a span {
   font-family: 'nyu-classes-icons';
   content: '\e025';
 }
+.portletTitle .action a#jsr-edit:after {
+  font-family:  'Helvetica Neue','Arial',sans-serif !important;
+  font-size: 16px;
+  font-weight: normal;
+  content: 'Edit';
+  margin-left: 8px;
+  vertical-align: inherit;
+}
 .portletTitle .action a.tool-directurl {
   display: none;
 }
