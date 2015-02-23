@@ -56,20 +56,27 @@
                                                     <a class="external-news" target="_blank" href="${tool.externalNews.url}" title="${tool.externalNews.label}">${tool.externalNews.label}</a>
                                                 #end
 
-						#if (${tool.toolShowHelpButton})
-                                                        #if (${tool.usingExternalHelp} && ${tool.externalHelp})
-                                                            <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}">
-							#elseif (${tool.toolJSR168Help} )
-						             <a accesskey="h" href="${tool.toolJSR168Help}" title="${rloader.sit_help}">
-							#else
-								<a href="${tool.toolHelpActionUrl}" title="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" 
-								 target="_blank" onclick="openWindow('${tool.toolHelpActionUrl}', 'Help',
-								  'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); return false">
-								
-							#end
-									<img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
-									<span class="skip">${rloader.site_newwindow}</span> </a>
-						#end
+						#if (${tool.toolShowHelpButton} && ${tool.usingExternalHelp})
+                                                    #if (${tool.externalHelp})
+                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}">
+                                                          <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
+                                                               <span class="skip">${rloader.site_newwindow}</span>
+                                                       </a>
+                                                    #end
+                                                #else 
+                                                    #if (${tool.toolShowHelpButton})
+                                                            #if (${tool.toolJSR168Help} )
+                                                                 <a accesskey="h" href="${tool.toolJSR168Help}" title="${rloader.sit_help}">
+                                                            #else
+                                                                    <a href="${tool.toolHelpActionUrl}" title="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" 
+                                                                     target="_blank" onclick="openWindow('${tool.toolHelpActionUrl}', 'Help',
+                                                                      'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); return false">
+
+                                                            #end
+                                                                            <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
+                                                                            <span class="skip">${rloader.site_newwindow}</span> </a>
+                                                    #end
+                                                #end
 									</div>
 								</div>
 							</div>
@@ -84,13 +91,22 @@
 										<h2>${tool.toolTitle}</h2>
 									</div>
 									<div class="action">
-						#if (${tool.toolShowHelpButton})
-								<a href="${tool.toolHelpActionUrl}" title="$rloader.getFormattedMessage("sit_helpfor", $tool.toolTitle)" 
-								 target="_blank" onclick="openWindow('${tool.toolHelpActionUrl}', 'Help',
-								  'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); return false">
-									<img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolTitle)" border="0" />
-										<span class="skip">${rloader.site_newwindow}</span> </a>
-						#end
+						#if (${tool.toolShowHelpButton} && ${tool.usingExternalHelp})
+                                                    #if (${tool.externalHelp})
+                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}">
+                                                          <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
+                                                               <span class="skip">${rloader.site_newwindow}</span>
+                                                       </a>
+                                                    #end
+                                                #else 
+                                                    #if (${tool.toolShowHelpButton})
+                                                                    <a href="${tool.toolHelpActionUrl}" title="$rloader.getFormattedMessage("sit_helpfor", $tool.toolTitle)" 
+                                                                     target="_blank" onclick="openWindow('${tool.toolHelpActionUrl}', 'Help',
+                                                                      'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); return false">
+                                                                            <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolTitle)" border="0" />
+                                                                                    <span class="skip">${rloader.site_newwindow}</span> </a>
+                                                    #end
+                                                #end
 									</div>
 								</div>
 							</div>
@@ -160,18 +176,27 @@
 								<textarea class="${tool.toolPlacementIDJS}_urlholder" rows="3" cols="50">${tool.directToolUrl}</textarea>						
 							</div>
 						#end
-						#if (${tool.toolShowHelpButton})
-							#if (${tool.toolJSR168Help} )
-						             <a accesskey="h" href="${tool.toolJSR168Help}" title="${rloader.sit_help}">
-							#else
-								<a href="${tool.toolHelpActionUrl}" title="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" 
-								 target="_blank" onclick="openWindow('${tool.toolHelpActionUrl}', 'Help',
-								  'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); return false">
-							#end
-									<img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)"  border="0" />
-										<span class="skip">${rloader.site_newwindow}</span> </a>
+						#if (${tool.toolShowHelpButton} && ${tool.usingExternalHelp})
+                                                    #if (${tool.externalHelp})
+                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}">
+                                                          <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
+                                                               <span class="skip">${rloader.site_newwindow}</span>
+                                                       </a>
+                                                    #end
+                                                #else 
+                                                    #if (${tool.toolShowHelpButton})
+                                                            #if (${tool.toolJSR168Help} )
+                                                                 <a accesskey="h" href="${tool.toolJSR168Help}" title="${rloader.sit_help}">
+                                                            #else
+                                                                    <a href="${tool.toolHelpActionUrl}" title="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" 
+                                                                     target="_blank" onclick="openWindow('${tool.toolHelpActionUrl}', 'Help',
+                                                                      'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); return false">
+                                                            #end
+                                                                            <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)"  border="0" />
+                                                                                    <span class="skip">${rloader.site_newwindow}</span> </a>
 
-						#end
+                                                    #end
+                                                #end
 									</div>
 								</div>
 							</div>
@@ -186,13 +211,22 @@
 										<h2>${tool.toolTitle}</h2>
 									</div>
 									<div class="action">
-						#if (${tool.toolShowHelpButton})
-								<a href="${tool.toolHelpActionUrl}" title="$rloader.getFormattedMessage("sit_helpfor", $tool.toolTitle)" 
-								 target="_blank" onclick="openWindow('${tool.toolHelpActionUrl}', 'Help',
-								  'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); return false">
-									<img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolTitle)"  border="0" />
-										<span class="skip">${rloader.site_newwindow}</span> </a>
-						#end
+						#if (${tool.toolShowHelpButton} && ${tool.usingExternalHelp})
+                                                    #if (${tool.externalHelp})
+                                                       <a target="_blank" href="${tool.externalHelp.url}" title="${tool.externalHelp.label}">
+                                                          <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolRenderResult.title)" border="0" />
+                                                               <span class="skip">${rloader.site_newwindow}</span>
+                                                       </a>
+                                                    #end
+                                                #else 
+                                                    #if (${tool.toolShowHelpButton})
+                                                                    <a href="${tool.toolHelpActionUrl}" title="$rloader.getFormattedMessage("sit_helpfor", $tool.toolTitle)" 
+                                                                     target="_blank" onclick="openWindow('${tool.toolHelpActionUrl}', 'Help',
+                                                                      'resizable=yes,toolbar=no,scrollbars=yes,menubar=yes,width=1024,height=768'); return false">
+                                                                            <img src="/library/image/transparent.gif"  alt="$rloader.getFormattedMessage("sit_helpfor", $tool.toolTitle)"  border="0" />
+                                                                                    <span class="skip">${rloader.site_newwindow}</span> </a>
+                                                    #end
+                                                #end
 									</div>
 								</div>
 							</div>
