@@ -2450,6 +2450,7 @@ html > body .ui-pnotify {
   font-size: 2em;
   padding-right: 50px;
   position: relative;
+  display: block;
 }
 #qtip-tutorialPopup #tutorialPopupHeader .tutorialPopupContinue {
   position: absolute;
