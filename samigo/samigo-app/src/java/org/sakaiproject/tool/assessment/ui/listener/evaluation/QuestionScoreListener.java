@@ -613,6 +613,16 @@ public class QuestionScoreListener implements ActionListener,
 						setDurationIsOver(item, mediaList);
 						gdata.setMediaArray(mediaList);
 					}
+					
+					if (bean.getTypeId().equals("16")) {
+						if (gdataPubItemText == null) {
+							// the matching pair is deleted
+							answerText = "";
+						}
+						else {
+							answerText = gdataPubItemText.getSequence() + ":"+ answerText;
+						}
+					}
 
 					if (answerText == null)
 						answerText = noAnswer;

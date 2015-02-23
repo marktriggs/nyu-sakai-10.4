@@ -59,6 +59,7 @@ import org.sakaiproject.tool.assessment.data.dao.grading.AssessmentGradingData;
 import org.sakaiproject.tool.assessment.data.dao.grading.ItemGradingAttachment;
 import org.sakaiproject.tool.assessment.data.dao.grading.ItemGradingData;
 import org.sakaiproject.tool.assessment.data.dao.grading.MediaData;
+import org.sakaiproject.tool.assessment.data.dao.assessment.PublishedAnswer;
 import org.sakaiproject.tool.assessment.data.ifc.assessment.AnswerIfc;
 import org.sakaiproject.tool.assessment.data.ifc.assessment.AssessmentIfc;
 import org.sakaiproject.tool.assessment.data.ifc.assessment.EvaluationModelIfc;
@@ -114,7 +115,7 @@ public class GradingService
   final Pattern CALCQ_FORMULA_PATTERN = Pattern.compile(OPEN_BRACKET + OPEN_BRACKET + CALCQ_VAR_FORM_NAME_EXPRESSION + CLOSE_BRACKET + CLOSE_BRACKET);
   final Pattern CALCQ_FORMULA_SPLIT_PATTERN = Pattern.compile("(" + OPEN_BRACKET + OPEN_BRACKET + CALCQ_VAR_FORM_NAME + CLOSE_BRACKET + CLOSE_BRACKET + ")");
   final Pattern CALCQ_CALCULATION_PATTERN = Pattern.compile("\\[\\[([^\\[\\]]+?)\\]\\]?"); // non-greedy
-
+  
   private static Log log = LogFactory.getLog(GradingService.class);
 
   /**
@@ -800,8 +801,10 @@ public class GradingService
          throws GradebookServiceException, FinFormatException {
     log.debug("****x1. regrade ="+regrade+" "+(new Date()).getTime());
     try {
-      String agent = data.getAgentId();
+      boolean imageMapAllOk=true;
+      boolean NeededAllOk = false;
       
+      String agent = data.getAgentId();
       // note that this itemGradingSet is a partial set of answer submitted. it contains only 
       // newly submitted answers, updated answers and MCMR/FIB/FIN answers ('cos we need the old ones to
       // calculate scores for new ones)
@@ -869,6 +872,24 @@ public class GradingService
         	log.error("unable to retrive itemDataIfc for: " + publishedItemHash.get(itemId));
         	continue;
         }
+        Iterator i = item.getItemMetaDataSet().iterator();
+        while (i.hasNext())
+        {
+          ItemMetaDataIfc meta = (ItemMetaDataIfc) i.next();
+          if (meta.getLabel().equals(ItemMetaDataIfc.REQUIRE_ALL_OK))
+          {
+            if (meta.getEntry().equals("true"))
+            {
+          	  NeededAllOk = true;
+              break;
+            }
+            if (meta.getEntry().equals("false"))
+            {
+          	  NeededAllOk = false;
+              break;
+            }
+          }
+        }
         Long itemType = item.getTypeId();  
     	autoScore = (double) 0;
 
@@ -904,8 +925,12 @@ public class GradingService
         			invalidFINMap.put(itemId, list);
         		}
         	}
-        }
+        }        
         
+        if ((TypeIfc.IMAGEMAP_QUESTION.equals(itemType))&&(NeededAllOk)&&((autoScore==-123456789)||!imageMapAllOk)){
+        	autoScore=0;
+        	imageMapAllOk=false;
+        }       
         log.debug("**!regrade, autoScore="+autoScore);
         if (!(TypeIfc.MULTIPLE_CORRECT).equals(itemType) && !(TypeIfc.EXTENDED_MATCHING_ITEMS).equals(itemType))
           totalItems.put(itemId, Double.valueOf(autoScore));
@@ -1281,6 +1306,46 @@ public class GradingService
                 totalItems.put(itemId, Double.valueOf(accumelateScore));
               }
               break;
+      case 16:    	  
+    	  initScore = getImageMapScore(itemGrading,item, (HashMap) publishedItemTextHash,publishedAnswerHash);
+    	  //if one answer is 0 or negative, and need all OK to be scored, then autoScore=-123456789
+    	  //and we break the case...
+    	  
+    	  boolean NeededAllOk = false;
+    	  Iterator i = item.getItemMetaDataSet().iterator();
+          while (i.hasNext())
+          {
+            ItemMetaDataIfc meta = (ItemMetaDataIfc) i.next();
+            if (meta.getLabel().equals(ItemMetaDataIfc.REQUIRE_ALL_OK))
+            {
+              if (meta.getEntry().equals("true"))
+              {
+            	  NeededAllOk = true;
+                break;
+    }
+            }
+          }
+    	  if (NeededAllOk&&initScore<=0){
+    		  autoScore=-123456789;
+    		  break;
+    	  }
+          //if (initScore > 0) {
+      	         autoScore += initScore ;
+          //}
+    	  
+          //overridescore?
+          if (itemGrading.getOverrideScore() != null)
+            autoScore += itemGrading.getOverrideScore().doubleValue();
+          
+          if (!totalItems.containsKey(itemId)){
+            totalItems.put(itemId,  Double.valueOf(autoScore));
+          }else {
+            accumelateScore = ((Double)totalItems.get(itemId)).doubleValue();
+            accumelateScore += autoScore;
+            totalItems.put(itemId,  Double.valueOf(accumelateScore));
+          }
+          
+          break;
     }
     return autoScore;
   }
@@ -1728,6 +1793,66 @@ Here are the definition and 12 cases I came up with (lydia, 01/2006):
 	  return matchresult;
   }  
 
+  
+  public double getImageMapScore(ItemGradingData data, ItemDataIfc itemdata, HashMap publishedItemTextHash, HashMap publishedAnswerHash)
+  {
+	  // Final score must be... 
+	  // IF NOT PARTIALCREDIT THEN 0 or total
+	  // IF PARTIALCREDIT EACH PART ADDED. 
+	  
+	  
+	  data.setIsCorrect(Boolean.FALSE);
+	  double totalScore; 
+	 
+	 Iterator iter = publishedAnswerHash.keySet().iterator();
+	 int answerNumber = 0;
+	 while (iter.hasNext()){
+		 Long answerId = Long.valueOf(iter.next().toString());
+		 AnswerIfc answer = (AnswerIfc) publishedAnswerHash.get(answerId);
+		 
+		 if (answer.getItem().getItemId()==data.getPublishedItemId()) 
+			 answerNumber=answerNumber+1;
+		 	 
+	 }
+	 
+	 double answerScore=itemdata.getScore();
+	 	 
+	 if (answerNumber!=0){
+		 answerScore=answerScore/answerNumber;
+	 }
+	 
+	 ItemTextIfc itemTextIfc = (ItemTextIfc) publishedItemTextHash.get(data.getPublishedItemTextId());
+	 
+	 ArrayList answerArray = (ArrayList) itemTextIfc.getAnswerArray();
+	 AnswerIfc answerIfc= (AnswerIfc) answerArray.get(0); 
+	 
+	 try{
+		 String area = answerIfc.getText();
+		 Integer areax1=Integer.valueOf(area.substring(area.indexOf("\"x1\":")+5,area.indexOf(",", area.indexOf("\"x1\":"))));
+		 Integer areay1=Integer.valueOf(area.substring(area.indexOf("\"y1\":")+5,area.indexOf(",", area.indexOf("\"y1\":"))));
+		 Integer areax2=Integer.valueOf(area.substring(area.indexOf("\"x2\":")+5,area.indexOf(",", area.indexOf("\"x2\":"))));
+		 Integer areay2=Integer.valueOf(area.substring(area.indexOf("\"y2\":")+5,area.indexOf("}", area.indexOf("\"y2\":"))));
+		 
+		 String point = data.getAnswerText();
+		 Integer pointx=Integer.valueOf(point.substring(point.indexOf("\"x\":")+4,point.indexOf(",", point.indexOf("\"x\":"))));
+		 Integer pointy=Integer.valueOf(point.substring(point.indexOf("\"y\":")+4,point.indexOf("}", point.indexOf("\"y\":"))));
+		
+				 
+		 if (((pointx>=areax1)&&(pointx<=areax2))&&((pointy>=areay1)&&(pointy<=areay2))) {
+			 totalScore=answerScore;
+			 data.setIsCorrect(Boolean.TRUE);
+		 }else{
+			 totalScore=0;
+		 }
+	}catch(Exception ex){
+		 totalScore=0;
+	 }
+	 	  
+    
+    return totalScore;
+  }
+  
+  
   /**
    * Validate a students numeric answer 
    * @param The answer to validate

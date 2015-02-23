@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.ArrayUtils;
 import org.sakaiproject.util.ResourceLoader;
 
 import org.sakaiproject.content.api.ContentResource;
@@ -143,6 +144,24 @@ public class AnswerBean implements Serializable, Comparable{
 	  String[] lables = choiceLabels.split(":");
 	  return lables;
   }
+  
+  public static String[] getChoiceLabels(int labelNum) {
+  	  String[] lables = choiceLabels.split(":"); 
+  	  int need = labelNum - lables.length; 
+  	  if (need >= 0) {
+  		  int rounds = need/26;
+  		  rounds++; // we need rounds +1
+  		  for (int i = 0; i < rounds; i++) {
+  			  String[] newLables = new String[26];
+  			  for (int j = 0; j < lables.length; j++) {
+  				  newLables[j] = lables[i]+lables[j];
+  			  }
+  			  lables = (String[]) ArrayUtils.addAll(lables, newLables);
+  		  }
+  	  }
+  	  return lables;
+  }
+
   
   // additional constroctor for partial credit
 	public AnswerBean(String ptext, Long pseq, String plabel, String pfdbk,

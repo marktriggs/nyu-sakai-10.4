@@ -1,5 +1,13 @@
 package org.sakaiproject.tool.assessment.ui.bean.print;
 
+
+import java.awt.image.BufferedImage;
+import java.awt.Graphics;
+import java.net.URL;
+import java.io.File;
+import java.util.UUID;
+import javax.imageio.*;
+
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -486,6 +494,27 @@ public class PDFAssessmentBean implements Serializable {
 					contentBuffer.append("</table>");
 				}
 
+				if (item.getItemData().getTypeId().equals(TypeIfc.IMAGEMAP_QUESTION)) {
+					
+					contentBuffer.append("<table cols='20' width='100%'>");
+					ArrayList question = (ArrayList) item.getItemData().getItemTextArraySorted();
+					for (int k=0; k<question.size(); k++) {
+						contentBuffer.append("<tr><td colspan='10'>");
+						PublishedItemText itemtext = (PublishedItemText)question.get(k);
+						contentBuffer.append(k+1 + ". " + itemtext.getText());
+						contentBuffer.append("</td></tr>");
+					}
+					contentBuffer.append("</table>");
+					contentBuffer.append("<br />");
+					String imsrc=item.getItemData().getItemMetaDataByLabel("IMAGE_MAP_SRC");
+					if (imsrc==null)
+						imsrc="";
+					contentBuffer.append("  <img src=\"");
+					contentBuffer.append(imsrc);
+					contentBuffer.append("\" />");
+					
+				}
+
 				if (item.getItemData().getTypeId().equals(TypeIfc.EXTENDED_MATCHING_ITEMS)) {
 					contentBuffer.append("<table cols='20' width='100%'>");
 
@@ -524,6 +553,7 @@ public class PDFAssessmentBean implements Serializable {
 					contentBuffer.append("<br />");
 					contentBuffer.append("</table>");
 				}
+
 				if (printSetting.getShowKeys().booleanValue() || printSetting.getShowKeysFeedback().booleanValue()) {
 					contentBuffer.append("<br />");
 					contentBuffer.append(getContentQuestion(item, printSetting));
@@ -625,8 +655,7 @@ public class PDFAssessmentBean implements Serializable {
 			if (item.getItemData().getTypeId().equals(TypeIfc.ESSAY_QUESTION)) {
 				contentBuffer.append(printMessages.getString("answer_model"));
 				contentBuffer.append(": ");
-			}
-			else {
+			}else {
 				contentBuffer.append(printMessages.getString("answer_key"));
 				contentBuffer.append(": ");
 			}
@@ -640,6 +669,84 @@ public class PDFAssessmentBean implements Serializable {
 					contentBuffer.append(item.getKey());
 				else
 					contentBuffer.append("--------");
+			}else if (item.getItemData().getTypeId().equals(TypeIfc.IMAGEMAP_QUESTION)) {
+				contentBuffer.append("<br />");
+				//look for path on metadata
+				String imsrc=item.getItemData().getItemMetaDataByLabel("IMAGE_MAP_SRC");
+				if (imsrc==null)
+					imsrc="";
+					
+				imsrc=imsrc.replaceAll(" ", "%20");
+				
+				String ext = "";		
+				if (imsrc.lastIndexOf('.') > 0)
+					ext = imsrc.substring(imsrc.lastIndexOf('.')+1);
+				
+				BufferedImage img_in=null;
+				int w=-1;
+				int h=-1;
+				try {
+					URL url = new URL(ServerConfigurationService.getServerUrl()+imsrc);
+					img_in = ImageIO.read(url);
+					w = img_in.getWidth(null);
+					h = img_in.getHeight(null);					
+				} catch (IOException e) {
+					log.error(e);
+					e.printStackTrace();
+			}
+				
+				Color c = new Color(27, 148, 224, 80);
+				java.awt.Font font = new java.awt.Font("Serif", java.awt.Font.BOLD, 10);
+				
+				//print areas over the image
+				BufferedImage img_out = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+				try {
+					Graphics g = img_out.getGraphics();
+					g.setFont(font);
+					g.drawImage(img_in, 0, 0, null);
+					
+					ArrayList question = (ArrayList) item.getItemData().getItemTextArraySorted();
+					for (int k=0; k<question.size(); k++) {
+						PublishedItemText itemtext = (PublishedItemText)question.get(k);
+						ArrayList answers=itemtext.getAnswerArray();
+						PublishedAnswer answer = (PublishedAnswer)answers.get(0);
+						
+						String area = answer.getText();
+						Integer areax1=Integer.valueOf(area.substring(area.indexOf("\"x1\":")+5,area.indexOf(",", area.indexOf("\"x1\":"))));
+						Integer areay1=Integer.valueOf(area.substring(area.indexOf("\"y1\":")+5,area.indexOf(",", area.indexOf("\"y1\":"))));
+						Integer areax2=Integer.valueOf(area.substring(area.indexOf("\"x2\":")+5,area.indexOf(",", area.indexOf("\"x2\":"))));
+						Integer areay2=Integer.valueOf(area.substring(area.indexOf("\"y2\":")+5,area.indexOf("}", area.indexOf("\"y2\":"))));
+						
+						g.setColor(c);
+						g.fillRect(areax1, areay1, (areax2-areax1), (areay2-areay1));
+						
+						g.setColor(Color.WHITE);
+						g.drawRect(areax1, areay1, (areax2-areax1), (areay2-areay1));						
+
+						g.setColor(Color.BLACK);
+						g.drawString(""+(k+1), areax2-13, areay1+13);
+					}
+					g.dispose();
+				} catch (Exception e) {
+					e.printStackTrace();
+					log.error(e);
+				}			
+					
+
+				String destSrc = "temp://";
+				try {
+					File temp = File.createTempFile("imgtemp", "."+ext);
+					ImageIO.write(img_out, ext, temp);
+					destSrc+=temp.getCanonicalPath();
+				} catch (IOException e) {
+					e.printStackTrace();
+					log.error(e);
+				}
+				
+				//print it
+				contentBuffer.append("  <img src=\"");
+				contentBuffer.append(destSrc);
+				contentBuffer.append("\" />");
 			}
 			else
 				contentBuffer.append(item.getItemData().getAnswerKey());
@@ -665,7 +772,8 @@ public class PDFAssessmentBean implements Serializable {
 					item.getItemData().getTypeId().equals(TypeIfc.TRUE_FALSE) ||
 					item.getItemData().getTypeId().equals(TypeIfc.FILL_IN_BLANK) ||
 					item.getItemData().getTypeId().equals(TypeIfc.FILL_IN_NUMERIC) ||
-					item.getItemData().getTypeId().equals(TypeIfc.MATCHING)) {
+					item.getItemData().getTypeId().equals(TypeIfc.MATCHING)||
+					item.getItemData().getTypeId().equals(TypeIfc.IMAGEMAP_QUESTION)){
 				contentBuffer.append("<br />");
 				contentBuffer.append(printMessages.getString("correct_feedback"));
 				contentBuffer.append(": ");

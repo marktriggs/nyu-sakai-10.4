@@ -47,6 +47,44 @@ $Id$
       <script type="text/javascript" src="/library/js/jquery/jquery-1.9.1.min.js"></script>
       <script type="text/javascript" src="/library/js/jquery/ui/1.10.3/jquery-ui.1.10.3.full.min.js"></script>
     <samigo:script path="/jsf/widget/hideDivision/hideDivision.js" />
+	
+		<script type="text/javascript" src="/library/js/jquery/jquery-1.9.1.min.js"></script>
+		<script language='javascript' src='/samigo-app/js/jquery.dynamiclist.student.preview.js'></script>
+		<script language='javascript' src='/samigo-app/js/selection.student.preview.js'></script>
+		<script language='javascript' src='/samigo-app/js/selection.author.preview.js'></script>
+
+		<link href="/samigo-app/css/imageQuestion.student.css" type="text/css" rel="stylesheet" media="all" />
+		<link href="/samigo-app/css/imageQuestion.author.css" type="text/css" rel="stylesheet" media="all" />
+		
+		<script type="text/JavaScript">		
+			jQuery(window).load(function(){
+				
+				$('div[id^=sectionImageMap_]').each(function(){
+					var myregexp = /sectionImageMap_(\d+_\d+)/
+					var matches = myregexp.exec(this.id);
+					var sequence = matches[1];
+					var serializedImageMapId = $(this).find('input:hidden[id$=serializedImageMap]').attr('id').replace(/:/g, '\\:');
+					
+					var dynamicList = new DynamicList(serializedImageMapId, 'imageMapTemplate_'+sequence, 'pointerClass', 'imageMapContainer_'+sequence);
+					dynamicList.fillElements();
+					
+				});	
+				
+				$('input:hidden[id^=hiddenSerializedCoords_]').each(function(){
+					var myregexp = /hiddenSerializedCoords_(\d+_\d+)_(\d+)/
+					var matches = myregexp.exec(this.id);
+					var sequence = matches[1];
+					var label = parseInt(matches[2])+1;
+					
+					var sel = new selectionAuthor({selectionClass: 'selectiondiv', textClass: 'textContainer'}, 'answerImageMapContainer_'+sequence);
+					try {
+						sel.setCoords(jQuery.parseJSON(this.value));
+						sel.setText(label);
+					}catch(err){}
+					
+				});	
+			});
+		</script>
 
       </head>
   <body onload="<%= request.getAttribute("html.body.onload") %>">
@@ -217,6 +255,12 @@ function toPoint(id)
             <h:panelGroup rendered="#{question.itemData.typeId == 15}"><!-- // CALCULATED_QUESTION -->
               <f:subview id="deliverCalculatedQuestion">
                 <%@ include file="/jsf/delivery/item/deliverCalculatedQuestion.jsp" %>
+              </f:subview>
+            </h:panelGroup>
+            
+             <h:panelGroup rendered="#{question.itemData.typeId == 16}"><!-- // IMAGEMAP_QUESTION -->
+              <f:subview id="deliverImageMapQuestion">
+                <%@ include file="/jsf/delivery/item/deliverImageMapQuestion.jsp" %>
               </f:subview>
             </h:panelGroup>
 

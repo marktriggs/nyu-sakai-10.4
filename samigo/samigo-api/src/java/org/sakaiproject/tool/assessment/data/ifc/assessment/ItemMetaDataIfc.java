@@ -47,6 +47,8 @@ public interface ItemMetaDataIfc
   public static final String FORCE_RANKING = "FORCE_RANKING";
   public static final String MX_SURVEY_QUESTION_COMMENTFIELD = "MX_SURVEY_QUESTION_COMMENTFIELD";
   public static final String MX_SURVEY_RELATIVE_WIDTH = "MX_SURVEY_RELATIVE_WIDTH";
+  public static final String REQUIRE_ALL_OK = "REQUIRE_ALL_OK";  //this is for Image map questions.
+  public static final String IMAGE_MAP_SRC = "IMAGE_MAP_SRC";  //this is for Image map questions.
 
   
   
