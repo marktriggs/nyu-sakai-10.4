@@ -382,7 +382,11 @@ ul.topnav ul.nav-submenu li.submenuitem a,
     padding: 0 5px;
 }
 #roleSwitch a#roleSwitchAnchor {
-    color:#09c
+    padding: 0px 6px;
+    display: inline-block;
+    line-height: 23px;
+    height: 23px;
+    min-height: initial !important;
 }
 /* PART 3 - SITE NAVIGATION - children of #siteNavWrapper
 /* outer wrapper for the site navigation blocks and login and user menu for logged in users - it will also have a class with a value equiv to the site type, so any of 
