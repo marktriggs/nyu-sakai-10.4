@@ -2750,3 +2750,12 @@ table.tablesorter .header {
 .neoPortletTitleWrap .portletTitle .action img {
     display: none;
 }
+
+
+/* CLASSES-1470 */
+form[name="classInformationForm"] input#title {
+  width: 60%;
+  max-width: 400px;
+  font-size: 1em;
+  padding: 5px;
+}
