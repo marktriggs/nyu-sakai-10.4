@@ -2550,3 +2550,28 @@ img[src$="cal.gif"] {
 .chat-block label {
   margin: 0 10px;
 }
+
+
+/* CLASSES-1465 */
+.ui-widget-overlay {
+  background: #333 !important;
+}
+.ui-state-hover,
+.ui-state-focus,
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+  color: #3698DB !important;
+  border-color: #2F7FAB !important;
+}
+.ui-widget-header {
+  background: #2F7FAB !important;
+  border-color: #2F7FAB !important;
+}
+
+.ui-widget-content {
+  background: #FAFAFA !important;
+}
+.toggleAnchor {
+  background: 
+}
