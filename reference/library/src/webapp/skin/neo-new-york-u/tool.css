@@ -1301,7 +1301,7 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
     font-family:"nyu-classes-icons"
 }
 
-[class*="icon-sakai"]:before,.icon-sakai-help:before,.icon-sakai-iframe-site:before,.icon-sakai-motd:before,.icon-sakai-schedule:before,.icon-sakai-announcements:before,.icon-sakai-resources:before,.icon-sakai-assignment-grades:before,.icon-sakai-dropbox:before,.icon-sakai-chat:before,.icon-sakai-mailbox:before,.icon-sakai-siteinfo:before,.icon-sakai-sitesetup:before,.icon-sakai-messages:before,.icon-sakai-realms:before,.icon-sakai-memory:before,.icon-sakai-sites:before,.icon-sakai-users:before,.icon-sakai-su:before,.icon-sakai-profile2:before,.icon-sakai-membership:before,.icon-sakai-preferences:before,.icon-sakai-singleuser:before,.icon-sakai-syllabus:before,.icon-sakai-forums:before,.icon-sakai-iframe:before,.icon-sakai-lessonbuildertool:before,.icon-nyu-libraries:before,.icon-sakai-samigo:before,.icon-sakai-gradebook-tool:before,.icon-sakai-blogwow:before,.icon-sakai-sections:before,.icon-sakai-kaltura:before,.icon-sakai-sitestats:before,.icon-sakai-delegatedaccess:before,.icon-sakai-site-roster:before,.icon-sakai-site-roster2:before,.icon-sakai-news:before,.icon-sakai-turningtool:before,.icon-sakai-subsite:before,.category-title-information:before,.category-title-communication:before,.category-title-content:before,.category-title-activities-and-assessment:before,.category-title-utilities:before,#toggleToolMax:after,#toggleNormal:after {
+[class*="icon-sakai"]:before,.icon-sakai-help:before,.icon-sakai-iframe-site:before,.icon-sakai-motd:before,.icon-sakai-schedule:before,.icon-sakai-announcements:before,.icon-sakai-resources:before,.icon-sakai-assignment-grades:before,.icon-sakai-dropbox:before,.icon-sakai-chat:before,.icon-sakai-mailbox:before,.icon-sakai-siteinfo:before,.icon-sakai-sitesetup:before,.icon-sakai-messages:before,.icon-sakai-realms:before,.icon-sakai-memory:before,.icon-sakai-sites:before,.icon-sakai-users:before,.icon-sakai-su:before,.icon-sakai-profile2:before,.icon-sakai-membership:before,.icon-sakai-preferences:before,.icon-sakai-singleuser:before,.icon-sakai-syllabus:before,.icon-sakai-forums:before,.icon-sakai-iframe:before,.icon-sakai-lessonbuildertool:before,.icon-nyu-libraries:before,.icon-sakai-samigo:before,.icon-sakai-gradebook-tool:before,.icon-sakai-blogwow:before,.icon-sakai-sections:before,.icon-sakai-kaltura:before,.icon-sakai-sitestats:before,.icon-sakai-delegatedaccess:before,.icon-sakai-site-roster:before,.icon-sakai-site-roster2:before,.icon-sakai-news:before,.icon-sakai-turningtool:before,.icon-sakai-subsite:before,.category-title-information:before,.category-title-communication:before,.category-title-content:before,.category-title-activities-and-assessment:before,.category-title-utilities:before,#toggleToolMax:after,#toggleNormal:after,.icon-home:before {
     margin:0 .25em 0 0;
     padding:.25em
 }
@@ -1316,6 +1316,11 @@ input[type="checkbox"][disabled="disabled"], input[type="checkbox"][disabled="tr
 
 .icon-sakai-help:before {
     content:"\e003"
+}
+
+.icon-home:before {
+    font-family:"nyu-classes-icons";
+    content:"\e005";
 }
 
 .icon-sakai-iframe-site:before {
@@ -1976,4 +1981,9 @@ span#cke_1_bottom:after {
 .cke_resizer.cke_resizer_ltr {
     position: relative;
     top: 13px;
+}
+
+#toolSelectionList ul li {
+    background: none !important;
+    padding-left: 5px !important;
 }
