@@ -753,6 +753,11 @@ function submitform(id)
 													<span id="submitnotifxxx" class="messageProgress" style="visibility:hidden">$tlang.getString("processmessage.file")</span>
 												</div>
 											</td>
+										</tr>
+										## NCM-41 Render the attach resources buttons on a new row
+										## so it renders nicely on mobile/narrow devices
+										<tr>
+											<td>Or from workspace or site</td>
 											<td>
 												<span class="navIntraToolLink">
 													<input
