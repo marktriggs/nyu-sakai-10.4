@@ -10,6 +10,7 @@ $(function() {
 
   var clearBannerAlerts = function() {
     $(".system-alert-banner").remove();
+    $toggle.slideUp();
   };
 
   var setupAlertBannerToggle = function() {
@@ -87,7 +88,7 @@ $(function() {
     });
 
     // remove any alerts that are now inactive
-    $(".system-banner-alert").each(function() {
+    $(".system-alert-banner").each(function() {
       var $alert = $(this);
       if (activeAlertIds.indexOf($alert.attr("id")) < 0) {
         $alert.remove();
@@ -103,6 +104,6 @@ $(function() {
 
   // check now
   syncAlertBanner();
-  // and again every 10min
-  var interval = setInterval(syncAlertBanner, 1000 * 60 * 10);
+  // and again every 5min
+  var interval = setInterval(syncAlertBanner, 1000 * 60 * 5);
 });

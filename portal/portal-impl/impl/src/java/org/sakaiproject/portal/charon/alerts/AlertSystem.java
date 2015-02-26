@@ -34,8 +34,10 @@ public class AlertSystem {
             BannerAlert alert = new BannerAlert(rs.getString("id"),
                                                 rs.getString("message"),
                                                 rs.getString("hosts"),
+                                                rs.getInt("dismissible"),
                                                 rs.getInt("active"),
-                                                rs.getInt("dismissible"));
+                                                rs.getTimestamp("active_from"),
+                                                rs.getTimestamp("active_until"));
 
             if (alert.isActiveForHost(serverId)) {
               alerts.add(alert); 

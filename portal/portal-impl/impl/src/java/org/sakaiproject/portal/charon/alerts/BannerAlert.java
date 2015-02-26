@@ -1,6 +1,8 @@
 package org.sakaiproject.portal.charon.alerts;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 
 public class BannerAlert {
   public String id; 
@@ -9,17 +11,28 @@ public class BannerAlert {
   private String hosts; 
   private boolean isActive;
   private boolean isDismissible;
+  private Timestamp activeFrom;
+  private Timestamp activeUntil;
 
-  public BannerAlert(String id, String message, String hosts, int active, int dismissible) {
+  public BannerAlert(String id, String message, String hosts, int dismissible, int active, Timestamp activeFrom, Timestamp activeUntil) {
     this.id = id;
     this.message = message;
     this.hosts = hosts;
     this.isActive = (active == 1);
     this.isDismissible = (dismissible == 1);
+    this.activeFrom = activeFrom;
+    this.activeUntil = activeUntil;
   }
 
   public boolean isActive() {
-    return this.isActive;
+    if (activeFrom == null && activeUntil == null) {
+      return isActive;
+    }
+
+    Timestamp now = new Timestamp(new Date().getTime());
+
+    return (activeFrom == null || now.after(activeFrom))
+            && (activeUntil == null || now.before(activeUntil));
   }
 
   public boolean isDismissible() {
@@ -33,11 +46,11 @@ public class BannerAlert {
     }
 
     // if no hosts then assume active for any host
-    if (this.hosts == null || this.hosts.isEmpty()) {
+    if (hosts == null || hosts.isEmpty()) {
       return true;
     }
 
     // we have some hosts defined, so check if the current is listed
-    return Arrays.asList(this.hosts.split(",")).contains(hostname);
+    return Arrays.asList(hosts.split(",")).contains(hostname);
   }
 }
