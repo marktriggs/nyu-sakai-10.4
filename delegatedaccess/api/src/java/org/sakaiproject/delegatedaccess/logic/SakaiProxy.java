@@ -26,6 +26,7 @@ import org.sakaiproject.authz.api.Role;
 import org.sakaiproject.authz.api.SecurityAdvisor;
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService.SelectionType;
+import org.sakaiproject.tool.api.Placement;
 import org.sakaiproject.tool.api.Session;
 import org.sakaiproject.tool.api.Tool;
 import org.sakaiproject.user.api.User;
@@ -435,4 +436,46 @@ public interface SakaiProxy {
 	 * @return
 	 */
 	public User getUserByEid(String eid);
+	
+	/**
+	 * get site reference from site id
+	 * @param context
+	 * @return
+	 */
+	public String siteReference(String context);
+	
+	/**
+	 * get current placement
+	 * @return
+	 */
+	public Placement getCurrentPlacement();
+	
+	/**
+	 * if this is set to true, then a "provider id lookup" column will be added to DA search results
+	 * delegatedaccess.enableProviderIdLookup
+	 * @return
+	 */
+	public boolean isProviderIdLookupEnabled();
+	
+	/**
+	 * returns the provider id for a realm
+	 * @param siteRef
+	 * @return
+	 */
+	public String getProviderId(String siteRef);
+	
+	/**
+	 * returns a label for a hierarchy if it exists:
+	 * delegatedaccess.search.hierarchyLabel.{hierarchyLevel}
+	 * @param hierarchyLevel
+	 * @return
+	 */
+	public String getHierarchySearchLabel(String hierarchyLevel);
+	
+	/**
+	 * If this is set to true, then the term dropdown option in the search pages will be hidden
+	 * delegatedaccess.search.hideTerm
+	 * @return
+	 */
+	public boolean isSearchHideTerm();
 }

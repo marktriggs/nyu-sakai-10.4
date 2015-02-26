@@ -19,6 +19,39 @@
 
 <body>
 <wicket:extend>
+	<style>
+		#permalinkHolder{
+			border:1px solid #ccc;
+			display:none;
+			background:#ffe;
+			position:absolute;
+			padding:5px;
+		}
+		
+		#permalinkHolder a{
+			font-weight:bold;
+			top:0;right:4px;
+			outline:none;padding:0;
+			display:block;position:absolute;
+		}
+	</style>
+	<script type="text/javascript">
+				$(document).ready(function() {
+					$('.permaLink').click(function(event){
+						event.preventDefault();
+						$('#permalinkHolder').css({
+							'top': event.pageY + 10,
+						});
+						$('#permalinkHolder').fadeIn('fast');
+						$('#permalinkHolder input').focus().select();
+					});
+					$('#permalinkHolder .closeMe').click(function(event){
+						event.preventDefault();
+						$('#permalinkHolder').fadeOut('fast');
+					});
+				});
+	</script>
+
 	<br/>
 	<wicket:enclosure child="currentLink">
 	<a wicket:id="currentLink">
@@ -56,15 +89,29 @@
 				    </wicket:container>
 				</td>
 			</tr>
-			<tr>
-				<td align='right'>
-					<wicket:message key="termField"/>
-				</td>
-				<td>
-					<select wicket:id="termField">
-					</select>
-				</td>
-			</tr>
+			<wicket:enclosure child="termField">
+				<tr>
+					<td align='right'>
+						<wicket:message key="termField"/>
+					</td>
+					<td>
+						<select wicket:id="termField">
+						</select>
+					</td>
+				</tr>
+			</wicket:enclosure>
+			<div class="hierarchyFields" wicket:id="hierarchyFields">
+				<wicket:component wicket:id="hierarchyDropdowns">
+					<tr>
+						<td align='right'>
+							<span wicket:id="hierarchyLabel">Dept</span>:
+						</td>
+						<td>
+							<select wicket:id="hierarchyLevel" onchange=" this.form.submit();"/>
+						</td>								
+					</tr>
+				</wicket:component>
+			</div>
 			<tr>
 				<td/>
 				<td align='right'>
@@ -76,39 +123,63 @@
 	<br/>
 	<br/>	
 	<span wicket:id="searchResultsTitle">Results for: </span><span wicket:id="searchString" style="font-weight: bold">user search string</span>
+	<wicket:enclosure child="permaLink">
+		<br/>
+		(<a href="javascript:void(0);" class="permaLink"><wicket:message key="permaLink"/></a>&nbsp;|&nbsp;<a wicket:id="exportData"><wicket:message key="exportData"/></a>)
+		<div id="permalinkHolder">
+			<a class="closeMe" href="#" style="">x</a>
+			<span style="display:block" styleClass="textPanelFooter"><wicket:message key="permaLinkMessage"/></span>
+			<input type="text" wicket:id="permaLink" size="35"/>
+		</div>
+	</wicket:enclosure>
 	<br/>
 	<div wicket:id="navigatorTop"></div>
 	<wicket:enclosure child="searchResult">
 	<table cellspacing="0" class="dataview listHier lines nolines">
     <tbody>
     	<tr>
-    	<th><a wicket:id="siteTitleSortLink"><wicket:message key="siteTitleHeader"/></a></th>
-    	<th><a wicket:id="siteIdSortLink"><wicket:message key="siteIdHeader"/></a></th>
-    	<th><a wicket:id="termSortLink"><wicket:message key="termHeader"/></a></th>
-    	<th><a wicket:id="accessSortLink"><wicket:message key="access"/></a></th>
-   		<th><a wicket:id="instructorSortLink"><span wicket:id="instructorSortLinkLabel"/></a></th>
+    	<th><a wicket:id="siteTitleSortLink"><span wicket:id="siteTitleLabel"/></a></th>
+    	<th><a wicket:id="instructorSortLink"><span wicket:id="instructorSortLabel"/></a></th>
+    	<th><a wicket:id="termSortLink"><span wicket:id="termSortLabel"/></a></th>
+    	<th><a wicket:id="siteIdSortLink"><span wicket:id="siteIdSortLabel"/></a></th>
+    	<wicket:enclosure child="providersSortLink">
+    		<th><a wicket:id="providersSortLink"><span wicket:id="providersSortLabel"/></a></th>
+    	</wicket:enclosure>
+    	<wicket:enclosure child="publishedSortLink">
+    		<th><a wicket:id="publishedSortLink"><span wicket:id="publishedSortLabel"/></a></th>
+    	</wicket:enclosure>
+    	<th><a wicket:id="accessSortLink"><span wicket:id="accessSortLabel"/></a></th>
     	<wicket:enclosure child="startDateSortLink">
-	    	<th><a wicket:id="startDateSortLink"><wicket:message key="startDate"/></a></th>
-	    	<th><a wicket:id="endDateSortLink"><wicket:message key="endDate"/></a></th>
-	    	<th><wicket:message key="showAuthToolsHeader"/></th>
-	    	<th><wicket:message key="showPublicToolsHeader"/></th>
+	    	<th><a wicket:id="startDateSortLink"><span wicket:id="startDateSortLabel"/></a></th>
+	    	<th><a wicket:id="endDateSortLink"><span wicket:id="endDateSortLabel"/></a></th>
+	    	<th><span wicket:id="showAuthToolsHeader"/></th>
+	    	<th><span wicket:id="showPublicToolsHeader"/></th>
     	</wicket:enclosure>
     	<wicket:enclosure child="accessModifiedBySortLink">
-	    	<th><a wicket:id="accessModifiedBySortLink"><wicket:message key="accessModifiedBy"/></a></th>
-    		<th><a wicket:id="accessModifiedOnSortLink"><wicket:message key="accessModifiedOn"/></a></th>
+	    	<th><a wicket:id="accessModifiedBySortLink"><span wicket:id="accessModifiedBySortLabel"/></a></th>
+    		<th><a wicket:id="accessModifiedOnSortLink"><span wicket:id="accessModifiedOnSortLabel"/></a></th>
     	</wicket:enclosure>
     	</tr>
        <tr wicket:id="searchResult">
        	 <td><a wicket:id="siteTitleLink"><span wicket:id="siteTitle">test</span></a></td>
-       	 <td><span wicket:id="siteId">site id</span></td>
-       	 <td><span wicket:id="term">term</span></td>
-       	 <td><span wicket:id="access">!site.course:instructor</span></td>
        	 <wicket:enclosure child="instructor">
 	       	 <td>
 	       	 	<span wicket:id="instructor">Last, First</span>
 	       	 	<a wicket:id="instructorLookupLink"><wicket:message key="lookupInstructor"/></a>
 	       	 </td>
        	 </wicket:enclosure>
+       	 <td><span wicket:id="term">term</span></td>
+       	 <td><span wicket:id="siteId">site id</span></td>
+       	 <wicket:enclosure child="providers">
+	       	 <td>
+	       	 	<span wicket:id="providers">providers</span>
+	       	 	<a wicket:id="providersLookupLink"><wicket:message key="lookupProviders"/></a>
+	       	 </td>
+       	 </wicket:enclosure>
+       	 <wicket:enclosure child="published">
+       	 	<td><span wicket:id="published">Yes</span></td>
+       	 </wicket:enclosure>
+       	 <td><span wicket:id="access">!site.course:instructor</span></td>
        	 <wicket:enclosure child="startDate">
 	       	 <td><span wicket:id="startDate">1/1/2012</span></td>
 	       	 <td><span wicket:id="endDate">12/21/2012</span></td>
