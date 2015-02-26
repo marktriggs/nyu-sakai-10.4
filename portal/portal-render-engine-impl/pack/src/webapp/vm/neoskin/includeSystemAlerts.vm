@@ -5,4 +5,10 @@
 	</div>
 </script>
 
+<script id="systemAlertsBannerToggleTemplate" type="text/template">
+  <a href="javscript:void(0)" class="system-alert-banner-toggle">
+    Show System Alerts
+  </a>
+</script>
+
 <script type="text/javascript" language="JavaScript" src="/portal/scripts/system_alerts.js$!{portalCDNQuery}"></script>

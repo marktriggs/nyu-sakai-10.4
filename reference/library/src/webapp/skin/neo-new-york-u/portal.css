@@ -2556,11 +2556,47 @@ html > body .ui-pnotify {
   right: 0;
 }
 .system-alert-banner .system-alert-banner-close:before {
-    color: #444;
-    font-family: 'nyu-classes-icons';
-    content: '\e600';
-    font-size: 20px;
-    vertical-align: middle;
-    margin-right: 0.25em;
+  color: #444;
+  font-family: 'nyu-classes-icons';
+  content: '\e600';
+  font-size: 20px;
+  vertical-align: middle;
+  margin-right: 0.25em;
 } 
+.system-alert-banner-toggle {
+  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
+  position: absolute;
+  width: 160px;
+  left: 50%;
+  margin-left: -80px;
+  background-color: #f7e084;
+  color: #000 !important;
+  padding: 3px 0px 4px;
+  border-radius: 0 0 4px 4px;
+  border: 1px solid #f7e084;
+  border-top: none;
+  text-align: center;
+  font-size: 0.9em;
+}
+.system-alert-banner-toggle:before {
+  font-family: 'nyu-classes-icons';
+  content: '\e019';
+  vertical-align: text-bottom;
+  margin-right: 0.25em;
+}
+.system-alert-banner-toggle:hover {
+  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+  background-color: #FFF;
+  color: #3698DB !important;
+  border-color: #3698DB;
+}

@@ -26,7 +26,7 @@ public class AlertSystem {
       Connection db = sqlService.borrowConnection();
 
       try {
-        PreparedStatement ps = db.prepareStatement("select * from NYU_T_BANNER_ALERT");
+        PreparedStatement ps = db.prepareStatement("select * from NYU_T_BANNER_ALERT where ACTIVE = 1");
 
         ResultSet rs = ps.executeQuery();
         try {

@@ -1,5 +1,7 @@
 $(function() {
 
+  var $toggle;
+
   var syncAlertBanner = function() {
     $.getJSON("/portal/system-alerts/banner", function(json, xhr) {
       renderBannerAlerts(json);
@@ -8,6 +10,22 @@ $(function() {
 
   var clearBannerAlerts = function() {
     $(".system-alert-banner").remove();
+  };
+
+  var setupAlertBannerToggle = function() {
+    $toggle = $($("#systemAlertsBannerToggleTemplate").html());
+    $toggle.hide();
+    $("#siteNavWrapper").prepend($toggle);
+
+    $toggle.on("click", function() {
+      showAllAlerts();
+      $toggle.slideUp();
+    });
+  };
+
+  var showAllAlerts = function() {
+    $.cookie("system-alert-banners-dismissed", null, { path: "/" });
+    syncAlertBanner();
   };
 
   var hasAlertBeenDismissed = function(alertId) {
@@ -31,6 +49,7 @@ $(function() {
     markAlertAsDismissed($alert.attr("id"));
     $alert.slideUp(function() {
       $alert.remove();
+      $toggle.slideDown();
     });
   };
 
@@ -39,25 +58,31 @@ $(function() {
       return clearBannerAlerts();
     }
 
+    var dismissedAlertIds = [];
     var activeAlertIds = [];
 
     // ensure all active alerts are rendered
     $.each(alerts, function(i, alert) {
       var alertId = "bannerAlert"+alert.id;
 
-      if (!alert.dismissible || !hasAlertBeenDismissed(alertId)) {
-        activeAlertIds.push(alertId);
+      activeAlertIds.push(alertId);
 
-        if ($("#"+alertId).length == 0) {
-            var $alert = $($("#systemAlertsBannerTemplate").html()).attr("id", alertId);
-            $alert.find(".system-alert-banner-message").html(alert.message);
-            if (!alert.dismissible) {
-              $alert.find(".system-alert-banner-close").remove();
-            }
-            $alert.hide();
-            $(document.body).prepend($alert);
-            $alert.slideDown();
-        }
+      // if alert is not in the DOM.. add it.
+      var $alert = $("#"+alertId);
+      if ($alert.length == 0) {
+          $alert = $($("#systemAlertsBannerTemplate").html()).attr("id", alertId);
+          $alert.find(".system-alert-banner-message").html(alert.message);
+          if (!alert.dismissible) {
+            $alert.find(".system-alert-banner-close").remove();
+          }
+          $alert.hide();
+          $(document.body).prepend($alert);
+      }
+
+      if (hasAlertBeenDismissed(alertId)) {
+        $toggle.show().slideDown();
+      } else {
+        $alert.slideDown();
       }
     });
 
@@ -68,12 +93,13 @@ $(function() {
         $alert.remove();
       }
     });
-
   };
 
   $(document).on("click", ".system-alert-banner-close", function() {
     handleBannerAlertClose($(this).closest(".system-alert-banner"));
   });
+
+  setupAlertBannerToggle();
 
   // check now
   syncAlertBanner();
