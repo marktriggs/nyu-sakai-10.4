@@ -18,9 +18,12 @@ $(function() {
     $toggle.hide();
     $("#siteNavWrapper").prepend($toggle);
 
-    $toggle.on("click", function() {
+    $toggle.on("click", function(event) {
+      event.preventDefault();
+
       showAllAlerts();
       $toggle.slideUp();
+      return false;
     });
   };
 
@@ -34,7 +37,7 @@ $(function() {
     if ($.cookie("system-alert-banners-dismissed") != null) {
       dismissedIds = $.cookie("system-alert-banners-dismissed").split(",");
     }
-    return dismissedIds.indexOf(alertId) >= 0
+    return $.inArray(alertId, dismissedIds) >= 0;
   };
 
   var markAlertAsDismissed = function(alertId) {
@@ -90,7 +93,7 @@ $(function() {
     // remove any alerts that are now inactive
     $(".system-alert-banner").each(function() {
       var $alert = $(this);
-      if (activeAlertIds.indexOf($alert.attr("id")) < 0) {
+      if ($.inArray($alert.attr("id"), activeAlertIds) < 0) {
         $alert.remove();
       }
     });
@@ -98,6 +101,7 @@ $(function() {
 
   $(document).on("click", ".system-alert-banner-close", function() {
     handleBannerAlertClose($(this).closest(".system-alert-banner"));
+    return false;
   });
 
   setupAlertBannerToggle();
