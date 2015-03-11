@@ -93,6 +93,8 @@ public interface DbSingleStorage
 	 */
 	List getAllResourcesWhere(String field, String value);
 
+	boolean hasAnyResourceWhereLike(String field, String value);
+
 	List getAllResourcesWhereLike(String field, String value);
 
 	/**

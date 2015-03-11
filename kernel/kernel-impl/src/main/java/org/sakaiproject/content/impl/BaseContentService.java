@@ -2347,6 +2347,23 @@ SiteContentAdvisorProvider, SiteContentAdvisorTypeRegistry, EntityTransferrerRef
 
 	} // getAllEntities
 
+
+	public boolean hasDeletedResources(String id)
+	{
+		try {
+			ContentCollection collection = getCollection(id);
+			return m_storage.hasDeletedResources(collection);
+		} catch (IdUnusedException iue) {
+			M_log.warn("hasDeletedResources: cannot retrieve collection for : " + id);
+		} catch (TypeException te) {
+			M_log.warn("hasDeletedResources: resource with id: " + id + " not a collection");
+		} catch (PermissionException pe) {
+			M_log.warn("hasDeletedResources: access to resource with id: " + id + " failed : " + pe);
+		}
+		return false;
+	}
+
+
 	/**
 	 * Access a List of all the deleted ContentResource objects in this path (and below) which the current user has access.
 	 * 
@@ -13392,6 +13409,7 @@ SiteContentAdvisorProvider, SiteContentAdvisorTypeRegistry, EntityTransferrerRef
 
 		public ContentResourceEdit putDeleteResource(String resourceId, String uuid, String userId);
 
+		public boolean hasDeletedResources(ContentCollection collection);      
 		public List getDeletedResources(ContentCollection collection);      
 		public ContentResourceEdit editDeletedResource(String resourceId);      
 		public void removeDeletedResource(ContentResourceEdit edit); 

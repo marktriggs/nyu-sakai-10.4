@@ -439,6 +439,15 @@ public interface ContentHostingService extends EntityProducer
 	public List<ContentResource> getAllResources(String id);
 
 	/**
+	 * True if there are deleted resources under this path.
+	 * 
+	 * @param id
+	 *        A collection id.
+	 * @return a List of the ContentResource objects.
+	 */
+	public boolean hasDeletedResources(String id);
+
+	/**
 	 * Access a List of all the deleted ContentResource objects in this path (and below) which the current user has access.
 	 * 
 	 * @param id

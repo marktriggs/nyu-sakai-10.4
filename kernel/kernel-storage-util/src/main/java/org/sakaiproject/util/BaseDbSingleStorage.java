@@ -485,6 +485,30 @@ public class BaseDbSingleStorage implements DbSingleStorage
 		return loadResources(sql, fields);
 	}
 	
+	public boolean hasAnyResourceWhereLike(String field, String value)
+	{
+		String sql = singleStorageSql.getCountLikeSql(field, m_resourceTableName);
+		Object[] fields = new Object[1];
+		fields[0] = value;
+	
+		final int[] count = { 0 };
+
+		m_sql.dbRead(sql, fields, new SqlReader() {
+			public Object readSqlResultRecord(ResultSet result)
+			{
+			    try {
+				count[0] = result.getInt(1);
+			    } catch (SQLException ignore) {
+			    }
+
+			    return null;
+			}
+		    });
+
+		return count[0] > 0;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see org.sakaiproject.util.DbSingleStorage#getAllResourcesWhereLike(java.lang.String, java.lang.String)
 	 */

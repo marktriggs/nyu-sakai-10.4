@@ -1942,6 +1942,30 @@ public class DbContentService extends BaseContentService
 
        }
        
+	   public boolean hasDeletedResources(ContentCollection collection)
+	   {
+		   boolean rv = false;
+		   boolean goin = in();
+		   try
+		   {
+			   if (resolver != null && goin)
+			   {
+				   return rv;
+			   }
+			   else
+			   {
+				   rv = m_resourceDeleteStore.hasAnyResourceWhereLike("IN_COLLECTION", collection.getId() + "%");
+			   }
+
+			   return rv;
+		   }
+		   finally
+		   {
+			   out();
+		   }
+	   }
+
+
 	   /** return a list of deleted resource for the given collection id */ 
 	   public List getDeletedResources(ContentCollection collection)
 	   {

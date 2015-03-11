@@ -75,6 +75,14 @@ public class SingleStorageSqlDefault implements SingleStorageSql
 	}
 
 	/**
+	 * returns the sql statement which counts the number of records matched in the specified table.
+	 */
+	public String getCountLikeSql(String field, String table)
+	{
+		return "select count(1) from " + table + " where " + field + " like ?";
+	}
+
+	/**
 	 * returns the sql statement which retrieves the xml field from the specified table.
 	 */
 	public String getXmlLikeSql(String field, String table)

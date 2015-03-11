@@ -85,6 +85,12 @@ public class MultiSingleStorageSqlDefault implements MultiSingleStorageSql
 		return "select "+storageFields+" from " + table + " where (" + field + " = ?)";
 	}
 
+	public String getCountLikeSql(String field, String table)
+	{
+		return "select count(1) from " + table + " where " + field + " like ?";
+	}
+
+
 	/**
 	 * returns the sql statement which retrieves the xml field from the specified table.
 	 */

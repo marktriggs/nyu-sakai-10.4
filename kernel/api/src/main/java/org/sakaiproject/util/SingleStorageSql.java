@@ -62,6 +62,11 @@ public interface SingleStorageSql
 	public String getXmlLikeSql(String field, String table);
 
 	/**
+	 * returns the sql statement which counts the number of records matched in the specified table.
+	 */
+	public String getCountLikeSql(String field, String table);
+
+	/**
 	 * returns the sql statement which retrieves the xml field from the specified table.
 	 */
 	public String getXmlWhereSql(String table, String where);

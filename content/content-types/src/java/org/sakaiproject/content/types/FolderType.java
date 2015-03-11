@@ -353,7 +353,7 @@ public class FolderType extends BaseResourceType implements ExpandableResourceTy
 		public boolean available(ContentEntity entity) {
 
 			if (entity != null) {
-				return !getContentService().getAllDeletedResources(entity.getId()).isEmpty();
+				return getContentService().hasDeletedResources(entity.getId());
 			}
 			return false;
 		}

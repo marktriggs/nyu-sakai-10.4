@@ -57,6 +57,11 @@ public interface MultiSingleStorageSql
 	public String getXmlSql(String field, String table);
 
 	/**
+	 * returns the sql statement which counts the number of records matched in the specified table.
+	 */
+	public String getCountLikeSql(String field, String table);
+
+	/**
 	 * returns the sql statement which retrieves the xml field from the specified table.
 	 */
 	public String getXmlLikeSql(String field, String table);
