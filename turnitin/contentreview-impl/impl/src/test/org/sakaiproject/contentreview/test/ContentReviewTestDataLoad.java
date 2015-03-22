@@ -1,7 +1,7 @@
 /**
  * EvalTestDataLoad.java - evaluation - Dec 25, 2006 10:07:31 AM - azeckoski
- * $URL$
- * $Id$
+ * $URL: https://source.sakaiproject.org/contrib/evaluation/trunk/impl/src/test/org/sakaiproject/evaluation/test/EvalTestDataLoad.java $
+ * $Id: EvalTestDataLoad.java 46440 2008-03-07 15:21:37Z aaronz@vt.edu $
  **************************************************************************
  * Copyright (c) 2008 Centre for Applied Research in Educational Technologies, University of Cambridge
  * Licensed under the Educational Community License version 1.0

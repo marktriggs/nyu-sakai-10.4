@@ -1,6 +1,6 @@
 /**********************************************************************************
- * $URL$
- * $Id$
+ * $URL: https://source.sakaiproject.org/contrib/turnitin/branches/sakai-10.x/contentreview-impl/impl/src/java/org/sakaiproject/contentreview/impl/turnitin/TurnitinReviewServiceImpl.java $
+ * $Id: TurnitinReviewServiceImpl.java 87258 2014-11-13 07:46:04Z stephen.marquard@uct.ac.za $
  ***********************************************************************************
  *
  * Copyright (c) 2006 Sakai Foundation
@@ -232,7 +232,7 @@ public class TurnitinReviewServiceImpl extends BaseReviewServiceImpl {
 			log.info("Using siteAdvisor: " + siteAdvisor.getClass().getName());
 		}
 
-		if (enabledSiteTypes != null) {
+		if (enabledSiteTypes != null && !enabledSiteTypes.isEmpty()) {
 			log.info("Turnitin is enabled for site types: " + StringUtils.join(enabledSiteTypes, ","));
 		}
 
@@ -273,7 +273,7 @@ public class TurnitinReviewServiceImpl extends BaseReviewServiceImpl {
                 }
 
 		// Check list of allowed site types, if defined
-		if (enabledSiteTypes != null) {
+		if (enabledSiteTypes != null && !enabledSiteTypes.isEmpty()) {
 			log.debug("Using site type: " + s.getType());
 			return enabledSiteTypes.contains(s.getType());
 		}
