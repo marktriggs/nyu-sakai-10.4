@@ -9538,7 +9538,7 @@ public class AssignmentAction extends PagedResourceActionII
 			if (s != null)
 			{
 				state.setAttribute(GRADE_SUBMISSION_FEEDBACK_TEXT, s.getSubmittedText());
-				/*
+				
 				if ((s.getFeedbackText() == null) || (s.getFeedbackText().length() == 0))
 				{
 					state.setAttribute(GRADE_SUBMISSION_FEEDBACK_TEXT, s.getSubmittedText());
@@ -9547,7 +9547,7 @@ public class AssignmentAction extends PagedResourceActionII
 				{
 					state.setAttribute(GRADE_SUBMISSION_FEEDBACK_TEXT, s.getFeedbackText());
 				}
-				*/
+				
 				state.setAttribute(GRADE_SUBMISSION_FEEDBACK_COMMENT, s.getFeedbackComment());
 
 				List v = EntityManager.newReferenceList();
