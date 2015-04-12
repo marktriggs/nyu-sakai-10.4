@@ -98,6 +98,7 @@ import org.sakaiproject.portal.charon.handlers.WorksiteResetHandler;
 import org.sakaiproject.portal.charon.handlers.XLoginHandler;
 import org.sakaiproject.portal.charon.handlers.TimezoneCheckHandler;
 import org.sakaiproject.portal.charon.handlers.SamlLoginHandler;
+import org.sakaiproject.portal.charon.handlers.PopupHandler;
 import org.sakaiproject.portal.charon.handlers.YouTubeHandler;
 import org.sakaiproject.portal.charon.handlers.SystemAlertHandler;
 import org.sakaiproject.portal.charon.site.PortalSiteHelperImpl;
@@ -139,6 +140,10 @@ import org.sakaiproject.util.Validator;
 import org.sakaiproject.util.Web;
 
 import au.com.flyingkite.mobiledetect.UAgentInfo;
+
+import edu.nyu.classes.popup.api.PopupManager;
+import edu.nyu.classes.popup.api.Popup;
+import edu.nyu.classes.popup.impl.DBPopupManager;
 
 /**
  * <p/> Charon is the Sakai Site based portal.
@@ -1764,7 +1769,6 @@ public class SkinnableCharonPortal extends HttpServlet implements Portal
 							rcontext.put("showPreferredTzTime", "false");
 					}
 			}
-			
 			rcontext.put("pagepopup", false);
 
 			String copyright = ServerConfigurationService
@@ -1913,55 +1917,6 @@ public class SkinnableCharonPortal extends HttpServlet implements Portal
 			// CLASSES-1587 add if banner alerts are enabled to the context
 			rcontext.put("enableBannerAlerts", ServerConfigurationService.getBoolean("nyu.portal.banneralerts.enable", false));
 
-			// CLASSES-1015 show a tutorial popup if the user hasn't already had it pop up before
-			boolean tutorialPopupEnabled = ServerConfigurationService.getBoolean("portal.use.tutorial.popup", false);
-			rcontext.put("enableTutorialPopup", tutorialPopupEnabled);
-			rcontext.put("displayTutorialPopup", false); // default to false
-			if(tutorialPopupEnabled && thisUser != null) {
-				if (!("1".equals(prefs.getProperties().getProperty("popupTutorialFlag")))) {
-					rcontext.put("displayTutorialPopup", true);
-					//now save this in the user's prefefences so we don't show it again
-					PreferencesEdit preferences = null;
-					SecurityAdvisor secAdv = null;
-					try {
-						secAdv = new SecurityAdvisor(){
-							@Override
-							public SecurityAdvice isAllowed(String userId, String function,
-																							String reference) {
-								if("prefs.add".equals(function) || "prefs.upd".equals(function)){
-									return SecurityAdvice.ALLOWED;
-								}
-								return null;
-							}
-						};
-						securityService.pushAdvisor(secAdv);
-
-						try {
-							preferences = preferencesService.edit(thisUser);
-						} catch (IdUnusedException ex1 ) {
-							try {
-								preferences = preferencesService.add( thisUser );
-							} catch (IdUsedException ex2) {
-								M_log.error(ex2);
-							} catch( PermissionException ex3) {
-								M_log.error(ex3);
-							}
-						}
-						if (preferences != null) {
-							ResourcePropertiesEdit props = preferences.getPropertiesEdit();
-							props.addProperty("popupTutorialFlag", "1");
-							preferencesService.commit(preferences);
-						}
-					} catch (Exception e1) {
-						M_log.error(e1);
-					}finally{
-						if(secAdv != null){
-							securityService.popAdvisor(secAdv);
-						}
-					}
-				}
-			}
-
 			Session session = SessionManager.getCurrentSession();
                         TimeZone timeZone;
                         PreferencesService preferenceService = (PreferencesService)ComponentManager.get("org.sakaiproject.user.api.PreferencesService");
@@ -1979,6 +1934,33 @@ public class SkinnableCharonPortal extends HttpServlet implements Portal
                         }
 
                         rcontext.put("selectedTimeZone", selectedTimeZone);
+
+			if (session.getAttribute("nyu.splash.screen.shown") == null) {
+				User currentUser = UserDirectoryService.getCurrentUser();
+
+				if (currentUser != null) {
+					PopupManager popups = new DBPopupManager(currentUser);
+
+					Popup popup = popups.getPopup();
+
+					if (popup.isActive()) {
+						try {
+							rcontext.put("popupTemplate", popup.getTemplate());
+							rcontext.put("popupCampaign", popup.getCampaign());
+
+							rcontext.put("sakai_csrf_token", SessionManager.getCurrentSession().getAttribute("sakai.csrf.token"));
+							rcontext.put("popup", true);
+						} catch (IOException e) {
+							M_log.warn("Template for campaign: " + popup.getCampaign() + " could not be opened");
+						}
+					}
+
+					if (currentUser.getEid() != null) {
+						// Delivered!
+						session.setAttribute("nyu.splash.screen.shown", "true");
+					}
+				}
+			}
 		}
 	}
 
@@ -2229,6 +2211,7 @@ public class SkinnableCharonPortal extends HttpServlet implements Portal
 		addHandler(new XLoginHandler());
 		addHandler(new TimezoneCheckHandler());
 		addHandler(new SamlLoginHandler());
+		addHandler(new PopupHandler());
 		addHandler(new LogoutHandler());
 		addHandler(new ErrorDoneHandler());
 		addHandler(new ErrorReportHandler());

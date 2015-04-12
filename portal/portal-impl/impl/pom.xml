@@ -114,6 +114,19 @@
       		<version>10.4</version>
       		<scope>provided</scope>
     	</dependency>
+        <dependency>
+      		<groupId>edu.nyu.classes.popup</groupId>
+      		<artifactId>popup-api</artifactId>
+      		<version>10.4</version>
+      		<scope>provided</scope>
+    	</dependency>
+        <dependency>
+      		<groupId>edu.nyu.classes.popup</groupId>
+      		<artifactId>popup-impl</artifactId>
+      		<version>10.4</version>
+      		<scope>provided</scope>
+    	</dependency>
+
 
 		<dependency>
 			<groupId>org.mockito</groupId>

@@ -570,9 +570,26 @@
 <!-- END from includePageBody.vm -->
 <div id="tutorial"></div>
 <div id="set_timezone_container"></div>
+
+#if ($popup)
+<script type="text/template" id="popup-container-content" data-popup-campaign="$popupCampaign" data-csrf-token="$sakai_csrf_token">
+$popupTemplate
+</script>
+
+<script type="text/template" id="popup-container-footer">
+<div class="popup-container-footer button active" id="popup-acknowledged-button">
+Got it!
+</div>
+</script>
+
+<script type="text/javascript" src="$!{portalCDNPath}/portal/scripts/featherlight.min.js$!{portalCDNQuery}"></script>
+<script type="text/javascript" src="$!{portalCDNPath}/portal/scripts/splash-popup.js$!{portalCDNQuery}"></script>
+#end
+
 #if ($enableTutorialPopup)
 #parse("/vm/neoskin/includeTutorialPopup.vm")
 #end
+
 #if ($enableBannerAlerts)
 #parse("/vm/neoskin/includeSystemAlerts.vm")
 #end
