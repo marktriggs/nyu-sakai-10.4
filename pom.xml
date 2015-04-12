@@ -98,6 +98,7 @@
                 <module>osp</module>
                 <module>podcasts</module>
                 <module>polls</module>
+                <module>popup</module>
                 <module>portal</module>
                 <module>postem</module>
                 <module>presence</module>
