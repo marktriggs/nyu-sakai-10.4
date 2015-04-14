@@ -240,8 +240,12 @@
 				#if (!$selectedCourse || ($!authGroupSet && !$!authGroupSet.isEmpty()))
   			disabled="true"
 				#end
-			 type="submit" class="active" accesskey="s" name="eventSubmit_doContinue" 
-				#if ($!basedOnTemplate) value="$tlang.getString('sitetype.done')" #else value="$tlang.getString('gen.continue')" #end
+			 type="submit" class="active" accesskey="s" name="eventSubmit_doContinue"
+				## CLASSES-1697 show continue button if custom NYU workflow
+				#if ($!isNYUCustomWorkflowFromTemplate) value="$tlang.getString('gen.continue')"
+				#elseif ($!basedOnTemplate) value="$tlang.getString('sitetype.done')"
+				#else value="$tlang.getString('gen.continue')"
+				#end
 				onclick="showNotif('submitnotif','continueButton','findCourseForm'); resetOption('continue');" />
 			<input type="submit" accesskey="b" name="eventSubmit_doBack" value="$tlang.getString('gen.back')" 
 				onclick="resetOption('back');" />
