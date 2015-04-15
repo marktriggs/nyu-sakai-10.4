@@ -2497,3 +2497,96 @@ span.returnheader.nextprev a:hover {
 .ui-widget-content a {
   color: #3698DB !important;
 }
+
+/* CLASSES-1725 Evaluation Tool (expanding on old CLASSES-636/CLASSES-662 for previous skin) */
+.evaluation-page {
+  background-color: #F6F6F6;
+}
+.evaluation-page .portletBody {
+  clear: both;
+  padding: 0;
+}
+.evaluation-page .evaluation-header {
+  background: #57068c;
+  overflow: hidden;
+  margin: -1em -1em 0;
+  padding: 5px 0;
+  position: relative;
+}
+.evaluation-page .evaluation-logo1:before {
+  font-family: 'nyu-classes-icons';
+  content: '\e000';
+  color: #FFFFFF;
+  font-size: 70px;
+  line-height: 60px;
+}
+.evaluation-page .evaluation-logo2 {
+  display: none;
+}
+.evaluation-page .evaluation-title-wrapper {
+  clear: both;
+  background-color: #F0F0F0;
+  margin: 0 -1em;
+  padding: 1em;
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #DDD;
+}
+.evaluation-page .evaluation-title-wrapper h1 {
+  margin-top: 0;
+}
+.evaluation-page .evaluation-title-wrapper h3 {
+  font-size: 1.8em;
+}
+.evaluation-page .evaluation-outer-wrapper {
+  padding: 1em;
+}
+.evaluation-page .evaluation-inner-wrapper {
+  background-color: white;
+  padding: 1em;
+  box-shadow: 1px 1px 6px #333;
+}
+.evaluation-page .itemListNew legend {
+  color: #57068c !important;
+  font-size: 1.2em !important;
+}
+.evaluation-page .fullVertical li:hover, 
+.evaluation-page .fullDisplayHorizontal li:hover {
+  background-color: #f5f0f8 !important;
+}
+.evaluation-page .fullVertical li.checked, 
+.evaluation-page .fullDisplayHorizontal li.checked {
+  background-color: #f5f0f8 !important;
+}
+.evaluation-page .eval-title .eval-title-label {
+  color: #57068c !important;
+}
+.evaluation-page .eval-group {
+  font-size: 1.6em;
+}
+.evaluation-page .eval-group .eval-group-label {
+  color: #57068c !important;
+}
+.evaluation-page #mastLogin {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  text-align: right;
+  padding: 0 15px;
+  margin: -1em 1em 0 0;
+}
+.evaluation-page #mastLogin a,
+.evaluation-page #mastLogin a:visited{
+  margin-top: 0;
+  text-decoration: none;
+  background: none repeat scroll 0 0 #F29C0F !important;
+  border: 1px solid #F29C0F !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+  display: block;
+  font-size: 13px !important;
+  padding: 4px 6px;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Helvetica Neue','Arial',sans-serif !important;
+  font-weight: normal !important;
+}
