@@ -2617,12 +2617,44 @@ html > body .ui-pnotify {
   display: block;
   padding: 8px 0;
   line-height: 25px;
-  text-align: center;
+  text-align: right;
   font-size: 18px !important;
 
-  border: 2px solid #2F7FAB;
-
   margin-top: 2em;
+}
+
+
+.popup-dismiss-button {
+    display: inline-block !important;
+    margin-right: 4px !important;
+    margin-bottom: 4px !important;
+    padding: 3px 8px !important;
+
+    cursor: pointer;
+}
+
+.popup-dismiss-button.temporary {
+    border: 1px solid #DBDCDE !important;
+    background: #E7E7EB !important;
+    color: #444 !important;
+}
+
+.popup-dismiss-button.permanent {
+    background: #3698DB !important;
+    color: #FFF !important;
+    border: 1px solid #3698DB !important;
+}
+
+.popup-dismiss-button:hover {
+    -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -ms-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+    background: #FFF !important;
+    color: #3698DB !important;
+    border-color: #3698DB !important;
 }
 
 .popup-container-header {

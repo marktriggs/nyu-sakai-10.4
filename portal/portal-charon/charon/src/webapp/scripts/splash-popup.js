@@ -31,6 +31,12 @@ $(function() {
                                    permanentlyAcknowledged = true;
                                    $.featherlight.current().close();
                                });
+
+                               $('#popup-later-button').on('click', function () {
+                                   permanentlyAcknowledged = false;
+                                   $.featherlight.current().close();
+                               });
+
                            }
                        });
     }
