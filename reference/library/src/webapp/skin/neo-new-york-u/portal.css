@@ -2610,6 +2610,13 @@ html > body .ui-pnotify {
     min-width: 450px;
     max-width: 782px;
     max-height: 85%;
+    padding: 40px;
+    padding-bottom: 0;
+}
+
+.featherlight .featherlight-close {
+    right: 5px;
+    top: 5px;
 }
 
 
@@ -2633,13 +2640,13 @@ html > body .ui-pnotify {
     cursor: pointer;
 }
 
-.popup-dismiss-button.temporary {
+.popup-dismiss-button.permanent {
     border: 1px solid #DBDCDE !important;
     background: #E7E7EB !important;
     color: #444 !important;
 }
 
-.popup-dismiss-button.permanent {
+.popup-dismiss-button.temporary {
     background: #3698DB !important;
     color: #FFF !important;
     border: 1px solid #3698DB !important;

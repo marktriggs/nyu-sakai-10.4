@@ -578,8 +578,8 @@ $popupTemplate
 
 <script type="text/template" id="popup-container-footer">
 <div class="popup-container-footer">
-  <div class="popup-dismiss-button temporary" id="popup-later-button">Remind me later</div>
   <div class="popup-dismiss-button permanent" id="popup-acknowledged-button">Don't show this again</div>
+  <div class="popup-dismiss-button temporary" id="popup-later-button">Remind me later</div>
 </div>
 </script>
 
