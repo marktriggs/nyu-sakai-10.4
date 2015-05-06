@@ -1124,3 +1124,11 @@ end alternate treatment for list
   counter-increment: multipleChoiceAnswers;
   margin-right: 5px;
 }
+.multipleChoiceAnswer {
+  color: #888;
+}
+.multipleChoiceAnswer.correct-answer,
+.multipleChoiceAnswer.correct-answer label {
+  color: #070 !important;
+  font-weight: bold;
+}

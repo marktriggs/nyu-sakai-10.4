@@ -2619,7 +2619,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 							UIOutput.make(pollContainer, "questionPollResultBar");
 							UIOutput.make(pollContainer, "questionPollResultLabel", numberOfAnswers);
 							if (answers.get(j).isCorrect()) {
-								answerContainer.decorate(new UIFreeAttributeDecorator("class", "correct-answer"));
+								answerContainer.decorate(new UIFreeAttributeDecorator("class", "multipleChoiceAnswer correct-answer"));
 							}
 						}
 					}
