@@ -1860,34 +1860,6 @@ $(function() {
 		$("#directurl").attr('href', $("#directurl").attr('rel'));
 
 	} // Closes admin if statement
-
-	$(".showPollGraph").click(function(e) {
-        e.preventDefault();
-		var pollGraph = $(this).parents(".questionDiv").find(".questionPollGraph");
-		
-		if($(this).find("span").text() === $(this).parent().find(".show-poll").text()) {
-			pollGraph.empty();
-			var pollData = [];
-			pollGraph.parent().find(".questionPollData").each(function(index) {
-				var text = $(this).find(".questionPollText").text();
-				var count = $(this).find(".questionPollNumber").text();
-				
-				pollData[index] = [parseInt(count), text];
-			});
-			
-			pollGraph.show();
-			pollGraph.jqBarGraph({data: pollData, height:100, speed:1});
-			
-			$(this).find("span").text($(this).parent().find(".hide-poll").text());
-		}else {
-			pollGraph.hide();
-			pollGraph.empty();
-			
-			$(this).find("span").text($(this).parent().find(".show-poll").text());
-		}
-
-        resizeFrame('grow');
-	});
 	
 	// don't do this twice. if portal is loaded portal will do it
         if(typeof portal == 'undefined')
@@ -2748,4 +2720,17 @@ function toggleShortUrlOutput(defaultUrl, checkbox, textbox) {
 }
 
 
+$(document).ready(function() {
+  // If any poll results, then render their bar graph nicely
+  $(".questionPollResult").each(function() {
+    var $result = $(this);
+    var answers = $result.data("answers");
+    var allResponses = $result.data("all-responses");
 
+    if (answers > 0) {
+      var newWidth = parseInt((answers / allResponses) * 94);
+      $result.find(".questionPollResultLabel").css("left", newWidth + 2 + "%");
+      $result.find(".questionPollResultBar").width(newWidth + "%");
+    }
+  });
+});

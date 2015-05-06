@@ -596,16 +596,24 @@ function resizeiframe(id) {
                                 <img src="/library/image/silk/text_list_bullets.png" class="item-image question-image"/>
                                 <span class="offscreen" rsf:id="questionNote"></span>
                                 <h3 class="questionText" rsf:id="questionText"></h3>
+
+                                <div rsf:id="questionStatusText" class="questionStatusText"></div>
+
                                 <div class="multiplechoiceDiv" rsf:id="multipleChoiceDiv">
                                     <form action="#" rsf:id="multipleChoiceForm" class="multipleChoiceForm">
 				      <input type="hidden" rsf:id="csrf4" />
                                         <input type="hidden" rsf:id="multipleChoiceId" />
                                         <span rsf:id="multipleChoiceSelect:"></span>
-                                        <div rsf:id="multipleChoiceAnswer:" class="multipleChoiceAnswer">
-                                            <input type="radio" rsf:id="multipleChoiceAnswerRadio" name="multipleChoiceAnswerRadio" />
-                                            <label rsf:id="multipleChoiceAnswerText" />
-                                        </div>
-                                        
+                                        <ul class="multipleChoiceAnswers">
+                                          <li rsf:id="multipleChoiceAnswer:" class="multipleChoiceAnswer">
+                                              <input type="radio" rsf:id="multipleChoiceAnswerRadio" name="multipleChoiceAnswerRadio" />
+                                              <label rsf:id="multipleChoiceAnswerText" />
+                                              <div rsf:id="questionPollResult:" class="questionPollResult">
+                                                <span rsf:id="questionPollResultBar" class="questionPollResultBar"></span>
+                                                <span rsf:id="questionPollResultLabel" class="questionPollResultLabel"></span>
+                                              </div>
+                                          </li>
+                                        </ul>
                                         <input class="question-submit" type="submit" value="Answer!" rsf:id="answerMultipleChoice" />
                                     </form>
                                 </div>
@@ -619,22 +627,11 @@ function resizeiframe(id) {
                                         <input class="bold question-submit" type="submit" value="Answer!" rsf:id="answerShortanswer" />
                                     </form>
                                 </div>
-                                
-                                <div rsf:id="questionStatusText" class="questionStatusText"></div>
-                                
-                                <div style="display:none" rsf:id="questionPollData:" class="questionPollData">
-                                    <span rsf:id="questionPollText" class="questionPollText"></span>
-                                    <span rsf:id="questionPollNumber" class="questionPollNumber"></span>
-                                </div>
-                                <div rsf:id="questionPollGraph" class="questionPollGraph"></div>
                             </div>
                             <div class="questionDivControl">
                                 <a href="#" class="usebutton gradingPaneLink" rsf:id="questionGradingPaneLink" ></a>
-                                <a href="#" class="usebutton showPollGraph" rsf:id="showPollGraph" onclick="return false;"></a>
-                                <span style="display:none" rsf:id="msg=simplepage.show-poll" class="show-poll"></span>
-                                <span style="display:none" rsf:id="msg=simplepage.hide-poll" class="hide-poll"></span>
+                                <div rsf:id="questionInstructorMessage" class="questionInstructorMessage"></div>
                             </div>
-
                         </div>
                         
                         <span style="display:none" rsf:id="questionId" class="question-id"></span>

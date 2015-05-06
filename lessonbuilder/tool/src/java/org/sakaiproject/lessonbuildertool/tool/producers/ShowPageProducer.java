@@ -2499,6 +2499,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 					UIOutput.make(tableRow, "questionText", i.getAttribute("questionText"));
 					
 					List<SimplePageQuestionAnswer> answers = new ArrayList<SimplePageQuestionAnswer>();
+					List<UIBranchContainer> answerContainers = new ArrayList<UIBranchContainer>();
 					if("multipleChoice".equals(i.getAttribute("questionType"))) {
 						answers = simplePageToolDao.findAnswerChoices(i);
 						UIOutput.make(tableRow, "multipleChoiceDiv");
@@ -2532,11 +2533,14 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 							if(!isAvailable || response != null) {
 								multipleChoiceInput.decorate(new UIDisabledDecorator());
 							}
+							 
+							answerContainers.add(answerContainer);
 						}
 						 
 						UICommand answerButton = UICommand.make(questionForm, "answerMultipleChoice", messageLocator.getMessage("simplepage.answer_question"), "#{simplePageBean.answerMultipleChoiceQuestion}");
 						if(!isAvailable || response != null) {
 							answerButton.decorate(new UIDisabledDecorator());
+							answerButton.decorate(new UIFreeAttributeDecorator("style", "display:none"));
 						}
 					}else if("shortanswer".equals(i.getAttribute("questionType"))) {
 						UIOutput.make(tableRow, "shortanswerDiv");
@@ -2566,34 +2570,57 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 					if (statusNote != null) // accessibility version of icon
 					    UIOutput.make(tableRow, "questionNote", statusNote);
 					String statusText = null;
-					if(questionStatus == Status.COMPLETED)
-					    statusText = i.getAttribute("questionCorrectText");
-					else if(questionStatus == Status.FAILED)
-					    statusText = i.getAttribute("questionIncorrectText");
-					if (statusText != null && !"".equals(statusText.trim()))
-					    UIOutput.make(tableRow, "questionStatusText", statusText);
-					
+					String statusCSSClass = null;
+					if(questionStatus == Status.COMPLETED) {
+						statusText = i.getAttribute("questionCorrectText");
+						statusCSSClass = "correct";
+					} else if(questionStatus == Status.FAILED) {
+						statusText = i.getAttribute("questionIncorrectText");
+						statusCSSClass = "incorrect";
+					}
+					if (statusText != null && !"".equals(statusText.trim())) {
+						UIOutput questionStatusText = UIOutput.make(tableRow, "questionStatusText", statusText);
+						questionStatusText.decorate(new UIFreeAttributeDecorator("class", "questionStatusText " + statusCSSClass));
+					}
 					// Output the poll data
 					if("multipleChoice".equals(i.getAttribute("questionType")) &&
 							(canEditPage || ("true".equals(i.getAttribute("questionShowPoll")) &&
 									(questionStatus == Status.COMPLETED || questionStatus == Status.FAILED)))) {
-						UIOutput.make(tableRow, "showPollGraph", messageLocator.getMessage("simplepage.show-poll"));
+						if (canEditPage) {
+							String instructorMessage;
+							if ("true".equals(i.getAttribute("questionShowPoll"))) {
+								instructorMessage = messageLocator.getMessage("simplepage.poll-instructor-message-graph-only-after-answer");
+							} else {
+								instructorMessage = messageLocator.getMessage("simplepage.poll-instructor-message-graph");
+							}
+							UIOutput.make(tableRow, "questionInstructorMessage", instructorMessage);
+						}
 						UIOutput questionGraph = UIOutput.make(tableRow, "questionPollGraph");
 						questionGraph.decorate(new UIFreeAttributeDecorator("id", "poll" + i.getId()));
 						
 						List<SimplePageQuestionResponseTotals> totals = simplePageToolDao.findQRTotals(i.getId());
 						HashMap<Long, Long> responseCounts = new HashMap<Long, Long>();
+						int numberOfResponses = 0;
 						// in theory we don't need the first loop, as there should be a total
 						// entry for all possible answers. But in case things are out of sync ...
 						for(SimplePageQuestionAnswer answer : answers)
 						    responseCounts.put(answer.getId(), 0L);
-						for(SimplePageQuestionResponseTotals total : totals)
-						    responseCounts.put(total.getResponseId(), total.getCount());
+						for(SimplePageQuestionResponseTotals total : totals) {
+							responseCounts.put(total.getResponseId(), total.getCount());
+							numberOfResponses += total.getCount();
+						}
 						
 						for(int j = 0; j < answers.size(); j++) {
-							UIBranchContainer pollContainer = UIBranchContainer.make(tableRow, "questionPollData:", String.valueOf(j));
-							UIOutput.make(pollContainer, "questionPollText", answers.get(j).getText());
-							UIOutput.make(pollContainer, "questionPollNumber", String.valueOf(responseCounts.get(answers.get(j).getId())));
+							UIBranchContainer answerContainer = answerContainers.get(j);
+							UIBranchContainer pollContainer = UIBranchContainer.make(answerContainer, "questionPollResult:", String.valueOf(j));
+							String numberOfAnswers = String.valueOf(responseCounts.get(answers.get(j).getId()));
+							pollContainer.decorate(new UIFreeAttributeDecorator("data-answers", numberOfAnswers));
+							pollContainer.decorate(new UIFreeAttributeDecorator("data-all-responses",  Integer.toString(numberOfResponses)));
+							UIOutput.make(pollContainer, "questionPollResultBar");
+							UIOutput.make(pollContainer, "questionPollResultLabel", numberOfAnswers);
+							if (answers.get(j).isCorrect()) {
+								answerContainer.decorate(new UIFreeAttributeDecorator("class", "correct-answer"));
+							}
 						}
 					}
 					

@@ -1063,3 +1063,64 @@ div[role="dialog"] {
  /*
 end alternate treatment for list
 */
+/* Styles for the poll's new horizontal bar graph */
+.question-submit {
+  margin-top: 10px;
+}
+.questionPollResult {
+  width: 100%;
+  height: 2em;
+  position: relative;
+  margin: 10px 0 20px -24px;
+}
+.questionPollResult .questionPollResultBar {
+  -webkit-transition: width 1s;
+  transition: width 1s;
+
+  height: 2em;
+  background-color: #BBC;
+  width: 0;
+  min-width: 2px;
+  display: block;
+}
+.questionPollResult .questionPollResultLabel {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  line-height: 2em;
+  color:  #888;
+}
+.questionStatusText.correct {
+  color: #2B7C10;
+}
+.questionStatusText.incorrect {
+  color: #D71D1D; 
+}
+.questionInstructorMessage {
+  display: inline-block;
+  color: #888;
+  font-size: 0.9em;
+}
+.multipleChoiceAnswers {
+  list-style: upper-alpha inside;
+  padding-left: 24px;
+}
+.multipleChoiceAnswers li input {
+  left: -24px;
+  position: absolute;
+  top: 2px;
+  margin: 0;
+}
+#multipleChoiceDialogDiv #multipleChoiceAnswers {
+  counter-reset: multipleChoiceAnswers;
+}
+#multipleChoiceDialogDiv #multipleChoiceAnswers #copyableMultipleChoiceAnswerDiv,
+#multipleChoiceDialogDiv #multipleChoiceAnswers #extraMultipleChoiceAnswers > div {
+  display: block;
+}
+#multipleChoiceDialogDiv #multipleChoiceAnswers #copyableMultipleChoiceAnswerDiv:before,
+#multipleChoiceDialogDiv #multipleChoiceAnswers #extraMultipleChoiceAnswers > div:before {
+  content: counter(multipleChoiceAnswers, upper-alpha) ". ";
+  counter-increment: multipleChoiceAnswers;
+  margin-right: 5px;
+}
