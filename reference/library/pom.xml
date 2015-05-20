@@ -82,6 +82,21 @@
               </resources>
             </configuration>
           </execution>
+          <execution>
+            <id>copy-neo-new-york-u-skin-2</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/library-${project.version}/skin/default</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/webapp/skin/neo-new-york-u</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
