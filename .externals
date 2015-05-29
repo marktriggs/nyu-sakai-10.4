@@ -29,7 +29,7 @@ citations https://source.sakaiproject.org/svn/citations/tags/sakai-10.4
 #config https://source.sakaiproject.org/svn/config/tags/sakai-10.4
 #content https://source.sakaiproject.org/svn/content/tags/sakai-10.4
 courier https://source.sakaiproject.org/svn/courier/tags/sakai-10.4
-dav https://source.sakaiproject.org/svn/dav/tags/sakai-10.4
+#dav https://source.sakaiproject.org/svn/dav/tags/sakai-10.4
 #gradebook https://source.sakaiproject.org/svn/gradebook/tags/sakai-10.4
 #help https://source.sakaiproject.org/svn/help/tags/sakai-10.4
 #lessonbuilder https://source.sakaiproject.org/svn/lessonbuilder/tags/sakai-10.4
