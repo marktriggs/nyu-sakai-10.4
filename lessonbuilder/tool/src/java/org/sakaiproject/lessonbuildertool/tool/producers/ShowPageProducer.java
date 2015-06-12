@@ -54,6 +54,8 @@ import java.util.TimeZone;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -2500,6 +2502,8 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 					
 					List<SimplePageQuestionAnswer> answers = new ArrayList<SimplePageQuestionAnswer>();
 					List<UIBranchContainer> answerContainers = new ArrayList<UIBranchContainer>();
+					// CLASSES-1606 collect all correct answers text
+					List<String> correctAnswers = new ArrayList<String>();
 					if("multipleChoice".equals(i.getAttribute("questionType"))) {
 						answers = simplePageToolDao.findAnswerChoices(i);
 						UIOutput.make(tableRow, "multipleChoiceDiv");
@@ -2527,13 +2531,19 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 							UISelectChoice multipleChoiceInput = UISelectChoice.make(answerContainer, "multipleChoiceAnswerRadio", multipleChoiceSelect.getFullID(), j);
 							
 							multipleChoiceInput.decorate(new UIFreeAttributeDecorator("id", multipleChoiceInput.getFullID()));
-							UIOutput.make(answerContainer, "multipleChoiceAnswerText", answers.get(j).getText())
+							// CLASSES-1606 grab the answer text
+							SimplePageQuestionAnswer answer = answers.get(j);
+							String answerText = answer.getText();
+							UIOutput.make(answerContainer, "multipleChoiceAnswerText", answerText)
 								.decorate(new UIFreeAttributeDecorator("for", multipleChoiceInput.getFullID()));
 							
 							if(!isAvailable || response != null) {
 								multipleChoiceInput.decorate(new UIDisabledDecorator());
 							}
-							 
+							// CLASSES-1606 if correct answer, add text to our list
+							if (answer.isCorrect()) {
+								correctAnswers.add(answerText);
+							}
 							answerContainers.add(answerContainer);
 						}
 						 
@@ -2562,6 +2572,10 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 						if(!isAvailable || response != null) {
 							answerButton.decorate(new UIDisabledDecorator());
 						}
+						// CLASSES-1606 parse any provided answers, they are all correct answers
+						if (!"".equals(i.getAttribute("questionAnswer"))) {
+							correctAnswers.addAll(Arrays.asList(i.getAttribute("questionAnswer").split("\n")));
+						}
 					}
 					
 					Status questionStatus = getQuestionStatus(i, response);
@@ -2581,6 +2595,14 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 					if (statusText != null && !"".equals(statusText.trim())) {
 						UIOutput questionStatusText = UIOutput.make(tableRow, "questionStatusText", statusText);
 						questionStatusText.decorate(new UIFreeAttributeDecorator("class", "questionStatusText " + statusCSSClass));
+					}
+					// CLASSES-1606 if answered and questionShowCorrectAnswers==true, then show the correct answers to the student
+					if (questionStatus == Status.COMPLETED || questionStatus == Status.FAILED) {
+						if (correctAnswers.size() > 0 && "true".equals(i.getAttribute("questionShowCorrectAnswers"))) {
+							String correctAnswerMessage = messageLocator.getMessage("simplepage.question-correct-answer-message");
+							correctAnswerMessage = correctAnswerMessage.replace("{}", StringUtils.join(correctAnswers, ", "));
+							UIOutput.make(tableRow, "questionCorrectAnswerMessage", correctAnswerMessage);
+						}
 					}
 					// Output the poll data
 					if("multipleChoice".equals(i.getAttribute("questionType")) &&
@@ -2618,9 +2640,6 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 							pollContainer.decorate(new UIFreeAttributeDecorator("data-all-responses",  Integer.toString(numberOfResponses)));
 							UIOutput.make(pollContainer, "questionPollResultBar");
 							UIOutput.make(pollContainer, "questionPollResultLabel", numberOfAnswers);
-							if (answers.get(j).isCorrect()) {
-								answerContainer.decorate(new UIFreeAttributeDecorator("class", "multipleChoiceAnswer correct-answer"));
-							}
 						}
 					}
 					
@@ -2653,7 +2672,9 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 						UIOutput.make(tableRow, "questionitem-groups", itemGroupString);
 						UIOutput.make(tableRow, "questionCorrectText", String.valueOf(i.getAttribute("questionCorrectText")));
 						UIOutput.make(tableRow, "questionIncorrectText", String.valueOf(i.getAttribute("questionIncorrectText")));
-						
+						// CLASSES-1606 Add new option for showing correct answers to the user after submitting a response
+						UIOutput.make(tableRow, "questionShowCorrectAnswers", String.valueOf("true".equals(i.getAttribute("questionShowCorrectAnswers"))));
+
 						if("shortanswer".equals(i.getAttribute("questionType"))) {
 							UIOutput.make(tableRow, "questionType", "shortanswer");
 							UIOutput.make(tableRow, "questionAnswer", i.getAttribute("questionAnswer"));
@@ -4025,6 +4046,8 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		UIBoundBoolean.make(form, "question-multiplechoice-answer-correct");
 		UIInput.make(form, "question-multiplechoice-answer", null);
 		UIBoundBoolean.make(form, "question-show-poll", "#{simplePageBean.questionShowPoll}");
+		// CLASSES-1606 add new option for showing correct answers to the user after they respond
+		UIBoundBoolean.make(form, "question-show-correct-answers", "#{simplePageBean.questionShowCorrectAnswers}");
 		
 		UIInput.make(form, "question-correct-text", "#{simplePageBean.questionCorrectText}");
 		UIInput.make(form, "question-incorrect-text", "#{simplePageBean.questionIncorrectText}");

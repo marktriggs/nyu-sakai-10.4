@@ -791,7 +791,7 @@ div[role="dialog"] {
      box-shadow: 0px 0px 0px 0px #ccc;
     
 }
-#multipleChoiceAnswers, #copyableShortanswerDiv {
+#copyableShortanswerDiv {
     line-height:30px;
 }
 
@@ -1090,12 +1090,12 @@ end alternate treatment for list
   line-height: 2em;
   color:  #888;
 }
-.questionStatusText.correct {
+/*.questionStatusText.correct {
   color: #2B7C10;
 }
 .questionStatusText.incorrect {
   color: #D71D1D; 
-}
+}*/
 .questionInstructorMessage {
   display: inline-block;
   color: #888;
@@ -1111,15 +1111,18 @@ end alternate treatment for list
   top: 2px;
   margin: 0;
 }
+#multipleChoiceDialogDiv #multipleChoiceAnswers table th {
+  font-size: 0.9em;
+  font-weight: 300;
+  text-align: left;
+  vertical-align: top;
+  color: #888;
+}
 #multipleChoiceDialogDiv #multipleChoiceAnswers {
   counter-reset: multipleChoiceAnswers;
 }
-#multipleChoiceDialogDiv #multipleChoiceAnswers #copyableMultipleChoiceAnswerDiv,
-#multipleChoiceDialogDiv #multipleChoiceAnswers #extraMultipleChoiceAnswers > div {
-  display: block;
-}
-#multipleChoiceDialogDiv #multipleChoiceAnswers #copyableMultipleChoiceAnswerDiv:before,
-#multipleChoiceDialogDiv #multipleChoiceAnswers #extraMultipleChoiceAnswers > div:before {
+#multipleChoiceDialogDiv #multipleChoiceAnswers #copyableMultipleChoiceAnswerDiv .question-multiplechoice-answer-counter:before,
+#multipleChoiceDialogDiv #multipleChoiceAnswers #extraMultipleChoiceAnswers .question-multiplechoice-answer-counter:before {
   content: counter(multipleChoiceAnswers, upper-alpha) ". ";
   counter-increment: multipleChoiceAnswers;
   margin-right: 5px;
@@ -1131,4 +1134,7 @@ end alternate treatment for list
 .multipleChoiceAnswer.correct-answer label {
   color: #070 !important;
   font-weight: bold;
+}
+.shortanswerDiv {
+    margin-bottom: 1em;
 }

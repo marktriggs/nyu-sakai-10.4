@@ -1140,6 +1140,13 @@ $(function() {
 			}else {
 				$("#question-required").attr("checked", false);
 			}
+
+            var questionShowCorrectAnswers = row.find(".questionShowCorrectAnswers").text();
+            if(questionShowCorrectAnswers == "true") {
+                $("#question-show-correct-answers").attr("checked", true);
+            }else {
+                $("#question-show-correct-answers").attr("checked", false);
+            }
 			
 			var prerequisite = row.find(".questionitem-prerequisite").text();
 			if(prerequisite == "true") {
@@ -2488,7 +2495,7 @@ function unhideMultimedia() {
 // Clones one of the multiplechoice answers in the Question dialog and appends it to the end of the list
 function addMultipleChoiceAnswer() {
 	var clonedAnswer = $("#copyableMultipleChoiceAnswerDiv").clone(true);
-	var num = $("#extraMultipleChoiceAnswers").find("div").length + 2; // Should be currentNumberOfAnswers + 1
+	var num = $("#extraMultipleChoiceAnswers").find(".question-answer").length + 2; // Should be currentNumberOfAnswers + 1
 	
 	clonedAnswer.find(".question-multiplechoice-answer-id").val("-1");
 	clonedAnswer.find(".question-multiplechoice-answer-correct").attr("checked", false);
@@ -2549,9 +2556,9 @@ function addShortanswer() {
 
 function updateMultipleChoiceAnswers() {
 	$(".question-multiplechoice-answer-complete").each(function(index, el) {
-		var id = $(el).parent().find(".question-multiplechoice-answer-id").val();
-		var checked = $(el).parent().find(".question-multiplechoice-answer-correct").is(":checked");
-		var text = $(el).parent().find(".question-multiplechoice-answer").val();
+		var id = $(el).closest(".question-answer").find(".question-multiplechoice-answer-id").val();
+		var checked = $(el).closest(".question-answer").find(".question-multiplechoice-answer-correct").is(":checked");
+		var text = $(el).closest(".question-answer").find(".question-multiplechoice-answer").val();
 		
 		$(el).val(index + ":" + id + ":" + checked + ":" + text);
 	});
@@ -2568,7 +2575,7 @@ function updateShortanswers() {
 }
 
 function deleteAnswer(el) {
-	el.parent('div').remove();
+	el.closest('.question-answer').remove();
 }
 
 // Enabled or disables the subfields under grading in the question dialog
