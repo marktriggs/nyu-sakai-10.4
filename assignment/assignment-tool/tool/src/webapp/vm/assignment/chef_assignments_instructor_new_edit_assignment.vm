@@ -170,6 +170,14 @@ $(document).ready(function() {
 			excludePercentages.disabled = false;
 		}
 	}
+	function handleGroupSubmissionChanged(checkbox){
+	  if ($(checkbox).is(:checked)) {
+	    $("#site").attr("disabled","disabled");
+	    $("#groups").trigger("click");
+	  } else {
+	    $("#site").removeAttr("disabled");
+	  }
+	}
 </script>
 <script type="text/javascript">
 	focus_path = [ '$fField' ];
@@ -1042,7 +1050,7 @@ $(document).ready(function() {
 
                                  #if ($group_submissions_enabled)
                                     <p class="checkbox  indnt2">
-                            <input id="$name_CheckIsGroupSubmission" name="$name_CheckIsGroupSubmission" type="checkbox" value="1"
+                            <input id="$name_CheckIsGroupSubmission" name="$name_CheckIsGroupSubmission" type="checkbox" value="1" onclick="handleGroupSubmissionChanged(this);"
                             #if ($!value_CheckIsGroupSubmission.equals("1") && $!groupsList)
                                 checked="checked"
                                         #end
