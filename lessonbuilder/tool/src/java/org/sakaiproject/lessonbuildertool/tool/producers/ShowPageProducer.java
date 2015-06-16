@@ -2504,6 +2504,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 					List<UIBranchContainer> answerContainers = new ArrayList<UIBranchContainer>();
 					// CLASSES-1606 collect all correct answers text
 					List<String> correctAnswers = new ArrayList<String>();
+					List<String> correctAnswerLetters = new ArrayList<String>();
 					if("multipleChoice".equals(i.getAttribute("questionType"))) {
 						answers = simplePageToolDao.findAnswerChoices(i);
 						UIOutput.make(tableRow, "multipleChoiceDiv");
@@ -2534,7 +2535,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 							// CLASSES-1606 grab the answer text
 							SimplePageQuestionAnswer answer = answers.get(j);
 							String answerText = answer.getText();
-							UIOutput.make(answerContainer, "multipleChoiceAnswerText", answerText)
+							UIOutput.make(answerContainer, "multipleChoiceAnswerText", answer.getText())
 								.decorate(new UIFreeAttributeDecorator("for", multipleChoiceInput.getFullID()));
 							
 							if(!isAvailable || response != null) {
@@ -2543,6 +2544,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 							// CLASSES-1606 if correct answer, add text to our list
 							if (answer.isCorrect()) {
 								correctAnswers.add(answerText);
+								correctAnswerLetters.add(getLetterForAnswerIndex(j));
 							}
 							answerContainers.add(answerContainer);
 						}
@@ -2597,10 +2599,17 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 						questionStatusText.decorate(new UIFreeAttributeDecorator("class", "questionStatusText " + statusCSSClass));
 					}
 					// CLASSES-1606 if answered and questionShowCorrectAnswers==true, then show the correct answers to the student
+					// If shortanswer show the answer text, if multiplechoice show the equivalent letter
 					if (questionStatus == Status.COMPLETED || questionStatus == Status.FAILED) {
 						if (correctAnswers.size() > 0 && "true".equals(i.getAttribute("questionShowCorrectAnswers"))) {
 							String correctAnswerMessage = messageLocator.getMessage("simplepage.question-correct-answer-message");
-							correctAnswerMessage = correctAnswerMessage.replace("{}", StringUtils.join(correctAnswers, ", "));
+							String answersAsString;
+							if ("shortanswer".equals(i.getAttribute("questionType"))) {
+								answersAsString = StringUtils.join(correctAnswers, ", ");
+							} else {
+								answersAsString = StringUtils.join(correctAnswerLetters, ", ");
+							}
+							correctAnswerMessage = correctAnswerMessage.replace("{}", answersAsString);
 							UIOutput.make(tableRow, "questionCorrectAnswerMessage", correctAnswerMessage);
 						}
 					}
@@ -4430,4 +4439,21 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		UIOutput.make(peerReviewRows, "peer-eval-sample-text", messageLocator.getMessage("simplepage.peer-eval.sample.4"));
 	}
 
+	// CLASSES-1606 Return a letter for the given answer index
+	// e.g. 0-A, 1-B, 25-Z, 26-AA
+	private String getLetterForAnswerIndex(int i){
+		if(i < 0){
+			return null;
+		}
+
+		int quot = i / 26;
+		int rem = i % 26;
+		String letter = String.valueOf((char)((int)'A' + rem));
+
+		if(quot == 0) {
+			return letter;
+		} else {
+			return getLetterForAnswerIndex(quot-1).concat(letter);
+		}
+	}
 }
