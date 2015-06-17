@@ -13,8 +13,11 @@
 $(document).ready(function() {
  	setupAssignNew();
  	#if($turnitin_forceSingleAttachment)
-	 	$("#new_assignment_use_review_service").click(function (){
-	 		var checked = this.checked;
+ 	 	## CLASSES-1833 Check review service checkbox on page load
+ 	 	## as well as when the checkbox is clicked
+ 	 	function handleReviewServiceInputChange(){
+ 	 	    var $useReviewServiceCheckbox = $("#new_assignment_use_review_service");
+	 		var checked = $useReviewServiceCheckbox.is(":checked");
 	 		if(checked){
 	 			$("#subType").val(5);
 	 		}
@@ -28,7 +31,9 @@ $(document).ready(function() {
 	 			
 	 			}
 	 		});
-	 	});
+	 	};
+	 	$("#new_assignment_use_review_service").click(handleReviewServiceInputChange);
+	 	handleReviewServiceInputChange();
  	#end
 	SetMaxPoint(document.getElementById('$name_GradeType'), document.getElementById('$name_GradePoints'));
 });
