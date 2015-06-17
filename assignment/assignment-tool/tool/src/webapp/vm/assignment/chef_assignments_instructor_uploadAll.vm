@@ -161,19 +161,23 @@
 				<label for="feedbackAttachments">$tlang.getString("download.feedback.attachment")</label><br/>
 			<br/>
 			## SAK-19147 output without folders
-			#if ($!download && $enableFlatDownload)
+			## CLASSES-1700 disable withoutFolders from top section (see Additional Options below)
+			#if (false && $!download && $enableFlatDownload)
 				<input id="withoutFolders" type="checkbox" value="withoutFolders" name="choices" class="toggleNotSelectedAll" #if($!withoutFolders)checked="checked"#end />
 				<label for="withoutFolders">$tlang.getString("uploadall.folders.no")</label><br/>
 			#end
 
 			</p>
+            ## CLASSES-1700 Add Additional Options
             #if ($!download)
                 <h3>Additional Options</h3>
                 <p class="indnt2">
                     <input id="includeSubfoldersForAll" type="checkbox" value="includeSubfoldersForAll" name="choices" #if($!includeSubfoldersForAll)checked="checked"#end />
                     <label for="includeSubfoldersForAll">Include subfolders for ALL students (including those who have not submitted)</label><br/>
-                    <input id="flatPackage" type="checkbox" value="flatPackage" name="choices" #if($!flatPackage)checked="checked"#end />
-                    <label for="flatPackage"> Save all selected download options in one flat package (This CANNOT be loaded back into Assignments)</label>
+                    #if ($enableFlatDownload)
+                        <input id="flatPackage" type="checkbox" value="flatPackage" name="choices" #if($!flatPackage)checked="checked"#end />
+                        <label for="flatPackage"> Save all selected download options in one flat package (This CANNOT be loaded back into Assignments)</label>
+                    #end
                 </p>
                 <script>
                     function handleAdditionalOptionsCheckboxChange() {
@@ -192,6 +196,7 @@
                     handleAdditionalOptionsCheckboxChange();
                 </script>
             #end
+            ## end CLASSES-1700
 			#if (!$download)
 				<h4>$tlang.getString("uploadall.releaseOption")</h4>
 				<div class="checkbox  indnt3">
