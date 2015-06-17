@@ -176,7 +176,7 @@ $(document).ready(function() {
 		}
 	}
 	function handleGroupSubmissionChanged(checkbox){
-	  if ($(checkbox).is(:checked)) {
+	  if ($(checkbox).is(":checked")) {
 	    $("#site").attr("disabled","disabled");
 	    $("#groups").trigger("click");
 	  } else {
