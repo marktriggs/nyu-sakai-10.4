@@ -1138,3 +1138,6 @@ end alternate treatment for list
 .shortanswerDiv {
     margin-bottom: 1em;
 }
+.questionCorrectAnswerMessage {
+    font-weight: bold;
+}
