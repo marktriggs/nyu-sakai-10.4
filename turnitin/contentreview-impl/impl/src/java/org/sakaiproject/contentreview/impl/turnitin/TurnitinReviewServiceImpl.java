@@ -422,7 +422,7 @@ public class TurnitinReviewServiceImpl extends BaseReviewServiceImpl {
 		return this.getReviewReportInstructor(contentId);
 	}
 
-private List<ContentReviewItem> getItemsByContentId(String contentId) {
+public List<ContentReviewItem> getItemsByContentId(String contentId) {
         Search search = new Search();
         search.addRestriction(new Restriction("contentId", contentId));
         List<ContentReviewItem> existingItems = dao.findBySearch(ContentReviewItem.class, search);
@@ -1398,6 +1398,8 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 				user = userDirectoryService.getUser(currentItem.getUserId());
 			} catch (UserNotDefinedException e1) {
 				log.error("Submission attempt unsuccessful - User not found.", e1);
+				currentItem.setLastError("Submission attempt unsuccessful - User not found.");
+				currentItem.setErrorCode(null);
 				currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_NO_RETRY_CODE);
 				dao.update(currentItem);
 				releaseLock(currentItem);
@@ -1410,7 +1412,8 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 			if (uem == null ){
 				log.error("User: " + user.getEid() + " has no valid email");
 				currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_USER_DETAILS_CODE);
-				currentItem.setLastError("no valid email");
+				currentItem.setErrorCode(null);
+				currentItem.setLastError("No valid email");
 				dao.update(currentItem);
 				releaseLock(currentItem);
 				errors++;
@@ -1421,7 +1424,8 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 			if (ufn == null || ufn.equals("")) {
 				log.error("Submission attempt unsuccessful - User has no first name");
 				currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_USER_DETAILS_CODE);
-				currentItem.setLastError("has no first name");
+				currentItem.setErrorCode(null);
+				currentItem.setLastError("No first name");				
 				dao.update(currentItem);
 				releaseLock(currentItem);
 				errors++;
@@ -1432,7 +1436,8 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 			if (uln == null || uln.equals("")) {
 				log.error("Submission attempt unsuccessful - User has no last name");
 				currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_USER_DETAILS_CODE);
-				currentItem.setLastError("has no last name");
+				currentItem.setErrorCode(null);
+				currentItem.setLastError("No last name");
 				dao.update(currentItem);
 				releaseLock(currentItem);
 				errors++;
@@ -1444,6 +1449,7 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 					createClass(currentItem.getSiteId());
 				} catch (SubmissionException t) {
 					log.error ("Submission attempt unsuccessful: Could not create class", t);
+					currentItem.setErrorCode(null);
 					currentItem.setLastError("Class creation error: " + t.getMessage());
 					currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_RETRY_CODE);
 					dao.update(currentItem);
@@ -1451,6 +1457,10 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 					errors++;
 					continue;
 				} catch (TransientSubmissionException tse) {
+					currentItem.setErrorCode(null);
+					if (tse.getErrorCode() != null) {
+						currentItem.setErrorCode(tse.getErrorCode());
+					}
 					currentItem.setLastError("Class creation error: " + tse.getMessage());
 					currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_RETRY_CODE);
 					dao.update(currentItem);
@@ -1466,9 +1476,11 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 				log.error("Submission attempt unsuccessful: Could not enroll user in class", t);
 
 				if (t.getClass() == IOException.class) {
+					currentItem.setErrorCode(null);
 					currentItem.setLastError("Enrolment error: " + t.getMessage() );
 					currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_RETRY_CODE);
 				} else {
+					currentItem.setErrorCode(null);
 					currentItem.setLastError("Enrolment error: " + t.getMessage());
 					currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_RETRY_CODE);
 				}
@@ -1485,6 +1497,7 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 						createAssignment(currentItem.getSiteId(), currentItem.getTaskId());
 					}
 				} catch (SubmissionException se) {
+					currentItem.setErrorCode(null);
 					currentItem.setLastError("Assign creation error: " + se.getMessage());
 					currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_NO_RETRY_CODE);
 					if (se.getErrorCode() != null) {
@@ -1495,6 +1508,7 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 					errors++;
 					continue;
 				} catch (TransientSubmissionException tse) {
+					currentItem.setErrorCode(null);
 					currentItem.setLastError("Assign creation error: " + tse.getMessage());
 					currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_RETRY_CODE);
 					if (tse.getErrorCode() != null) {
@@ -1539,6 +1553,7 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 			catch (PermissionException e2) {
 				log.error("Submission failed due to permission error.", e2);
 				currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_NO_RETRY_CODE);
+				currentItem.setErrorCode(null);
 				currentItem.setLastError("Permission exception: " + e2.getMessage());
 				dao.update(currentItem);
 				releaseLock(currentItem);
@@ -1548,6 +1563,7 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 			catch (TypeException e) {
 				log.error("Submission failed due to content Type error.", e);
 				currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_NO_RETRY_CODE);
+				currentItem.setErrorCode(null);
 				currentItem.setLastError("Type Exception: " + e.getMessage());
 				dao.update(currentItem);
 				releaseLock(currentItem);
@@ -1611,7 +1627,11 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 			}
 			catch (TransientSubmissionException e) {
 				currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_RETRY_CODE);
-				currentItem.setLastError("Error Submitting Assignment for Submission: " + e.getMessage() + ". Assume unsuccessful");
+				currentItem.setErrorCode(null);
+				if (e.getErrorCode() != null) {
+					currentItem.setErrorCode(e.getErrorCode());
+				}
+				currentItem.setLastError("Error Submitting Assignment for Submission: " + e.getMessage() );
 				dao.update(currentItem);
 				releaseLock(currentItem);
 				errors++;
@@ -1619,7 +1639,11 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 			}
 			catch (SubmissionException e) {
 				currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_RETRY_CODE);
-				currentItem.setLastError("Error Submitting Assignment for Submission: " + e.getMessage() + ". Assume unsuccessful");
+				currentItem.setErrorCode(null);
+				if (e.getErrorCode() != null) {
+					currentItem.setErrorCode(e.getErrorCode());
+				}
+				currentItem.setLastError("Error Submitting Assignment for Submission: " + e.getMessage());
 				dao.update(currentItem);
 				releaseLock(currentItem);
 				errors++;
@@ -1630,7 +1654,12 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 
 			String rMessage = ((CharacterData) (root.getElementsByTagName("rmessage").item(0).getFirstChild())).getData();
 			String rCode = ((CharacterData) (root.getElementsByTagName("rcode").item(0).getFirstChild())).getData();
-
+			Integer rCodeInt = null;
+			try{
+				if(StringUtils.isNotEmpty(rCode)){
+					rCodeInt = Integer.parseInt(rCode); 
+				}
+			}catch(Exception e){}
 			if (rCode == null)
 				rCode = "";
 			else
@@ -1656,6 +1685,7 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 				} else {
 					log.warn("invalid external id");
 					currentItem.setLastError("Submission error: no external id received");
+					currentItem.setErrorCode(rCodeInt);
 					currentItem.setStatus(ContentReviewItem.SUBMISSION_ERROR_RETRY_CODE);
 					errors++;
 					dao.update(currentItem);
@@ -1687,7 +1717,7 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 					errors++;
 				}
 				currentItem.setLastError("Submission Error: " + rMessage + "(" + rCode + ")");
-				currentItem.setErrorCode(Integer.valueOf(rCode));
+				currentItem.setErrorCode(rCodeInt);
 				dao.update(currentItem);
 
 			}
@@ -1935,6 +1965,10 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 					log.warn("Update failed due to TransientSubmissionException error: " + e.toString(), e);
 					currentItem.setStatus(ContentReviewItem.REPORT_ERROR_RETRY_CODE);
 					currentItem.setLastError(e.getMessage());
+					currentItem.setErrorCode(null);
+					if(e.getErrorCode() != null){
+						currentItem.setErrorCode(e.getErrorCode());
+					}
 					dao.update(currentItem);
 					break;
 				}
@@ -1942,12 +1976,17 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 					log.warn("Update failed due to SubmissionException error: " + e.toString(), e);
 					currentItem.setStatus(ContentReviewItem.REPORT_ERROR_RETRY_CODE);
 					currentItem.setLastError(e.getMessage());
+					currentItem.setErrorCode(null);
+					if(e.getErrorCode() != null){
+						currentItem.setErrorCode(e.getErrorCode());
+					}
 					dao.update(currentItem);
 					break;
 				}
 
 				Element root = document.getDocumentElement();
-				if (((CharacterData) (root.getElementsByTagName("rcode").item(0).getFirstChild())).getData().trim().compareTo("72") == 0) {
+				String rCode = ((CharacterData) (root.getElementsByTagName("rcode").item(0).getFirstChild())).getData().trim();
+				if (rCode.compareTo("72") == 0) {
 					log.debug("Report list returned successfully");
 
 					NodeList objects = root.getElementsByTagName("object");
@@ -1970,7 +2009,16 @@ private List<ContentReviewItem> getItemsByContentId(String contentId) {
 				} else {
 					log.debug("Report list request not successful");
 					log.debug(document.getTextContent());
-
+					Integer rCodeInt = null;
+					try{
+						if(StringUtils.isNotEmpty(rCode)){
+							rCodeInt = Integer.parseInt(rCode);
+						}
+					}catch(Exception e){}
+					String rMessage = ((CharacterData) (root.getElementsByTagName("rmessage").item(0).getFirstChild())).getData().trim();
+					currentItem.setLastError(rMessage);
+					currentItem.setErrorCode(rCodeInt);
+					dao.update(currentItem);
 				}
 			}
 

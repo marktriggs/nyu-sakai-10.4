@@ -122,7 +122,7 @@ public abstract class BaseReviewServiceImpl implements ContentReviewService {
 		dao.save(item);
 	}
 
-	private List<ContentReviewItem> getItemsByContentId(String contentId) {
+	public List<ContentReviewItem> getItemsByContentId(String contentId) {
 		Search search = new Search();
 		search.addRestriction(new Restriction("contentId", contentId));
 		List<ContentReviewItem> existingItems = dao.findBySearch(ContentReviewItem.class, search);
