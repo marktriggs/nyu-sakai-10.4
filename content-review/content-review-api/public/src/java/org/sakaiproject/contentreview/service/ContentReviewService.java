@@ -306,4 +306,11 @@ public interface ContentReviewService {
 	 */
 	public void createAssignment(String siteId, String taskId, Map extraAsnnOpts)
 	throws SubmissionException, TransientSubmissionException;
+	
+	/**
+	 * returns the content review item for this content id
+	 * @param contentId
+	 * @return
+	 */
+	public List<ContentReviewItem> getItemsByContentId(String contentId);
 }
