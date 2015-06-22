@@ -217,6 +217,7 @@ public interface AssignmentSubmissionEdit extends AssignmentSubmission, Edit
      * @param error
      */
     public void setReviewError(String error);
+    public void setReviewErrorDetails(String error);
 
 	/**
 	 * Set whether the grade has been released.

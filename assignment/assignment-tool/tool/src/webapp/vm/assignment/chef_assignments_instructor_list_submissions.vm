@@ -773,7 +773,12 @@
 							#if ($allowReviewService && $assignmentContent.AllowReviewService)
 								<td headers="reviewService">
 								 #if ($submission.getReviewScore() == -1)
-                                     <div class="alertMessage" >$!submission.getReviewError()</div>
+									<div class="alertMessage" >
+										$!submission.getReviewError()
+										#if($!submission.getReviewErrorDetails())
+											&nbsp;<img src="/library/image/silk/help.png" title="$!submission.getReviewErrorDetails()"/>
+										#end
+									</div>
                                  #elseif ($submission.getReviewScore() == -2)
                                      $tlang.getString("review.noreport")  
 								 #else

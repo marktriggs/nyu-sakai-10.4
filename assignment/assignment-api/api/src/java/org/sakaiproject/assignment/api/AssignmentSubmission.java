@@ -279,6 +279,8 @@ public interface AssignmentSubmission extends Entity
      * @return error string, if any, returned from review service
      */
     public String getReviewError();
+    
+    public String getReviewErrorDetails();
         
         /**
         * SAK-17606 - Method to return a specialized string for anonymous grading.
