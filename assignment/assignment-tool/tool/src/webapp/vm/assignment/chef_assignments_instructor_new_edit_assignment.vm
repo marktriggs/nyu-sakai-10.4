@@ -24,7 +24,7 @@ $(document).ready(function() {
 	 		$("#subType > option").each(function(){
 	 			if(checked){
 	 				if($(this).val() != 5){
-	 					$(this).prop('disabled', true');
+	 					$(this).prop('disabled', true);
 	 				}
 	 			}else{
 	 				$(this).prop('disabled', false);
