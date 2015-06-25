@@ -133,10 +133,12 @@
                         	<f:param value="Feedback on #{message.message.title}" name="subject" />
                         	<h:outputText value="#{msgs.cdfm_button_bar_email}"/>
                         </h:outputLink>
-	                    <h:outputText value=" #{msgs.cdfm_toolbar_separator} " />
+                        <%-- CLASSES-1828 <h:outputText value=" #{msgs.cdfm_toolbar_separator} " /> --%>
                     </h:panelGroup>
 					<%-- link to grade --%>
 					<h:panelGroup rendered="#{ForumTool.selectedTopic.isPostToGradebook && ForumTool.gradebookExist}">
+						<%-- CLASSES-1828 Show separator consistently between actions --%>
+						<h:outputText value=" #{msgs.cdfm_toolbar_separator} " />
 						<h:outputLink value="../message/dfMsgGrade" target="dialogFrame"
 							onclick="dialogLinkClick(this);">
 							<f:param value="#{ForumTool.selectedForum.forum.id}" name="forumId"/>
@@ -148,29 +150,35 @@
 							<f:param value="#{message.message.createdBy}" name="userId"/>
 							<h:outputText value=" #{msgs.cdfm_button_bar_grade}" />
 						</h:outputLink>
-						<h:outputText value=" #{msgs.cdfm_toolbar_separator} " />
+						<%-- CLASSES-1828 <h:outputText value=" #{msgs.cdfm_toolbar_separator} " /> --%>
 					</h:panelGroup>
 					<%-- Revise other action --%>
 					<h:panelGroup rendered="#{message.revise}">
+						<%-- CLASSES-1828 Show separator consistently between actions --%>
+						<h:outputText value=" #{msgs.cdfm_toolbar_separator} " />
 						<h:commandLink action="#{ForumTool.processDfMsgRvsFromThread}" value="#{msgs.cdfm_button_bar_revise}">
 							<f:param value="#{message.message.id}" name="messageId" />
 							<f:param value="#{ForumTool.selectedTopic.topic.id}" name="topicId" />
 							<f:param value="#{ForumTool.selectedTopic.topic.baseForum.id}" name="forumId" />
 						</h:commandLink>
-						<h:outputText value=" #{msgs.cdfm_toolbar_separator} " />
+						<%-- CLASSES-1828 <h:outputText value=" #{msgs.cdfm_toolbar_separator} " /> --%>
 					</h:panelGroup>
 					<%-- Delete other action --%>
 					<h:panelGroup rendered="#{message.userCanDelete}" >
+						<%-- CLASSES-1828 Show separator consistently between actions --%>
+						<h:outputText value=" #{msgs.cdfm_toolbar_separator} " />
 						<h:commandLink action="#{ForumTool.processDfMsgDeleteConfirm}" value="#{msgs.cdfm_button_bar_delete_message}">
 							<f:param value="#{message.message.id}" name="messageId" />
 							<f:param value="#{ForumTool.selectedTopic.topic.id}" name="topicId" />
 							<f:param value="#{ForumTool.selectedTopic.topic.baseForum.id}" name="forumId" />
 							<f:param value="dfViewThread" name="fromPage" />
 						</h:commandLink>
-						<h:outputText value=" #{msgs.cdfm_toolbar_separator} " rendered="#{ForumTool.selectedTopic.isModeratedAndHasPerm}" />
+						<%-- CLASSES-1828 <h:outputText value=" #{msgs.cdfm_toolbar_separator} " rendered="#{ForumTool.selectedTopic.isModeratedAndHasPerm}" /> --%>
 					</h:panelGroup>
 					<%-- Moderate other action --%>
 					<h:panelGroup rendered="#{ForumTool.selectedTopic.isModeratedAndHasPerm}">
+						<%-- CLASSES-1828 Show separator consistently between actions --%>
+						<h:outputText value=" #{msgs.cdfm_toolbar_separator} " />
 						<h:commandLink action="#{ForumTool.processActionDisplayMessage}" immediate="true" title=" #{msgs.cdfm_moderate}" value="#{msgs.cdfm_moderate}">
 							<f:param value="#{message.message.id}" name="messageId" />
 							<f:param value="#{ForumTool.selectedTopic.topic.id}" name="topicId" />
