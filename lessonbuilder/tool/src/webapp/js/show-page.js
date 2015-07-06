@@ -87,6 +87,14 @@ $(function() {
 			draggable: false
 		});
 
+		$('#add-scorm-dialog').dialog({
+			autoOpen: false,
+			width: 600,
+			modal: false,
+			resizable: false,
+			draggable: false
+		});
+
 		$('#add-multimedia-dialog').dialog({
 			autoOpen: false,
 			width: 600,
@@ -1369,6 +1377,11 @@ $(function() {
 					$("#edit-item-object-p").show();
 					fixitemshows();
 
+				}else if (type == 'scorm'){
+					var height = row.find(".item-height").text();
+					$("#edit-height").hide();
+                                        $("#prereqstuff").hide();
+					$("#edit-item-object-p").show();
 				}else {
 					$("#change-assignment-p").show();
 					$("#change-assignment").attr("href", 
@@ -1602,6 +1615,20 @@ $(function() {
 			$("#add-multimedia-dialog").dialog('open');
 			checksize($("#add-multimedia-dialog"));
 			//$('.edit-multimedia-input').blur();
+			return false;
+		});
+
+		$(".add-scorm").click(function(){
+			closeDropdowns();
+			$("#addLink_label").text(msg("simplepage.addLink_label_add"));
+
+			$("#scorm-item-id").val(-1);
+			var position =  $(this).position();
+			$("#add-scorm-dialog").prev().children(".ui-dialog-title").text($(this).text());
+			$("#add-scorm-dialog").dialog("option", "position", [position.left, position.top]);
+			$("#scorm-error-container").hide();
+			$("#add-scorm-dialog").dialog('open');
+			checksize($("#add-scorm-dialog"));
 			return false;
 		});
 
@@ -2265,6 +2292,17 @@ function checkSubpageForm() {
 		return false;
 	}else {
 		$('#subpage-error-container').hide();
+		return true;
+	}
+}
+
+function checkScormForm() {
+	if($('#scorm-title').val() == '') {
+		$('#scorm-error').text(msg("simplepage.page_notblank"));
+		$('#scorm-error-container').show();
+		return false;
+	}else {
+		$('#scorm-error-container').hide();
 		return true;
 	}
 }

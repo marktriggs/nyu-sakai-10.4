@@ -1128,6 +1128,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 				case SimplePageItem.TEXT: itemClassName = "textType"; break;
 				case SimplePageItem.URL: itemClassName = "urlType"; break;
 				case SimplePageItem.MULTIMEDIA: itemClassName = "multimediaType"; break;
+				case SimplePageItem.SCORM: itemClassName = "scormType"; break;
 				case SimplePageItem.FORUM: itemClassName = "forumType"; break;
 				case SimplePageItem.COMMENTS: itemClassName = "commentsType"; break;
 				case SimplePageItem.STUDENT_CONTENT: itemClassName = "studentContentType"; break;
@@ -1204,6 +1205,9 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 						itemicon.decorate(new UIFreeAttributeDecorator("src", "/library/image/silk/pencil.png"));
 						break;
 					    case SimplePageItem.BLTI:
+						itemicon.decorate(new UIFreeAttributeDecorator("src", "/library/image/silk/application_go.png"));
+						break;
+					    case SimplePageItem.SCORM:
 						itemicon.decorate(new UIFreeAttributeDecorator("src", "/library/image/silk/application_go.png"));
 						break;
 					    case SimplePageItem.PAGE:
@@ -1389,6 +1393,8 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 							else if (blti.notPublished())
 							    notPublished = true;
 						    }
+						} else if (i.getType() == SimplePageItem.SCORM) {
+						    UIOutput.make(tableRow, "type", "scorm");
 						} else if (i.getType() == SimplePageItem.FORUM) {
 							UIOutput.make(tableRow, "extra-info");
 							UIOutput.make(tableRow, "type", "8");
@@ -2830,6 +2836,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		createCommentsDialog(tofill);
 		createStudentContentDialog(tofill, currentPage);
 		createQuestionDialog(tofill, currentPage);
+		createAddScormDialog(tofill, currentPage);
 	}
 
     // get encrypted version of session id. This is our equivalent of session.id, except that we
@@ -3100,6 +3107,16 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 			} else
 			    fake = true; // need to set this in case it's available for missing entity
 		    }
+		} else if (i.getType() == SimplePageItem.SCORM) {
+			GeneralViewParameters view = new GeneralViewParameters(ShowScormProducer.VIEW_ID);
+			view.setSendingPage(currentPage.getPageId());
+			view.setItemId(i.getId());
+			UILink link = UIInternalLink.make(container, "link", view);
+			link.decorate(new UIFreeAttributeDecorator("lessonbuilderitem", itemString));
+
+			// UILink link = UILink.make(container, ID, i.getName(), URL);
+			// link.decorate(new UIFreeAttributeDecorator("lessonbuilderitem", itemString));
+			// link.decorate(new UIFreeAttributeDecorator("target", "_blank"));
 		}
 
 		String note = null;
@@ -3266,6 +3283,8 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		createFilePickerToolBarLink(ResourcePickerProducer.VIEW_ID, tofill, "add-multimedia", "simplepage.multimedia", true, false, currentPage, "simplepage.multimedia.tooltip");
 		createFilePickerToolBarLink(ResourcePickerProducer.VIEW_ID, tofill, "add-resource", "simplepage.resource", false, false,  currentPage, "simplepage.resource.tooltip");
 		UILink subpagelink = UIInternalLink.makeURL(tofill, "subpage-link", "#");
+
+		createFilePickerToolBarLink(ResourcePickerProducer.VIEW_ID, tofill, "add-scorm", "simplepage.scorm", true, false, currentPage, "simplepage.scorm.tooltip");
 
 		// content menu not on students
 		if (!studentPage) {
@@ -4065,6 +4084,28 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		UICommand.make(form, "update-question", messageLocator.getMessage("simplepage.edit"), "#{simplePageBean.updateQuestion}");
 		UICommand.make(form, "cancel-question", messageLocator.getMessage("simplepage.cancel"), null);
 	}
+
+	private void createAddScormDialog(UIContainer tofill, SimplePage currentPage) {
+		UIOutput.make(tofill, "add-scorm-dialog").decorate(new UIFreeAttributeDecorator("title", messageLocator.getMessage("simplepage.resource")));
+
+		UIForm form = UIForm.make(tofill, "add-scorm-form");
+		makeCsrf(form, "csrf22");
+
+		UIOutput.make(form, "scormtitle-label", messageLocator.getMessage("simplepage.pageTitle_label"));
+		UIInput.make(form, "scorm-title", "#{simplePageBean.scormTitle}");
+		UIOutput.make(form, "scorm-file-label", messageLocator.getMessage("simplepage.upload_label"));
+
+		FilePickerViewParameters fileparams = new FilePickerViewParameters();
+		fileparams.setSender(currentPage.getPageId());
+		fileparams.setResourceType(true);
+		fileparams.viewID = ResourcePickerProducer.VIEW_ID;
+		
+
+		UICommand.make(form, "scorm-add-item", messageLocator.getMessage("simplepage.save_message"), "#{simplePageBean.addScorm}");
+		UIInput.make(form, "scorm-item-id", "#{simplePageBean.itemId}");
+		UICommand.make(form, "scorm-cancel", messageLocator.getMessage("simplepage.cancel"), null);
+	}
+
 
 	/*
 	 * return true if the item is required and not completed, i.e. if we need to

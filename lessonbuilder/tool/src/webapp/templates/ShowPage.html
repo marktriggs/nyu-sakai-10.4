@@ -213,6 +213,10 @@ function resizeiframe(id) {
                     <div rsf:id="msg=simplepage.student-descrip"></div>
                   </li>
 		  <li>
+		    <a role="menuitem" href="#" rsf:id="add-scorm" class="add-scorm"><span rsf:id="msg.simplepage.scorm"></span></a>
+                    <div rsf:id="msg=simplepage.scorm-descrip"></div>
+		  </li>
+		  <li>
 		    <a role="menuitem" href="#" rsf:id="subpage-link" class="subpage-link"><span rsf:id="msg=simplepage.subpage"></span></a>
                     <div rsf:id="msg=simplepage.subpage-descrip"></div>
 		  </li>
@@ -924,6 +928,41 @@ function resizeiframe(id) {
                     </p>
                 </form>
 			</div>
+
+
+              <div id="add-scorm-dialog" rsf:id="add-scorm-dialog">
+                  <div class="ui-widget" id="scorm-error-container">
+                      <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"> 
+                          <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+                              <strong rsf:id="msg=simplepage.error_colon"></strong> <span id="scorm-error"></span></p>
+                      </div>
+                  </div>
+                  <form action="#" rsf:id="add-scorm-form" method="post" enctype="multipart/form-data">
+                      <input type="hidden" rsf:id="csrf22" />
+                      <div class="border instructionPanel">
+                          <p class="instruction" rsf:id="msg=simplepage.scorm.add_file_instructions"></p>
+                      </div>
+
+                      <div class="border2 controlsPanel">                 
+                          <p class="shorttext required">
+                              <span class="reqStar">*</span>
+                              <label class="scormTitle" rsf:id="scormtitle-label" for="scorm-title"></label>
+                              <input type="text" name="scorm-title" id="scorm-title" rsf:id="scorm-title" maxlength="99" length="30" /><br />
+                          </p>
+
+                          <p class="required">
+                              <label rsf:id="msg=simplepage.upload_label" for="scorm-file">File</label>
+                              <input type="file" name="scorm-file" id="scorm-file" style="width:95%" class="edit-scorm-input" />
+                          </p>
+
+                          <input type="hidden" rsf:id="scorm-item-id" id="scorm-item-id" />
+                          <input class="bold" type="submit" id="scorm-add-item" rsf:id="scorm-add-item" onclick="event.returnValue = checkScormForm(); return checkScormForm();" />
+                          <input type="submit" rsf:id="scorm-cancel" onclick="closeAddScormDialog(); return false" />
+                      </div>
+                  </form>			    
+              </div>
+
+
 
 			<div id="add-multimedia-dialog" rsf:id="add-multimedia-dialog">
 				<div class="ui-widget" id="mm-error-container">
