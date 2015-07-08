@@ -2307,6 +2307,12 @@ function checkScormForm() {
 	}
 }
 
+function closeAddScormDialog() {
+	$("#add-scorm-dialog").dialog("close");
+	$('#scorm-error-container').hide();
+}
+
+
 function disableSecondaryRequirements() {
 	$("item-required2").attr("disabled", true);
 	$("assignment-dropdown-selection").attr("disabled", true);

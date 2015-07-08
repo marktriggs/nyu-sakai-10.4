@@ -4095,12 +4095,11 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		UIInput.make(form, "scorm-title", "#{simplePageBean.scormTitle}");
 		UIOutput.make(form, "scorm-file-label", messageLocator.getMessage("simplepage.upload_label"));
 
-		FilePickerViewParameters fileparams = new FilePickerViewParameters();
-		fileparams.setSender(currentPage.getPageId());
-		fileparams.setResourceType(true);
-		fileparams.viewID = ResourcePickerProducer.VIEW_ID;
+		// FilePickerViewParameters fileparams = new FilePickerViewParameters();
+		// fileparams.setSender(currentPage.getPageId());
+		// fileparams.setResourceType(true);
+		// fileparams.viewID = ResourcePickerProducer.VIEW_ID;
 		
-
 		UICommand.make(form, "scorm-add-item", messageLocator.getMessage("simplepage.save_message"), "#{simplePageBean.addScorm}");
 		UIInput.make(form, "scorm-item-id", "#{simplePageBean.itemId}");
 		UICommand.make(form, "scorm-cancel", messageLocator.getMessage("simplepage.cancel"), null);

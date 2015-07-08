@@ -96,17 +96,32 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 	}
     
 	public void fillComponents(UIContainer tofill, ViewParameters viewParams, ComponentChecker checker) {
-
-	    ScormCloudService scorm = (ScormCloudService)ComponentManager.get("org.sakaiproject.scormcloudservice.api.ScormCloudService");
-
-	    GeneralViewParameters params = (GeneralViewParameters)viewParams;
-
-	    try {
-		httpServletResponse.sendRedirect(scorm.getScormPlayerUrl(params.getItemId().toString()));
-	    } catch (IOException e) {
-	    } catch (ScormRegistrationNotFoundException e) {
-	    } catch (ScormException e) {
+	    if (simplePageBean.canEditPage()) {
+		    showStatusPage(tofill, viewParams);
+            } else {
+		    redirectToPlayer(tofill, viewParams);
 	    }
+	}
+
+	private void showStatusPage(UIContainer tofill, ViewParameters viewParams) {
+                UIOutput.make(tofill, "html").decorate(new UIFreeAttributeDecorator("lang", localeGetter.get().getLanguage()))
+			.decorate(new UIFreeAttributeDecorator("xml:lang", localeGetter.get().getLanguage()));
+
+		UIOutput.make(tofill, "scorm-item-status", messageLocator.getMessage("simplepage.scorm.new_status"));
+	}
+
+	private ScormCloudService scormService() {
+		return (ScormCloudService)ComponentManager.get("org.sakaiproject.scormcloudservice.api.ScormCloudService");
+	}
+
+	private void redirectToPlayer(UIContainer tofill, ViewParameters viewParams) {
+		try {
+			GeneralViewParameters params = (GeneralViewParameters)viewParams;
+			httpServletResponse.sendRedirect(scormService().getScormPlayerUrl(params.getItemId().toString()));
+		} catch (IOException e) {
+		} catch (ScormRegistrationNotFoundException e) {
+		} catch (ScormException e) {
+		}
 	}
 
 	public void setSimplePageBean(SimplePageBean simplePageBean) {

@@ -43,6 +43,7 @@ import org.sakaiproject.entity.api.ResourceProperties;
 import org.sakaiproject.entity.api.ResourcePropertiesEdit;
 import org.sakaiproject.event.cover.EventTrackingService;
 import org.sakaiproject.event.cover.NotificationService;
+import org.sakaiproject.exception.IdUsedException;
 import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.exception.PermissionException;
 import org.sakaiproject.exception.TypeException;
@@ -88,6 +89,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.sakaiproject.lessonbuildertool.tool.beans.helpers.ResourceHelper;
 import au.com.bytecode.opencsv.CSVParser;
+
+import org.sakaiproject.scormcloudservice.api.ScormCloudService;
+import org.sakaiproject.scormcloudservice.api.ScormException;
+
 
 /**
  * Backing bean for Simple pages
@@ -7311,6 +7316,13 @@ public class SimplePageBean {
 
 
 	public void addScorm() {
+		ScormCloudService scorm = (ScormCloudService)org.sakaiproject.component.cover.ComponentManager.get("org.sakaiproject.scormcloudservice.api.ScormCloudService");
+
+		if (scorm == null) {
+			throw new RuntimeException("Couldn't contact SCORM module");
+		}
+
+
 		if (!itemOk(itemId))
 			return;
 		if (!canEditPage())
@@ -7338,6 +7350,45 @@ public class SimplePageBean {
 		}
 
 		mimeType = file.getContentType();
+		String siteId = getCurrentSiteId();
+
+		String resourceId;
+
+		try {
+			String folderName = "SCORM-MODULES";
+			String collectionId = contentHostingService.getSiteCollection(siteId) + folderName + "/";
+
+			try {
+				ContentCollectionEdit edit =  contentHostingService.addCollection(collectionId);
+				edit.getPropertiesEdit().addProperty(ResourceProperties.PROP_DISPLAY_NAME, folderName);
+				edit.setHidden();
+				contentHostingService.commitCollection(edit);
+			} catch (IdUsedException e) {
+			}
+
+			String base = IdManager.getInstance().createUuid();
+			String extension = "zip";
+
+			ContentResourceEdit res = contentHostingService.addResource(collectionId, 
+					base, extension, MAXIMUM_ATTEMPTS_FOR_UNIQUENESS);
+			res.setContentType(mimeType);
+			res.setContent(file.getInputStream());
+
+			try {
+				contentHostingService.commitResource(res, NotificationService.NOTI_NONE);
+			} catch (java.lang.NullPointerException e) {
+			}
+
+			resourceId = res.getId();
+
+		} catch (org.sakaiproject.exception.OverQuotaException ignore) {
+			setErrMessage(messageLocator.getMessage("simplepage.overquota"));
+			return;
+		} catch (Exception e) {
+			setErrMessage(messageLocator.getMessage("simplepage.resourceerror").replace("{}", e.toString()));
+			log.error("addMultimedia error 1 " + e);
+			return;
+		}
 
 		SimplePageItem item = null;
 
@@ -7355,7 +7406,7 @@ public class SimplePageBean {
 
 
 		String toolId = ((ToolConfiguration) toolManager.getCurrentPlacement()).getPageId();
-		SimplePage subpage = simplePageToolDao.makePage(toolId, getCurrentSiteId(), scormTitle, parent, topParent);
+		SimplePage subpage = simplePageToolDao.makePage(toolId, siteId, scormTitle, parent, topParent);
 		subpage.setOwner(owner);
 		subpage.setGroup(group);
 		saveItem(subpage);
@@ -7375,260 +7426,11 @@ public class SimplePageBean {
 
 		update(item);
 
-
-		/*
-		  SecurityAdvisor advisor = null;
-		  try {
-		  if(getCurrentPage().getOwner() != null) {
-		  advisor = new SecurityAdvisor() {
-		  public SecurityAdvice isAllowed(String userId, String function, String reference) {
-		  return SecurityAdvice.ALLOWED;
-		  }
-		  };
-		  securityService.pushAdvisor(advisor);
-		  }
-			
-		  String name = null;
-		  String sakaiId = null;
-		  String mimeType = null;
-		  MultipartFile file = null;
-			
-		  if (multipartMap.size() > 0) {
-		  // 	user specified a file, create it
-		  file = multipartMap.values().iterator().next();
-		  // zero length is valid. We get that if it's not a file upload
-		  if (file.isEmpty())
-		  file = null;
-
-		  }
-			
-		  if (file != null) {
-		  if (!uploadSizeOk(file))
-		  return;
-
-		  String collectionId = getCollectionId(false);
-		  // 	user specified a file, create it
-		  name = file.getOriginalFilename();
-		  if (name == null || name.length() == 0)
-		  name = file.getName();
-		  int i = name.lastIndexOf("/");
-		  if (i >= 0)
-		  name = name.substring(i+1);
-		  String base = name;
-		  String extension = "";
-		  i = name.lastIndexOf(".");
-		  if (i > 0) {
-		  base = name.substring(0, i);
-		  extension = name.substring(i+1);
-		  }
-				
-		  mimeType = file.getContentType();
-		  try {
-		  ContentResourceEdit res = contentHostingService.addResource(collectionId, 
-		  Validator.escapeResourceName(base),
-		  Validator.escapeResourceName(extension),
-		  MAXIMUM_ATTEMPTS_FOR_UNIQUENESS);
-		  if (isCaption)
-		  res.setContentType("text/vtt");
-		  else
-		  res.setContentType(mimeType);
-		  res.setContent(file.getInputStream());
-		  try {
-		  contentHostingService.commitResource(res,  NotificationService.NOTI_NONE);
-		  // 	there's a bug in the kernel that can cause
-		  // 	a null pointer if it can't determine the encoding
-		  // 	type. Since we want this code to work on old
-		  // 	systems, work around it.
-		  } catch (java.lang.NullPointerException e) {
-		  setErrMessage(messageLocator.getMessage("simplepage.resourcepossibleerror"));
-		  }
-		  sakaiId = res.getId();
-
-		  if(("application/zip".equals(mimeType) || "application/x-zip-compressed".equals(mimeType))  && isWebsite) {
-		  // We need to set the sakaiId to the resource id of the index file
-		  sakaiId = expandZippedResource(sakaiId);
-		  if (sakaiId == null)
-		  return;
-					    
-		  // We set this special type for the html field in the db. This allows us to
-		  // map an icon onto website links in applicationContext.xml
-		  mimeType = "LBWEBSITE";
-		  }		    
-					
-		  } catch (org.sakaiproject.exception.OverQuotaException ignore) {
-		  setErrMessage(messageLocator.getMessage("simplepage.overquota"));
-		  return;
-		  } catch (Exception e) {
-		  setErrMessage(messageLocator.getMessage("simplepage.resourceerror").replace("{}", e.toString()));
-		  log.error("addMultimedia error 1 " + e);
-		  return;
-		  };
-		  } else if (mmUrl != null && !mmUrl.trim().equals("") && multimediaDisplayType != 1 && multimediaDisplayType != 3) {
-		  // 	user specified a URL, create the item
-		  String url = mmUrl.trim();
-		  // if user gives a plain hostname, make it a URL.
-		  // ui add https if page is displayed with https. I'm reluctant to use protocol-relative
-		  // urls, because I don't know whether all the players understand it.
-		  if (!url.startsWith("http:") && !url.startsWith("https:") && !url.startsWith("/")) {
-		  String atom = url;
-		  int i = atom.indexOf("/");
-		  if (i >= 0)
-		  atom = atom.substring(0, i);
-		  // first atom is hostname
-		  if (atom.indexOf(".") >= 0) {
-		  String server= ServerConfigurationService.getServerUrl();
-		  if (server.startsWith("https:"))
-		  url = "https://" + url;
-		  else
-		  url = "http://" + url;
-		  }
-		  }
-				
-		  name = url;
-		  String basename = url;
-		  // SAK-11816 method for creating resource ID
-		  String extension = ".url";
-		  if (basename != null && basename.length() > 32) {
-		  // lose the http first                              
-		  if (basename.startsWith("http:")) {
-		  basename = basename.substring(7);
-		  } else if (basename.startsWith("https:")) {
-		  basename = basename.substring(8);
-		  }
-		  if (basename.length() > 32) {
-		  // max of 18 chars from the URL itself                      
-		  basename = basename.substring(0, 18);
-		  // add a timestamp to differentiate it (+14 chars)          
-		  Format f= new SimpleDateFormat("yyyyMMddHHmmss");
-		  basename += f.format(new Date());
-		  // total new length of 32 chars                             
-		  }
-		  }
-
-		  String collectionId;
-		  SimplePage page = getCurrentPage();
-				
-		  collectionId = getCollectionId(true);
-				
-		  try {
-		  // 	urls aren't something people normally think of as resources. Let's hide them
-		  ContentResourceEdit res = contentHostingService.addResource(collectionId, 
-		  Validator.escapeResourceName(basename),
-		  Validator.escapeResourceName(extension),
-		  MAXIMUM_ATTEMPTS_FOR_UNIQUENESS);
-		  res.setContentType("text/url");
-		  res.setResourceType("org.sakaiproject.content.types.urlResource");
-		  res.setContent(url.getBytes());
-		  contentHostingService.commitResource(res, NotificationService.NOTI_NONE);
-		  sakaiId = res.getId();
-		  } catch (org.sakaiproject.exception.OverQuotaException ignore) {
-		  setErrMessage(messageLocator.getMessage("simplepage.overquota"));
-		  return;
-		  } catch (Exception e) {
-		  setErrMessage(messageLocator.getMessage("simplepage.resourceerror").replace("{}", e.toString()));
-		  log.error("addMultimedia error 2 " + e);
-		  return;
-		  }
-		  // 	connect to url and get mime type
-		  // new dialog passes the mime type
-		  if (multimediaMimeType != null && ! "".equals(multimediaMimeType))
-		  mimeType = multimediaMimeType;
-		  else
-		  mimeType = getTypeOfUrl(url);
-				
-		  } else if (mmUrl != null && !mmUrl.trim().equals("") && (multimediaDisplayType == 1 || multimediaDisplayType == 3)) {
-		  // fall through. we have an embed code, don't need file
-		  } else
-		  // 	nothing to do
-		  return;
-			
-		  // 	itemId tells us whether it's an existing item
-		  // 	isMultimedia tells us whether resource or multimedia
-		  // 	sameWindow is only passed for existing items of type HTML/XHTML
-		  //   	for new items it should be set true for HTML/XTML, false otherwise
-		  //   	for existing items it should be set to the passed value for HTML/XMTL, false otherwise
-		  //   	it is ignored for isMultimedia, as those are always displayed inline in the current page
-			
-		  SimplePageItem item = null;
-		  if (itemId == -1 && isMultimedia) {
-		  int seq = getItemsOnPage(getCurrentPageId()).size() + 1;
-		  item = simplePageToolDao.makeItem(getCurrentPageId(), seq, SimplePageItem.MULTIMEDIA, sakaiId, name);
-		  } else if(itemId == -1 && isWebsite) {
-		  String websiteName = name.substring(0,name.indexOf("."));
-		  int seq = getItemsOnPage(getCurrentPageId()).size() + 1;
-		  item = simplePageToolDao.makeItem(getCurrentPageId(), seq, SimplePageItem.RESOURCE, sakaiId, websiteName);
-		  } else if (itemId == -1) {
-		  int seq = getItemsOnPage(getCurrentPageId()).size() + 1;
-		  item = simplePageToolDao.makeItem(getCurrentPageId(), seq, SimplePageItem.RESOURCE, sakaiId, name);
-		  } else if (isCaption) {
-		  item = findItem(itemId);
-		  if (item == null)
-		  return;
-		  item.setAttribute("captionfile", sakaiId);
-		  update(item);
-		  return;
-		  } else {
-		  item = findItem(itemId);
-		  if (item == null)
-		  return;
-				
-		  // editing an existing item which might have customized properties
-		  // retrieve original resource and check for customizations
-		  ResourceHelper resHelp = new ResourceHelper(getContentResource(item.getSakaiId()));
-		  boolean hasCustomName = resHelp.isNameCustom(item.getName());
-				
-		  item.setSakaiId(sakaiId);
-		  if (!hasCustomName)
-		  {
-		  item.setName(name);
-		  }
-		  }
-			
-		  // for new file, old captions don't make sense
-		  item.removeAttribute("captionfile");
-		  // remember who added it, for permission checks
-		  item.setAttribute("addedby", getCurrentUserId());
-
-		  item.setPrerequisite(this.prerequisite);
-
-		  if (mimeType != null) {
-		  item.setHtml(mimeType);
-		  } else {
-		  item.setHtml(null);
-		  }
-			
-		  if (mmUrl != null && !mmUrl.trim().equals("") && isMultimedia) {
-		  if (multimediaDisplayType == 1)
-		  // the code is filtered by the UI, so the user can see the effect.
-		  // This protects against someone handcrafting a post.
-		  // The code is similar to that in submit, but currently doesn't
-		  // have folder-specific override (because there are no folders involved)
-		  item.setAttribute("multimediaEmbedCode", AjaxServer.filterHtml(mmUrl.trim()));
-		  else if (multimediaDisplayType == 3)
-		  item.setAttribute("multimediaUrl", mmUrl.trim());
-		  item.setAttribute("multimediaDisplayType", Integer.toString(multimediaDisplayType));
-		  }
-		  // 	if this is an existing item and a resource, leave it alone
-		  // 	otherwise initialize to false
-		  if (isMultimedia || itemId == -1)
-		  item.setSameWindow(false);
-			
-		  clearImageSize(item);
-		  try {
-		  if (itemId == -1)
-		  saveItem(item);
-		  else
-		  update(item);
-		  } catch (Exception e) {
-		  System.out.println("save error " + e);
-		  // 	saveItem and update produce the errors
-		  }
-		  }catch(Exception ex) {
-		  ex.printStackTrace();
-		  } finally {
-		  if(advisor != null) securityService.popAdvisor();
-		  }
-		*/
+		try {
+			scorm.addCourse(siteId, String.valueOf(item.getId()), resourceId);
+		} catch (ScormException e) {
+			log.error("Failure when adding a new module to SCORM Cloud", e);
+		}
 	}
 
 

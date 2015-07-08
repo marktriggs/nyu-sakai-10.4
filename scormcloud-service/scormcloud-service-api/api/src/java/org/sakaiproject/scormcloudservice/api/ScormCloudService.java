@@ -5,4 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 public interface ScormCloudService
 {
     public String getScormPlayerUrl(String externalId) throws ScormRegistrationNotFoundException, ScormException;
+
+    public void addCourse(String siteId, String externalId, String resourceId) throws ScormException;
 }
