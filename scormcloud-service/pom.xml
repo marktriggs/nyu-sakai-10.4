@@ -18,6 +18,7 @@
   </parent>
 
   <modules>
+    <module>SCORMCloud_JavaLibrary</module>
     <module>scormcloud-service-api/api</module>
     <module>scormcloud-service-impl/impl</module>
     <module>scormcloud-service-impl/pack</module>
