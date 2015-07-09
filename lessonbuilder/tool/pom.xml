@@ -120,6 +120,7 @@
             <groupId>org.sakaiproject.scormcloudservice</groupId>
             <artifactId>scormcloud-service-api</artifactId>
             <scope>provided</scope>
+            <version>${sakai.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
