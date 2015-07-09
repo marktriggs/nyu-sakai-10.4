@@ -22,6 +22,8 @@
     <module>scormcloud-service-api/api</module>
     <module>scormcloud-service-impl/impl</module>
     <module>scormcloud-service-impl/pack</module>
+    <module>scormcloud-service-job/impl</module>
+    <module>scormcloud-service-job/pack</module>
   </modules>
 
   <dependencies>

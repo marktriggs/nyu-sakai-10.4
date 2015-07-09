@@ -6,7 +6,7 @@
 
   <name>scormcloud-service-impl</name>
   <groupId>org.sakaiproject.scormcloudservice</groupId>
-  <artifactId>scormcloud-service-impl</artifactId>
+  <artifactId>scormcloud-service-job-impl</artifactId>
   
   <packaging>jar</packaging>
   
@@ -18,18 +18,12 @@
   </parent>
 
   <properties>
-    <deploy.target />
+    <deploy.target>shared</deploy.target>
   </properties>
 
 
   <dependencies>
     
-    <dependency>
-      <groupId>com.rusticisoftware.hostedengine.client</groupId>
-      <artifactId>scormcloud-java-lib</artifactId>
-      <version>1.1.2</version>
-    </dependency>
-
     <dependency>
       <groupId>org.quartz-scheduler</groupId>
       <artifactId>quartz</artifactId>

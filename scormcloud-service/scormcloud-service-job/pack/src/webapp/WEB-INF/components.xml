@@ -3,8 +3,8 @@
 
 <beans>
 
-  <bean id="org.sakaiproject.scormcloudservice.api.ScormCloudService"
-	class="org.sakaiproject.scormcloudservice.impl.ScormCloudServiceImpl"
+  <bean id="org.sakaiproject.scormcloudservice.job.ScormSyncJobRegistration"
+	class="org.sakaiproject.scormcloudservice.job.ScormSyncJobRegistration"
         init-method="init"
         destroy-method="destroy"
 	singleton="true">

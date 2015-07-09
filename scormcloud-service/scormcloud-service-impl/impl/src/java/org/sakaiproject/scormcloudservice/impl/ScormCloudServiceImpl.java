@@ -9,29 +9,29 @@ import com.rusticisoftware.hostedengine.client.ScormCloud;
 
 import org.sakaiproject.component.cover.ServerConfigurationService;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 class ScormCloudServiceImpl implements ScormCloudService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ScormCloudServiceImpl.class);
 
     public String getScormPlayerUrl(String externalId) {
         return "http://www.sakaiproject.org";
     }
 
     public void addCourse(String siteId, String externalId, String resourceId) throws ScormException {
-        new ScormJobStore().add(siteId, externalId, resourceId);
+        ScormJobStore store = new ScormJobStore();
+        store.add(siteId, externalId, resourceId);
     }
 
     public void init() {
         Configuration config = getConfiguration();
         ScormCloud.setConfiguration(config);
-
-        try {
-            CourseService service = ScormCloud.getCourseService();
-
-            // service
-            System.err.println("\n*** DEBUG " + System.currentTimeMillis() + "[ScormCloudServiceImpl.java:26 f6c163]: " + "\n    service => " + (service) + "\n");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void destroy() {
@@ -46,10 +46,15 @@ class ScormCloudServiceImpl implements ScormCloudService {
             throw new RuntimeException("You need to specify scormcloudservice.appid and scormcloudservice.secret");
         }
 
-        return new Configuration(ServerConfigurationService.getString("scormcloudservice.url", "http://cloud.scorm.com/api"),
+        return new Configuration(ServerConfigurationService.getString("scormcloudservice.url", "https://cloud.scorm.com"),
                 ServerConfigurationService.getString("scormcloudservice.appid", ""),
                 ServerConfigurationService.getString("scormcloudservice.secret", ""),
                 "sakai.scormcloudservice");
+    }
+
+
+    public void runProcessingRound() throws ScormException {
+        new ScormCloudJobProcessor().run();
     }
 
 }
