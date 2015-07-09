@@ -7,6 +7,8 @@ import com.rusticisoftware.hostedengine.client.Configuration;
 import com.rusticisoftware.hostedengine.client.CourseService;
 import com.rusticisoftware.hostedengine.client.ScormCloud;
 
+import org.sakaiproject.component.cover.ServerConfigurationService;
+
 
 class ScormCloudServiceImpl implements ScormCloudService {
 
@@ -19,7 +21,7 @@ class ScormCloudServiceImpl implements ScormCloudService {
     }
 
     public void init() {
-        Configuration config = new Configuration("http://thweeble:2345", "poop", "poop", "nyuclasses.10.4");
+        Configuration config = getConfiguration();
         ScormCloud.setConfiguration(config);
 
         try {
@@ -33,6 +35,21 @@ class ScormCloudServiceImpl implements ScormCloudService {
     }
 
     public void destroy() {
+    }
+
+
+    public Configuration getConfiguration() {
+        String appId = ServerConfigurationService.getString("scormcloudservice.appid", "");
+        String secret = ServerConfigurationService.getString("scormcloudservice.secret", "");
+
+        if (appId.isEmpty() || secret.isEmpty()) {
+            throw new RuntimeException("You need to specify scormcloudservice.appid and scormcloudservice.secret");
+        }
+
+        return new Configuration(ServerConfigurationService.getString("scormcloudservice.url", "http://cloud.scorm.com/api"),
+                ServerConfigurationService.getString("scormcloudservice.appid", ""),
+                ServerConfigurationService.getString("scormcloudservice.secret", ""),
+                "sakai.scormcloudservice");
     }
 
 }
