@@ -14,19 +14,26 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+// FIXME: foreign keys
 /*
   create table scs_scorm_job (uuid varchar(36) primary key, siteid varchar(36), externalid varchar(255), resourceid varchar(255), ctime bigint, mtime bigint, retry_count int default 0, status varchar(32));
 
   alter table scs_scorm_job add index (status);
 
   create table scs_scorm_course (uuid varchar(36) primary key, siteid varchar(36), externalid varchar(255), resourceid varchar(255), ctime bigint, mtime bigint);
+
+  alter table scs_scorm_course add index (siteid, externalid);
+
+  create table scs_scorm_registration (uuid varchar(36) primary key, courseid varchar(36), userid varchar(36), ctime bigint, mtime bigint);
+
+  alter table scs_scorm_registration add index (courseid, userid);
 */
 
 
 /*
  * Manage the SCORM uploads through their processing stages.
  */
-public class ScormJobStore {
+public class ScormServiceStore {
 
     // FIXME: add a sakai.properties entry for these.
     final int RETRY_COUNT = 3;
@@ -68,7 +75,7 @@ public class ScormJobStore {
     }
 
 
-    public void add(final String siteId, final String externalId, final String resourceId) throws ScormException {
+    public void addCourse(final String siteId, final String externalId, final String resourceId) throws ScormException {
         final String sql = "insert into scs_scorm_job (uuid, siteid, externalid, resourceid, ctime, mtime, retry_count, status) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
@@ -77,7 +84,7 @@ public class ScormJobStore {
                     PreparedStatement ps = null;
                     ps = connection.prepareStatement(sql);
                     try {
-                        ps.setString(1, IdManager.getInstance().createUuid());
+                        ps.setString(1, mintId());
                         ps.setString(2, siteId);
                         ps.setString(3, externalId);
                         ps.setString(4, resourceId);
@@ -225,6 +232,104 @@ public class ScormJobStore {
         } catch (SQLException e) {
             throw new ScormException("Failure when changing job status", e);
         }
+    }
+
+
+    public String findCourse(final String siteId, final String externalId) throws ScormException {
+        final String[] result = { null };
+
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+                    ResultSet rs = null;
+                    try {
+                        // Find the ID for the course
+                        ps = connection.prepareStatement("select uuid from scs_scorm_course where siteid = ? AND externalid = ?");
+                        ps.setString(1, siteId);
+                        ps.setString(2, externalId);
+                        rs = ps.executeQuery();
+
+                        if (rs.next()) {
+                            result[0] = rs.getString("uuid");
+                        }
+                    } finally {
+                        if (rs != null) { rs.close(); }
+                        if (ps != null) { ps.close(); }
+                    }
+                }
+            });
+
+            return result[0];
+        } catch (Exception e) {
+            throw new ScormException("Failure when searching for course", e);
+        }
+    }
+
+
+    public String hasRegistration(final String siteId, final String externalId, final String userId) throws ScormException {
+        final String[] result = { null };
+        final String courseId = findCourse(siteId, externalId);
+
+        if (courseId == null) {
+            throw new ScormException("Couldn't find SCORM course");
+        }
+
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+                    ResultSet rs = null;
+                    try {
+                        ps = connection.prepareStatement("select uuid from scs_scorm_registration where courseid = ? AND userid = ?");
+                        ps.setString(1, courseId);
+                        ps.setString(2, userId);
+
+                        rs = ps.executeQuery();
+                        if (rs.next()) {
+                            result[0] = rs.getString("uuid");
+                        }
+                    } finally {
+                        if (rs != null) { rs.close(); }
+                        if (ps != null) { ps.close(); }
+                    }
+                }
+            });
+
+            return result[0];
+        } catch (SQLException e) {
+            throw new ScormException("Unknown registration status", e);
+        }
+    }
+
+
+    public void recordRegistration(final String registrationId, final String courseId, final String userId)
+        throws ScormException {
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+                    try {
+                        ps = connection.prepareStatement("insert into scs_scorm_registration (uuid, courseid, userid, ctime, mtime) values (?, ?, ?, ?, ?)");
+                        ps.setString(1, registrationId);
+                        ps.setString(2, courseId);
+                        ps.setString(3, userId);
+                        ps.setLong(4, System.currentTimeMillis());
+                        ps.setLong(5, System.currentTimeMillis());
+
+                        ps.executeUpdate();
+                    } finally {
+                        if (ps != null) { ps.close(); }
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            throw new ScormException("Failed to record registration", e);
+        }
+    }
+
+    public String mintId() {
+        return IdManager.getInstance().createUuid();
     }
 
 }

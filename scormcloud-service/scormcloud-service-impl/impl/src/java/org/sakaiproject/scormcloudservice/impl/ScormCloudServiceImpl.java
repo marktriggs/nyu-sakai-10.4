@@ -5,12 +5,12 @@ import org.sakaiproject.scormcloudservice.api.ScormCloudService;
 
 import com.rusticisoftware.hostedengine.client.Configuration;
 import com.rusticisoftware.hostedengine.client.CourseService;
+import com.rusticisoftware.hostedengine.client.RegistrationService;
 import com.rusticisoftware.hostedengine.client.ScormCloud;
 
 import org.sakaiproject.component.cover.ServerConfigurationService;
-
-import java.util.Collections;
-import java.util.List;
+import org.sakaiproject.user.cover.UserDirectoryService;
+import org.sakaiproject.user.api.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +20,49 @@ class ScormCloudServiceImpl implements ScormCloudService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScormCloudServiceImpl.class);
 
-    public String getScormPlayerUrl(String externalId) {
-        return "http://www.sakaiproject.org";
+    public String getScormPlayerUrl(String siteId, String externalId) throws ScormException {
+        User currentUser = UserDirectoryService.getCurrentUser();
+
+        String registrationId = addRegistration(siteId, externalId, currentUser.getId(), currentUser.getFirstName(), currentUser.getLastName());
+
+        try {
+            RegistrationService registration = ScormCloud.getRegistrationService();
+
+            // FIXME: need a return URL
+            return registration.GetLaunchUrl(registrationId, "https://www.nyu.edu/");
+        } catch (Exception e) {
+            throw new ScormException("Couldn't determine launch URL", e);
+        }
     }
 
     public void addCourse(String siteId, String externalId, String resourceId) throws ScormException {
-        ScormJobStore store = new ScormJobStore();
-        store.add(siteId, externalId, resourceId);
+        ScormServiceStore store = new ScormServiceStore();
+        store.addCourse(siteId, externalId, resourceId);
+    }
+
+    // Return true if a registration was added.  False if we already had it.
+    public String addRegistration(String siteId, String externalId, String userId, String firstName, String lastName)
+        throws ScormException {
+        ScormServiceStore store = new ScormServiceStore();
+
+        String registrationId = null;
+
+        if ((registrationId = store.hasRegistration(siteId, externalId, userId)) != null) {
+            return registrationId;
+        }
+
+        try {
+            RegistrationService registration = ScormCloud.getRegistrationService();
+            registrationId = store.mintId();
+            String courseId = store.findCourse(siteId, externalId);
+
+            registration.CreateRegistration(registrationId, courseId, userId, firstName, lastName);
+            store.recordRegistration(registrationId, courseId, userId);
+
+            return registrationId;
+        } catch (Exception e) {
+            throw new ScormException("Failure while creating registration", e);
+        }
     }
 
     public void init() {

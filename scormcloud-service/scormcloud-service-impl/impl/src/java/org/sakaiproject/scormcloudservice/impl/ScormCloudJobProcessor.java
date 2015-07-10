@@ -4,13 +4,11 @@ import com.rusticisoftware.hostedengine.client.ScormCloud;
 import com.rusticisoftware.hostedengine.client.datatypes.ImportResult;
 
 import org.sakaiproject.scormcloudservice.api.ScormException;
-import org.sakaiproject.scormcloudservice.api.ScormCloudService;
 
 import com.rusticisoftware.hostedengine.client.Configuration;
 import com.rusticisoftware.hostedengine.client.CourseService;
 import com.rusticisoftware.hostedengine.client.ScormCloud;
 
-import org.sakaiproject.component.cover.ServerConfigurationService;
 import org.sakaiproject.content.cover.ContentHostingService;
 import org.sakaiproject.content.api.ContentResource;
 
@@ -47,10 +45,10 @@ class ScormCloudJobProcessor {
     // FIXME: Add connection timeout on the individual scorm requests too
     final int TIMEOUT_SECONDS = 300;
 
-    private ScormJobStore store;
+    private ScormServiceStore store;
 
-    public void run() throws ScormException{
-        ScormJobStore store = new ScormJobStore();
+    public void run() throws ScormException {
+        ScormServiceStore store = new ScormServiceStore();
         List<ScormJob> jobs = Collections.emptyList();
 
         try {
@@ -72,7 +70,7 @@ class ScormCloudJobProcessor {
             workers.execute(new Runnable() {
                 public void run() {
                     Thread.currentThread().setName("ScormCloudService-Job-" + job.getId());
-                    handleJob(job, new ScormJobStore());
+                    handleJob(job, new ScormServiceStore());
                 }
             });
         }
@@ -134,7 +132,7 @@ class ScormCloudJobProcessor {
     }
 
 
-    private void handleJob(final ScormJob job, final ScormJobStore store) {
+    private void handleJob(final ScormJob job, final ScormServiceStore store) {
         try {
             LOG.info("Job started");
 

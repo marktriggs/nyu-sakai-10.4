@@ -117,7 +117,9 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 	private void redirectToPlayer(UIContainer tofill, ViewParameters viewParams) {
 		try {
 			GeneralViewParameters params = (GeneralViewParameters)viewParams;
-			httpServletResponse.sendRedirect(scormService().getScormPlayerUrl(params.getItemId().toString()));
+			String currentSiteId = ToolManager.getCurrentPlacement().getContext();
+
+			httpServletResponse.sendRedirect(scormService().getScormPlayerUrl(currentSiteId, params.getItemId().toString()));
 		} catch (IOException e) {
 		} catch (ScormRegistrationNotFoundException e) {
 		} catch (ScormException e) {
