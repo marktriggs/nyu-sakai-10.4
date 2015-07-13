@@ -24,6 +24,10 @@ ScormService -> ScormAPI : createRegistration(registrationId, courseId, userId)
 
 ScormAPI -> ScormService : OK
 
+ScormService -> Database : storeRegistration(registrationId, courseId, userId)
+
+Database -> ScormService : OK
+
 ScormService -> Database : findExistingRegistration(courseId, userId)
 
 end

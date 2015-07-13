@@ -10,5 +10,7 @@ public interface ScormCloudService
 
     public String addRegistration(String siteId, String externalId, String userId, String firstName, String lastName) throws ScormException;
 
-    public void runProcessingRound() throws ScormException;
+    public void runImportProcessingRound() throws ScormException;
+
+    public void runGradeSyncRound() throws ScormException;
 }

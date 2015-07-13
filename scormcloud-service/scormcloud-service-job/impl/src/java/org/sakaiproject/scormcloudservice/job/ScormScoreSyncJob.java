@@ -15,9 +15,9 @@ import org.sakaiproject.scormcloudservice.api.ScormException;
 
 import org.sakaiproject.component.cover.ComponentManager;
 
-public class ScormSyncJob implements Job
+public class ScormScoreSyncJob implements Job
 {
-    private static final Logger LOG = LoggerFactory.getLogger(ScormSyncJob.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ScormScoreSyncJob.class);
 
     public void execute(JobExecutionContext context) {
         try {
@@ -25,7 +25,7 @@ public class ScormSyncJob implements Job
 
             for (JobExecutionContext job : jobs) {
                 if (job.getTrigger().getKey().equals(context.getTrigger().getKey()) && !job.getJobInstance().equals(this)) {
-                    LOG.info("ScormSyncJob is already running.  Skipping this run.");
+                    LOG.info("ScormScoreSyncJob is already running.  Skipping this run.");
                     return;
                 }
             }
@@ -37,9 +37,9 @@ public class ScormSyncJob implements Job
         ScormCloudService scorm = (ScormCloudService) ComponentManager.get("org.sakaiproject.scormcloudservice.api.ScormCloudService");
 
         try {
-            scorm.runProcessingRound();
+            scorm.runGradeSyncRound();
         } catch (ScormException e) {
-            LOG.error("Failure while running SCORM Cloud service processing round", e);
+            LOG.error("Failure while running SCORM Cloud service score processing round", e);
         }
     }
 

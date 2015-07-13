@@ -21,9 +21,6 @@ public class ScormSyncJobRegistration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScormSyncJobRegistration.class);
 
-    String JOB_NAME = "ScormSyncJob";
-    String JOB_GROUP = "ScormSyncJob";
-
     public void init()
     {
         SchedulerManager schedulerManager = (SchedulerManager) ComponentManager.get("org.sakaiproject.api.app.scheduler.SchedulerManager");
@@ -36,28 +33,32 @@ public class ScormSyncJobRegistration {
                 return;
             }
 
-            // Delete any old instances of the job
-            scheduler.deleteJob(JOB_NAME, JOB_GROUP);
-
-            // Then reschedule it
-            String cronTrigger = ServerConfigurationService.getString("scormcloudservice.sync-job-cron", "0 * * * * ?");
-
-            JobDetail detail = new JobDetail(JOB_NAME, JOB_GROUP, ScormSyncJob.class, false, false, false);
-
-            detail.getJobDataMap().put(JobBeanWrapper.SPRING_BEAN_NAME, this.getClass().toString());
-
-            Trigger trigger = new CronTrigger("ScormSyncJobTrigger", "ScormSyncJob", cronTrigger);
-
-            scheduler.scheduleJob(detail, trigger);
-
-            LOG.info("Scheduled Scorm Cloud Service sync job!");
-
+            registerQuartzJob(scheduler, "ScormImportSyncJob", ScormImportSyncJob.class, ServerConfigurationService.getString("scormcloudservice.import-job-cron", "0 * * * * ?"));
+            registerQuartzJob(scheduler, "ScormScoreSyncJob", ScormScoreSyncJob.class, ServerConfigurationService.getString("scormcloudservice.score-job-cron", "0 * * * * ?"));
         } catch (SchedulerException e) {
             LOG.error("Error while scheduling Scorm Cloud Service sync job", e);
         } catch (ParseException e) {
             LOG.error("Parse error when parsing cron expression", e);
         }
     }
+
+
+    private void registerQuartzJob(Scheduler scheduler, String jobName, Class className, String cronTrigger)
+        throws SchedulerException, ParseException {
+        // Delete any old instances of the job
+        scheduler.deleteJob(jobName, jobName);
+
+        JobDetail detail = new JobDetail(jobName, jobName, className, false, false, false);
+
+        detail.getJobDataMap().put(JobBeanWrapper.SPRING_BEAN_NAME, this.getClass().toString());
+
+        Trigger trigger = new CronTrigger(jobName + "Trigger", jobName, cronTrigger);
+
+        scheduler.scheduleJob(detail, trigger);
+
+        LOG.info("Scheduled Scorm job: " + jobName);
+    }
+
 
     public void destroy()
     {

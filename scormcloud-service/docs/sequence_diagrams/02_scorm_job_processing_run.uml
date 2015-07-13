@@ -4,7 +4,7 @@
 
 title Processing pending SCORM jobs
 
-ScormSyncJob -> ScormService : runSyncRound()
+ScormImportSyncJob -> ScormService : runSyncRound()
 
 ScormService -> ScormCloudJobProcessor : run()
 
@@ -54,6 +54,6 @@ ThreadPool -> ScormCloudJobProcessor : Done
 
 ScormCloudJobProcessor -> ScormService : Done
 
-ScormService -> ScormSyncJob : Done
+ScormService -> ScormImportSyncJob : Done
 
 @enduml

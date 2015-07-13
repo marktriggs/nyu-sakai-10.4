@@ -6,6 +6,7 @@ import org.sakaiproject.scormcloudservice.api.ScormCloudService;
 import com.rusticisoftware.hostedengine.client.Configuration;
 import com.rusticisoftware.hostedengine.client.CourseService;
 import com.rusticisoftware.hostedengine.client.RegistrationService;
+import com.rusticisoftware.hostedengine.client.datatypes.RegistrationData;
 import com.rusticisoftware.hostedengine.client.ScormCloud;
 
 import org.sakaiproject.component.cover.ServerConfigurationService;
@@ -14,7 +15,8 @@ import org.sakaiproject.user.api.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.util.Date;
+import java.util.List;
 
 class ScormCloudServiceImpl implements ScormCloudService {
 
@@ -23,7 +25,17 @@ class ScormCloudServiceImpl implements ScormCloudService {
     public String getScormPlayerUrl(String siteId, String externalId) throws ScormException {
         User currentUser = UserDirectoryService.getCurrentUser();
 
-        String registrationId = addRegistration(siteId, externalId, currentUser.getId(), currentUser.getFirstName(), currentUser.getLastName());
+        String firstName = currentUser.getFirstName();
+        if (firstName == null || "".equals(firstName)) {
+            firstName = currentUser.getEid();
+        }
+
+        String lastName = currentUser.getLastName();
+        if (lastName == null || "".equals(lastName)) {
+            lastName = currentUser.getEid();
+        }
+
+        String registrationId = addRegistration(siteId, externalId, currentUser.getId(), firstName, lastName);
 
         try {
             RegistrationService registration = ScormCloud.getRegistrationService();
@@ -89,8 +101,13 @@ class ScormCloudServiceImpl implements ScormCloudService {
     }
 
 
-    public void runProcessingRound() throws ScormException {
+    public void runImportProcessingRound() throws ScormException {
         new ScormCloudJobProcessor().run();
+    }
+
+
+    public void runGradeSyncRound() throws ScormException {
+        new GradeSyncProcessor().run();
     }
 
 }

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 // FIXME: foreign keys
@@ -27,6 +28,11 @@ import java.util.List;
   create table scs_scorm_registration (uuid varchar(36) primary key, courseid varchar(36), userid varchar(36), ctime bigint, mtime bigint);
 
   alter table scs_scorm_registration add index (courseid, userid);
+
+  create table scs_scorm_job_info (jobname varchar(36) primary key, last_run_time bigint);
+
+  create table scs_scorm_scores (registrationid varchar(36) primary key, score int);
+
 */
 
 
@@ -260,6 +266,8 @@ public class ScormServiceStore {
                 }
             });
 
+            markCourseForGradeSync(result[0]);
+
             return result[0];
         } catch (Exception e) {
             throw new ScormException("Failure when searching for course", e);
@@ -330,6 +338,120 @@ public class ScormServiceStore {
 
     public String mintId() {
         return IdManager.getInstance().createUuid();
+    }
+
+
+    public void markCourseForGradeSync(final String courseId) throws ScormException {
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+                    try {
+                        // Update the job
+                        ps = connection.prepareStatement("update scs_scorm_course set mtime = ? where uuid = ?");
+                        ps.setLong(1, System.currentTimeMillis());
+                        ps.setString(2, courseId);
+                        ps.executeUpdate();
+                        connection.commit();
+                    } finally {
+                        if (ps != null) { ps.close(); }
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            throw new ScormException("Failure when changing job status", e);
+        }
+    }
+
+
+    public CoursesForSync getCoursesNeedingSync() throws ScormException {
+        final List<String> courseIds = new ArrayList<String>();
+        final long[] lastSyncTime = new long[1];
+
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+                    ResultSet rs = null;
+
+                    try {
+                        ps = connection.prepareStatement("select last_run_time from scs_scorm_job_info where jobname = 'GradeSync'");
+                        rs = ps.executeQuery();
+
+                        if (rs.next()) {
+                            lastSyncTime[0] = rs.getLong("last_run_time");
+                        }
+
+                        ps = connection.prepareStatement("select uuid from scs_scorm_course where mtime >= ? AND uuid in (select distinct reg.courseid from scs_scorm_registration reg left outer join scs_scorm_scores scores on reg.uuid = scores.registrationid where scores.registrationid is null)");
+
+                        ps.setLong(1, lastSyncTime[0]);
+
+                        rs = ps.executeQuery();
+                        while (rs.next()) {
+                            courseIds.add(rs.getString("uuid"));
+                        }
+                    } finally {
+                        if (rs != null) { rs.close(); }
+                        if (ps != null) { ps.close(); }
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            throw new ScormException("Unknown registration status", e);
+        }
+
+        return new CoursesForSync(courseIds, lastSyncTime[0]);
+    }
+
+
+    public void setLastSyncTime(final Date newSyncTime) throws ScormException {
+        final long syncOffsetAmount = 30000;
+
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+
+                    long offsetTime = newSyncTime.getTime() - syncOffsetAmount;
+
+                    try {
+                        ps = connection.prepareStatement("insert into scs_scorm_job_info (jobname, last_run_time) values ('GradeSync', ?)");
+                        ps.setLong(1, offsetTime);
+                        ps.executeUpdate();
+                    } catch (SQLException e) {
+                        ps = connection.prepareStatement("update scs_scorm_job_info set last_run_time = ? where jobname = 'GradeSync'");
+                        ps.setLong(1, offsetTime);
+                        ps.executeUpdate();
+                    } finally {
+                        if (ps != null) { ps.close(); }
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            throw new ScormException("Couldn't update sync time", e);
+        }
+    }
+
+
+    public void recordScore(final String registrationId, final Long score) throws ScormException {
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+
+                    try {
+                        ps = connection.prepareStatement("insert into scs_scorm_scores (registrationid, score) values (?, ?)");
+                        ps.setString(1, registrationId);
+                        ps.setLong(2, score);
+                        ps.executeUpdate();
+                    } finally {
+                        if (ps != null) { ps.close(); }
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            throw new ScormException("Couldn't update sync time", e);
+        }
     }
 
 }
