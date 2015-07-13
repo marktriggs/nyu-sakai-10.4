@@ -654,10 +654,13 @@ function resizeiframe(id) {
                         <span style="display:none" rsf:id="questionGradebookTitle" class="questionGradebookTitle"></span>
                         <span style="display:none" rsf:id="questionitem-required" class="questionitem-required"></span>
                         <span style="display:none" rsf:id="questionitem-prerequisite" class="questionitem-prerequisite"></span>
-			<span style="display:none" rsf:id="questionitem-groups" class="item-groups"></span>
+
                         <span style="display:none" rsf:id="questionCorrectText" class="questionCorrectText"></span>
                         <span style="display:none" rsf:id="questionIncorrectText" class="questionIncorrectText"></span>
                     </div>
+
+                    <span style="display:none" rsf:id="scormGraded" class="scormGraded"></span>
+
                 </li>
             </ul>
 			<script rsf:id="swfobject" type="text/javascript" src="swfobject.js"></script>
@@ -849,6 +852,13 @@ function resizeiframe(id) {
                           <a href="#" rsf:id="edit-item-settings" id="edit-item-settings"><span rsf:id="edit-item-settings-text" id="edit-item-settings-text"></span></a>
                             </p>
 
+                        <div id="scormstuff" style="display:none">
+                          <p class="checkbox">
+                              <input type="checkbox" name="edit-scorm-sync-to-gradebook" rsf:id="edit-scorm-sync-to-gradebook" id="edit-scorm-sync-to-gradebook" />
+                              <label for="edit-scorm-sync-to-gradebook"><span rsf:id="msg=simplepage.scorm.sync-to-gradebook"></span></label>
+                          </p>
+                        </div>
+
                         <div id="pagestuff">
                         <input type="checkbox" name="item-next" id="item-next" rsf:id="item-next" />
                         <label for="item-next" id="label-item-next"><span rsf:id="msg=simplepage.subpage-next"></span></label><br />
@@ -954,6 +964,12 @@ function resizeiframe(id) {
                               <label rsf:id="msg=simplepage.upload_label" for="scorm-file">File</label>
                               <input type="file" name="scorm-file" id="scorm-file" style="width:95%" class="edit-scorm-input" required="required" />
                           </p>
+
+                          <p class="checkbox">
+                              <input type="checkbox" name="scorm-sync-to-gradebook" id="scorm-sync-to-gradebook" rsf:id="scorm-sync-to-gradebook" />
+                              <label for="scorm-sync-to-gradebook"><span rsf:id="msg=simplepage.scorm.sync-to-gradebook"></span></label>
+                          </p>
+
 
                           <input type="hidden" rsf:id="scorm-item-id" id="scorm-item-id" />
                           <input class="bold" type="submit" id="scorm-add-item" rsf:id="scorm-add-item" onclick="event.returnValue = checkScormForm(); return checkScormForm();" />

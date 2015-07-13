@@ -1256,6 +1256,7 @@ $(function() {
 			$("#edit-item-object-p").hide();	
 			$("#edit-item-settings-p").hide();	
 			$("#pagestuff").hide();
+			$("#scormstuff").hide();
 			$("#newwindowstuff").hide();
 			$("#formatstuff").hide();
 			$("#edit-height").hide();
@@ -1381,6 +1382,8 @@ $(function() {
 					var height = row.find(".item-height").text();
 					$("#edit-height").hide();
                                         $("#prereqstuff").hide();
+					$("#scormstuff").show();
+					$('#scorm-sync-to-gradebook').prop('checked', row.find('.scormGraded').text().trim() === 'true');
 					$("#edit-item-object-p").show();
 				}else {
 					$("#change-assignment-p").show();

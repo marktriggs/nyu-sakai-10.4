@@ -1395,6 +1395,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 						    }
 						} else if (i.getType() == SimplePageItem.SCORM) {
 						    UIOutput.make(tableRow, "type", "scorm");
+						    UIOutput.make(tableRow, "scormGraded", i.getAttribute("scormGraded"));
 						} else if (i.getType() == SimplePageItem.FORUM) {
 							UIOutput.make(tableRow, "extra-info");
 							UIOutput.make(tableRow, "type", "8");
@@ -2836,7 +2837,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		createCommentsDialog(tofill);
 		createStudentContentDialog(tofill, currentPage);
 		createQuestionDialog(tofill, currentPage);
-		createAddScormDialog(tofill, currentPage);
+		createAddScormDialog(tofill, currentPage, pageItem);
 	}
 
     // get encrypted version of session id. This is our equivalent of session.id, except that we
@@ -4085,7 +4086,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		UICommand.make(form, "cancel-question", messageLocator.getMessage("simplepage.cancel"), null);
 	}
 
-	private void createAddScormDialog(UIContainer tofill, SimplePage currentPage) {
+  private void createAddScormDialog(UIContainer tofill, SimplePage currentPage, SimplePageItem pageItem) {
 		UIOutput.make(tofill, "add-scorm-dialog").decorate(new UIFreeAttributeDecorator("title", messageLocator.getMessage("simplepage.resource")));
 
 		UIForm form = UIForm.make(tofill, "add-scorm-form");
@@ -4094,6 +4095,9 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		UIOutput.make(form, "scormtitle-label", messageLocator.getMessage("simplepage.pageTitle_label"));
 		UIInput.make(form, "scorm-title", "#{simplePageBean.scormTitle}");
 		UIOutput.make(form, "scorm-file-label", messageLocator.getMessage("simplepage.upload_label"));
+
+		UIBoundBoolean.make(form, "scorm-sync-to-gradebook", "#{simplePageBean.graded}");
+		UIBoundBoolean.make(tofill, "edit-scorm-sync-to-gradebook", "#{simplePageBean.graded}");
 
 		// FilePickerViewParameters fileparams = new FilePickerViewParameters();
 		// fileparams.setSender(currentPage.getPageId());

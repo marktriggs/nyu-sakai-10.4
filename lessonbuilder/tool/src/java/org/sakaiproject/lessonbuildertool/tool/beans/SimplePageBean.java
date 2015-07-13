@@ -2630,7 +2630,11 @@ public class SimplePageBean {
 				i.setSameWindow(true);
 
 			    i.setHeight(height);
+			} else if (i.getType() == SimplePageItem.SCORM) {
+				// FIXME: Do we need to act on this if changed?
+				i.setAttribute("scormGraded", String.valueOf(graded));
 			}
+
 
 			update(i);
 
@@ -7422,12 +7426,17 @@ public class SimplePageBean {
 		item.setNextPage(subpageNext);
 		item.setFormat("");
 		item.setName(scormTitle);
+		item.setAttribute("scormGraded", String.valueOf(graded));
+
 		// item.setDescription(scormTitle);
 
 		update(item);
 
 		try {
 			scorm.addCourse(siteId, String.valueOf(item.getId()), resourceId);
+
+			// if (String.valueOf(graded)) ...
+
 		} catch (ScormException e) {
 			log.error("Failure when adding a new module to SCORM Cloud", e);
 		}
