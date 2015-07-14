@@ -1,22 +1,15 @@
 package org.sakaiproject.scormcloudservice.impl;
 
-import org.sakaiproject.scormcloudservice.api.ScormException;
-import org.sakaiproject.scormcloudservice.api.ScormCloudService;
-
 import com.rusticisoftware.hostedengine.client.Configuration;
-import com.rusticisoftware.hostedengine.client.CourseService;
 import com.rusticisoftware.hostedengine.client.RegistrationService;
-import com.rusticisoftware.hostedengine.client.datatypes.RegistrationData;
 import com.rusticisoftware.hostedengine.client.ScormCloud;
-
 import org.sakaiproject.component.cover.ServerConfigurationService;
-import org.sakaiproject.user.cover.UserDirectoryService;
+import org.sakaiproject.scormcloudservice.api.ScormCloudService;
+import org.sakaiproject.scormcloudservice.api.ScormException;
 import org.sakaiproject.user.api.User;
-
+import org.sakaiproject.user.cover.UserDirectoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.Date;
-import java.util.List;
 
 class ScormCloudServiceImpl implements ScormCloudService {
 
@@ -65,7 +58,7 @@ class ScormCloudServiceImpl implements ScormCloudService {
     }
 
     private void createGradebook(ScormServiceStore store, String siteId, String externalId, String title)
-        throws ScormException {
+            throws ScormException {
         GradebookConnection gradebook = new GradebookConnection(store);
 
         String courseId = store.findCourseOrJobId(siteId, externalId);
@@ -80,7 +73,7 @@ class ScormCloudServiceImpl implements ScormCloudService {
 
     // Return true if a registration was added.  False if we already had it.
     public String addRegistration(String siteId, String externalId, String userId, String firstName, String lastName)
-        throws ScormException {
+            throws ScormException {
 
         ScormServiceStore store = new ScormServiceStore();
         String registrationId = null;

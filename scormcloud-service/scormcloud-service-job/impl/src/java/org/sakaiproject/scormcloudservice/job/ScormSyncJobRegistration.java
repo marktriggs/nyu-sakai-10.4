@@ -1,28 +1,21 @@
 package org.sakaiproject.scormcloudservice.job;
 
-import java.text.ParseException;
-
-import org.quartz.Scheduler;
-import org.quartz.JobDetail;
-import org.quartz.Trigger;
-import org.quartz.CronTrigger;
-import org.quartz.SchedulerException;
-
+import org.quartz.*;
 import org.sakaiproject.api.app.scheduler.JobBeanWrapper;
-import org.sakaiproject.component.cover.ServerConfigurationService;
 import org.sakaiproject.api.app.scheduler.SchedulerManager;
 import org.sakaiproject.component.cover.ComponentManager;
-
+import org.sakaiproject.component.cover.ServerConfigurationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.text.ParseException;
 
 
 public class ScormSyncJobRegistration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScormSyncJobRegistration.class);
 
-    public void init()
-    {
+    public void init() {
         SchedulerManager schedulerManager = (SchedulerManager) ComponentManager.get("org.sakaiproject.api.app.scheduler.SchedulerManager");
 
         Scheduler scheduler = schedulerManager.getScheduler();
@@ -44,7 +37,7 @@ public class ScormSyncJobRegistration {
 
 
     private void registerQuartzJob(Scheduler scheduler, String jobName, Class className, String cronTrigger)
-        throws SchedulerException, ParseException {
+            throws SchedulerException, ParseException {
         // Delete any old instances of the job
         scheduler.deleteJob(jobName, jobName);
 
@@ -60,7 +53,6 @@ public class ScormSyncJobRegistration {
     }
 
 
-    public void destroy()
-    {
+    public void destroy() {
     }
 }

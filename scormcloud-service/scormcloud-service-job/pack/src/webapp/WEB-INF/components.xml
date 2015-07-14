@@ -3,11 +3,11 @@
 
 <beans>
 
-  <bean id="org.sakaiproject.scormcloudservice.job.ScormSyncJobRegistration"
-	class="org.sakaiproject.scormcloudservice.job.ScormSyncJobRegistration"
-        init-method="init"
-        destroy-method="destroy"
-	singleton="true">
-  </bean>
+    <bean id="org.sakaiproject.scormcloudservice.job.ScormSyncJobRegistration"
+          class="org.sakaiproject.scormcloudservice.job.ScormSyncJobRegistration"
+          init-method="init"
+          destroy-method="destroy"
+          singleton="true">
+    </bean>
 
 </beans>

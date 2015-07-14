@@ -1,39 +1,29 @@
 package org.sakaiproject.scormcloudservice.impl;
 
-import com.rusticisoftware.hostedengine.client.ScormCloud;
-import com.rusticisoftware.hostedengine.client.datatypes.ImportResult;
-
-import org.sakaiproject.scormcloudservice.api.ScormException;
-
-import com.rusticisoftware.hostedengine.client.Configuration;
 import com.rusticisoftware.hostedengine.client.CourseService;
 import com.rusticisoftware.hostedengine.client.ScormCloud;
-
-import org.sakaiproject.content.cover.ContentHostingService;
+import com.rusticisoftware.hostedengine.client.datatypes.ImportResult;
+import org.sakaiproject.authz.api.SecurityAdvisor;
+import org.sakaiproject.authz.cover.SecurityService;
 import org.sakaiproject.content.api.ContentResource;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-
-import java.util.Collections;
-import java.util.List;
-
+import org.sakaiproject.content.cover.ContentHostingService;
+import org.sakaiproject.exception.IdUnusedException;
+import org.sakaiproject.exception.PermissionException;
+import org.sakaiproject.exception.ServerOverloadException;
+import org.sakaiproject.exception.TypeException;
+import org.sakaiproject.scormcloudservice.api.ScormException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.Executors;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import org.sakaiproject.exception.ServerOverloadException;
-import org.sakaiproject.exception.PermissionException;
-import org.sakaiproject.exception.IdUnusedException;
-import org.sakaiproject.exception.TypeException;
-
-import org.sakaiproject.authz.cover.SecurityService;
-import org.sakaiproject.authz.api.SecurityAdvisor;
 
 class ScormCloudJobProcessor {
 
@@ -80,12 +70,13 @@ class ScormCloudJobProcessor {
             while (!workers.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
                 Thread.sleep(1000);
             }
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+        }
     }
 
 
     private ContentResource getResource(final String resourceId)
-        throws PermissionException, ServerOverloadException, IdUnusedException, TypeException {
+            throws PermissionException, ServerOverloadException, IdUnusedException, TypeException {
 
         SecurityService.pushAdvisor(new SecurityAdvisor() {
             public SecurityAdvice isAllowed(String userId, String function, String reference) {
@@ -105,7 +96,7 @@ class ScormCloudJobProcessor {
     }
 
     private File spoolResourceToFile(final ScormJob job)
-        throws IOException, PermissionException, ServerOverloadException, IdUnusedException, TypeException {
+            throws IOException, PermissionException, ServerOverloadException, IdUnusedException, TypeException {
 
         ContentResource resource = getResource(job.getResourceId());
 
@@ -124,8 +115,12 @@ class ScormCloudJobProcessor {
                 out.write(buf, 0, len);
             }
         } finally {
-            if (in != null) { in.close(); }
-            if (out != null) { out.close(); }
+            if (in != null) {
+                in.close();
+            }
+            if (out != null) {
+                out.close();
+            }
         }
 
         return tmpfile;

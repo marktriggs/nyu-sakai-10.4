@@ -26,7 +26,7 @@ public class CoursesForSync {
     public List<String> getCourseIds() {
         return courseIds;
     }
-    
+
     public Date getLastSyncTime() {
         return lastSyncTime;
     }

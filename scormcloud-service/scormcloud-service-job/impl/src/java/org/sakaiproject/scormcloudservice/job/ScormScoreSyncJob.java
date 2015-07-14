@@ -3,20 +3,15 @@ package org.sakaiproject.scormcloudservice.job;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.SchedulerException;
-
+import org.sakaiproject.component.cover.ComponentManager;
+import org.sakaiproject.scormcloudservice.api.ScormCloudService;
+import org.sakaiproject.scormcloudservice.api.ScormException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
 import java.util.List;
 
-import org.sakaiproject.scormcloudservice.api.ScormCloudService;
-import org.sakaiproject.scormcloudservice.api.ScormException;
-
-import org.sakaiproject.component.cover.ComponentManager;
-
-public class ScormScoreSyncJob implements Job
-{
+public class ScormScoreSyncJob implements Job {
     private static final Logger LOG = LoggerFactory.getLogger(ScormScoreSyncJob.class);
 
     public void execute(JobExecutionContext context) {

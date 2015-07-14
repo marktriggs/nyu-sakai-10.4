@@ -1,7 +1,6 @@
 package org.sakaiproject.scormcloudservice.api;
 
-public class ScormException extends Exception
-{
+public class ScormException extends Exception {
     public ScormException(String msg) {
         super(msg);
     }

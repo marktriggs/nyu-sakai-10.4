@@ -1,10 +1,8 @@
 package org.sakaiproject.scormcloudservice.impl;
 
-import org.sakaiproject.component.cover.ComponentManager;
-import org.sakaiproject.service.gradebook.shared.GradebookExternalAssessmentService;
-import org.sakaiproject.service.gradebook.shared.ConflictingAssignmentNameException;
 import org.sakaiproject.scormcloudservice.api.ScormException;
-
+import org.sakaiproject.service.gradebook.shared.ConflictingAssignmentNameException;
+import org.sakaiproject.service.gradebook.shared.GradebookExternalAssessmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +19,7 @@ public class GradebookConnection {
     public GradebookConnection(ScormServiceStore store) {
         this.store = store;
 
-        gradebookService = (GradebookExternalAssessmentService)org.sakaiproject.component.cover.ComponentManager.get("org.sakaiproject.service.gradebook.GradebookExternalAssessmentService");
+        gradebookService = (GradebookExternalAssessmentService) org.sakaiproject.component.cover.ComponentManager.get("org.sakaiproject.service.gradebook.GradebookExternalAssessmentService");
     }
 
 
@@ -44,7 +42,7 @@ public class GradebookConnection {
 
 
     public void createAssessmentIfMissing(String siteId, String assessmentId, String title)
-        throws ScormException {
+            throws ScormException {
         boolean succeeded = false;
 
         for (int attempt = 1; attempt < MAX_TITLE_ATTEMPTS; attempt++) {
@@ -73,9 +71,9 @@ public class GradebookConnection {
 
         if (gradebookService.isExternalAssignmentDefined(siteId, assessmentId)) {
             // Just update title
-            gradebookService.updateExternalAssessment(siteId, assessmentId, null, title, (double)100.0, null);
+            gradebookService.updateExternalAssessment(siteId, assessmentId, null, title, (double) 100.0, null);
         } else {
-            gradebookService.addExternalAssessment(siteId, assessmentId, null, title, (double)100.0, null, "SCORM Cloud Service");
+            gradebookService.addExternalAssessment(siteId, assessmentId, null, title, (double) 100.0, null, "SCORM Cloud Service");
         }
     }
 }

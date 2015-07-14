@@ -1,63 +1,27 @@
 package org.sakaiproject.scormcloudservice.impl;
 
-import com.rusticisoftware.hostedengine.client.ScormCloud;
-import com.rusticisoftware.hostedengine.client.datatypes.ImportResult;
-
-import org.sakaiproject.scormcloudservice.api.ScormException;
-
-import com.rusticisoftware.hostedengine.client.Configuration;
 import com.rusticisoftware.hostedengine.client.RegistrationService;
 import com.rusticisoftware.hostedengine.client.ScormCloud;
 import com.rusticisoftware.hostedengine.client.datatypes.RegistrationData;
-
-import org.sakaiproject.content.cover.ContentHostingService;
-import org.sakaiproject.content.api.ContentResource;
-
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.sakaiproject.component.cover.ComponentManager;
+import org.sakaiproject.scormcloudservice.api.ScormException;
+import org.sakaiproject.tool.api.Session;
+import org.sakaiproject.tool.api.SessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import org.sakaiproject.exception.ServerOverloadException;
-import org.sakaiproject.exception.PermissionException;
-import org.sakaiproject.exception.IdUnusedException;
-import org.sakaiproject.exception.TypeException;
-
-import org.sakaiproject.authz.cover.SecurityService;
-import org.sakaiproject.authz.api.SecurityAdvisor;
+import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
-
-import org.sakaiproject.tool.api.SessionManager;
-import org.sakaiproject.tool.api.Session;
-import org.sakaiproject.component.cover.ComponentManager;
-
-import java.util.concurrent.Future;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.*;
 
 class GradeSyncProcessor {
 
@@ -141,7 +105,8 @@ class GradeSyncProcessor {
                 while (!workers.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
                     Thread.sleep(1000);
                 }
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+            }
         }
     }
 
@@ -202,21 +167,21 @@ class GradeSyncProcessor {
         XPath xpath = xPathfactory.newXPath();
         XPathExpression expr = xpath.compile("//complete");
 
-        if (!"complete".equals((String)expr.evaluate(parsed, XPathConstants.STRING))) {
+        if (!"complete".equals((String) expr.evaluate(parsed, XPathConstants.STRING))) {
             return null;
         }
 
         xpath = xPathfactory.newXPath();
         expr = xpath.compile("//score");
 
-        String value = (String)expr.evaluate(parsed, XPathConstants.STRING);
+        String value = (String) expr.evaluate(parsed, XPathConstants.STRING);
 
         return new ScormScore(value);
     }
 
 
     private void syncCourse(final String courseId, Date lastCheckTime, final ScormServiceStore store)
-        throws ScormException {
+            throws ScormException {
         LOG.info("Syncing SCORM courseId: " + courseId);
 
         GradebookConnection gradebook = new GradebookConnection(store);

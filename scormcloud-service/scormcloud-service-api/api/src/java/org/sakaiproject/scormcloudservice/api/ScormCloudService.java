@@ -1,9 +1,6 @@
 package org.sakaiproject.scormcloudservice.api;
 
-import javax.servlet.http.HttpServletRequest;
-
-public interface ScormCloudService
-{
+public interface ScormCloudService {
     public String getScormPlayerUrl(String siteId, String externalId, String backurl) throws ScormRegistrationNotFoundException, ScormException;
 
     public void addCourse(String siteId, String externalId, String resourceId, String title, boolean graded) throws ScormException;

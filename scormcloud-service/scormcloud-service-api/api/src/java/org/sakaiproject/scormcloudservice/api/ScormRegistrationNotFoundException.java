@@ -1,5 +1,4 @@
 package org.sakaiproject.scormcloudservice.api;
 
-public class ScormRegistrationNotFoundException extends Exception
-{
+public class ScormRegistrationNotFoundException extends Exception {
 }

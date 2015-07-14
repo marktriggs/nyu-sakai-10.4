@@ -1,16 +1,13 @@
 package org.sakaiproject.scormcloudservice.impl;
 
-import org.sakaiproject.scormcloudservice.api.ScormException;
-
-import org.sakaiproject.scormcloudservice.api.ScormException;
 import org.sakaiproject.db.cover.SqlService;
 import org.sakaiproject.id.cover.IdManager;
+import org.sakaiproject.scormcloudservice.api.ScormException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -109,16 +106,18 @@ public class ScormServiceStore {
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
-                        if (ps != null) { ps.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
-            });            
+            });
         } catch (SQLException e) {
             throw new ScormException("Failure when adding job to store", e);
         }
     }
 
-    
+
     public void updateCourse(final String siteId, final String externalId, final String title, final boolean graded) throws ScormException {
         try {
             DB.connection(new DBAction() {
@@ -142,10 +141,12 @@ public class ScormServiceStore {
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
-                        if (ps != null) { ps.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
-            });            
+            });
         } catch (SQLException e) {
             throw new ScormException("Failure when updating job", e);
         }
@@ -176,8 +177,12 @@ public class ScormServiceStore {
                             result.add(job);
                         }
                     } finally {
-                        if (ps != null) { ps.close(); }
-                        if (rs != null) { rs.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
+                        if (rs != null) {
+                            rs.close();
+                        }
                     }
                 }
             });
@@ -203,7 +208,9 @@ public class ScormServiceStore {
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
-                        if (ps != null) { ps.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -234,7 +241,9 @@ public class ScormServiceStore {
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
-                        if (ps != null) { ps.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -271,7 +280,9 @@ public class ScormServiceStore {
                     } finally {
                         connection.commit();
 
-                        if (ps != null) { ps.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -282,7 +293,7 @@ public class ScormServiceStore {
 
 
     public String findCourseId(final String siteId, final String externalId) throws ScormException {
-        final String[] result = { null };
+        final String[] result = {null};
 
         try {
             DB.connection(new DBAction() {
@@ -300,8 +311,12 @@ public class ScormServiceStore {
                             result[0] = rs.getString("uuid");
                         }
                     } finally {
-                        if (rs != null) { rs.close(); }
-                        if (ps != null) { ps.close(); }
+                        if (rs != null) {
+                            rs.close();
+                        }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -320,7 +335,7 @@ public class ScormServiceStore {
             return id;
         }
 
-        final String[] result = { null };
+        final String[] result = {null};
 
         try {
             DB.connection(new DBAction() {
@@ -338,8 +353,12 @@ public class ScormServiceStore {
                             result[0] = rs.getString("uuid");
                         }
                     } finally {
-                        if (rs != null) { rs.close(); }
-                        if (ps != null) { ps.close(); }
+                        if (rs != null) {
+                            rs.close();
+                        }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -351,7 +370,7 @@ public class ScormServiceStore {
     }
 
     public String hasRegistration(final String siteId, final String externalId, final String userId) throws ScormException {
-        final String[] result = { null };
+        final String[] result = {null};
         final String courseId = findCourseId(siteId, externalId);
 
         if (courseId == null) {
@@ -373,8 +392,12 @@ public class ScormServiceStore {
                             result[0] = rs.getString("uuid");
                         }
                     } finally {
-                        if (rs != null) { rs.close(); }
-                        if (ps != null) { ps.close(); }
+                        if (rs != null) {
+                            rs.close();
+                        }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -387,7 +410,7 @@ public class ScormServiceStore {
 
 
     public void recordRegistration(final String registrationId, final String courseId, final String userId)
-        throws ScormException {
+            throws ScormException {
         try {
             DB.connection(new DBAction() {
                 public void execute(Connection connection) throws SQLException {
@@ -403,7 +426,9 @@ public class ScormServiceStore {
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
-                        if (ps != null) { ps.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -436,7 +461,9 @@ public class ScormServiceStore {
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
-                        if (ps != null) { ps.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -487,8 +514,12 @@ public class ScormServiceStore {
                             courseIds.add(rs.getString("uuid"));
                         }
                     } finally {
-                        if (rs != null) { rs.close(); }
-                        if (ps != null) { ps.close(); }
+                        if (rs != null) {
+                            rs.close();
+                        }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -518,7 +549,9 @@ public class ScormServiceStore {
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
-                        if (ps != null) { ps.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -545,7 +578,9 @@ public class ScormServiceStore {
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
-                        if (ps != null) { ps.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -567,7 +602,9 @@ public class ScormServiceStore {
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
-                        if (ps != null) { ps.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
                     }
                 }
             });
@@ -598,8 +635,12 @@ public class ScormServiceStore {
                             result[0] = course;
                         }
                     } finally {
-                        if (ps != null) { ps.close(); }
-                        if (rs != null) { rs.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
+                        if (rs != null) {
+                            rs.close();
+                        }
                     }
                 }
             });
@@ -629,8 +670,12 @@ public class ScormServiceStore {
                             result[0] = rs.getString("userId");
                         }
                     } finally {
-                        if (ps != null) { ps.close(); }
-                        if (rs != null) { rs.close(); }
+                        if (ps != null) {
+                            ps.close();
+                        }
+                        if (rs != null) {
+                            rs.close();
+                        }
                     }
                 }
             });
