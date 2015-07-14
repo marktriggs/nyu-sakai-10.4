@@ -45,6 +45,13 @@ public class ScormServiceStore {
     final int RETRY_COUNT = 3;
     final int RETRY_DELAY_MS = 0; // 600000
 
+    // When we record the time we last ran a sync job, we subtract this many
+    // milliseconds from what we store.  That way, we're a little more robust
+    // against clock drift and slow-committing transactions.  This comes at the
+    // cost of sometimes syncing the same course twice in a row, but it
+    // shouldn't matter anyway.
+    final long SYNC_OFFSET_MS = 60000;
+
     enum JOB_STATUS {
         NEW,
         PROCESSING,
@@ -82,13 +89,11 @@ public class ScormServiceStore {
 
 
     public void addCourse(final String siteId, final String externalId, final String resourceId, final String title, final boolean graded) throws ScormException {
-        final String sql = "insert into scs_scorm_job (uuid, siteid, externalid, resourceid, title, graded, ctime, mtime, retry_count, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
         try {
             DB.connection(new DBAction() {
                 public void execute(Connection connection) throws SQLException {
                     PreparedStatement ps = null;
-                    ps = connection.prepareStatement(sql);
+                    ps = connection.prepareStatement("insert into scs_scorm_job (uuid, siteid, externalid, resourceid, title, graded, ctime, mtime, retry_count, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     try {
                         ps.setString(1, mintId());
                         ps.setString(2, siteId);
@@ -151,15 +156,13 @@ public class ScormServiceStore {
         // check for things that are NEW, or failed + haven't hit their retry count + are candidates for being retried.
         final List<ScormJob> result = new ArrayList<ScormJob>();
 
-        final String sql = "select * from scs_scorm_job where status = ? OR (status = ? AND mtime <= ?)";
-
         try {
             DB.connection(new DBAction() {
                 public void execute(Connection connection) throws SQLException {
                     PreparedStatement ps = null;
                     ResultSet rs = null;
                     try {
-                        ps = connection.prepareStatement(sql);
+                        ps = connection.prepareStatement("select * from scs_scorm_job where status = ? OR (status = ? AND mtime <= ?)");
                         ps.setString(1, JOB_STATUS.NEW.toString());
                         ps.setString(2, JOB_STATUS.TEMPORARILY_FAILED.toString());
                         ps.setLong(3, System.currentTimeMillis() - RETRY_DELAY_MS);
@@ -187,14 +190,12 @@ public class ScormServiceStore {
 
 
     public void startProcessing(final ScormJob job) throws ScormException {
-        final String sql = "update scs_scorm_job set mtime = ?, status = ? WHERE uuid = ?";
-
         try {
             DB.connection(new DBAction() {
                 public void execute(Connection connection) throws SQLException {
                     PreparedStatement ps = null;
                     try {
-                        ps = connection.prepareStatement(sql);
+                        ps = connection.prepareStatement("update scs_scorm_job set mtime = ?, status = ? WHERE uuid = ?");
                         ps.setLong(1, System.currentTimeMillis());
                         ps.setString(2, JOB_STATUS.PROCESSING.toString());
                         ps.setString(3, job.getId());
@@ -304,8 +305,6 @@ public class ScormServiceStore {
                     }
                 }
             });
-
-            markCourseForGradeSync(result[0]);
 
             return result[0];
         } catch (Exception e) {
@@ -418,8 +417,14 @@ public class ScormServiceStore {
     }
 
 
-    public void markCourseForGradeSync(final String courseId) throws ScormException {
+    public void markCourseForGradeSync(final String siteId, final String externalId) throws ScormException {
         try {
+            final String courseId = findCourseId(siteId, externalId);
+
+            if (courseId == null) {
+                return;
+            }
+
             DB.connection(new DBAction() {
                 public void execute(Connection connection) throws SQLException {
                     PreparedStatement ps = null;
@@ -436,7 +441,7 @@ public class ScormServiceStore {
                 }
             });
         } catch (SQLException e) {
-            throw new ScormException("Failure when changing job status", e);
+            throw new ScormException("Failure when marking course for grade sync", e);
         }
     }
 
@@ -459,7 +464,21 @@ public class ScormServiceStore {
                             lastSyncTime[0] = rs.getLong("last_run_time");
                         }
 
-                        ps = connection.prepareStatement("select uuid from scs_scorm_course where mtime >= ? AND uuid in (select distinct reg.courseid from scs_scorm_registration reg left outer join scs_scorm_scores scores on reg.uuid = scores.registrationid where scores.registrationid is null)");
+
+                        // Originally we thought it might be worth excluding
+                        // courses that we already had a complete set of scores
+                        // for, but now I'm not sure.  It looks like grades can
+                        // be reset from the SCORM side, we might need to resync
+                        // courses just in case their grades have changed.
+                        //
+                        // ps = connection.prepareStatement("select uuid from
+                        // scs_scorm_course where mtime >= ? AND uuid in (select
+                        // distinct reg.courseid from scs_scorm_registration reg
+                        // left outer join scs_scorm_scores scores on reg.uuid =
+                        // scores.registrationid where scores.registrationid is
+                        // null)");
+
+                        ps = connection.prepareStatement("select uuid from scs_scorm_course where mtime >= ?");
 
                         ps.setLong(1, lastSyncTime[0]);
 
@@ -482,14 +501,12 @@ public class ScormServiceStore {
 
 
     public void setLastSyncTime(final Date newSyncTime) throws ScormException {
-        final long syncOffsetAmount = 30000;
-
         try {
             DB.connection(new DBAction() {
                 public void execute(Connection connection) throws SQLException {
                     PreparedStatement ps = null;
 
-                    long offsetTime = newSyncTime.getTime() - syncOffsetAmount;
+                    long offsetTime = newSyncTime.getTime() - SYNC_OFFSET_MS;
 
                     try {
                         ps = connection.prepareStatement("insert into scs_scorm_job_info (jobname, last_run_time) values ('GradeSync', ?)");
@@ -511,7 +528,7 @@ public class ScormServiceStore {
     }
 
 
-    public void recordScore(final String registrationId, final Long score) throws ScormException {
+    public void recordScore(final String registrationId, final double score) throws ScormException {
         try {
             DB.connection(new DBAction() {
                 public void execute(Connection connection) throws SQLException {
@@ -524,7 +541,7 @@ public class ScormServiceStore {
 
                         ps = connection.prepareStatement("insert into scs_scorm_scores (registrationid, score) values (?, ?)");
                         ps.setString(1, registrationId);
-                        ps.setLong(2, score);
+                        ps.setDouble(2, score);
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
@@ -538,10 +555,30 @@ public class ScormServiceStore {
     }
 
 
+    public void removeScore(final String registrationId) throws ScormException {
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+
+                    try {
+                        ps = connection.prepareStatement("delete from scs_scorm_scores where registrationid = ?");
+                        ps.setString(1, registrationId);
+                        ps.executeUpdate();
+                    } finally {
+                        connection.commit();
+                        if (ps != null) { ps.close(); }
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            throw new ScormException("Couldn't remove score for registration: " + registrationId, e);
+        }
+    }
+
+
     public ScormCourse getCourseForRegistration(final String registrationId) throws ScormException {
         final ScormCourse[] result = new ScormCourse[1];
-
-        final String sql = "select course.* from scs_scorm_course course inner join scs_scorm_registration reg on reg.courseid = course.uuid where reg.uuid = ?";
 
         try {
             DB.connection(new DBAction() {
@@ -549,7 +586,7 @@ public class ScormServiceStore {
                     PreparedStatement ps = null;
                     ResultSet rs = null;
                     try {
-                        ps = connection.prepareStatement(sql);
+                        ps = connection.prepareStatement("select course.* from scs_scorm_course course inner join scs_scorm_registration reg on reg.courseid = course.uuid where reg.uuid = ?");
                         ps.setString(1, registrationId);
 
                         rs = ps.executeQuery();
@@ -577,15 +614,13 @@ public class ScormServiceStore {
     public String getUserForRegistration(final String registrationId) throws ScormException {
         final String[] result = new String[1];
 
-        final String sql = "select * from scs_scorm_registration where uuid = ?";
-
         try {
             DB.connection(new DBAction() {
                 public void execute(Connection connection) throws SQLException {
                     PreparedStatement ps = null;
                     ResultSet rs = null;
                     try {
-                        ps = connection.prepareStatement(sql);
+                        ps = connection.prepareStatement("select * from scs_scorm_registration where uuid = ?");
                         ps.setString(1, registrationId);
 
                         rs = ps.executeQuery();

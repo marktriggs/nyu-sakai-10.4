@@ -25,13 +25,21 @@ public class GradebookConnection {
     }
 
 
-    // THINKME: should we be working with doubles instead of longs?
-    public void sendScore(String registrationId, Long scoreFromResult) throws ScormException {
+    public void sendScore(String registrationId, double scoreFromResult) throws ScormException {
         String userId = store.getUserForRegistration(registrationId);
         ScormCourse course = store.getCourseForRegistration(registrationId);
 
         createAssessmentIfMissing(course.getSiteId(), course.getId(), course.getTitle());
-        gradebookService.updateExternalAssessmentScore(course.getSiteId(), course.getId(), userId, scoreFromResult.toString());
+        gradebookService.updateExternalAssessmentScore(course.getSiteId(), course.getId(), userId, String.valueOf(scoreFromResult));
+    }
+
+
+    public void removeScore(String registrationId) throws ScormException {
+        String userId = store.getUserForRegistration(registrationId);
+        ScormCourse course = store.getCourseForRegistration(registrationId);
+
+        createAssessmentIfMissing(course.getSiteId(), course.getId(), course.getTitle());
+        gradebookService.updateExternalAssessmentScore(course.getSiteId(), course.getId(), userId, null);
     }
 
 

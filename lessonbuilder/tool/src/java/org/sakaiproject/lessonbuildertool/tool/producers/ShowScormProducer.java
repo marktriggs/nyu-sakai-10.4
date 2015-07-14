@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -81,6 +82,8 @@ import org.sakaiproject.scormcloudservice.api.ScormException;
 
 public class ShowScormProducer implements ViewComponentProducer, NavigationCaseReporter, ViewParamsReporter {
 
+	private static Log log = LogFactory.getLog(ShowScormProducer.class);
+
 	private SimplePageBean simplePageBean;
 	private SimplePageToolDao simplePageToolDao;
 	public MessageLocator messageLocator;
@@ -114,16 +117,34 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 		UIOutput.make(tofill, "scorm-title", simplePageBean.getName());	
 
 		if (simplePageBean.canEditPage()) {
+			markCourseForGradeSync(params.getItemId());
 			showStatusPage(tofill, viewParams);
 		} else {
 			if ("true".equals(httpServletRequest.getParameter("returned"))) {
 				UIOutput.make(tofill, "html").decorate(new UIFreeAttributeDecorator("lang", localeGetter.get().getLanguage()))
 					.decorate(new UIFreeAttributeDecorator("xml:lang", localeGetter.get().getLanguage()));
 
-				UIOutput.make(tofill, "scorm-item-completed");				
+				UIOutput.make(tofill, "scorm-item-completed");
+				markCourseForGradeSync(params.getItemId());
 			} else {
 				redirectToPlayer(tofill, viewParams);
 			}
+		}
+	}
+
+
+	private void markCourseForGradeSync(Long currentItemId) {
+		// Mark this course as 'touched' so grades will be propagated from SCORM cloud.
+		//
+		// There's no harm in doing this more than once (it just sets an
+		// mtime that the Quartz job notices), so we do it in a few
+		// cases just to make sure that active courses are resynced when
+		// they might have changed.
+		String currentSiteId = ToolManager.getCurrentPlacement().getContext();
+		try {
+			scormService().markCourseForGradeSync(currentSiteId, currentItemId.toString());
+		} catch (ScormException e) {
+			log.info("Failure when marking course for gradesync", e);
 		}
 	}
 

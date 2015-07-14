@@ -37,6 +37,8 @@ class ScormCloudServiceImpl implements ScormCloudService {
 
         String registrationId = addRegistration(siteId, externalId, currentUser.getId(), firstName, lastName);
 
+        markCourseForGradeSync(siteId, externalId);
+
         try {
             RegistrationService registration = ScormCloud.getRegistrationService();
             return registration.GetLaunchUrl(registrationId, backurl);
@@ -79,8 +81,8 @@ class ScormCloudServiceImpl implements ScormCloudService {
     // Return true if a registration was added.  False if we already had it.
     public String addRegistration(String siteId, String externalId, String userId, String firstName, String lastName)
         throws ScormException {
-        ScormServiceStore store = new ScormServiceStore();
 
+        ScormServiceStore store = new ScormServiceStore();
         String registrationId = null;
 
         if ((registrationId = store.hasRegistration(siteId, externalId, userId)) != null) {
@@ -124,6 +126,11 @@ class ScormCloudServiceImpl implements ScormCloudService {
                 "sakai.scormcloudservice");
     }
 
+
+    public void markCourseForGradeSync(String siteId, String externalId) throws ScormException {
+        ScormServiceStore store = new ScormServiceStore();
+        store.markCourseForGradeSync(siteId, externalId);
+    }
 
     public void runImportProcessingRound() throws ScormException {
         new ScormCloudJobProcessor().run();

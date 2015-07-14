@@ -146,8 +146,54 @@ class GradeSyncProcessor {
     }
 
 
+    private class ScormScore {
 
-    private Long extractScore(String xml) throws Exception {
+        boolean resetRequest = false;
+        boolean unknownScore = false;
+        String rawScore;
+        double score;
+
+        public ScormScore(String s) {
+            rawScore = s;
+
+            if (s.equals("unknown")) {
+                score = 0.0;
+                if (s.equals("reset")) {
+                    score = 0.0;
+                    resetRequest = true;
+                } else {
+                    try {
+                        this.score = Double.valueOf(s);
+                    } catch (NumberFormatException e) {
+                        unknownScore = true;
+                    }
+                }
+            }
+        }
+
+        public double getScore() {
+            if (resetRequest || unknownScore) {
+                throw new IllegalStateException("Can't fetch a score from an unknown/reset request");
+            }
+
+            return score;
+        }
+
+        public boolean isReset() {
+            return resetRequest;
+        }
+
+        public boolean isUnknown() {
+            return unknownScore;
+        }
+
+        public String getRawScore() {
+            return rawScore;
+        }
+    }
+
+
+    private ScormScore extractScore(String xml) throws Exception {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = dbf.newDocumentBuilder();
         Document parsed = docBuilder.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
@@ -165,15 +211,7 @@ class GradeSyncProcessor {
 
         String value = (String)expr.evaluate(parsed, XPathConstants.STRING);
 
-        if ("unknown".equals(value)) {
-            return 0l;
-        }
-
-        try {
-            return Long.valueOf(value);
-        } catch (NumberFormatException e) {
-            return null;
-        }
+        return new ScormScore(value);
     }
 
 
@@ -192,11 +230,17 @@ class GradeSyncProcessor {
                 String registrationId = registration.getRegistrationId();
                 String registrationResult = registrationService.GetRegistrationResult(registrationId);
 
-                Long scoreFromResult = extractScore(registrationResult);
+                ScormScore scoreFromResult = extractScore(registrationResult);
 
-                if (scoreFromResult != null) {
-                    store.recordScore(registrationId, scoreFromResult);
-                    gradebook.sendScore(registrationId, scoreFromResult);
+                if (scoreFromResult.isReset()) {
+                    store.removeScore(registrationId);
+                    gradebook.removeScore(registrationId);
+                } else if (scoreFromResult.isUnknown()) {
+                    LOG.error("Received an unparseable score from SCORM Cloud API for registration: " + registrationId +
+                            " score was: " + scoreFromResult.getRawScore());
+                } else {
+                    store.recordScore(registrationId, scoreFromResult.getScore());
+                    gradebook.sendScore(registrationId, scoreFromResult.getScore());
                 }
             }
         } catch (Exception e) {
