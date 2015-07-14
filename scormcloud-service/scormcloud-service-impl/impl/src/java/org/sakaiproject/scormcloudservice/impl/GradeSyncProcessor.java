@@ -22,6 +22,8 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,10 +51,19 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
+import org.sakaiproject.tool.api.SessionManager;
+import org.sakaiproject.tool.api.Session;
+import org.sakaiproject.component.cover.ComponentManager;
+
+import java.util.concurrent.Future;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
 class GradeSyncProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScormCloudJobProcessor.class);
+
+    private static final String SYNC_USER = "admin";
 
     // FIXME: sakai.properties
     final int MAX_SCORM_GRADESYNC_THREADS = 1;
@@ -80,22 +91,58 @@ class GradeSyncProcessor {
 
     private void syncCourses(final CoursesForSync courses) throws ScormException {
         ExecutorService workers = Executors.newFixedThreadPool(Math.min(courses.size(), MAX_SCORM_GRADESYNC_THREADS));
-
-        for (final String courseId : courses.getCourseIds()) {
-            workers.execute(new Runnable() {
-                public void run() {
-                    Thread.currentThread().setName("ScormCloudService-GradeSync-" + courseId);
-                    syncCourse(courseId, courses.getLastSyncTime(), new ScormServiceStore());
-                }
-            });
-        }
-
-        workers.shutdown();
         try {
-            while (!workers.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
-                Thread.sleep(1000);
+            List<Future<Void>> results = new ArrayList<Future<Void>>();
+
+            // Callable?
+            for (final String courseId : courses.getCourseIds()) {
+                Future<Void> result = workers.submit(new Callable() {
+                    public Void call() {
+                        Thread.currentThread().setName("ScormCloudService-GradeSync-" + courseId);
+
+                        SessionManager sessionManager = (SessionManager) ComponentManager.get("org.sakaiproject.tool.api.SessionManager");
+                        Session s = sessionManager.startSession();
+                        s.setActive();
+                        s.setUserId(SYNC_USER);
+                        s.setUserEid(SYNC_USER);
+                        sessionManager.setCurrentSession(s);
+
+                        try {
+                            syncCourse(courseId, courses.getLastSyncTime(), new ScormServiceStore());
+                        } catch (ScormException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        return null;
+                    }
+                });
+
+                results.add(result);
             }
-        } catch (InterruptedException e) {}
+
+            Throwable failure = null;
+            for (Future<Void> worker : results) {
+                try {
+                    worker.get();
+                } catch (ExecutionException e) {
+                    failure = e;
+                } catch (InterruptedException e) {
+                    failure = e;
+                }
+            }
+
+            if (failure != null) {
+                throw new ScormException("Failure while syncing courses", failure);
+            }
+
+        } finally {
+            workers.shutdown();
+            try {
+                while (!workers.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+                    Thread.sleep(1000);
+                }
+            } catch (InterruptedException e) {}
+        }
     }
 
 
@@ -130,30 +177,30 @@ class GradeSyncProcessor {
     }
 
 
-    private void syncCourse(final String courseId, Date lastCheckTime, final ScormServiceStore store) {
+    private void syncCourse(final String courseId, Date lastCheckTime, final ScormServiceStore store)
+        throws ScormException {
+        LOG.info("Syncing SCORM courseId: " + courseId);
+
+        GradebookConnection gradebook = new GradebookConnection(store);
+
         try {
-            LOG.info("Syncing SCORM courseId: " + courseId);
+            RegistrationService registrationService = ScormCloud.getRegistrationService();
 
-            try {
-                RegistrationService registrationService = ScormCloud.getRegistrationService();
+            List<RegistrationData> registrationList = registrationService.GetRegistrationList(null, null, courseId, null, lastCheckTime, null);
 
-                List<RegistrationData> registrationList = registrationService.GetRegistrationList(null, null, courseId, null, lastCheckTime, null);
+            for (RegistrationData registration : registrationList) {
+                String registrationId = registration.getRegistrationId();
+                String registrationResult = registrationService.GetRegistrationResult(registrationId);
 
-                for (RegistrationData registration : registrationList) {
-                    String registrationId = registration.getRegistrationId();
-                    String registrationResult = registrationService.GetRegistrationResult(registrationId);
+                Long scoreFromResult = extractScore(registrationResult);
 
-                    Long scoreFromResult = extractScore(registrationResult);
-
-                    if (scoreFromResult != null) {
-                        store.recordScore(registrationId, scoreFromResult);
-                    }
+                if (scoreFromResult != null) {
+                    store.recordScore(registrationId, scoreFromResult);
+                    gradebook.sendScore(registrationId, scoreFromResult);
                 }
-            } catch (Exception e) {
-                throw new ScormException("Failure when syncing grades for " + courseId, e);
             }
         } catch (Exception e) {
-            LOG.error("Failure while syncing grades for courseId " + courseId, e);
+            throw new ScormException("Failure when syncing grades for " + courseId, e);
         }
     }
 

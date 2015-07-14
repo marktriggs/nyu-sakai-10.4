@@ -96,11 +96,35 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 	}
     
 	public void fillComponents(UIContainer tofill, ViewParameters viewParams, ComponentChecker checker) {
-	    if (simplePageBean.canEditPage()) {
-		    showStatusPage(tofill, viewParams);
-            } else {
-		    redirectToPlayer(tofill, viewParams);
-	    }
+		GeneralViewParameters params = (GeneralViewParameters)viewParams;
+
+		try {
+			// Try to generate a "Return" button.  Apparently that's very hard.
+			SimplePageBean.PathEntry backpath = ((List<SimplePageBean.PathEntry>)SessionManager.getCurrentToolSession().getAttribute(SimplePageBean.LESSONBUILDER_BACKPATH)).get(0);
+
+			GeneralViewParameters view = new GeneralViewParameters(ShowPageProducer.VIEW_ID);
+			view.setSendingPage(backpath.pageId);
+			view.setItemId(backpath.pageItemId);
+
+			UIInternalLink.make(tofill, "return", messageLocator.getMessage("simplepage.return"), view);		
+		} catch (IndexOutOfBoundsException e) {
+		}
+
+
+		UIOutput.make(tofill, "scorm-title", simplePageBean.getName());	
+
+		if (simplePageBean.canEditPage()) {
+			showStatusPage(tofill, viewParams);
+		} else {
+			if ("true".equals(httpServletRequest.getParameter("returned"))) {
+				UIOutput.make(tofill, "html").decorate(new UIFreeAttributeDecorator("lang", localeGetter.get().getLanguage()))
+					.decorate(new UIFreeAttributeDecorator("xml:lang", localeGetter.get().getLanguage()));
+
+				UIOutput.make(tofill, "scorm-item-completed");				
+			} else {
+				redirectToPlayer(tofill, viewParams);
+			}
+		}
 	}
 
 	private void showStatusPage(UIContainer tofill, ViewParameters viewParams) {
@@ -116,10 +140,12 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 
 	private void redirectToPlayer(UIContainer tofill, ViewParameters viewParams) {
 		try {
+			String backlink = ServerConfigurationService.getServerUrl() + httpServletRequest.getRequestURI() + "?returned=true&" + httpServletRequest.getQueryString();
+
 			GeneralViewParameters params = (GeneralViewParameters)viewParams;
 			String currentSiteId = ToolManager.getCurrentPlacement().getContext();
 
-			httpServletResponse.sendRedirect(scormService().getScormPlayerUrl(currentSiteId, params.getItemId().toString()));
+			httpServletResponse.sendRedirect(scormService().getScormPlayerUrl(currentSiteId, params.getItemId().toString(), backlink));
 		} catch (IOException e) {
 		} catch (ScormRegistrationNotFoundException e) {
 		} catch (ScormException e) {

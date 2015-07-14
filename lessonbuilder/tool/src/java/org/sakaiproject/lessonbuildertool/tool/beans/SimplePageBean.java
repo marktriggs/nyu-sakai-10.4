@@ -2631,8 +2631,24 @@ public class SimplePageBean {
 
 			    i.setHeight(height);
 			} else if (i.getType() == SimplePageItem.SCORM) {
-				// FIXME: Do we need to act on this if changed?
 				i.setAttribute("scormGraded", String.valueOf(graded));
+
+				ScormCloudService scorm = (ScormCloudService)org.sakaiproject.component.cover.ComponentManager.get("org.sakaiproject.scormcloudservice.api.ScormCloudService");
+
+				if (scorm == null) {
+					throw new RuntimeException("Couldn't contact SCORM module");
+				}
+
+				try {
+					scorm.updateCourse(getCurrentPage().getSiteId(),
+							String.valueOf(i.getId()),
+							i.getName(),
+							graded);
+				} catch (ScormException e) {
+					log.error("Failure when updating module in SCORM Cloud for lesson item " + i.getId(), e);
+				}
+
+
 			}
 
 
@@ -7433,10 +7449,7 @@ public class SimplePageBean {
 		update(item);
 
 		try {
-			scorm.addCourse(siteId, String.valueOf(item.getId()), resourceId);
-
-			// if (String.valueOf(graded)) ...
-
+			scorm.addCourse(siteId, String.valueOf(item.getId()), resourceId, scormTitle, graded);
 		} catch (ScormException e) {
 			log.error("Failure when adding a new module to SCORM Cloud", e);
 		}

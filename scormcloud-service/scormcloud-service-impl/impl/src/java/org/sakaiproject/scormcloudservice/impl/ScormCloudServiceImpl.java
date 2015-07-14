@@ -22,7 +22,7 @@ class ScormCloudServiceImpl implements ScormCloudService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScormCloudServiceImpl.class);
 
-    public String getScormPlayerUrl(String siteId, String externalId) throws ScormException {
+    public String getScormPlayerUrl(String siteId, String externalId, String backurl) throws ScormException {
         User currentUser = UserDirectoryService.getCurrentUser();
 
         String firstName = currentUser.getFirstName();
@@ -39,18 +39,42 @@ class ScormCloudServiceImpl implements ScormCloudService {
 
         try {
             RegistrationService registration = ScormCloud.getRegistrationService();
-
-            // FIXME: need a return URL
-            return registration.GetLaunchUrl(registrationId, "https://www.nyu.edu/");
+            return registration.GetLaunchUrl(registrationId, backurl);
         } catch (Exception e) {
             throw new ScormException("Couldn't determine launch URL", e);
         }
     }
 
-    public void addCourse(String siteId, String externalId, String resourceId) throws ScormException {
+    public void addCourse(String siteId, String externalId, String resourceId, String title, boolean graded) throws ScormException {
         ScormServiceStore store = new ScormServiceStore();
-        store.addCourse(siteId, externalId, resourceId);
+        store.addCourse(siteId, externalId, resourceId, title, graded);
+        if (graded) {
+            createGradebook(store, siteId, externalId, title);
+        }
     }
+
+    public void updateCourse(String siteId, String externalId, String title, boolean graded) throws ScormException {
+        ScormServiceStore store = new ScormServiceStore();
+        store.updateCourse(siteId, externalId, title, graded);
+
+        if (graded) {
+            createGradebook(store, siteId, externalId, title);
+        }
+    }
+
+    private void createGradebook(ScormServiceStore store, String siteId, String externalId, String title)
+        throws ScormException {
+        GradebookConnection gradebook = new GradebookConnection(store);
+
+        String courseId = store.findCourseOrJobId(siteId, externalId);
+
+        if (courseId != null) {
+            gradebook.createAssessmentIfMissing(siteId, courseId, title);
+        } else {
+            LOG.error("Couldn't find course for ID: {}", courseId);
+        }
+    }
+
 
     // Return true if a registration was added.  False if we already had it.
     public String addRegistration(String siteId, String externalId, String userId, String firstName, String lastName)
@@ -66,7 +90,7 @@ class ScormCloudServiceImpl implements ScormCloudService {
         try {
             RegistrationService registration = ScormCloud.getRegistrationService();
             registrationId = store.mintId();
-            String courseId = store.findCourse(siteId, externalId);
+            String courseId = store.findCourseId(siteId, externalId);
 
             registration.CreateRegistration(registrationId, courseId, userId, firstName, lastName);
             store.recordRegistration(registrationId, courseId, userId);
