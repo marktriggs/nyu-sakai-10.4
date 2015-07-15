@@ -114,17 +114,29 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 		}
 
 
-		UIOutput.make(tofill, "scorm-title", simplePageBean.getName());	
+		UIOutput.make(tofill, "pagetitle", simplePageToolDao.findItem(params.getItemId()).getName());	
+
+		String reseturl = (String)SessionManager.getCurrentToolSession().getAttribute("sakai-portal:reset-action");
+
+		if (reseturl != null) {
+			UILink.make(tofill, "resetbutton", reseturl).
+				decorate(new UIFreeAttributeDecorator("onclick", "location.href='" + reseturl + "'; return false")).
+				decorate(new UIFreeAttributeDecorator("title", messageLocator.getMessage("simplepage.reset-button")));
+			UIOutput.make(tofill, "resetimage").
+				decorate(new UIFreeAttributeDecorator("alt", messageLocator.getMessage("simplepage.reset-button")));
+		}
+
 
 		if (simplePageBean.canEditPage()) {
 			markCourseForGradeSync(params.getItemId());
-			showStatusPage(tofill, viewParams);
+			showStatusPage(tofill, viewParams, params.getItemId());
 		} else {
 			if ("true".equals(httpServletRequest.getParameter("returned"))) {
 				UIOutput.make(tofill, "html").decorate(new UIFreeAttributeDecorator("lang", localeGetter.get().getLanguage()))
 					.decorate(new UIFreeAttributeDecorator("xml:lang", localeGetter.get().getLanguage()));
 
-				UIOutput.make(tofill, "scorm-item-completed");
+				UIOutput.make(tofill, "scorm-item-completed", messageLocator.getMessage("simplepage.scorm.user_returned"));
+				UIOutput.make(tofill, "scorm-redirect-to-lesson");
 				markCourseForGradeSync(params.getItemId());
 			} else {
 				redirectToPlayer(tofill, viewParams);
@@ -148,11 +160,18 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 		}
 	}
 
-	private void showStatusPage(UIContainer tofill, ViewParameters viewParams) {
+	private void showStatusPage(UIContainer tofill, ViewParameters viewParams, Long itemId) {
                 UIOutput.make(tofill, "html").decorate(new UIFreeAttributeDecorator("lang", localeGetter.get().getLanguage()))
 			.decorate(new UIFreeAttributeDecorator("xml:lang", localeGetter.get().getLanguage()));
 
-		UIOutput.make(tofill, "scorm-item-status", messageLocator.getMessage("simplepage.scorm.new_status"));
+		ScormCloudService scorm = scormService();
+		String currentSiteId = ToolManager.getCurrentPlacement().getContext();
+
+		if (scorm.isCourseReady(currentSiteId, itemId.toString())) {
+			UIOutput.make(tofill, "scorm-item-status", messageLocator.getMessage("simplepage.scorm.ready_status"));
+		} else {
+			UIOutput.make(tofill, "scorm-item-status", messageLocator.getMessage("simplepage.scorm.new_status"));
+		}
 	}
 
 	private ScormCloudService scormService() {

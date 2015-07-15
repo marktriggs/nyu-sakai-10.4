@@ -70,6 +70,14 @@ class ScormCloudServiceImpl implements ScormCloudService {
         }
     }
 
+    public boolean isCourseReady(String siteId, String externalId) {
+        ScormServiceStore store = new ScormServiceStore();
+        try {
+            return (store.findCourseId(siteId, externalId) != null);
+        } catch (ScormException e) {
+            return false;
+        }
+    }
 
     // Return true if a registration was added.  False if we already had it.
     public String addRegistration(String siteId, String externalId, String userId, String firstName, String lastName)

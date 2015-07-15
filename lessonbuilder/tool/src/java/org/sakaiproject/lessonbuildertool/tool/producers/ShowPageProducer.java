@@ -3262,6 +3262,11 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		//		return ieVersion;
 	}
 
+	private boolean scormEnabledForSite() {
+		return (ServerConfigurationService.getBoolean("scormcloudservice.enable-for-all-sites", false) ||
+				simplePageBean.getCurrentSite().getProperties().getProperty("enable-scorm-cloud") != null);
+	}
+
 	private void createToolBar(UIContainer tofill, SimplePage currentPage, boolean isStudent) {
 		UIBranchContainer toolBar = UIBranchContainer.make(tofill, "tool-bar:");
 		boolean studentPage = currentPage.getOwner() != null;
@@ -3285,7 +3290,10 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		createFilePickerToolBarLink(ResourcePickerProducer.VIEW_ID, tofill, "add-resource", "simplepage.resource", false, false,  currentPage, "simplepage.resource.tooltip");
 		UILink subpagelink = UIInternalLink.makeURL(tofill, "subpage-link", "#");
 
-		createFilePickerToolBarLink(ResourcePickerProducer.VIEW_ID, tofill, "add-scorm", "simplepage.scorm", true, false, currentPage, "simplepage.scorm.tooltip");
+		if (scormEnabledForSite()) {
+		  createFilePickerToolBarLink(ResourcePickerProducer.VIEW_ID, tofill, "add-scorm", "simplepage.scorm", true, false, currentPage, "simplepage.scorm.tooltip");
+		  UIOutput.make(tofill, "scorm-li");
+		}
 
 		// content menu not on students
 		if (!studentPage) {

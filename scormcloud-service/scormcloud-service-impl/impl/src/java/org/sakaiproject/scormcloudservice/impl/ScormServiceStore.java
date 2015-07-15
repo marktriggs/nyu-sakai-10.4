@@ -21,6 +21,7 @@ import java.util.List;
   create table scs_scorm_course (uuid varchar(36) primary key, siteid varchar(36), externalid varchar(255), resourceid varchar(255), title varchar(255), graded int, ctime bigint, mtime bigint);
 
   alter table scs_scorm_course add index (siteid, externalid);
+  alter table scs_scorm_course add index (mtime, graded);
 
   create table scs_scorm_registration (uuid varchar(36) primary key, courseid varchar(36), userid varchar(36), ctime bigint, mtime bigint);
 
@@ -28,8 +29,7 @@ import java.util.List;
 
   create table scs_scorm_job_info (jobname varchar(36) primary key, last_run_time bigint);
 
-  create table scs_scorm_scores (registrationid varchar(36) primary key, score int);
-
+  create table scs_scorm_scores (registrationid varchar(36) primary key, score double);
 */
 
 
@@ -473,9 +473,8 @@ public class ScormServiceStore {
     }
 
 
-    public CoursesForSync getCoursesNeedingSync() throws ScormException {
+    public List<String> getCoursesNeedingSync() throws ScormException {
         final List<String> courseIds = new ArrayList<String>();
-        final long[] lastSyncTime = new long[1];
 
         try {
             DB.connection(new DBAction() {
@@ -487,8 +486,10 @@ public class ScormServiceStore {
                         ps = connection.prepareStatement("select last_run_time from scs_scorm_job_info where jobname = 'GradeSync'");
                         rs = ps.executeQuery();
 
+                        long lastSyncTime = 0;
+
                         if (rs.next()) {
-                            lastSyncTime[0] = rs.getLong("last_run_time");
+                            lastSyncTime = rs.getLong("last_run_time");
                         }
 
 
@@ -506,8 +507,7 @@ public class ScormServiceStore {
                         // null)");
 
                         ps = connection.prepareStatement("select uuid from scs_scorm_course where mtime >= ?");
-
-                        ps.setLong(1, lastSyncTime[0]);
+                        ps.setLong(1, lastSyncTime);
 
                         rs = ps.executeQuery();
                         while (rs.next()) {
@@ -527,9 +527,43 @@ public class ScormServiceStore {
             throw new ScormException("Unknown registration status", e);
         }
 
-        return new CoursesForSync(courseIds, lastSyncTime[0]);
+        return courseIds;
     }
 
+
+    public Date getLastSyncTime() throws ScormException {
+        final long[] result = { 0l };
+
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+                    ResultSet rs = null;
+
+                    try {
+                        ps = connection.prepareStatement("select last_run_time from scs_scorm_job_info where jobname = 'GradeSync'");
+                        rs = ps.executeQuery();
+
+                        if (rs.next()) {
+                            result[0] = rs.getLong("last_run_time");
+                        }
+                    } finally {
+                        if (rs != null) {
+                            rs.close();
+                        }
+
+                        if (ps != null) {
+                            ps.close();
+                        }
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            throw new ScormException("Couldn't update sync time", e);
+        }
+
+        return new Date(result[0]);
+    }
 
     public void setLastSyncTime(final Date newSyncTime) throws ScormException {
         try {
@@ -646,6 +680,44 @@ public class ScormServiceStore {
             });
         } catch (SQLException e) {
             throw new ScormException("Failure finding course for registration: " + registrationId, e);
+        }
+
+        return result[0];
+    }
+
+
+    public ScormCourse getCourseForId(final String courseId) throws ScormException {
+        final ScormCourse[] result = new ScormCourse[1];
+
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+                    ResultSet rs = null;
+                    try {
+                        ps = connection.prepareStatement("select * from scs_scorm_course where uuid = ?");
+                        ps.setString(1, courseId);
+
+                        rs = ps.executeQuery();
+
+                        if (rs.next()) {
+                            ScormCourse course = new ScormCourse(rs.getString("uuid"), rs.getString("siteid"),
+                                    rs.getString("externalid"), rs.getString("resourceid"),
+                                    rs.getString("title"), (rs.getInt("graded") == 1));
+                            result[0] = course;
+                        }
+                    } finally {
+                        if (ps != null) {
+                            ps.close();
+                        }
+                        if (rs != null) {
+                            rs.close();
+                        }
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            throw new ScormException("Failure finding course for ID: " + courseId, e);
         }
 
         return result[0];

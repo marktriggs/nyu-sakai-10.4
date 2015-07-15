@@ -11,6 +11,8 @@ public interface ScormCloudService {
 
     public void runImportProcessingRound() throws ScormException;
 
+    public boolean isCourseReady(String siteId, String externalId);
+
     public void runGradeSyncRound() throws ScormException;
 
     public void markCourseForGradeSync(String siteId, String externalId) throws ScormException;

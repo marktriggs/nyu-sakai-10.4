@@ -19,13 +19,16 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.concurrent.*;
 
 class GradeSyncProcessor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ScormCloudJobProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GradeSyncProcessor.class);
 
     private static final String SYNC_USER = "admin";
 
@@ -42,24 +45,46 @@ class GradeSyncProcessor {
 
         try {
             Date startTime = new Date();
-            CoursesForSync courses = store.getCoursesNeedingSync();
+            Date lastSyncTime = store.getLastSyncTime();
+
+            Set<String> courses = getScormCoursesChangedSince(lastSyncTime);
+            courses.addAll(store.getCoursesNeedingSync());
+
             if (!courses.isEmpty()) {
                 syncCourses(courses);
             }
             store.setLastSyncTime(startTime);
         } catch (ScormException e) {
-            LOG.error("Failure while getting list of Scorm courses for grade sync", e);
+            LOG.error("Failure while syncing SCORM grades", e);
         }
     }
 
 
-    private void syncCourses(final CoursesForSync courses) throws ScormException {
+    private Set<String> getScormCoursesChangedSince(Date since) {
+        Set<String> result = new HashSet<String>();
+
+        try {
+            RegistrationService registrationService = ScormCloud.getRegistrationService();
+            List<RegistrationData> registrationList = registrationService.GetRegistrationList(null, null, null, null, since, null);
+
+            for (RegistrationData registration : registrationList) {
+                result.add(registration.getCourseId());
+            }
+        } catch (Exception e) {
+            LOG.error("Failure while getting list of updated registrations", e);
+        }
+
+        return result;
+    }
+
+
+    private void syncCourses(final Collection<String> courses) throws ScormException {
         ExecutorService workers = Executors.newFixedThreadPool(Math.min(courses.size(), MAX_SCORM_GRADESYNC_THREADS));
         try {
             List<Future<Void>> results = new ArrayList<Future<Void>>();
 
             // Callable?
-            for (final String courseId : courses.getCourseIds()) {
+            for (final String courseId : courses) {
                 Future<Void> result = workers.submit(new Callable() {
                     public Void call() {
                         Thread.currentThread().setName("ScormCloudService-GradeSync-" + courseId);
@@ -72,7 +97,7 @@ class GradeSyncProcessor {
                         sessionManager.setCurrentSession(s);
 
                         try {
-                            syncCourse(courseId, courses.getLastSyncTime(), new ScormServiceStore());
+                            syncCourse(courseId, new ScormServiceStore());
                         } catch (ScormException e) {
                             throw new RuntimeException(e);
                         }
@@ -122,16 +147,18 @@ class GradeSyncProcessor {
             rawScore = s;
 
             if (s.equals("unknown")) {
+                // A score of 'unknown' in an otherwise completed course
+                // actually means zero.  This is distinct from 'unknown' as we
+                // use it here, which really means 'unparseable'.
                 score = 0.0;
-                if (s.equals("reset")) {
-                    score = 0.0;
-                    resetRequest = true;
-                } else {
-                    try {
-                        this.score = Double.valueOf(s);
-                    } catch (NumberFormatException e) {
-                        unknownScore = true;
-                    }
+            } else if (s.equals("reset")) {
+                score = 0.0;
+                resetRequest = true;
+            } else {
+                try {
+                    this.score = Double.valueOf(s);
+                } catch (NumberFormatException e) {
+                    unknownScore = true;
                 }
             }
         }
@@ -168,7 +195,7 @@ class GradeSyncProcessor {
         XPathExpression expr = xpath.compile("//complete");
 
         if (!"complete".equals((String) expr.evaluate(parsed, XPathConstants.STRING))) {
-            return null;
+            return new ScormScore("reset");
         }
 
         xpath = xPathfactory.newXPath();
@@ -180,16 +207,17 @@ class GradeSyncProcessor {
     }
 
 
-    private void syncCourse(final String courseId, Date lastCheckTime, final ScormServiceStore store)
+    private void syncCourse(final String courseId, final ScormServiceStore store)
             throws ScormException {
         LOG.info("Syncing SCORM courseId: " + courseId);
 
         GradebookConnection gradebook = new GradebookConnection(store);
+        ScormCourse course = store.getCourseForId(courseId);
 
         try {
             RegistrationService registrationService = ScormCloud.getRegistrationService();
 
-            List<RegistrationData> registrationList = registrationService.GetRegistrationList(null, null, courseId, null, lastCheckTime, null);
+            List<RegistrationData> registrationList = registrationService.GetRegistrationList(null, null, courseId, null, null, null);
 
             for (RegistrationData registration : registrationList) {
                 String registrationId = registration.getRegistrationId();
@@ -199,13 +227,17 @@ class GradeSyncProcessor {
 
                 if (scoreFromResult.isReset()) {
                     store.removeScore(registrationId);
-                    gradebook.removeScore(registrationId);
+                    if (course.getGraded()) {
+                        gradebook.removeScore(registrationId);
+                    }
                 } else if (scoreFromResult.isUnknown()) {
                     LOG.error("Received an unparseable score from SCORM Cloud API for registration: " + registrationId +
                             " score was: " + scoreFromResult.getRawScore());
                 } else {
                     store.recordScore(registrationId, scoreFromResult.getScore());
-                    gradebook.sendScore(registrationId, scoreFromResult.getScore());
+                    if (course.getGraded()) {
+                        gradebook.sendScore(registrationId, scoreFromResult.getScore());
+                    }
                 }
             }
         } catch (Exception e) {

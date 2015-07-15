@@ -27,6 +27,12 @@ public class GradebookConnection {
         String userId = store.getUserForRegistration(registrationId);
         ScormCourse course = store.getCourseForRegistration(registrationId);
 
+        if (course == null) {
+            LOG.warn("No course could be found for registration {}", registrationId);
+            return;
+        }
+
+
         createAssessmentIfMissing(course.getSiteId(), course.getId(), course.getTitle());
         gradebookService.updateExternalAssessmentScore(course.getSiteId(), course.getId(), userId, String.valueOf(scoreFromResult));
     }

@@ -1383,7 +1383,7 @@ $(function() {
 					$("#edit-height").hide();
                                         $("#prereqstuff").hide();
 					$("#scormstuff").show();
-					$('#scorm-sync-to-gradebook').prop('checked', row.find('.scormGraded').text().trim() === 'true');
+					$('#edit-scorm-sync-to-gradebook').prop('checked', row.find('.scormGraded').text().trim() === 'true');
 					$("#edit-item-object-p").show();
 				}else {
 					$("#change-assignment-p").show();
