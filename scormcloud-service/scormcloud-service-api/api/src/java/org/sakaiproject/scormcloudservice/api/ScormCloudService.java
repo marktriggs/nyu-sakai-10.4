@@ -1,7 +1,9 @@
 package org.sakaiproject.scormcloudservice.api;
 
 public interface ScormCloudService {
-    public String getScormPlayerUrl(String siteId, String externalId, String backurl) throws ScormRegistrationNotFoundException, ScormException;
+    public String getScormPlayerUrl(String siteId, String externalId, String backurl) throws ScormException;
+
+    public String getPreviewUrl(String siteId, String externalId) throws ScormException;
 
     public void addCourse(String siteId, String externalId, String resourceId, String title, boolean graded) throws ScormException;
 

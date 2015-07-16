@@ -27,15 +27,18 @@
 
             <p rsf:id="scorm-item-status"></p>
 
+	    <a href="#" rsf:id="previewbutton" class="usebutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Preview this module</a>
+
             <p rsf:id="scorm-item-completed"></p>
 
-	    <a href="#" id="scorm-return-btn" rsf:id="return" class="usebutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Back</a> 
+	    <a href="#" id="scorm-return-btn" rsf:id="return" class="usebutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Back</a>
         </div>
 
         <script type="text/javascript" src="$context/js/jquery-1.8.3.min.js"></script>
         <script rsf:id="scorm-redirect-to-lesson">
          $(function () {
              setTimeout(function () {
+                 console.log($('#scorm-return-btn'));
                  $('#scorm-return-btn').click();
              }, 3000);
          });

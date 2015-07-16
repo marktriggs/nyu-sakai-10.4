@@ -1,5 +1,6 @@
 package org.sakaiproject.scormcloudservice.impl;
 
+import com.rusticisoftware.hostedengine.client.CourseService;
 import com.rusticisoftware.hostedengine.client.Configuration;
 import com.rusticisoftware.hostedengine.client.RegistrationService;
 import com.rusticisoftware.hostedengine.client.ScormCloud;
@@ -140,6 +141,17 @@ class ScormCloudServiceImpl implements ScormCloudService {
 
     public void runGradeSyncRound() throws ScormException {
         new GradeSyncProcessor().run();
+    }
+
+
+    public String getPreviewUrl(String siteId, String externalId) throws ScormException {
+        try {
+            ScormServiceStore store = new ScormServiceStore();
+            CourseService service = ScormCloud.getCourseService();
+            return service.GetPreviewUrl(store.findCourseId(siteId, externalId));
+        } catch (Exception e) {
+            throw new ScormException("Couldn't determine preview URL", e);
+        }
     }
 
 }

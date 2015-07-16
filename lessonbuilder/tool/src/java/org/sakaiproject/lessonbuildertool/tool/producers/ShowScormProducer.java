@@ -76,7 +76,6 @@ import edu.nyu.classes.externalhelp.api.ExternalHelpSystem;
 import edu.nyu.classes.externalhelp.api.ExternalHelp;
 
 import org.sakaiproject.scormcloudservice.api.ScormCloudService;
-import org.sakaiproject.scormcloudservice.api.ScormRegistrationNotFoundException;
 import org.sakaiproject.scormcloudservice.api.ScormException;
 
 
@@ -167,6 +166,17 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 		ScormCloudService scorm = scormService();
 		String currentSiteId = ToolManager.getCurrentPlacement().getContext();
 
+
+		try {
+			String previewUrl = scorm.getPreviewUrl(currentSiteId, itemId.toString());
+			UILink.make(tofill, "previewbutton", previewUrl).
+				decorate(new UIFreeAttributeDecorator("onclick", "location.href='" + previewUrl + "'; return false")).
+				decorate(new UIFreeAttributeDecorator("title", messageLocator.getMessage("simplepage.scorm.preview")));
+		} catch (ScormException e) {
+			log.info("Failure when generating Preview button for lesson: " + itemId, e);
+		}
+
+
 		if (scorm.isCourseReady(currentSiteId, itemId.toString())) {
 			UIOutput.make(tofill, "scorm-item-status", messageLocator.getMessage("simplepage.scorm.ready_status"));
 		} else {
@@ -180,16 +190,17 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 
 	private void redirectToPlayer(UIContainer tofill, ViewParameters viewParams) {
 		try {
-			String backlink = ServerConfigurationService.getServerUrl() + httpServletRequest.getRequestURI() + "?returned=true&" + httpServletRequest.getQueryString();
-
 			GeneralViewParameters params = (GeneralViewParameters)viewParams;
 			String currentSiteId = ToolManager.getCurrentPlacement().getContext();
 
-			httpServletResponse.sendRedirect(scormService().getScormPlayerUrl(currentSiteId, params.getItemId().toString(), backlink));
+			httpServletResponse.sendRedirect(scormService().getScormPlayerUrl(currentSiteId, params.getItemId().toString(), generateBackLink()));
 		} catch (IOException e) {
-		} catch (ScormRegistrationNotFoundException e) {
 		} catch (ScormException e) {
 		}
+	}
+
+	private String generateBackLink() {
+		return ServerConfigurationService.getServerUrl() + httpServletRequest.getRequestURI() + "?returned=true&" + httpServletRequest.getQueryString();
 	}
 
 	public void setSimplePageBean(SimplePageBean simplePageBean) {
