@@ -100,6 +100,8 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 	public void fillComponents(UIContainer tofill, ViewParameters viewParams, ComponentChecker checker) {
 		GeneralViewParameters params = (GeneralViewParameters)viewParams;
 
+		preparePage(tofill);
+
 		try {
 			// Try to generate a "Return" button.  Apparently that's very hard.
 			SimplePageBean.PathEntry backpath = ((List<SimplePageBean.PathEntry>)SessionManager.getCurrentToolSession().getAttribute(SimplePageBean.LESSONBUILDER_BACKPATH)).get(0);
@@ -131,14 +133,20 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 			showStatusPage(tofill, viewParams, params.getItemId());
 		} else {
 			if ("true".equals(httpServletRequest.getParameter("returned"))) {
-				UIOutput.make(tofill, "html").decorate(new UIFreeAttributeDecorator("lang", localeGetter.get().getLanguage()))
-					.decorate(new UIFreeAttributeDecorator("xml:lang", localeGetter.get().getLanguage()));
-
 				UIOutput.make(tofill, "scorm-item-completed", messageLocator.getMessage("simplepage.scorm.user_returned"));
 				UIOutput.make(tofill, "scorm-redirect-to-lesson");
 				markCourseForGradeSync(params.getItemId());
 			} else {
-				redirectToPlayer(tofill, viewParams);
+				try {
+					showPlayer(tofill, viewParams);
+					return;
+				} catch (IOException e) {
+					log.error("Failure during player launch", e);
+				} catch (ScormException e) {
+					log.error("Failure during player launch", e);
+				}
+
+				UIOutput.make(tofill, "scorm-player-not-available");
 			}
 		}
 	}
@@ -159,21 +167,23 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 		}
 	}
 
-	private void showStatusPage(UIContainer tofill, ViewParameters viewParams, Long itemId) {
+	private void preparePage(UIContainer tofill) {
                 UIOutput.make(tofill, "html").decorate(new UIFreeAttributeDecorator("lang", localeGetter.get().getLanguage()))
 			.decorate(new UIFreeAttributeDecorator("xml:lang", localeGetter.get().getLanguage()));
+	}
 
+	private void showStatusPage(UIContainer tofill, ViewParameters viewParams, Long itemId) {
 		ScormCloudService scorm = scormService();
 		String currentSiteId = ToolManager.getCurrentPlacement().getContext();
 
 
 		try {
 			String previewUrl = scorm.getPreviewUrl(currentSiteId, itemId.toString());
-			UILink.make(tofill, "previewbutton", previewUrl).
-				decorate(new UIFreeAttributeDecorator("onclick", "location.href='" + previewUrl + "'; return false")).
+			UILink.make(tofill, "scorm-player").
+				decorate(new UIFreeAttributeDecorator("src", previewUrl)).
 				decorate(new UIFreeAttributeDecorator("title", messageLocator.getMessage("simplepage.scorm.preview")));
 		} catch (ScormException e) {
-			log.info("Failure when generating Preview button for lesson: " + itemId, e);
+			log.info("Failure when generating SCORM Preview for lesson: " + itemId, e);
 		}
 
 
@@ -188,15 +198,13 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 		return (ScormCloudService)ComponentManager.get("org.sakaiproject.scormcloudservice.api.ScormCloudService");
 	}
 
-	private void redirectToPlayer(UIContainer tofill, ViewParameters viewParams) {
-		try {
-			GeneralViewParameters params = (GeneralViewParameters)viewParams;
-			String currentSiteId = ToolManager.getCurrentPlacement().getContext();
+	private void showPlayer(UIContainer tofill, ViewParameters viewParams) throws IOException, ScormException {
+		GeneralViewParameters params = (GeneralViewParameters)viewParams;
+		String currentSiteId = ToolManager.getCurrentPlacement().getContext();
 
-			httpServletResponse.sendRedirect(scormService().getScormPlayerUrl(currentSiteId, params.getItemId().toString(), generateBackLink()));
-		} catch (IOException e) {
-		} catch (ScormException e) {
-		}
+		String playerUrl = scormService().getScormPlayerUrl(currentSiteId, params.getItemId().toString(), generateBackLink());
+		UILink.make(tofill, "scorm-player").
+			decorate(new UIFreeAttributeDecorator("src", playerUrl));
 	}
 
 	private String generateBackLink() {

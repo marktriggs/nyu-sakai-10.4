@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
 
 class ScormCloudJobProcessor {
 
@@ -143,6 +144,12 @@ class ScormCloudJobProcessor {
 
                 // result
                 System.err.println("\n*** DEBUG " + System.currentTimeMillis() + "[ScormCloudJobProcessor.java:137 f369a0]: " + "\n    result => " + (result) + "\n");
+
+                HashMap<String, String> attributes = service.GetAttributes(job.getId());
+                // Launch inline
+                attributes.put("scoLaunchType", "1");
+                service.UpdateAttributes(job.getId(), attributes);
+
             } finally {
                 resource.delete();
             }
