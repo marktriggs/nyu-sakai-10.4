@@ -140,6 +140,7 @@ class GradeSyncProcessor {
 
         boolean resetRequest = false;
         boolean unknownScore = false;
+        boolean invalidScore = false;
         String rawScore;
         double score;
 
@@ -150,7 +151,7 @@ class GradeSyncProcessor {
                 // A score of 'unknown' in an otherwise completed course
                 // actually means zero.  This is distinct from 'unknown' as we
                 // use it here, which really means 'unparseable'.
-                score = 0.0;
+                unknownScore = true;
             } else if (s.equals("reset")) {
                 score = 0.0;
                 resetRequest = true;
@@ -158,7 +159,7 @@ class GradeSyncProcessor {
                 try {
                     this.score = Double.valueOf(s);
                 } catch (NumberFormatException e) {
-                    unknownScore = true;
+                    invalidScore = true;
                 }
             }
         }
@@ -177,6 +178,10 @@ class GradeSyncProcessor {
 
         public boolean isUnknown() {
             return unknownScore;
+        }
+
+        public boolean isInvalid() {
+            return invalidScore;
         }
 
         public String getRawScore() {
@@ -219,6 +224,8 @@ class GradeSyncProcessor {
 
             List<RegistrationData> registrationList = registrationService.GetRegistrationList(null, null, courseId, null, null, null);
 
+            LOG.info(courseId + ": Found " + registrationList.size() + " registrations to sync");
+
             for (RegistrationData registration : registrationList) {
                 String registrationId = registration.getRegistrationId();
                 String registrationResult = registrationService.GetRegistrationResult(registrationId);
@@ -226,14 +233,21 @@ class GradeSyncProcessor {
                 ScormScore scoreFromResult = extractScore(registrationResult);
 
                 if (scoreFromResult.isReset()) {
+                    LOG.info("Processing a reset for registration: " + registrationId);
+
                     store.removeScore(registrationId);
                     if (course.getGraded()) {
                         gradebook.removeScore(registrationId);
                     }
-                } else if (scoreFromResult.isUnknown()) {
+                } else if (scoreFromResult.isInvalid()) {
                     LOG.error("Received an unparseable score from SCORM Cloud API for registration: " + registrationId +
                             " score was: " + scoreFromResult.getRawScore());
+                } else if (scoreFromResult.isUnknown()) {
+                  // Skip setting the score.
                 } else {
+                    LOG.info("Recording score for registration: " + registrationId +
+                            ": " + scoreFromResult.getRawScore());
+
                     store.recordScore(registrationId, scoreFromResult.getScore());
                     if (course.getGraded()) {
                         gradebook.sendScore(registrationId, scoreFromResult.getScore());
