@@ -7375,7 +7375,7 @@ public class SimplePageBean {
 		String resourceId;
 
 		try {
-			String folderName = "SCORM-MODULES";
+			String folderName = Validator.escapeResourceName(getPageTitle()) + "/SCORM-MODULES";
 			String collectionId = contentHostingService.getSiteCollection(siteId) + folderName + "/";
 
 			try {
