@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1770,7 +1769,7 @@ public class ProjectLogicImpl implements ProjectLogic {
 		if(useSession){
 			session = sakaiProxy.getCurrentSession();
 		}
-		Map<String, String[]> deniedAuthToolsMap = new ConcurrentHashMap<String, String[]>();
+		Map<String, String[]> deniedAuthToolsMap = new HashMap<String, String[]>();
 		if(useSession){
 			//only worry about the session for non shopping period queries
 			Object sessionDeniedToolsMap = session.getAttribute(DelegatedAccessConstants.SESSION_ATTRIBUTE_DENIED_TOOLS);
@@ -1779,7 +1778,7 @@ public class ProjectLogicImpl implements ProjectLogic {
 			}
 		}
 		
-		Map<String, String[]> deniedPublicToolsMap = new ConcurrentHashMap<String, String[]>();
+		Map<String, String[]> deniedPublicToolsMap = new HashMap<String, String[]>();
 		if(useSession){
 			//only worry about the session for non shopping period queries
 			Object sessionDeniedTools2Map = session.getAttribute(DelegatedAccessConstants.SESSION_ATTRIBUTE_DENIED_TOOLS2);
@@ -1788,7 +1787,7 @@ public class ProjectLogicImpl implements ProjectLogic {
 			}
 		}
 
-		Map<String, String[]> accessMap = new ConcurrentHashMap<String, String[]>();
+		Map<String, String[]> accessMap = new HashMap<String, String[]>();
 		if(useSession){
 			//only worry about the session for non shopping period queries
 			Object sessionaccessMap = session.getAttribute(DelegatedAccessConstants.SESSION_ATTRIBUTE_ACCESS_MAP);
