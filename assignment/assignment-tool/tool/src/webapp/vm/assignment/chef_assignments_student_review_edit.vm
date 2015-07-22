@@ -15,7 +15,7 @@ function handleEnterKeyPress(ev)
 <script type="text/javascript">
     $(document).ready(function(){
         setupToggleAreas('toggleAnchor', 'toggledContent', false, 'fast');
-		setupItemNavigator();
+		ASN.setupItemNavigator();
     });
 </script>
 <div class="portletBody">
