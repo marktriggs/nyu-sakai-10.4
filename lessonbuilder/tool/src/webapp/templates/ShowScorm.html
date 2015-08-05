@@ -37,19 +37,25 @@
             <p rsf:id="scorm-item-status"></p>
             <p rsf:id="scorm-item-completed"></p>
 
+            <p rsf:id="scorm-player-launching">
+                <span rsf:id="msg=simplepage.scorm.launching"></span>
+            </p>
+
+            <a target="_blank" class="scorm-preview-link" id="scorm-preview-link" rsf:id="scorm-preview-link"></a>
+
 	    <a href="#" id="scorm-return-btn" rsf:id="return" class="usebutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span rsf:id="msg=simplepage.go-back"></span></a>
 
-            <iframe class="scorm-player-iframe" rsf:id="scorm-player"></iframe>
+            <span id="scorm-player-link" rsf:id="scorm-player-link" style="display: none"></span>
         </div>
 
 
         <script type="text/javascript" src="$context/js/jquery-1.8.3.min.js"></script>
         <script>
          $(function () {
-             console.log($('.scorm-player-iframe').offset());
-             var targetSize = window.parent.innerHeight - $('.scorm-player-iframe').offset().top;
-             $('.scorm-player-iframe').css('height', targetSize + 'px');
-             console.log("Set size to: " + targetSize);
+             if ($('#scorm-player-link').text() != '') {
+                 console.log("Redirecting to player...");
+                 window.location = $('#scorm-player-link').text();
+             }
          });
         </script>
 

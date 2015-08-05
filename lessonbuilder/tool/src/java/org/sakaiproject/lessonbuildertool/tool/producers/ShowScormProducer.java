@@ -176,19 +176,15 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 		ScormCloudService scorm = scormService();
 		String currentSiteId = ToolManager.getCurrentPlacement().getContext();
 
-
-		try {
-			String previewUrl = scorm.getPreviewUrl(currentSiteId, itemId.toString());
-			UILink.make(tofill, "scorm-player").
-				decorate(new UIFreeAttributeDecorator("src", previewUrl)).
-				decorate(new UIFreeAttributeDecorator("title", messageLocator.getMessage("simplepage.scorm.preview")));
-		} catch (ScormException e) {
-			log.info("Failure when generating SCORM Preview for lesson: " + itemId, e);
-		}
-
-
 		if (scorm.isCourseReady(currentSiteId, itemId.toString())) {
 			UIOutput.make(tofill, "scorm-item-status", messageLocator.getMessage("simplepage.scorm.ready_status"));
+
+			try {
+				String previewUrl = scorm.getPreviewUrl(currentSiteId, itemId.toString());
+				UILink.make(tofill, "scorm-preview-link", messageLocator.getMessage("simplepage.scorm.preview"), previewUrl);
+			} catch (ScormException e) {
+				log.info("Failure when generating SCORM Preview for lesson: " + itemId, e);
+			}
 		} else {
 			UIOutput.make(tofill, "scorm-item-status", messageLocator.getMessage("simplepage.scorm.new_status"));
 		}
@@ -203,8 +199,8 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 		String currentSiteId = ToolManager.getCurrentPlacement().getContext();
 
 		String playerUrl = scormService().getScormPlayerUrl(currentSiteId, params.getItemId().toString(), generateBackLink());
-		UILink.make(tofill, "scorm-player").
-			decorate(new UIFreeAttributeDecorator("src", playerUrl));
+		UIOutput.make(tofill, "scorm-player-launching");
+		UIOutput.make(tofill, "scorm-player-link", playerUrl);
 	}
 
 	private String generateBackLink() {

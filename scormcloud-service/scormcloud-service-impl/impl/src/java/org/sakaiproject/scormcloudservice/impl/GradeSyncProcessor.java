@@ -199,9 +199,9 @@ class GradeSyncProcessor {
         XPath xpath = xPathfactory.newXPath();
         XPathExpression expr = xpath.compile("//complete");
 
-        if (!"complete".equals((String) expr.evaluate(parsed, XPathConstants.STRING))) {
-            return new ScormScore("reset");
-        }
+        // if (!"complete".equals((String) expr.evaluate(parsed, XPathConstants.STRING))) {
+        //     return new ScormScore("reset");
+        // }
 
         xpath = xPathfactory.newXPath();
         expr = xpath.compile("//score");
@@ -244,6 +244,7 @@ class GradeSyncProcessor {
                             " score was: " + scoreFromResult.getRawScore());
                 } else if (scoreFromResult.isUnknown()) {
                   // Skip setting the score.
+                    LOG.info("Score for registration " + registrationId + " was marked as 'unknown'");
                 } else {
                     LOG.info("Recording score for registration: " + registrationId +
                             ": " + scoreFromResult.getRawScore());

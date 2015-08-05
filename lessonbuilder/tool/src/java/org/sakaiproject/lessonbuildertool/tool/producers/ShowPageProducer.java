@@ -3115,6 +3115,12 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 			UILink link = UIInternalLink.make(container, "link", view);
 			link.decorate(new UIFreeAttributeDecorator("lessonbuilderitem", itemString));
 
+			if (!simplePageBean.canEditPage()) {
+				// Someone without edit access is going to be shown a launch URL, so we'll launch in a new window here.
+				link.decorate(new UIFreeAttributeDecorator("target", "_blank"));
+			}
+
+
 			// UILink link = UILink.make(container, ID, i.getName(), URL);
 			// link.decorate(new UIFreeAttributeDecorator("lessonbuilderitem", itemString));
 			// link.decorate(new UIFreeAttributeDecorator("target", "_blank"));

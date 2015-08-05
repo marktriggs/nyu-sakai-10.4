@@ -147,6 +147,7 @@ class ScormCloudJobProcessor {
 
                 HashMap<String, String> attributes = service.GetAttributes(job.getId());
                 // Launch inline
+                attributes.put("playerLaunchType", "1");
                 attributes.put("scoLaunchType", "1");
                 service.UpdateAttributes(job.getId(), attributes);
 
