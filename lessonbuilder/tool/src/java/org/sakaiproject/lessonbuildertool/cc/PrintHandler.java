@@ -129,6 +129,12 @@ public class PrintHandler extends DefaultHandler implements AssessmentHandler, D
   private static final String RESOURCE="resource";
     
   private static final String CC_ITEM_TITLE="title";
+  private static final String CC_ITEM_METADATA="metadata";
+  private static final String LOM_LOM="lom";
+  private static final String LOM_GENERAL="general";
+  private static final String LOM_STRUCTURE="structure";
+  private static final String LOM_SOURCE="source";
+  private static final String LOM_VALUE="value";
   private static final String CC_WEBCONTENT="webcontent";
   private static final String LAR="learning-application-resource";
   private static final String WEBLINK="webLink";
@@ -438,6 +444,47 @@ public class PrintHandler extends DefaultHandler implements AssessmentHandler, D
       else
 	  title = the_xml.getChildText(CC_ITEM_TITLE, ns.cc_ns());
 
+      // metadata is used for special Sakai data
+      boolean inline = false;
+      String mmDisplayType = null;
+      Element metadata = null;
+      if (the_xml != null)
+	  metadata = the_xml.getChild(CC_ITEM_METADATA, ns.cc_ns());
+      if (metadata != null) {
+	  metadata = metadata.getChild(LOM_LOM, ns.lom_ns());
+      }
+      if (metadata != null) {
+	  metadata = metadata.getChild(LOM_GENERAL, ns.lom_ns());
+      }
+      if (metadata != null) {
+	  metadata = metadata.getChild(LOM_STRUCTURE, ns.lom_ns());
+      }
+      if (metadata != null) {
+	  List<Element>properties = metadata.getChildren();
+	  Iterator<Element>propertiesIt = properties.iterator();
+	  while (propertiesIt.hasNext()) {
+	      Element nameElt = propertiesIt.next();
+	      if (!propertiesIt.hasNext())
+		  break;
+	      Element valueElt = propertiesIt.next();
+	      if (!"source".equals(nameElt.getName())) {
+		  System.out.println("first item in structure not source " + nameElt.getName());
+		  break;
+	      }
+	      if (!"value".equals(valueElt.getName())) {
+		  System.out.println("second item in structure not source " + valueElt.getName());
+		  break;
+	      }
+	      String name = nameElt.getText();
+	      String value = valueElt.getText();
+	      if ("inline.lessonbuilder.sakaiproject.org".equals(name) &&
+		  "true".equals(value))
+		  inline = true;
+	      else if ("mmDisplayType.lessonbuilder.sakaiproject.org".equals(name))
+		  mmDisplayType = value;
+	  }
+      }
+
       try {
 	  if ((type.equals(CC_WEBCONTENT) || (type.equals(UNKNOWN))) && !hide) {
 	      // note: when this code is called the actual sakai resource hasn't been created yet
@@ -457,6 +504,85 @@ public class PrintHandler extends DefaultHandler implements AssessmentHandler, D
 	      SimplePageItem item = simplePageToolDao.makeItem(page.getPageId(), seq, SimplePageItem.RESOURCE, sakaiId, title);
 	      item.setHtml(mime);
 	      item.setSameWindow(true);
+
+	      title = the_xml.getChildText(CC_ITEM_TITLE, ns.cc_ns());
+
+	      boolean nofile = false;
+	      if (inline) {
+		  StringBuilder html = new StringBuilder();
+		  String htmlString = null;
+
+		  // type 3 is a link, so it's handled below
+		  // get contents of file for types where we don't need a file in contents
+		  if (mmDisplayType == null || "1".equals(mmDisplayType)) {
+		      nofile = true;
+
+		      // read the file containing the HTML
+		      String fileName = getFileName(resource);
+		      InputStream fileStream = null;
+
+		      if (fileName != null)
+			  fileStream = utils.getFile(fileName);
+		      if (fileStream != null) {
+			  byte[] buffer = new byte[8096];
+			  int n = 0;
+			  while ((n = fileStream.read(buffer, 0, 8096)) >= 0) {
+			      if (n > 0)
+				  html.append(new String(buffer, 0, n, "UTF-8"));
+			  }
+		      }
+
+		      htmlString = html.toString();
+
+		      // remove stuff the exporter added
+		      int off = htmlString.indexOf("<body>");
+		      if (off > 0)
+			  htmlString = htmlString.substring(off + 7);
+		      off = htmlString.lastIndexOf("</body>");
+		      if (off > 0)
+			  htmlString = htmlString.substring(0, off);
+
+		      // and fix relative URLs to absolute, since this is going to be inserted inline
+		      // in a page that's not in resources.
+		      if (htmlString.startsWith("<!--fixups:")) {
+			  int fixend = htmlString.indexOf("-->");
+			  String fixString = htmlString.substring(11, fixend);
+			  htmlString = htmlString.substring(fixend + 3);
+			  String[] fixups = fixString.split(",");
+			  // iterate backwards since once we fix something, offsets
+			  // further in the string are bad
+			  for (int i = (fixups.length-1); i >= 0; i--) {
+			      String fixup = fixups[i];
+			      // these are offsets of a URL. The URL is for a file in attachments, so we need
+			      // to map it to a full URL. The file should be attachments/item-xx.html in the
+			      // package. relFixup will have added ../ to it to get to the base.
+			      try {
+				  int offset = Integer.parseInt(fixup);
+				  htmlString = htmlString.substring(0, offset) + baseUrl + htmlString.substring(offset+3);
+			      } catch (Exception e) {
+				  System.out.println("exception " + e);
+			      }
+			  }
+		      }
+		      
+		  }
+
+		  // inline can be multimedia or text. If mmdisplaytype set, it's multimedia
+		  if (mmDisplayType != null) {
+		      // 	 1 -- embed code, 2 -- av type, 3 -- oembed, 4 -- iframe
+		      // 3 is output as a link, so it's handled below
+		      item.setType(SimplePageItem.MULTIMEDIA);
+		      if ("1".equals(mmDisplayType)) {
+			  item.setAttribute("multimediaEmbedCode", htmlString);
+		      }
+		      item.setAttribute("multimediaDisplayType", mmDisplayType);
+		  } else {
+		      // must be text item
+		      item.setType(SimplePageItem.TEXT);
+		      item.setHtml(htmlString);
+		  }
+	      }
+
 	      if (intendedUse != null) {
 		  intendedUse = intendedUse.toLowerCase();
 		  if (intendedUse.equals("lessonplan"))
@@ -519,7 +645,7 @@ public class PrintHandler extends DefaultHandler implements AssessmentHandler, D
 	      filename = filename.substring(0, filename.length()-3) + "url";
 	      String sakaiId = baseName + filename;
 
-	      if (! filesAdded.contains(filename)) {
+	      if (!inline && ! filesAdded.contains(filename)) {
 		  // we store the URL as a text/url resource
 		  ContentResourceEdit edit = ContentHostingService.addResource(sakaiId);
 		  edit.setContentType("text/url");
@@ -531,11 +657,23 @@ public class PrintHandler extends DefaultHandler implements AssessmentHandler, D
 		  filesAdded.add(filename);
 	      }
 
-	      if (!hide) {
+	      if (inline && "3".equals(mmDisplayType)) {
+		  // inline can be either oembed or youtube. Handle oembed here
+		  SimplePageItem item = simplePageToolDao.makeItem(page.getPageId(), seq, SimplePageItem.MULTIMEDIA, sakaiId, title);
+		  item.setAttribute("multimediaUrl", url);
+		  item.setAttribute("multimediaDisplayType", "3");
+		  simplePageBean.saveItem(item);
+		  
+	      } else if (!hide) {
 		  // now create the Sakai item
 		  SimplePageItem item = simplePageToolDao.makeItem(page.getPageId(), seq, SimplePageItem.RESOURCE, sakaiId, title);
-		  item.setHtml(simplePageBean.getTypeOfUrl(url));  // checks the web site to see what it actually is
-		  item.setSameWindow(true);
+		  if (inline) {
+		      // should just be youtube. null displaytype is right for that
+		      item.setType(SimplePageItem.MULTIMEDIA);
+		  } else {
+		      item.setHtml(simplePageBean.getTypeOfUrl(url));  // checks the web site to see what it actually is
+		      item.setSameWindow(true);
+		  }
 		  simplePageBean.saveItem(item);
 		  if (roles.size() > 0)
 		      simplePageBean.setItemGroups(item, roles.toArray(new String[0]));
