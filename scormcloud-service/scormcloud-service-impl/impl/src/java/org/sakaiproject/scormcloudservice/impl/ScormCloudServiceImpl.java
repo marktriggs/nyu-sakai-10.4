@@ -1,7 +1,9 @@
 package org.sakaiproject.scormcloudservice.impl;
 
 import com.rusticisoftware.hostedengine.client.CourseService;
+import com.rusticisoftware.hostedengine.client.ReportingService;
 import com.rusticisoftware.hostedengine.client.Configuration;
+import com.rusticisoftware.hostedengine.client.datatypes.Enums;
 import com.rusticisoftware.hostedengine.client.RegistrationService;
 import com.rusticisoftware.hostedengine.client.ScormCloud;
 import org.sakaiproject.component.cover.ServerConfigurationService;
@@ -151,6 +153,23 @@ class ScormCloudServiceImpl implements ScormCloudService {
             return service.GetPreviewUrl(store.findCourseId(siteId, externalId));
         } catch (Exception e) {
             throw new ScormException("Couldn't determine preview URL", e);
+        }
+    }
+
+
+    public String getReportUrl(String siteId, String externalId) throws ScormException {
+        try {
+            ScormServiceStore store = new ScormServiceStore();
+            ReportingService service = ScormCloud.getReportingService();
+
+            String auth = service.GetReportageAuth(Enums.ReportageNavPermission.DOWNONLY, false);
+
+            // FIXME: Pull this into a property?
+            String reportUrl = "https://cloud.scorm.com/Reportage/reportage.php?appId=" + ScormCloud.getAppId() + "&courseId=" + store.findCourseId(siteId, externalId);
+
+            return service.GetReportUrl(auth, reportUrl);
+        } catch (Exception e) {
+            throw new ScormException("Couldn't determine report URL", e);
         }
     }
 

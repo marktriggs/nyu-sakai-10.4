@@ -185,6 +185,15 @@ public class ShowScormProducer implements ViewComponentProducer, NavigationCaseR
 			} catch (ScormException e) {
 				log.info("Failure when generating SCORM Preview for lesson: " + itemId, e);
 			}
+
+			try {
+				String reportUrl = scorm.getReportUrl(currentSiteId, itemId.toString());
+				UILink.make(tofill, "scorm-reportage-link", messageLocator.getMessage("simplepage.scorm.report"), reportUrl);
+			} catch (ScormException e) {
+				log.info("Failure when generating SCORM Report URL for lesson: " + itemId, e);
+			}
+
+
 		} else {
 			UIOutput.make(tofill, "scorm-item-status", messageLocator.getMessage("simplepage.scorm.new_status"));
 		}

@@ -8,15 +8,8 @@
         <link rsf:id="scr=portal-matter" href="/library/skin/tool_base.css" type="text/css" rel="stylesheet" media="all" />
         <link rsf:id="scr=portal-matter" href="/library/skin/default/tool.css" type="text/css" rel="stylesheet" media="all" />
         <link rel="stylesheet" rsf:id="scr=rewrite-url" href="../css/Simplepagetool.css" type="text/css"/>
+        <link rel="stylesheet" rsf:id="scr=rewrite-url" href="../css/Scorm.css" type="text/css"/>
         <title rsf:id="msg=simplepage.scorm.title"></title>
-
-        <style>
-            .scorm-player-iframe {
-                display: block;
-                margin-top: 1em;
-                width: 95%;
-             }
-        </style>
     </head>
     <body rsf:id="scr=sakai-body">
 	<div class="portletBody" id="outer" role="application" style="z-index:1">
@@ -41,9 +34,13 @@
                 <span rsf:id="msg=simplepage.scorm.launching"></span>
             </p>
 
-            <a target="_blank" class="scorm-preview-link" id="scorm-preview-link" rsf:id="scorm-preview-link"></a>
+            <div class="scorm-actions">
+                <a target="_blank" class="scorm-preview-link scorm-button usebutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="scorm-preview-link" rsf:id="scorm-preview-link"></a>
 
-	    <a href="#" id="scorm-return-btn" rsf:id="return" class="usebutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span rsf:id="msg=simplepage.go-back"></span></a>
+                <a target="_blank" class="scorm-reportage-link scorm-button usebutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="scorm-reportage-link" rsf:id="scorm-reportage-link"></a>
+            </div>
+
+	    <a href="#" id="scorm-return-btn" rsf:id="return" class="scorm-button usebutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span rsf:id="msg=simplepage.go-back"></span></a>
 
             <span id="scorm-player-link" rsf:id="scorm-player-link" style="display: none"></span>
         </div>
