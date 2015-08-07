@@ -660,6 +660,9 @@ function resizeiframe(id) {
                     </div>
 
                     <span style="display:none" rsf:id="scormGraded" class="scormGraded"></span>
+                    <span style="display:none" rsf:id="scormRequired" class="scormRequired"></span>
+                    <span style="display:none" rsf:id="scormPrerequisite" class="scormPrerequisite"></span>
+
 
                 </li>
             </ul>
@@ -854,6 +857,16 @@ function resizeiframe(id) {
 
                         <div id="scormstuff" style="display:none">
                           <p class="checkbox">
+                              <input type="checkbox" name="edit-scorm-prerequisite" id="edit-scorm-prerequisite" rsf:id="edit-scorm-prerequisite" />
+                              <label for="edit-scorm-prerequisite"><span rsf:id="msg=simplepage.prerequisites_label"></span></label>
+                          </p>
+
+                          <p class="checkbox">
+                              <input type="checkbox" name="edit-scorm-required" id="edit-scorm-required" rsf:id="edit-scorm-required" />
+                              <label for="edit-scorm-required"><span rsf:id="msg=simplepage.require" id="require-label"></span></label>
+                          </p>
+
+                          <p class="checkbox">
                               <input type="checkbox" name="edit-scorm-sync-to-gradebook" rsf:id="edit-scorm-sync-to-gradebook" id="edit-scorm-sync-to-gradebook" />
                               <label for="edit-scorm-sync-to-gradebook"><span rsf:id="msg=simplepage.scorm.sync-to-gradebook"></span></label>
                           </p>
@@ -963,6 +976,16 @@ function resizeiframe(id) {
                           <p class="required">
                               <label rsf:id="msg=simplepage.upload_label" for="scorm-file">File</label>
                               <input type="file" name="scorm-file" id="scorm-file" style="width:95%" class="edit-scorm-input" required="required" />
+                          </p>
+
+                          <p class="checkbox">
+                              <input type="checkbox" name="scorm-prerequisite" id="scorm-prerequisite" rsf:id="scorm-prerequisite" />
+                              <label for="scorm-prerequisite"><span rsf:id="msg=simplepage.prerequisites_label"></span></label>
+                          </p>
+
+                          <p class="checkbox">
+                              <input type="checkbox" name="scorm-required" id="scorm-required" rsf:id="scorm-required" />
+                              <label for="scorm-required"><span rsf:id="msg=simplepage.require" id="require-label"></span></label>
                           </p>
 
                           <p class="checkbox">

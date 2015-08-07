@@ -4771,6 +4771,22 @@ public class SimplePageBean {
 			boolean result = peerEval ==null? true:false;
 				completeCache.put(itemId, result);
 				return result;
+		} else if (item.getType() == SimplePageItem.SCORM){
+			boolean result = false;
+
+			if (canEditPage()) {
+				result = true;
+			} else {
+				ScormCloudService scorm = (ScormCloudService)org.sakaiproject.component.cover.ComponentManager.get("org.sakaiproject.scormcloudservice.api.ScormCloudService");
+				String siteId = getCurrentSiteId();
+
+				if (scorm.wasLaunchedByCurrentUser(siteId, String.valueOf(item.getId()))) {
+					result = true;
+				}
+			}
+
+			completeCache.put(itemId, result);
+			return result;
 		}
 		else {
 			completeCache.put(itemId, false);

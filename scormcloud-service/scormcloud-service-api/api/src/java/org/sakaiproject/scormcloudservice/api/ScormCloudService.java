@@ -17,6 +17,8 @@ public interface ScormCloudService {
 
     public boolean isCourseReady(String siteId, String externalId);
 
+    public boolean wasLaunchedByCurrentUser(String siteId, String externalId);
+
     public void runGradeSyncRound() throws ScormException;
 
     public void markCourseForGradeSync(String siteId, String externalId) throws ScormException;

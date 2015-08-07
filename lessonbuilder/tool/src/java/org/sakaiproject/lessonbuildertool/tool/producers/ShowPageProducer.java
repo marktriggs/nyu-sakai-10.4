@@ -1396,6 +1396,8 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 						} else if (i.getType() == SimplePageItem.SCORM) {
 						    UIOutput.make(tableRow, "type", "scorm");
 						    UIOutput.make(tableRow, "scormGraded", i.getAttribute("scormGraded"));
+						    UIOutput.make(tableRow, "scormRequired", String.valueOf(i.isRequired()));
+						    UIOutput.make(tableRow, "scormPrerequisite", String.valueOf(i.isPrerequisite()));
 						} else if (i.getType() == SimplePageItem.FORUM) {
 							UIOutput.make(tableRow, "extra-info");
 							UIOutput.make(tableRow, "type", "8");
@@ -3109,6 +3111,10 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 			    fake = true; // need to set this in case it's available for missing entity
 		    }
 		} else if (i.getType() == SimplePageItem.SCORM) {
+			if (i.isPrerequisite()) {
+				simplePageBean.checkItemPermissions(i, true);
+			}
+
 			GeneralViewParameters view = new GeneralViewParameters(ShowScormProducer.VIEW_ID);
 			view.setSendingPage(currentPage.getPageId());
 			view.setItemId(i.getId());
@@ -4100,7 +4106,7 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		UICommand.make(form, "cancel-question", messageLocator.getMessage("simplepage.cancel"), null);
 	}
 
-  private void createAddScormDialog(UIContainer tofill, SimplePage currentPage, SimplePageItem pageItem) {
+	private void createAddScormDialog(UIContainer tofill, SimplePage currentPage, SimplePageItem pageItem) {
 		UIOutput.make(tofill, "add-scorm-dialog").decorate(new UIFreeAttributeDecorator("title", messageLocator.getMessage("simplepage.resource")));
 
 		UIForm form = UIForm.make(tofill, "add-scorm-form");
@@ -4109,6 +4115,12 @@ public class ShowPageProducer implements ViewComponentProducer, DefaultView, Nav
 		UIOutput.make(form, "scormtitle-label", messageLocator.getMessage("simplepage.pageTitle_label"));
 		UIInput.make(form, "scorm-title", "#{simplePageBean.scormTitle}");
 		UIOutput.make(form, "scorm-file-label", messageLocator.getMessage("simplepage.upload_label"));
+
+		UIBoundBoolean.make(form, "scorm-required", "#{simplePageBean.required}");
+		UIBoundBoolean.make(tofill, "edit-scorm-required", "#{simplePageBean.required}");
+
+		UIBoundBoolean.make(form, "scorm-prerequisite", "#{simplePageBean.prerequisite}");
+		UIBoundBoolean.make(tofill, "edit-scorm-prerequisite", "#{simplePageBean.prerequisite}");
 
 		UIBoundBoolean.make(form, "scorm-sync-to-gradebook", "#{simplePageBean.graded}");
 		UIBoundBoolean.make(tofill, "edit-scorm-sync-to-gradebook", "#{simplePageBean.graded}");

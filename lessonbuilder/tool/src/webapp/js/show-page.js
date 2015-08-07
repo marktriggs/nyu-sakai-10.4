@@ -1384,6 +1384,8 @@ $(function() {
                                         $("#prereqstuff").hide();
 					$("#scormstuff").show();
 					$('#edit-scorm-sync-to-gradebook').prop('checked', row.find('.scormGraded').text().trim() === 'true');
+					$('#edit-scorm-required').prop('checked', row.find('.scormRequired').text().trim() === 'true');
+					$('#edit-scorm-prerequisite').prop('checked', row.find('.scormPrerequisite').text().trim() === 'true');
 					$("#edit-item-object-p").show();
 				}else {
 					$("#change-assignment-p").show();

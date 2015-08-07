@@ -43,6 +43,18 @@ class ScormCloudServiceImpl implements ScormCloudService {
         }
     }
 
+    public boolean wasLaunchedByCurrentUser(String siteId, String externalId) {
+        User currentUser = UserDirectoryService.getCurrentUser();
+        ScormServiceStore store = new ScormServiceStore();
+
+        try {
+            return store.hasRegistration(siteId, externalId, currentUser.getId()) != null;
+        } catch (ScormException e) {
+        }
+
+        return false;
+    }
+
     public void addCourse(String siteId, String externalId, String resourceId, String title, boolean graded) throws ScormException {
         ScormServiceStore store = new ScormServiceStore();
         store.addCourse(siteId, externalId, resourceId, title, graded);
