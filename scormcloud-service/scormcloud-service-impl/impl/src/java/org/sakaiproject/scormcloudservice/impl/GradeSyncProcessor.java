@@ -213,7 +213,7 @@ class GradeSyncProcessor {
 
 
     private void syncCourse(final String courseId, final ScormServiceStore store)
-            throws ScormException {
+        throws ScormException {
         LOG.info("Syncing SCORM courseId: " + courseId);
 
         GradebookConnection gradebook = new GradebookConnection(store);
@@ -232,8 +232,12 @@ class GradeSyncProcessor {
 
                 ScormScore scoreFromResult = extractScore(registrationResult);
 
-                if (scoreFromResult.isReset()) {
-                    LOG.info("Processing a reset for registration: " + registrationId);
+                if (scoreFromResult.isReset() || scoreFromResult.isUnknown()) {
+                    if (scoreFromResult.isReset()) {
+                        LOG.info("Processing a reset for registration: " + registrationId);
+                    } else {
+                        LOG.info("Score for registration " + registrationId + " was marked as 'unknown'");
+                    }
 
                     store.removeScore(registrationId);
                     if (course.getGraded()) {
@@ -242,9 +246,6 @@ class GradeSyncProcessor {
                 } else if (scoreFromResult.isInvalid()) {
                     LOG.error("Received an unparseable score from SCORM Cloud API for registration: " + registrationId +
                             " score was: " + scoreFromResult.getRawScore());
-                } else if (scoreFromResult.isUnknown()) {
-                  // Skip setting the score.
-                    LOG.info("Score for registration " + registrationId + " was marked as 'unknown'");
                 } else {
                     LOG.info("Recording score for registration: " + registrationId +
                             ": " + scoreFromResult.getRawScore());
