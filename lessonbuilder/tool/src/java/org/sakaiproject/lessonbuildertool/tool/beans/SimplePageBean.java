@@ -7440,15 +7440,7 @@ public class SimplePageBean {
 			topParent = parent;
 		}
 
-
-		String toolId = ((ToolConfiguration) toolManager.getCurrentPlacement()).getPageId();
-		SimplePage subpage = simplePageToolDao.makePage(toolId, siteId, scormTitle, parent, topParent);
-		subpage.setOwner(owner);
-		subpage.setGroup(group);
-		saveItem(subpage);
-		selectedEntity = String.valueOf(subpage.getPageId());
-
-		item = appendItem(selectedEntity, subpage.getTitle(), SimplePageItem.SCORM);
+		item = appendItem("", scormTitle, SimplePageItem.SCORM);
 
 		if (item == null) {
 			log.error("Failed to append item");
