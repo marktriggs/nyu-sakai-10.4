@@ -14,11 +14,13 @@ import java.util.List;
 
 // FIXME: foreign keys
 /*
-  create table scs_scorm_job (uuid varchar(36) primary key, siteid varchar(36), externalid varchar(255), resourceid varchar(255), title varchar(255), graded int, ctime bigint, mtime bigint, retry_count int default 0, status varchar(32));
+  MySQL:
+
+  create table scs_scorm_job (uuid varchar(36) primary key, siteid varchar(36), externalid varchar(255), resourceid varchar(255), title varchar(255), graded int, ctime bigint, mtime bigint, retry_count int default 0, status varchar(32), deleted int default 0);
 
   alter table scs_scorm_job add index (status);
 
-  create table scs_scorm_course (uuid varchar(36) primary key, siteid varchar(36), externalid varchar(255), resourceid varchar(255), title varchar(255), graded int, ctime bigint, mtime bigint);
+  create table scs_scorm_course (uuid varchar(36) primary key, siteid varchar(36), externalid varchar(255), resourceid varchar(255), title varchar(255), graded int, ctime bigint, mtime bigint, deleted int);
 
   alter table scs_scorm_course add index (siteid, externalid);
   alter table scs_scorm_course add index (mtime, graded);
@@ -30,6 +32,22 @@ import java.util.List;
   create table scs_scorm_job_info (jobname varchar(36) primary key, last_run_time bigint);
 
   create table scs_scorm_scores (registrationid varchar(36) primary key, score double);
+*/
+
+
+/*
+  Oracle:
+
+create table scs_scorm_job (uuid varchar2(36) primary key, siteid varchar2(36), externalid varchar2(255), resourceid varchar2(255), title varchar2(255), graded int, ctime number, mtime number, retry_count int default 0, status varchar2(32), deleted int default 0);
+create table scs_scorm_course (uuid varchar2(36) primary key, siteid varchar2(36), externalid varchar2(255), resourceid varchar2(255), title varchar2(255), graded int, ctime number, mtime number, deleted int);
+create table scs_scorm_registration (courseid varchar2(36), userid varchar2(36), ctime number, mtime number);
+create table scs_scorm_job_info (jobname varchar2(36) primary key, last_run_time number);
+create table scs_scorm_scores (registrationid varchar2(36) primary key, score double precision);
+
+CREATE INDEX scs_scorm_job_status on scs_scorm_job (status);
+CREATE INDEX scs_scorm_course_site_ext_id on scs_scorm_course (siteid, externalid);
+CREATE INDEX scs_scorm_course_mtime on scs_scorm_course (mtime, graded);
+CREATE INDEX scs_scorm_registration_cuser on scs_scorm_registration (courseid, userid);
 */
 
 
@@ -173,7 +191,7 @@ public class ScormServiceStore {
                         while (rs.next()) {
                             ScormJob job = new ScormJob(rs.getString("uuid"), rs.getString("siteid"),
                                     rs.getString("externalid"), rs.getString("resourceid"),
-                                    rs.getString("title"), (rs.getInt("graded") == 1));
+                                    rs.getString("title"), (rs.getInt("graded") == 1), (rs.getInt("deleted") == 1));
                             result.add(job);
                         }
                     } finally {
@@ -665,7 +683,7 @@ public class ScormServiceStore {
                         while (rs.next()) {
                             ScormCourse course = new ScormCourse(rs.getString("uuid"), rs.getString("siteid"),
                                     rs.getString("externalid"), rs.getString("resourceid"),
-                                    rs.getString("title"), (rs.getInt("graded") == 1));
+                                    rs.getString("title"), (rs.getInt("graded") == 1), (rs.getInt("deleted") == 1));
                             result[0] = course;
                         }
                     } finally {
@@ -686,6 +704,35 @@ public class ScormServiceStore {
     }
 
 
+    public void markAsDeleted(final String courseId) throws ScormException {
+        try {
+            DB.connection(new DBAction() {
+                public void execute(Connection connection) throws SQLException {
+                    PreparedStatement ps = null;
+
+                    try {
+                        ps = connection.prepareStatement("update scs_scorm_job set deleted = 1 WHERE uuid = ?");
+                        ps.setString(1, courseId);
+                        ps.executeUpdate();
+
+                        // This might update nothing if the course hasn't been imported yet, but that's fine.
+                        ps = connection.prepareStatement("update scs_scorm_course set deleted = 1 WHERE uuid = ?");
+                        ps.setString(1, courseId);
+                        ps.executeUpdate();
+                    } finally {
+                        connection.commit();
+                        if (ps != null) {
+                            ps.close();
+                        }
+                    }
+                }
+            });
+        } catch (SQLException e) {
+            throw new ScormException("Failure when marking job as deleted: " + courseId, e);
+        }
+    }
+
+
     public ScormCourse getCourseForId(final String courseId) throws ScormException {
         final ScormCourse[] result = new ScormCourse[1];
 
@@ -703,7 +750,7 @@ public class ScormServiceStore {
                         if (rs.next()) {
                             ScormCourse course = new ScormCourse(rs.getString("uuid"), rs.getString("siteid"),
                                     rs.getString("externalid"), rs.getString("resourceid"),
-                                    rs.getString("title"), (rs.getInt("graded") == 1));
+                                    rs.getString("title"), (rs.getInt("graded") == 1), (rs.getInt("deleted") == 1));
                             result[0] = course;
                         }
                     } finally {

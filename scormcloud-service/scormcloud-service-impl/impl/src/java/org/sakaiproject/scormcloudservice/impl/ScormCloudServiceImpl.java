@@ -72,6 +72,22 @@ class ScormCloudServiceImpl implements ScormCloudService {
         }
     }
 
+    public void markAsDeleted(String siteId, String externalId) throws ScormException {
+        ScormServiceStore store = new ScormServiceStore();
+        String courseId = store.findCourseOrJobId(siteId, externalId);
+
+        store.markAsDeleted(courseId);
+
+        GradebookConnection gradebook = new GradebookConnection(store);
+
+        if (courseId != null) {
+            gradebook.delete(siteId, courseId);
+        } else {
+            LOG.error("Couldn't find course for ID: {}", courseId);
+        }
+    }
+
+
     private void createGradebook(ScormServiceStore store, String siteId, String externalId, String title)
             throws ScormException {
         GradebookConnection gradebook = new GradebookConnection(store);

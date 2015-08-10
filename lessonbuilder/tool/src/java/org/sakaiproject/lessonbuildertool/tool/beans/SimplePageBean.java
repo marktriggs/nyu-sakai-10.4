@@ -1567,6 +1567,18 @@ public class SimplePageBean {
 			gradebookIfc.removeExternalAssessment(getCurrentSiteId(), i.getAltGradebook());
 		}
 		
+		if (i.getType() == SimplePageItem.SCORM) {
+			ScormCloudService scorm = (ScormCloudService)org.sakaiproject.component.cover.ComponentManager.get("org.sakaiproject.scormcloudservice.api.ScormCloudService");
+
+			if (scorm != null) {
+				try {
+					scorm.markAsDeleted(getCurrentPage().getSiteId(),
+							String.valueOf(i.getId()));
+				} catch (ScormException e) {
+					log.warn("Failure when marking SCORM module as deleted: " + itemId, e);
+				}
+			}
+		}
 		
 		b = simplePageToolDao.deleteItem(i);
 		

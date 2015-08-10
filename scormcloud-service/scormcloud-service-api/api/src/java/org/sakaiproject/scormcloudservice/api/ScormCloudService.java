@@ -11,6 +11,8 @@ public interface ScormCloudService {
 
     public void updateCourse(String siteId, String externalId, String title, boolean graded) throws ScormException;
 
+    public void markAsDeleted(String siteId, String externalId) throws ScormException;
+
     public String addRegistration(String siteId, String externalId, String userId, String firstName, String lastName) throws ScormException;
 
     public void runImportProcessingRound() throws ScormException;

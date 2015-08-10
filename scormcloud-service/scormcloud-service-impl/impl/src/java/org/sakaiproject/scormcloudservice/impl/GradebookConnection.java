@@ -3,6 +3,7 @@ package org.sakaiproject.scormcloudservice.impl;
 import org.sakaiproject.scormcloudservice.api.ScormException;
 import org.sakaiproject.service.gradebook.shared.ConflictingAssignmentNameException;
 import org.sakaiproject.service.gradebook.shared.GradebookExternalAssessmentService;
+import org.sakaiproject.service.gradebook.shared.AssessmentNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,6 +63,14 @@ public class GradebookConnection {
 
         if (!succeeded) {
             throw new ScormException("Couldn't create an assessment with title: " + title + " for site " + siteId);
+        }
+    }
+
+    public void delete(String siteId, String assessmentId) throws ScormException {
+        try {
+            gradebookService.removeExternalAssessment(siteId, assessmentId);
+        } catch (AssessmentNotFoundException e) {
+            // Feh.  Entirely possible!
         }
     }
 

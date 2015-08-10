@@ -219,6 +219,11 @@ class GradeSyncProcessor {
         GradebookConnection gradebook = new GradebookConnection(store);
         ScormCourse course = store.getCourseForId(courseId);
 
+        if (course.isDeleted()) {
+          LOG.info("Skipping sync for deleted course: " + courseId);
+          return;
+        }
+
         try {
             RegistrationService registrationService = ScormCloud.getRegistrationService();
 

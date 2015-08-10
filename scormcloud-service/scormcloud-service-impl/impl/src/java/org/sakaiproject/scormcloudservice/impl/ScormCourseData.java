@@ -8,14 +8,16 @@ abstract class ScormCourseData {
     protected String resourceId;
     protected String title;
     protected boolean graded;
+    protected boolean deleted;
 
-    public ScormCourseData(String uuid, String siteId, String externalId, String resourceId, String title, boolean graded) {
+    public ScormCourseData(String uuid, String siteId, String externalId, String resourceId, String title, boolean graded, boolean deleted) {
         this.uuid = uuid;
         this.siteId = siteId;
         this.externalId = externalId;
         this.resourceId = resourceId;
         this.title = title;
         this.graded = graded;
+        this.deleted = deleted;
     }
 
     public String getId() {
@@ -40,6 +42,10 @@ abstract class ScormCourseData {
 
     public boolean getGraded() {
         return graded;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
     }
 }
 
