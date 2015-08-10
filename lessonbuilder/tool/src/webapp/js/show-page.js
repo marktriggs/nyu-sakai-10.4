@@ -1232,6 +1232,16 @@ $(function() {
 			return false;
 		});
 		
+
+		$('#edit-item').parent().find('.deleteButton').on('click', function () {
+			if ($('#scormstuff').is(':visible')) {
+				return window.confirm("Really delete this item?  This will also remove any associated Gradebook item.");
+			}
+
+			return true;
+		});
+
+
 		$(".edit-link").click(function(){
 			closeDropdowns();
             $('li').removeClass('editInProgress');
@@ -1380,13 +1390,15 @@ $(function() {
 
 				}else if (type == 'scorm'){
 					var height = row.find(".item-height").text();
+                                        var gradebookSelected = row.find('.scormGraded').text().trim() === 'true';
 					$("#edit-height").hide();
                                         $("#prereqstuff").hide();
 					$("#scormstuff").show();
-					$('#edit-scorm-sync-to-gradebook').prop('checked', row.find('.scormGraded').text().trim() === 'true');
+					$('#edit-scorm-sync-to-gradebook').prop('checked', gradebookSelected);
 					$('#edit-scorm-required').prop('checked', row.find('.scormRequired').text().trim() === 'true');
 					$('#edit-scorm-prerequisite').prop('checked', row.find('.scormPrerequisite').text().trim() === 'true');
 					$("#edit-item-object-p").show();
+
 				}else {
 					$("#change-assignment-p").show();
 					$("#change-assignment").attr("href", 
