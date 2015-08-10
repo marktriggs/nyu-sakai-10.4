@@ -108,7 +108,7 @@ public class ScormServiceStore {
             DB.connection(new DBAction() {
                 public void execute(Connection connection) throws SQLException {
                     PreparedStatement ps = null;
-                    ps = connection.prepareStatement("insert into scs_scorm_job (uuid, siteid, externalid, resourceid, title, graded, ctime, mtime, retry_count, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    ps = connection.prepareStatement("insert into scs_scorm_job (uuid, siteid, externalid, resourceid, title, graded, ctime, mtime, retry_count, status, deleted) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     try {
                         ps.setString(1, mintId());
                         ps.setString(2, siteId);
@@ -120,6 +120,7 @@ public class ScormServiceStore {
                         ps.setLong(8, System.currentTimeMillis());
                         ps.setInt(9, 0);
                         ps.setString(10, JOB_STATUS.NEW.toString());
+                        ps.setInt(11, 0);
 
                         ps.executeUpdate();
                     } finally {
@@ -285,7 +286,7 @@ public class ScormServiceStore {
                         ps.executeUpdate();
 
                         // Create a new course for the job
-                        ps = connection.prepareStatement("insert into scs_scorm_course (uuid, siteid, externalid, resourceid, title, graded, ctime, mtime) values (?, ?, ?, ?, ?, ?, ?, ?)");
+                        ps = connection.prepareStatement("insert into scs_scorm_course (uuid, siteid, externalid, resourceid, title, graded, ctime, mtime, deleted) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                         ps.setString(1, job.getId());
                         ps.setString(2, job.getSiteId());
                         ps.setString(3, job.getExternalId());
@@ -294,6 +295,7 @@ public class ScormServiceStore {
                         ps.setInt(6, job.getGraded() ? 1 : 0);
                         ps.setLong(7, System.currentTimeMillis());
                         ps.setLong(8, System.currentTimeMillis());
+                        ps.setInt(9, job.isDeleted() ? 1 : 0);
                         ps.executeUpdate();
                     } finally {
                         connection.commit();
