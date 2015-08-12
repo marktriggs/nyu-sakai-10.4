@@ -57,6 +57,7 @@ public class SimplePageItemImpl implements SimplePageItem  {
 	public static final int QUESTION = 11;
     public static final int BLTI = 12;
     public static final int PEEREVAL = 13;
+	public static final int SCORM = 14;
 
     // must agree with definition in hbm file
 	public static final int MAXNAME = 100;

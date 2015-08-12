@@ -87,6 +87,14 @@ $(function() {
 			draggable: false
 		});
 
+		$('#add-scorm-dialog').dialog({
+			autoOpen: false,
+			width: 600,
+			modal: false,
+			resizable: false,
+			draggable: false
+		});
+
 		$('#add-multimedia-dialog').dialog({
 			autoOpen: false,
 			width: 600,
@@ -1224,6 +1232,16 @@ $(function() {
 			return false;
 		});
 		
+
+		$('#edit-item').parent().find('.deleteButton').on('click', function () {
+			if ($('#scormstuff').is(':visible')) {
+				return window.confirm("Really delete this item?  This will also remove any associated Gradebook item.");
+			}
+
+			return true;
+		});
+
+
 		$(".edit-link").click(function(){
 			closeDropdowns();
             $('li').removeClass('editInProgress');
@@ -1248,6 +1266,7 @@ $(function() {
 			$("#edit-item-object-p").hide();	
 			$("#edit-item-settings-p").hide();	
 			$("#pagestuff").hide();
+			$("#scormstuff").hide();
 			$("#newwindowstuff").hide();
 			$("#formatstuff").hide();
 			$("#edit-height").hide();
@@ -1368,6 +1387,17 @@ $(function() {
 					$("#formatstuff").show();
 					$("#edit-item-object-p").show();
 					fixitemshows();
+
+				}else if (type == 'scorm'){
+					var height = row.find(".item-height").text();
+                                        var gradebookSelected = row.find('.scormGraded').text().trim() === 'true';
+					$("#edit-height").hide();
+                                        $("#prereqstuff").hide();
+					$("#scormstuff").show();
+					$('#edit-scorm-sync-to-gradebook').prop('checked', gradebookSelected);
+					$('#edit-scorm-required').prop('checked', row.find('.scormRequired').text().trim() === 'true');
+					$('#edit-scorm-prerequisite').prop('checked', row.find('.scormPrerequisite').text().trim() === 'true');
+					$("#edit-item-object-p").show();
 
 				}else {
 					$("#change-assignment-p").show();
@@ -1602,6 +1632,20 @@ $(function() {
 			$("#add-multimedia-dialog").dialog('open');
 			checksize($("#add-multimedia-dialog"));
 			//$('.edit-multimedia-input').blur();
+			return false;
+		});
+
+		$(".add-scorm").click(function(){
+			closeDropdowns();
+			$("#addLink_label").text(msg("simplepage.addLink_label_add"));
+
+			$("#scorm-item-id").val(-1);
+			var position =  $(this).position();
+			$("#add-scorm-dialog").prev().children(".ui-dialog-title").text($(this).text());
+			$("#add-scorm-dialog").dialog("option", "position", [position.left, position.top]);
+			$("#scorm-error-container").hide();
+			$("#add-scorm-dialog").dialog('open');
+			checksize($("#add-scorm-dialog"));
 			return false;
 		});
 
@@ -2268,6 +2312,23 @@ function checkSubpageForm() {
 		return true;
 	}
 }
+
+function checkScormForm() {
+	if($('#scorm-title').val() == '') {
+		$('#scorm-error').text(msg("simplepage.page_notblank"));
+		$('#scorm-error-container').show();
+		return false;
+	}else {
+		$('#scorm-error-container').hide();
+		return true;
+	}
+}
+
+function closeAddScormDialog() {
+	$("#add-scorm-dialog").dialog("close");
+	$('#scorm-error-container').hide();
+}
+
 
 function disableSecondaryRequirements() {
 	$("item-required2").attr("disabled", true);
