@@ -185,7 +185,8 @@ public class BltiPickerProducer implements ViewComponentProducer, NavigationCase
 			    UIOutput.make(tofill, "blti-tools-text", messageLocator.getMessage("simplepage.blti.tools.text"));
 
 			// only show manage link if we aren't simulating a native tool
-			if (bltiTool == null) {
+			// CLASSES-1847 Don't show manage LTI form bits
+			if (false && bltiTool == null) {
 			    UIOutput.make(tofill, "manageblti");
 			if (mainLink != null) {
 			    GeneralViewParameters view = new GeneralViewParameters(ShowItemProducer.VIEW_ID);
