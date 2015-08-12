@@ -742,3 +742,15 @@ ASN.disableLink = function( link )
     link.className = "noPointers";
     link.disabled = true;
 };
+
+ASN.enableLinks = function()
+{
+    document.getElementById( "downloadAll" ).className = "";
+    document.getElementById( "uploadAll" ).className = "";
+    document.getElementById( "releaseGrades" ).className = "";
+    var helpItems = document.getElementById( "helpItems" );
+    if( helpItems !== null )
+    {
+        helpItems.className = "";
+    }
+};

@@ -16,7 +16,9 @@
 			else{
 				showAllowResubmission()
 			}
-		});    
+	});
+
+		ASN.enableLinks();
 	});
     
     function showAllowResubmission()
