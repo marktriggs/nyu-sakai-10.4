@@ -56,9 +56,22 @@ sakai.editor.editors.ckeditor.launch = function(targetId, config, w, h) {
     }
 
     var imageType = "Image";
+
+    var encodedimageplugin ="";
+    var fileConnectorUrlPrivate = undefined;
+    var filebrowserPrivate = undefined;
+    var filebrowserImagePrivate = undefined;
+
     if (config && config.encodedImage) {
-	imageType = "EncodedImage";
+        imageType = "EncodedImage";
+        //Prevent loading it if it's not needed, otherwise it (currently) conflicts with the Image menu items
+        encodedimageplugin = "encodedimage,";
+        //CurrentFolder has to be first parameter for flash to work!
+        fileConnectorUrlPrivate = '/sakai-fck-connector/web/editor/filemanager/browser/default/connectors/jsp/connector' + config.privateCollection + '?CurrentFolder='+config.privateCollection+'&PrivateCollection=true',
+        filebrowserPrivate = '/library/editor/FCKeditor/editor/filemanager/browser/default/browser.html?Connector=/sakai-fck-connector/web/editor/filemanager/browser/default/connectors/jsp/connector' + config.privateCollection + '&PrivateCollection=true&HideFolders=true&CurrentFolder=' + config.privateCollection
+        filebrowserImagePrivate = '/library/editor/FCKeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=/sakai-fck-connector/web/editor/filemanager/browser/default/connectors/jsp/connector' + config.privateCollection + '&PrivateCollection=true&HideFolders=true&CurrentFolder=' + config.privateCollection
     }
+
 
 
     var language = sakai.locale && sakai.locale.userLanguage || '';
@@ -77,10 +90,13 @@ sakai.editor.editors.ckeditor.launch = function(targetId, config, w, h) {
         language: language + (country ? '-' + country.toLowerCase() : ''),
         height: 310,
         fileConnectorUrl : '/sakai-fck-connector/web/editor/filemanager/browser/default/connectors/jsp/connector' + collectionId + '?' + folder,
-
         filebrowserBrowseUrl :'/library/editor/FCKeditor/editor/filemanager/browser/default/browser.html?Connector=/sakai-fck-connector/web/editor/filemanager/browser/default/connectors/jsp/connector' + collectionId + '&' + folder,
         filebrowserImageBrowseUrl : '/library/editor/FCKeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=/sakai-fck-connector/web/editor/filemanager/browser/default/connectors/jsp/connector' + collectionId + '&' + folder,
         filebrowserFlashBrowseUrl :'/library/editor/FCKeditor/editor/filemanager/browser/default/browser.html?Type=Flash&Connector=/sakai-fck-connector/web/editor/filemanager/browser/default/connectors/jsp/connector' + collectionId + '&' + folder,
+        filebrowserMyWorkspacePrivate : filebrowserPrivate, 
+        filebrowserImagePrivate : filebrowserPrivate, 
+        fileConnectorUrlPrivate : fileConnectorUrlPrivate,
+
 				extraPlugins: (sakai.editor.enableResourceSearch ? 'resourcesearch,' : '')+'',
 
 

@@ -22,6 +22,7 @@
 package org.sakaiproject.jsf.renderer;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -35,14 +36,29 @@ import javax.faces.render.Renderer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.sakaiproject.authz.api.SecurityAdvisor;
+import org.sakaiproject.authz.api.SecurityAdvisor.SecurityAdvice;
+import org.sakaiproject.authz.cover.SecurityService;
+import org.sakaiproject.component.cover.ComponentManager;
 import org.sakaiproject.component.cover.ServerConfigurationService;
+import org.sakaiproject.content.api.ContentCollection;
+import org.sakaiproject.content.api.ContentCollectionEdit;
+import org.sakaiproject.content.cover.ContentHostingService;
+import org.sakaiproject.entity.api.Entity;
+import org.sakaiproject.entity.api.ResourceProperties;
+import org.sakaiproject.entity.api.ResourcePropertiesEdit;
+import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.tool.assessment.services.assessment.AssessmentService;
 import org.sakaiproject.tool.assessment.util.TextFormat;
+import org.sakaiproject.tool.cover.SessionManager;
 import org.sakaiproject.tool.cover.ToolManager; 
 import org.sakaiproject.util.EditorConfiguration;
 import org.sakaiproject.util.FormattedText;
 import org.sakaiproject.util.ResourceLoader;
 import org.sakaiproject.util.Web;
+
+import org.sakaiproject.user.cover.UserDirectoryService;
+
 
 
 
@@ -60,6 +76,8 @@ import org.sakaiproject.util.Web;
 public class RichTextEditArea extends Renderer
 {
   private static Log log = LogFactory.getLog(RichTextEditArea.class);	
+  
+  public static final String REFERENCE_ROOT = Entity.SEPARATOR + "samigoDocs";
 
   //FCK config paths
   private static final String FCK_BASE = "/library/editor/FCKeditor/";
@@ -70,6 +88,171 @@ public class RichTextEditArea extends Renderer
   
   String editor = ServerConfigurationService.getString("wysiwyg.editor");
   
+  public String getPrivateCollection() {
+      return Entity.SEPARATOR + "private" + REFERENCE_ROOT + Entity.SEPARATOR + ToolManager.getCurrentPlacement().getContext() + Entity.SEPARATOR + "uploads" + Entity.SEPARATOR;
+  }
+
+
+  /**
+   * Creates samigo root collection if it doesn't exist.
+   * 
+   * @param rootCollectionRef
+   *        /private/samigoDocs reference
+   * @param collectionName
+   *        collection name
+   * @param description
+   *        collection description
+   * @return
+   */
+  private String addSamigoRootCollection(String rootCollectionRef, String collectionName, String description)
+  {
+	  ContentHostingService contentHostingService = (ContentHostingService) ComponentManager.get(ContentHostingService.class);
+	  
+      try
+      {
+          // Check to see if samigoDocs exists
+          ContentCollection collection = contentHostingService.getCollection(rootCollectionRef);
+          return collection.getId();
+      }
+      catch (IdUnusedException e)
+      {
+          // if not, create it
+          if (log.isDebugEnabled()) log.debug("creating samigo root collection " + rootCollectionRef);
+          ContentCollectionEdit edit = null;
+          try
+          {
+              edit = contentHostingService.addCollection(rootCollectionRef);
+              ResourcePropertiesEdit props = edit.getPropertiesEdit();
+              props.addProperty(ResourceProperties.PROP_DISPLAY_NAME, collectionName);
+              props.addProperty(ResourceProperties.PROP_DESCRIPTION, description);
+              //Hidden with public access default
+              props.addProperty(ResourceProperties.PROP_HIDDEN_WITH_ACCESSIBLE_CONTENT, "true");
+              edit.setPublicAccess();
+              //Seemed to cause a problem with /access
+//              props.addProperty(ContentHostingService.PROP_ALTERNATE_REFERENCE, REFERENCE_ROOT);
+              contentHostingService.commitCollection(edit);
+              return edit.getId();
+          }
+          catch (Exception e2)
+          {
+              if (edit != null) contentHostingService.cancelCollection(edit);
+              log.warn("creating samigo root collection: " + e2.toString());
+          }
+      }
+      catch (Exception e)
+      {
+          log.warn("checking samigo root collection: " + e.toString());
+      }
+      return null;
+  }
+  
+  public SecurityAdvisor pushAllAdvisor()
+  {
+      // setup a security advisor
+      SecurityAdvisor advisor = new SecurityAdvisor()
+      {
+          public SecurityAdvice isAllowed(String userId, String function, String reference)
+          {
+              return SecurityAdvice.ALLOWED;
+          }
+      };
+      SecurityService.pushAdvisor(advisor);
+      return advisor;
+  }
+  
+
+  /**
+   * {@inheritDoc}
+   */
+  public String addCollectionToSamigoCollection(String samigoItemColl, String CollName)
+  {
+      String courseId = samigoItemColl.substring(0, samigoItemColl.indexOf(Entity.SEPARATOR));
+      SecurityAdvisor advisor;
+      try
+      {
+          if (!allowedCreateInSite(UserDirectoryService.getCurrentUser().getId(),courseId))
+          {
+              log.debug("User is not authorized to access samigoDocs collection");
+              return null;
+          }
+          // setup a security advisor
+          advisor = pushAllAdvisor();
+          try
+          {
+              // check if the root collection is available
+              String rootCollectionRef = Entity.SEPARATOR + "private" + REFERENCE_ROOT + Entity.SEPARATOR;
+              // Check to see if samigoDocs exists
+              String rootSamigoCollId = addSamigoRootCollection(rootCollectionRef, "samigoDocs", "root collection");
+              // now sub collection for course
+              String samigoItemDirCollId = rootSamigoCollId + samigoItemColl + Entity.SEPARATOR;
+              String subSamigoCollId = addSamigoRootCollection(samigoItemDirCollId, CollName, "samigo collection");
+              return subSamigoCollId;
+          }
+          catch (Exception ex)
+          {
+              log.error("error while creating modules collection" + ex.toString());
+          }
+      }
+      catch (Throwable t)
+      {
+          log.warn("init(): ", t);
+      }
+      finally
+      {
+          // clear the security advisor
+//          SecurityService.popAdvisor(advisor);
+          SecurityService.popAdvisor();
+      }
+
+      return null;
+  }
+  
+  //Does the user have permission to create assessments in this site
+	public boolean allowedCreateInSite(String userId, String siteId) {
+		Collection<?> samigoGrpAllow = org.sakaiproject.authz.cover.AuthzGroupService
+				.getAuthzGroupsIsAllowed(userId, "assessment.createAssessment",
+						null);
+		if (samigoGrpAllow.contains("/site/" + siteId)) {
+			return true;
+		}
+		return false;
+	}
+  
+  /**
+   * Set the private attribute advisor for uploading images.
+   */
+  public void setPrivateAdvisor()
+  {
+
+	  String FCK_CollId = getPrivateCollection(); 
+    //I think this is okay to be fck.security.advisor instead of fck.private.security.advisor
+	  String attrb = "fck.security.advisor." + FCK_CollId;
+
+	  SessionManager.getCurrentSession().setAttribute("ck.image.collectionId",FCK_CollId);
+	  SessionManager.getCurrentSession().setAttribute(attrb, new SecurityAdvisor()
+	  {
+		  public SecurityAdvice isAllowed(String userId, String function, String reference)
+		  {
+			  try
+			  {
+				  String anotherRef = new String(reference);
+				  anotherRef = anotherRef.replace("/content/private/samigoDocs", "/site");
+				  org.sakaiproject.entity.api.Reference ref1 = org.sakaiproject.entity.cover.EntityManager.newReference(anotherRef);
+				  if (allowedCreateInSite(userId,ref1.getContainer()))
+				  {
+					  return SecurityAdvice.ALLOWED;
+				  }
+			  }
+			  catch (Exception e)
+			  {
+				  log.warn("exception in setting security advice for FCK collection" + e.toString());
+				  return SecurityAdvice.NOT_ALLOWED;
+			  }
+			  return SecurityAdvice.NOT_ALLOWED;
+		  }
+	  });
+  }
+	
   public boolean supportsComponentType(UIComponent component)
   {
     return (component instanceof org.sakaiproject.jsf.component.
@@ -114,6 +297,8 @@ public class RichTextEditArea extends Renderer
     	
     String tmpCol = (String) component.getAttributes().get("columns");
     String tmpRow = (String) component.getAttributes().get("rows");
+    String mode = (String) component.getAttributes().get("mode");
+
     int col;
     int row;
     if (tmpCol != null)
@@ -180,14 +365,19 @@ public class RichTextEditArea extends Renderer
     String justArea = (String) component.getAttributes().get("justArea");
 
     if (editor.equalsIgnoreCase("FCKeditor") || editor.equalsIgnoreCase("ckeditor")) {
-      if (tmpCol == null) {
-    	  encodeFCK(writer, contextPath, (String) value, identity, outCol, 
-              outRow, justArea, clientId, valueHasRichText, hasToggle, true);
-      }
-      else {
-    	  encodeFCK(writer, contextPath, (String) value, identity, outCol, 
-                  outRow, justArea, clientId, valueHasRichText, hasToggle, false);
-      }
+        if (mode != null && "author".equals(mode)) {
+            setPrivateAdvisor();
+            addCollectionToSamigoCollection(ToolManager.getCurrentPlacement().getContext() + Entity.SEPARATOR + "uploads","uploads");
+        }
+        if (tmpCol == null) {
+            //Special authoring mode for private area
+            encodeFCK(writer, contextPath, (String) value, identity, outCol, 
+                    outRow, justArea, clientId, valueHasRichText, hasToggle, true, mode);
+        }
+        else {
+            encodeFCK(writer, contextPath, (String) value, identity, outCol, 
+                    outRow, justArea, clientId, valueHasRichText, hasToggle, false, mode);
+        }
     }
     else 
     {
@@ -413,7 +603,7 @@ public class RichTextEditArea extends Renderer
 
    
   private void encodeFCK(ResponseWriter writer, String contextPath, String value, String identity, String outCol, 
-         String outRow, String justArea, String clientId, boolean valueHasRichText, String hasToggle, boolean columnsNotDefined) throws IOException
+         String outRow, String justArea, String clientId, boolean valueHasRichText, String hasToggle, boolean columnsNotDefined, String mode) throws IOException
   {
 	  //come up w/ rows/cols for the textarea if needed
 	  int textBoxRows = (new Integer(outRow).intValue()/20);
@@ -584,10 +774,16 @@ public class RichTextEditArea extends Renderer
     writer.write("\n\n\toFCKeditor.ReplaceTextarea();");
         // end fckeditor
     } else {
-    // must be ckeditor
-	//Fix up the launch for the embedded editor
-    	writer.write("\n\tvar config = {}; config.encodedImage = true;");
-    	writer.write("\n\tsakai.editor.launch(textarea_id,config,'" + outCol + "','" + outRow + "');");
+        // must be ckeditor
+        //Fix up the launch for the embedded editor
+        writer.write("\n\tvar config = {};");
+        writer.write("\n\tconfig.loggedInUserId='" + UserDirectoryService.getCurrentUser().getId() + "';");
+        if (mode != null && "author".equals(mode)) {
+            writer.write("\n\tconfig.encodedImage = true;");
+            String privateCollection = getPrivateCollection(); 
+            writer.write("\n\tconfig.privateCollection = \"" + privateCollection + "\";"); 
+        }
+        writer.write("\n\tsakai.editor.launch(textarea_id,config,'" + outCol + "','" + outRow + "');");
     }
     writer.write("\n\t}\n");
      
