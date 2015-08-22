@@ -1303,6 +1303,8 @@ $(function() {
 			var editurl = row.find(".edit-url").text();
 			var editsettingsurl = row.find(".edit-settings-url").text();
 			
+                        $("#scormstuff :input").prop("disabled", type != "scorm")
+
 			if(type == 'page') {
 	                    $("#pagestuff").show();
 			    var pagenext = row.find(".page-next").text();
