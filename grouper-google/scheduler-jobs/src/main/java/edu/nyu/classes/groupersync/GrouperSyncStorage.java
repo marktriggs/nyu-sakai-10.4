@@ -17,34 +17,34 @@ public class GrouperSyncStorage {
 
 
     private Map<String, Set<String>> userIdsForGroup;
-    private Map<String, Memberships> membershipsForGroup;
+    private Map<String, SyncableGroup> membershipsForGroup;
 
     public GrouperSyncStorage() {
         userIdsForGroup = new HashMap<String, Set<String>>();
-        membershipsForGroup = new HashMap<String, Memberships>();
+        membershipsForGroup = new HashMap<String, SyncableGroup>();
     }
 
 
-    public Set<Membership> getMembers(String groupId) {
-        Memberships memberships = membershipsForGroup.get(groupId);
+    public Set<UserWithRole> getMembers(String groupId) {
+        SyncableGroup memberships = membershipsForGroup.get(groupId);
 
         if (memberships == null) {
-            return new HashSet<Membership>();
+            return new HashSet<UserWithRole>();
         }
 
         return new HashSet(memberships.getMembers());
     }
 
-    public void recordMemberships(Memberships m) {
-        membershipsForGroup.put(m.getId(), m);
+    public void recordMembers(SyncableGroup group) {
+        membershipsForGroup.put(group.getId(), group);
 
         Set<String> userIds = new HashSet<String>();
 
-        for (Membership membership : m.getMembers()) {
-            userIds.add(membership.getUsername());
+        for (UserWithRole user : group.getMembers()) {
+            userIds.add(user.getUsername());
         }
 
-        userIdsForGroup.put(m.getId(), userIds);
+        userIdsForGroup.put(group.getId(), userIds);
     }
 
 
