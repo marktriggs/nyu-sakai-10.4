@@ -124,8 +124,5 @@ class SiteState {
 
         return result;
     }
-
-    public void markAsProcessed(List<UpdatedSite> sites) {
-    }
 }
 

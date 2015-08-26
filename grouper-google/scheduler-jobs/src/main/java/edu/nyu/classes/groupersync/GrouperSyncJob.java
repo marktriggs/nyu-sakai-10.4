@@ -48,13 +48,6 @@ public class GrouperSyncJob implements StatefulJob {
         this.courseManagement = cms;
     }
 
-    static <T> Set<T> setSubtract(Collection<T> set1, Collection<T> set2) {
-        Set<T> result = new HashSet(set1);
-        result.removeAll(set2);
-
-        return result;
-    }
-
     private void syncGroups(Collection<SyncableGroup> groups) {
         // compare memberships against what we have stored
         GrouperSyncStorage storage = GrouperSyncStorage.getInstance();
@@ -62,30 +55,31 @@ public class GrouperSyncJob implements StatefulJob {
         for (SyncableGroup syncableGroup : groups) {
             log.info("Syncing group: " + syncableGroup.getTitle() + "(" + syncableGroup.getId() + ")");
 
-            Set<String> userIds = storage.getUserIds(syncableGroup.getId());
-            Set<String> membershipUserIds = syncableGroup.getUserIds();
+            Collection<UserWithRole> formerMembers = storage.getMembers(syncableGroup.getId());
+            Collection<UserWithRole> currentMembers = syncableGroup.getMembers();
 
-            Set<String> addedUsers = setSubtract(membershipUserIds, userIds);
-            Set<String> droppedUsers = setSubtract(userIds, membershipUserIds);
+            log.info("Former members: " + formerMembers);
+            log.info("Current members: " + currentMembers);
+
+            Sets.KeyFn byUsername = new Sets.KeyFn<UserWithRole>() {
+                public Object key(UserWithRole user) {
+                    return user.getUsername();
+                }
+            };
+
+            Set<UserWithRole> addedUsers = Sets.subtract(currentMembers, formerMembers, byUsername);
+            Set<UserWithRole> droppedUsers = Sets.subtract(formerMembers, currentMembers, byUsername);
+            Set<UserWithRole> changedRoles = Sets.subtract(Sets.subtract(currentMembers, formerMembers),
+                                                           addedUsers);
 
             log.info("Added users: " + addedUsers);
             log.info("Dropped users: " + droppedUsers);
-            
-            Set<UserWithRole> changedRoles = setSubtract(syncableGroup.getMembers(), storage.getMembers(syncableGroup.getId()));
-            Iterator<UserWithRole> iterator = changedRoles.iterator();
-            while (iterator.hasNext()) {
-                UserWithRole membership = iterator.next();
-
-                if (addedUsers.contains(membership.getUsername())) {
-                    iterator.remove();
-                }
-            }
-
             log.info("Changed roles: " + changedRoles);
             
-            storage.recordMembers(syncableGroup);
+            storage.recordChanges(syncableGroup.getId(), addedUsers, droppedUsers, changedRoles);
         }
 
+        storage.dump();
     }
 
     protected void syncGroups(UpdatedSite update) {
