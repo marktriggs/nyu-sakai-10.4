@@ -34,7 +34,6 @@ import org.apache.commons.logging.LogFactory;
 
 
 public class GrouperSyncJob implements StatefulJob {
-    private SiteState siteState;
     private SqlService sqlService;
     private CourseManagementService courseManagement;
 
@@ -97,13 +96,13 @@ public class GrouperSyncJob implements StatefulJob {
 
     public void init() {
         log.info("GrouperSyncJob initialized");
-        siteState = new SiteState(sqlService);
     }
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
         Set<String> processedSites = new HashSet<String>();
+        UpdatedSites updatedSites = new UpdatedSites(sqlService);
 
-        for (UpdatedSite update : siteState.findUpdatedSites()) {
+        for (UpdatedSite update : updatedSites.list()) {
             if (processedSites.contains(update.getSiteId())) {
                 // Already processed during this round.
                 continue;

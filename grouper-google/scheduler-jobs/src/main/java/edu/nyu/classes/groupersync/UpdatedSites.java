@@ -17,11 +17,11 @@ import org.sakaiproject.db.api.SqlService;
 
 
 
-class SiteState {
+class UpdatedSites {
     private SqlService sqlService;
-    private static final Log log = LogFactory.getLog(SiteState.class);
+    private static final Log log = LogFactory.getLog(UpdatedSites.class);
 
-    public SiteState(SqlService sqlService) {
+    public UpdatedSites(SqlService sqlService) {
         this.sqlService = sqlService;
     }
 
@@ -94,7 +94,7 @@ class SiteState {
         ps.close();
     }
 
-    public List<UpdatedSite> findUpdatedSites() {
+    public List<UpdatedSite> list() {
         log.debug(System.currentTimeMillis() + ": Scanning for updated sites");
         List<UpdatedSite> result = new ArrayList<UpdatedSite>();
 
