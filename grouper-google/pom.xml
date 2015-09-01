@@ -18,6 +18,7 @@
   <modules>
     <module>pack</module>
     <module>scheduler-jobs</module>
+    <module>grouper-google-tool/tool</module>
   </modules>
 
   <dependencyManagement>
