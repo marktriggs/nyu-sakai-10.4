@@ -16,6 +16,11 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
+  <properties>
+    <deploy.target>shared</deploy.target>
+  </properties>
+
+
   <dependencies>
 
     <dependency>

@@ -19,6 +19,15 @@ class Sets {
         public Object key(T obj);
     }
 
+    static <T> Set<T> union(Collection<T> set1, Collection<T> set2) {
+        Set<T> result = new HashSet<T>(set1.size() + set2.size());
+
+        result.addAll(set1);
+        result.addAll(set2);
+
+        return result;
+    }
+
     static <T> Set<T> subtract(Collection<T> set1, Collection<T> set2, KeyFn<T> keyfn) {
         Map<Object, T> map = new HashMap<Object, T>();
 

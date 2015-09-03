@@ -32,7 +32,7 @@ class UpdatedSites {
         if (m.find()) {
             return m.group(1);
         } else {
-            log.debug("Could not get a site ID out of: " + s);
+            log.error("Could not get a site ID out of: " + s);
             return null;
         }
     }
@@ -94,24 +94,22 @@ class UpdatedSites {
         ps.close();
     }
 
-    public List<UpdatedSite> list() {
-        log.debug(System.currentTimeMillis() + ": Scanning for updated sites");
+    public List<UpdatedSite> listSince(Date since) {
         List<UpdatedSite> result = new ArrayList<UpdatedSite>();
 
-        // FIXME: Timestamp since = new Timestamp(new Date().getTime() - (1 * 60 * 60 * 1000));
-        Timestamp since = new Timestamp(new Date().getTime() - (10 * 1000));
+        Timestamp sinceTime = new Timestamp(since.getTime());
 
         Connection db = null;
         try {
             db = sqlService.borrowConnection();
             // Sites whose realms were updated
-            addUpdatedSites(db, "realm_id", "sakai_realm", since, "realm_id like '/site/%'", result);
+            addUpdatedSites(db, "realm_id", "sakai_realm", sinceTime, "realm_id like '/site/%'", result);
 
             // Sites that were updated directly
-            addUpdatedSites(db, "site_id", "sakai_site", since, "1 = 1", result);
+            addUpdatedSites(db, "site_id", "sakai_site", sinceTime, "1 = 1", result);
 
             // Sites whose attached rosters were changed
-            addSitesWithUpdatedRosters(db, since, result);
+            addSitesWithUpdatedRosters(db, sinceTime, result);
         } catch (SQLException e) {
             throw new RuntimeException("DB error when looking for updated sites: " + e, e);
         } finally {
@@ -119,8 +117,6 @@ class UpdatedSites {
                 sqlService.returnConnection(db);
             }
         }
-
-        log.debug(System.currentTimeMillis() + ": Completed");
 
         return result;
     }
