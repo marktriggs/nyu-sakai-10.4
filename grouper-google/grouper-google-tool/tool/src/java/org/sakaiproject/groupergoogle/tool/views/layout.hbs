@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="/groupergoogle-tool/stylesheets/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{{skinRepo}}}/tool_base.css" />
+
+        {{{randomSakaiHeadStuff}}}
+
+        <link rel="stylesheet" type="text/css" href="/groupergoogle-tool/stylesheets/groupergoogle.css" />
+    </head>
+    <body>
+
+        <div class="portletBody groupergoogle-body">
+            {{{subpage this subpage}}}
+        </div>
+
+        <script type="text/javascript" src="/library/js/jquery/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="/groupergoogle-tool/scripts/bootstrap.min.js"></script>
+        <script>
+            function resizeFrame(updown) 
+            {
+                if (top.location !== self.location) {
+                    var frame = parent.document.getElementById(window.name);
+                }
+                if (frame){
+                    if(updown==='shrink') {
+                        var clientH = document.body.clientHeight;
+                    } else {
+                        var clientH = document.body.clientHeight + 30;
+                    }
+                    $( frame ).height( clientH );
+                } 
+            }
+            resizeFrame();
+        </script>
+    </body>
+</html>
